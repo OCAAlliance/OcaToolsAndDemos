@@ -1,0 +1,351 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{1329af54-cc28-475b-9f26-86d7c4d12fac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{3c973cf1-cd9e-4f02-9d6e-ce77237ac67a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Library">
+      <UniqueIdentifier>{0166c612-bb27-4893-be39-e1aa2ae5707a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Library\api">
+      <UniqueIdentifier>{98edf255-b6bb-4e44-b4a9-b2d8c677de7b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Library\core">
+      <UniqueIdentifier>{e46070b1-e92e-4b51-9338-6a9ce13c48e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Library\netif">
+      <UniqueIdentifier>{b2ef6375-e1b6-45b8-be1e-95cf8a735508}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Library\system">
+      <UniqueIdentifier>{94787095-4366-42b1-8c4b-2e23952ed4bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Library">
+      <UniqueIdentifier>{3b604df3-677f-4e99-8377-3d9cf2587275}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Library\system">
+      <UniqueIdentifier>{90877e9b-86de-410f-8a0e-9db7985a5421}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Library\ipv4">
+      <UniqueIdentifier>{39860a3d-4836-432e-9568-fce06572c8df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Library\ipv6">
+      <UniqueIdentifier>{dd9ebec5-1611-4c9d-90ae-7f60c50a0c47}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Library\lwip">
+      <UniqueIdentifier>{088a8291-cb08-4b98-b40b-78ecef58ce89}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Library\netif">
+      <UniqueIdentifier>{db2d87ad-b113-42f5-87d8-313ac71ae240}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Library\posix">
+      <UniqueIdentifier>{1ea2d23b-231f-4054-be8e-78a47fdd6a62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\StmCortexM4">
+      <UniqueIdentifier>{87f9c592-0a34-4851-ad29-14df71dfe928}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Stm32CortexM4">
+      <UniqueIdentifier>{21c41fd3-f88c-4646-b8a4-2346eb25d04a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Library\ipv4">
+      <UniqueIdentifier>{e3a1a76a-9d34-479b-8799-1f927b68bf76}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Library\ipv6">
+      <UniqueIdentifier>{42d50a49-e3f5-4bd6-a4f2-0b859eb0eb8d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\common\SharedLibraries\LwIP\system\OS\sys_arch.c">
+      <Filter>Source Files\Library\system</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\SharedLibraries\LwIP\src\api\api_lib.c">
+      <Filter>Source Files\Library\api</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\SharedLibraries\LwIP\src\api\api_msg.c">
+      <Filter>Source Files\Library\api</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\SharedLibraries\LwIP\src\api\err.c">
+      <Filter>Source Files\Library\api</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\SharedLibraries\LwIP\src\api\netbuf.c">
+      <Filter>Source Files\Library\api</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\SharedLibraries\LwIP\src\api\netdb.c">
+      <Filter>Source Files\Library\api</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\SharedLibraries\LwIP\src\api\netifapi.c">
+      <Filter>Source Files\Library\api</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\SharedLibraries\LwIP\src\api\sockets.c">
+      <Filter>Source Files\Library\api</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\SharedLibraries\LwIP\src\api\tcpip.c">
+      <Filter>Source Files\Library\api</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\SharedLibraries\LwIP\src\core\def.c">
+      <Filter>Source Files\Library\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\SharedLibraries\LwIP\src\core\dhcp.c">
+      <Filter>Source Files\Library\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\SharedLibraries\LwIP\src\core\dns.c">
+      <Filter>Source Files\Library\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\SharedLibraries\LwIP\src\core\init.c">
+      <Filter>Source Files\Library\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\SharedLibraries\LwIP\src\core\lwip_timers.c">
+      <Filter>Source Files\Library\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\SharedLibraries\LwIP\src\core\mem.c">
+      <Filter>Source Files\Library\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\SharedLibraries\LwIP\src\core\memp.c">
+      <Filter>Source Files\Library\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\SharedLibraries\LwIP\src\core\netif.c">
+      <Filter>Source Files\Library\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\SharedLibraries\LwIP\src\core\pbuf.c">
+      <Filter>Source Files\Library\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\SharedLibraries\LwIP\src\core\raw.c">
+      <Filter>Source Files\Library\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\SharedLibraries\LwIP\src\core\stats.c">
+      <Filter>Source Files\Library\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\SharedLibraries\LwIP\src\core\sys.c">
+      <Filter>Source Files\Library\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\SharedLibraries\LwIP\src\core\tcp.c">
+      <Filter>Source Files\Library\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\SharedLibraries\LwIP\src\core\tcp_in.c">
+      <Filter>Source Files\Library\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\SharedLibraries\LwIP\src\core\tcp_out.c">
+      <Filter>Source Files\Library\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\SharedLibraries\LwIP\src\core\udp.c">
+      <Filter>Source Files\Library\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\SharedLibraries\LwIP\src\netif\etharp.c">
+      <Filter>Source Files\Library\netif</Filter>
+    </ClCompile>
+    <ClCompile Include="Stm32CortexM4\ethernetif.cpp">
+      <Filter>Source Files\StmCortexM4</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\SharedLibraries\LwIP\src\core\ipv4\autoip.c">
+      <Filter>Source Files\Library\ipv4</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\SharedLibraries\LwIP\src\core\ipv4\icmp.c">
+      <Filter>Source Files\Library\ipv4</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\SharedLibraries\LwIP\src\core\ipv4\igmp.c">
+      <Filter>Source Files\Library\ipv4</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\SharedLibraries\LwIP\src\core\ipv4\inet.c">
+      <Filter>Source Files\Library\ipv4</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\SharedLibraries\LwIP\src\core\ipv4\inet_chksum.c">
+      <Filter>Source Files\Library\ipv4</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\SharedLibraries\LwIP\src\core\ipv4\ip.c">
+      <Filter>Source Files\Library\ipv4</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\SharedLibraries\LwIP\src\core\ipv4\ip_addr.c">
+      <Filter>Source Files\Library\ipv4</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\SharedLibraries\LwIP\src\core\ipv4\ip_frag.c">
+      <Filter>Source Files\Library\ipv4</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\SharedLibraries\LwIP\src\core\ipv6\icmp6.c">
+      <Filter>Source Files\Library\ipv6</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\SharedLibraries\LwIP\src\core\ipv6\inet6.c">
+      <Filter>Source Files\Library\ipv6</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\SharedLibraries\LwIP\src\core\ipv6\ip6.c">
+      <Filter>Source Files\Library\ipv6</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\SharedLibraries\LwIP\src\core\ipv6\ip6_addr.c">
+      <Filter>Source Files\Library\ipv6</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Stm32CortexM4\lwipopts.h">
+      <Filter>Header Files\Stm32CortexM4</Filter>
+    </ClInclude>
+    <ClInclude Include="Stm32CortexM4\ethernetif.h">
+      <Filter>Header Files\Stm32CortexM4</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\system\arch\sys_arch.h">
+      <Filter>Header Files\Library\system</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\system\arch\cc.h">
+      <Filter>Header Files\Library\system</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\system\arch\cpu.h">
+      <Filter>Header Files\Library\system</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\system\arch\init.h">
+      <Filter>Header Files\Library\system</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\system\arch\lib.h">
+      <Filter>Header Files\Library\system</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\system\arch\perf.h">
+      <Filter>Header Files\Library\system</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\ipv4\lwip\autoip.h">
+      <Filter>Header Files\Library\ipv4</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\ipv4\lwip\icmp.h">
+      <Filter>Header Files\Library\ipv4</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\ipv4\lwip\igmp.h">
+      <Filter>Header Files\Library\ipv4</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\ipv4\lwip\inet.h">
+      <Filter>Header Files\Library\ipv4</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\ipv4\lwip\inet_chksum.h">
+      <Filter>Header Files\Library\ipv4</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\ipv4\lwip\ip.h">
+      <Filter>Header Files\Library\ipv4</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\ipv4\lwip\ip_addr.h">
+      <Filter>Header Files\Library\ipv4</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\ipv4\lwip\ip_frag.h">
+      <Filter>Header Files\Library\ipv4</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\ipv6\lwip\icmp.h">
+      <Filter>Header Files\Library\ipv6</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\ipv6\lwip\inet.h">
+      <Filter>Header Files\Library\ipv6</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\ipv6\lwip\ip.h">
+      <Filter>Header Files\Library\ipv6</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\ipv6\lwip\ip_addr.h">
+      <Filter>Header Files\Library\ipv6</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\lwip\opt.h">
+      <Filter>Header Files\Library\lwip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\lwip\pbuf.h">
+      <Filter>Header Files\Library\lwip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\lwip\raw.h">
+      <Filter>Header Files\Library\lwip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\lwip\sio.h">
+      <Filter>Header Files\Library\lwip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\lwip\snmp.h">
+      <Filter>Header Files\Library\lwip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\lwip\snmp_asn1.h">
+      <Filter>Header Files\Library\lwip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\lwip\snmp_msg.h">
+      <Filter>Header Files\Library\lwip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\lwip\snmp_structs.h">
+      <Filter>Header Files\Library\lwip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\lwip\sockets.h">
+      <Filter>Header Files\Library\lwip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\lwip\stats.h">
+      <Filter>Header Files\Library\lwip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\lwip\sys.h">
+      <Filter>Header Files\Library\lwip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\lwip\tcp.h">
+      <Filter>Header Files\Library\lwip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\lwip\tcp_impl.h">
+      <Filter>Header Files\Library\lwip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\lwip\tcpip.h">
+      <Filter>Header Files\Library\lwip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\lwip\udp.h">
+      <Filter>Header Files\Library\lwip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\lwip\api.h">
+      <Filter>Header Files\Library\lwip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\lwip\api_msg.h">
+      <Filter>Header Files\Library\lwip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\lwip\arch.h">
+      <Filter>Header Files\Library\lwip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\lwip\debug.h">
+      <Filter>Header Files\Library\lwip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\lwip\def.h">
+      <Filter>Header Files\Library\lwip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\lwip\dhcp.h">
+      <Filter>Header Files\Library\lwip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\lwip\dns.h">
+      <Filter>Header Files\Library\lwip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\lwip\err.h">
+      <Filter>Header Files\Library\lwip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\lwip\init.h">
+      <Filter>Header Files\Library\lwip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\lwip\lwip_timers.h">
+      <Filter>Header Files\Library\lwip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\lwip\mem.h">
+      <Filter>Header Files\Library\lwip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\lwip\memp.h">
+      <Filter>Header Files\Library\lwip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\lwip\memp_std.h">
+      <Filter>Header Files\Library\lwip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\lwip\netbuf.h">
+      <Filter>Header Files\Library\lwip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\lwip\netdb.h">
+      <Filter>Header Files\Library\lwip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\lwip\netif.h">
+      <Filter>Header Files\Library\lwip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\lwip\netifapi.h">
+      <Filter>Header Files\Library\lwip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\netif\etharp.h">
+      <Filter>Header Files\Library\netif</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\netif\ppp_oe.h">
+      <Filter>Header Files\Library\netif</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\netif\slipif.h">
+      <Filter>Header Files\Library\netif</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\posix\netdb.h">
+      <Filter>Header Files\Library\posix</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\posix\sys\socket.h">
+      <Filter>Header Files\Library\posix</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

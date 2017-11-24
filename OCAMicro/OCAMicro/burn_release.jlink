@@ -1,0 +1,10 @@
+si 0
+speed 9600
+device STM32F207VE
+r
+h
+loadbin Obj\stm32App\Release\OCALiteProto.bin,0x08000000
+r
+g
+q
+

@@ -1,0 +1,290 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{34C33AF7-9D4B-4A41-8511-6B9919F58132}</ProjectGuid>
+    <RootNamespace>OCAMicro</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v110</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v110</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>11.0.61030.0</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir>$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir>$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>..\..\..\..\Application\inc;..\..\..Src;..\..\..\Src\common;..\..\..\Src\common\OCALite\OCF;..\..\..\src\inc;..\..\..\src\common\OCALite;..\..\..\src\platform;..\..\..\src\app\OCALiteDante;..\..\..\..\..\AudinateAPI\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;NOGDI;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\Src\app\OCALiteDante\DanteLiteConMon.cpp" />
+    <ClCompile Include="..\..\..\Src\app\OCALiteDante\DanteLiteHostInterface.cpp" />
+    <ClCompile Include="..\..\..\Src\app\OCALiteDante\OcaLiteDanteMediaClock.cpp" />
+    <ClCompile Include="..\..\..\Src\app\OCALiteDante\OcaLiteNetworkSignalChannel.cpp" />
+    <ClCompile Include="..\..\..\Src\app\OCALiteDante\OcaLiteNetworkSignalChannelDante.cpp" />
+    <ClCompile Include="..\..\..\Src\app\OCALiteDante\OcaLiteStreamNetwork.cpp" />
+    <ClCompile Include="..\..\..\Src\app\OCALiteDante\OcaLiteStreamNetworkDante.cpp" />
+    <ClCompile Include="..\..\..\Src\platform\common\OcaLite\LogicalDevices\ClockGenerator\ClockGenerator.cpp" />
+    <ClCompile Include="..\..\..\Src\app\OCA_BKNII\HostInterface\OCA\OCF\Configuration\OcaLiteOcfConfiguration.cpp" />
+    <ClCompile Include="..\..\..\Src\platform\common\OcaLite\HostInterface\OCA\OCF\Logging\OcaLiteOcfLogger.cpp" />
+    <ClCompile Include="..\..\..\Src\platform\common\OcaLite\HostInterface\OCA\OCF\Timer\OcaLiteOcfTimer.cpp" />
+    <ClCompile Include="..\..\..\Src\platform\common\OcaLite\HostInterface\OCA\OCP.1\Network\OcaLiteOcp1Network.cpp" />
+    <ClCompile Include="..\..\..\Src\platform\common\OcaLite\HostInterface\OCA\OCP.1\ZeroConf\OcaLiteOcp1Service.cpp" />
+    <ClCompile Include="..\..\..\Src\platform\common\OcaLite\HostInterface\OCA\OCP.1\Network\OcaLiteOcp1Socket.cpp" />
+    <ClCompile Include="..\..\..\Src\platform\common\OcaLite\HostInterface\OCA\OCP.1\Ocp1HostInterfaceOcaLite.cpp" />
+    <ClCompile Include="..\..\..\Src\platform\common\OcaLite\LogicalDevices\Switch\Switch.cpp" />
+    <ClCompile Include="..\..\..\Src\common\HostInterfaceLite\OCA\OCF\OcfLiteHostInterface.cpp" />
+    <ClCompile Include="..\..\..\Src\common\HostInterfaceLite\OCA\OCP.1\Ocp1LiteHostInterface.cpp" />
+    <ClCompile Include="..\..\..\Src\common\OCALite\OCC\ControlClasses\OcaLiteRoot.cpp" />
+    <ClCompile Include="..\..\..\Src\common\OCALite\OCC\ControlClasses\Agents\OcaLiteAgent.cpp" />
+    <ClCompile Include="..\..\..\Src\common\OCALite\OCC\ControlClasses\Agents\OcaLiteNetwork.cpp" />
+    <ClCompile Include="..\..\..\Src\common\OCALite\OCC\ControlClasses\Managers\OcaLiteDeviceManager.cpp" />
+    <ClCompile Include="..\..\..\Src\common\OCALite\OCC\ControlClasses\Managers\OcaLiteFirmwareManager.cpp" />
+    <ClCompile Include="..\..\..\Src\common\OCALite\OCC\ControlClasses\Managers\OcaLiteManager.cpp" />
+    <ClCompile Include="..\..\..\Src\common\OCALite\OCC\ControlClasses\Managers\OcaLiteNetworkManager.cpp" />
+    <ClCompile Include="..\..\..\Src\common\OCALite\OCC\ControlClasses\Managers\OcaLiteSubscriptionManager.cpp" />
+    <ClCompile Include="..\..\..\Src\common\OCALite\OCC\ControlClasses\Workers\OcaLiteWorker.cpp" />
+    <ClCompile Include="..\..\..\Src\common\OCALite\OCC\ControlClasses\Workers\Actuators\OcaLiteActuator.cpp" />
+    <ClCompile Include="..\..\..\Src\common\OCALite\OCC\ControlClasses\Workers\Actuators\OcaLiteBasicActuator.cpp" />
+    <ClCompile Include="..\..\..\Src\common\OCALite\OCC\ControlClasses\Workers\Actuators\OcaLiteBitstringActuator.cpp" />
+    <ClCompile Include="..\..\..\Src\common\OCALite\OCC\ControlClasses\Workers\Actuators\OcaLiteBooleanActuator.cpp" />
+    <ClCompile Include="..\..\..\Src\common\OCALite\OCC\ControlClasses\Workers\Actuators\OcaLiteGain.cpp" />
+    <ClCompile Include="..\..\..\Src\common\OCALite\OCC\ControlClasses\Workers\Actuators\OcaLiteSwitch.cpp" />
+    <ClCompile Include="..\..\..\Src\common\OCALite\OCC\ControlClasses\Workers\BlocksAndMatrices\OcaLiteBlock.cpp" />
+    <ClCompile Include="..\..\..\Src\common\OCALite\OCC\ControlClasses\Workers\Sensors\OcaLiteBasicSensor.cpp" />
+    <ClCompile Include="..\..\..\Src\common\OCALite\OCC\ControlClasses\Workers\Sensors\OcaLiteBitstringSensor.cpp" />
+    <ClCompile Include="..\..\..\Src\common\OCALite\OCC\ControlClasses\Workers\Sensors\OcaLiteInt8Sensor.cpp" />
+    <ClCompile Include="..\..\..\Src\common\OCALite\OCC\ControlClasses\Workers\Sensors\OcaLiteLevelSensor.cpp" />
+    <ClCompile Include="..\..\..\Src\common\OCALite\OCC\ControlClasses\Workers\Sensors\OcaLiteSensor.cpp" />
+    <ClCompile Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteBitstring.cpp" />
+    <ClCompile Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteBlob.cpp" />
+    <ClCompile Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteBlobFixedLen.cpp" />
+    <ClCompile Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteBlockMember.cpp" />
+    <ClCompile Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteClassID.cpp" />
+    <ClCompile Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteClassIdentification.cpp" />
+    <ClCompile Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteEvent.cpp" />
+    <ClCompile Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteEventData.cpp" />
+    <ClCompile Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteEventID.cpp" />
+    <ClCompile Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteEventSubscriptionDataTypes.cpp" />
+    <ClCompile Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteFrameworkDataTypes.cpp" />
+    <ClCompile Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteList.cpp" />
+    <ClCompile Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteManagementDataTypes.cpp" />
+    <ClCompile Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteManagerDescriptor.cpp" />
+    <ClCompile Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteMethod.cpp" />
+    <ClCompile Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteMethodID.cpp" />
+    <ClCompile Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteModelDescription.cpp" />
+    <ClCompile Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteModelGUID.cpp" />
+    <ClCompile Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteNetworkAddress.cpp" />
+    <ClCompile Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteNetworkDanteNodeID.cpp" />
+    <ClCompile Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteNetworkDataTypes.cpp" />
+    <ClCompile Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteNetworkNodeID.cpp" />
+    <ClCompile Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteNetworkSignalChannelDanteID.cpp" />
+    <ClCompile Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteNetworkSignalChannelID.cpp" />
+    <ClCompile Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteNetworkStatistics.cpp" />
+    <ClCompile Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteNetworkSystemInterfaceID.cpp" />
+    <ClCompile Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteObjectIdentification.cpp" />
+    <ClCompile Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLitePort.cpp" />
+    <ClCompile Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLitePortID.cpp" />
+    <ClCompile Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLitePropertyChangedEventData.cpp" />
+    <ClCompile Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLitePropertyID.cpp" />
+    <ClCompile Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteString.cpp" />
+    <ClCompile Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteTemplateHelpers.cpp" />
+    <ClCompile Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteVersion.cpp" />
+    <ClCompile Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteWorkerDataTypes.cpp" />
+    <ClCompile Include="..\..\..\Src\common\OCALite\OCP.1\Ocp1LiteNetwork.cpp" />
+    <ClCompile Include="..\..\..\Src\common\OCALite\OCP.1\Ocp1LiteNetworkAddress.cpp" />
+    <ClCompile Include="..\..\..\Src\common\OCALite\OCP.1\Ocp1LiteNetworkNodeID.cpp" />
+    <ClCompile Include="..\..\..\Src\common\OCALite\OCP.1\Ocp1LiteNetworkSystemInterfaceID.cpp" />
+    <ClCompile Include="..\..\..\Src\common\OCALite\OCP.1\Ocp1LiteReader.cpp" />
+    <ClCompile Include="..\..\..\Src\common\OCALite\OCP.1\Ocp1LiteSocketConnection.cpp" />
+    <ClCompile Include="..\..\..\Src\common\OCALite\OCP.1\Ocp1LiteWriter.cpp" />
+    <ClCompile Include="..\..\..\Src\common\OCALite\OCP.1\Messages\Ocp1LiteMessageCommand.cpp" />
+    <ClCompile Include="..\..\..\Src\common\OCALite\OCP.1\Messages\Ocp1LiteMessageHeader.cpp" />
+    <ClCompile Include="..\..\..\Src\common\OCALite\OCP.1\Messages\Ocp1LiteMessageKeepAlive.cpp" />
+    <ClCompile Include="..\..\..\Src\common\OCALite\OCP.1\Messages\Ocp1LiteMessageNotification.cpp" />
+    <ClCompile Include="..\..\..\Src\common\OCALite\OCP.1\Messages\Ocp1LiteMessageResponse.cpp" />
+    <ClCompile Include="..\..\..\Src\common\OCALite\OCF\OcaLiteCommandHandler.cpp" />
+    <ClCompile Include="..\..\..\Src\common\OCALite\OCF\Messages\OcaLiteHeader.cpp" />
+    <ClCompile Include="..\..\..\Src\common\OCALite\OCF\Messages\OcaLiteMessageCommand.cpp" />
+    <ClCompile Include="..\..\..\Src\common\OCALite\OCF\Messages\OcaLiteMessageGeneral.cpp" />
+    <ClCompile Include="..\..\..\Src\common\OCALite\OCF\Messages\OcaLiteMessageKeepAlive.cpp" />
+    <ClCompile Include="..\..\..\Src\common\OCALite\OCF\Messages\OcaLiteMessageNotification.cpp" />
+    <ClCompile Include="..\..\..\Src\common\OCALite\OCF\Messages\OcaLiteMessageResponse.cpp" />
+    <ClCompile Include="OCALite.cpp" />
+    <ClCompile Include="OCALiteOCCFactory.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\Src\makeCpp.inc" />
+    <None Include="..\..\..\Src\app\OCA_BKNII\makefileBIN" />
+    <None Include="..\..\..\Src\app\OCA_BKNII\makefileLIB" />
+    <None Include="..\..\..\Src\app\OCA_BKNII\buildbin" />
+    <None Include="..\..\..\buildmicro" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\Src\app\OCALiteDante\DanteLiteConMon.h" />
+    <ClInclude Include="..\..\..\Src\app\OCALiteDante\DanteLiteHostInterface.h" />
+    <ClInclude Include="..\..\..\Src\app\OCALiteDante\OcaLiteDanteMediaClock.h" />
+    <ClInclude Include="..\..\..\Src\app\OCALiteDante\OcaLiteNetworkSignalChannel.h" />
+    <ClInclude Include="..\..\..\Src\app\OCALiteDante\OcaLiteNetworkSignalChannelDante.h" />
+    <ClInclude Include="..\..\..\Src\app\OCALiteDante\OcaLiteStreamNetwork.h" />
+    <ClInclude Include="..\..\..\Src\app\OCALiteDante\OcaLiteStreamNetworkDante.h" />
+    <ClInclude Include="..\..\..\Src\platform\common\OcaLite\LogicalDevices\ClockGenerator\ClockGenerator.h" />
+    <ClInclude Include="..\..\..\Src\platform\common\OcaLite\LogicalDevices\Switch\Switch.h" />
+    <ClInclude Include="..\..\..\Src\common\HostInterfaceLite\OCA\OCF\OcfLiteHostInterface.h" />
+    <ClInclude Include="..\..\..\Src\common\HostInterfaceLite\OCA\OCF\Configuration\IOcfLiteConfigure.h" />
+    <ClInclude Include="..\..\..\Src\common\HostInterfaceLite\OCA\OCF\Logging\IOcfLiteLog.h" />
+    <ClInclude Include="..\..\..\Src\common\HostInterfaceLite\OCA\OCF\Timer\IOcfLiteTimer.h" />
+    <ClInclude Include="..\..\..\Src\common\HostInterfaceLite\OCA\OCF\Selection\OcfLiteSelectableSet.h" />
+    <ClInclude Include="..\..\..\Src\common\HostInterfaceLite\OCA\OCP.1\Ocp1LiteHostInterface.h" />
+    <ClInclude Include="..\..\..\Src\common\HostInterfaceLite\OCA\OCP.1\Ocp1LiteHostInterfaceConstants.h" />
+    <ClInclude Include="..\..\..\Src\common\HostInterfaceLite\OCA\OCP.1\Ocp1LiteHostInterfaceDataTypes.h" />
+    <ClInclude Include="..\..\..\Src\common\HostInterfaceLite\OCA\OCP.1\Network\IOcp1LiteNetwork.h" />
+    <ClInclude Include="..\..\..\Src\common\HostInterfaceLite\OCA\OCP.1\Network\IOcp1LiteSocket.h" />
+    <ClInclude Include="..\..\..\Src\common\HostInterfaceLite\OCA\OCP.1\ZeroConf\IOcp1LiteService.h" />
+    <ClInclude Include="..\..\..\Src\common\OCALite\OCC\ControlClasses\OcaLiteRoot.h" />
+    <ClInclude Include="..\..\..\Src\common\OCALite\OCC\ControlClasses\Agents\OcaLiteAgent.h" />
+    <ClInclude Include="..\..\..\Src\common\OCALite\OCC\ControlClasses\Agents\OcaLiteNetwork.h" />
+    <ClInclude Include="..\..\..\Src\common\OCALite\OCC\ControlClasses\Managers\OcaLiteDeviceManager.h" />
+    <ClInclude Include="..\..\..\Src\common\OCALite\OCC\ControlClasses\Managers\OcaLiteFirmwareManager.h" />
+    <ClInclude Include="..\..\..\Src\common\OCALite\OCC\ControlClasses\Managers\OcaLiteManager.h" />
+    <ClInclude Include="..\..\..\Src\common\OCALite\OCC\ControlClasses\Managers\OcaLiteNetworkManager.h" />
+    <ClInclude Include="..\..\..\Src\common\OCALite\OCC\ControlClasses\Managers\OcaLiteSubscriptionManager.h" />
+    <ClInclude Include="..\..\..\Src\common\OCALite\OCC\ControlClasses\Workers\OcaLiteWorker.h" />
+    <ClInclude Include="..\..\..\Src\common\OCALite\OCC\ControlClasses\Workers\Actuators\OcaLiteActuator.h" />
+    <ClInclude Include="..\..\..\Src\common\OCALite\OCC\ControlClasses\Workers\Actuators\OcaLiteBasicActuator.h" />
+    <ClInclude Include="..\..\..\Src\common\OCALite\OCC\ControlClasses\Workers\Actuators\OcaLiteBitstringActuator.h" />
+    <ClInclude Include="..\..\..\Src\common\OCALite\OCC\ControlClasses\Workers\Actuators\OcaLiteBooleanActuator.h" />
+    <ClInclude Include="..\..\..\Src\common\OCALite\OCC\ControlClasses\Workers\Actuators\OcaLiteGain.h" />
+    <ClInclude Include="..\..\..\Src\common\OCALite\OCC\ControlClasses\Workers\Actuators\OcaLiteSwitch.h" />
+    <ClInclude Include="..\..\..\Src\common\OCALite\OCC\ControlClasses\Workers\BlocksAndMatrices\OcaLiteBlock.h" />
+    <ClInclude Include="..\..\..\Src\common\OCALite\OCC\ControlClasses\Workers\Sensors\OcaLiteBasicSensor.h" />
+    <ClInclude Include="..\..\..\Src\common\OCALite\OCC\ControlClasses\Workers\Sensors\OcaLiteBitstringSensor.h" />
+    <ClInclude Include="..\..\..\Src\common\OCALite\OCC\ControlClasses\Workers\Sensors\OcaLiteInt8Sensor.h" />
+    <ClInclude Include="..\..\..\Src\common\OCALite\OCC\ControlClasses\Workers\Sensors\OcaLiteLevelSensor.h" />
+    <ClInclude Include="..\..\..\Src\common\OCALite\OCC\ControlClasses\Workers\Sensors\OcaLiteSensor.h" />
+    <ClInclude Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\IOcaLiteMarshal.h" />
+    <ClInclude Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteBaseDataTypes.h" />
+    <ClInclude Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteBitstring.h" />
+    <ClInclude Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteBlob.h" />
+    <ClInclude Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteBlobFixedLen.h" />
+    <ClInclude Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteBlockMember.h" />
+    <ClInclude Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteClassID.h" />
+    <ClInclude Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteClassIdentification.h" />
+    <ClInclude Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteEvent.h" />
+    <ClInclude Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteEventData.h" />
+    <ClInclude Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteEventID.h" />
+    <ClInclude Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteEventSubscriptionDataTypes.h" />
+    <ClInclude Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteFrameworkDataTypes.h" />
+    <ClInclude Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteList.h" />
+    <ClInclude Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteManagementDataTypes.h" />
+    <ClInclude Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteManagerDescriptor.h" />
+    <ClInclude Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteMethod.h" />
+    <ClInclude Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteMethodID.h" />
+    <ClInclude Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteModelDescription.h" />
+    <ClInclude Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteModelGUID.h" />
+    <ClInclude Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteNetworkAddress.h" />
+    <ClInclude Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteNetworkDanteNodeID.h" />
+    <ClInclude Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteNetworkDataTypes.h" />
+    <ClInclude Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteNetworkNodeID.h" />
+    <ClInclude Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteNetworkSignalChannelDanteID.h" />
+    <ClInclude Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteNetworkSignalChannelID.h" />
+    <ClInclude Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteNetworkStatistics.h" />
+    <ClInclude Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteNetworkSystemInterfaceID.h" />
+    <ClInclude Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteObjectIdentification.h" />
+    <ClInclude Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLitePort.h" />
+    <ClInclude Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLitePortID.h" />
+    <ClInclude Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLitePropertyChangedEventData.h" />
+    <ClInclude Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLitePropertyID.h" />
+    <ClInclude Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteString.h" />
+    <ClInclude Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteTemplateHelpers.h" />
+    <ClInclude Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteVersion.h" />
+    <ClInclude Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteWorkerDataTypes.h" />
+    <ClInclude Include="..\..\..\Src\common\OCALite\OCP.1\Ocp1LiteNetwork.h" />
+    <ClInclude Include="..\..\..\Src\common\OCALite\OCP.1\Ocp1LiteNetworkAddress.h" />
+    <ClInclude Include="..\..\..\Src\common\OCALite\OCP.1\Ocp1LiteNetworkNodeID.h" />
+    <ClInclude Include="..\..\..\Src\common\OCALite\OCP.1\Ocp1LiteNetworkSystemInterfaceID.h" />
+    <ClInclude Include="..\..\..\Src\common\OCALite\OCP.1\Ocp1LiteReader.h" />
+    <ClInclude Include="..\..\..\Src\common\OCALite\OCP.1\Ocp1LiteSocketConnection.h" />
+    <ClInclude Include="..\..\..\Src\common\OCALite\OCP.1\Ocp1LiteWriter.h" />
+    <ClInclude Include="..\..\..\Src\common\OCALite\OCP.1\Messages\Ocp1LiteMessageCommand.h" />
+    <ClInclude Include="..\..\..\Src\common\OCALite\OCP.1\Messages\Ocp1LiteMessageHeader.h" />
+    <ClInclude Include="..\..\..\Src\common\OCALite\OCP.1\Messages\Ocp1LiteMessageKeepAlive.h" />
+    <ClInclude Include="..\..\..\Src\common\OCALite\OCP.1\Messages\Ocp1LiteMessageNotification.h" />
+    <ClInclude Include="..\..\..\Src\common\OCALite\OCP.1\Messages\Ocp1LiteMessageResponse.h" />
+    <ClInclude Include="..\..\..\Src\common\OCALite\OCF\IOcaLiteReader.h" />
+    <ClInclude Include="..\..\..\Src\common\OCALite\OCF\IOcaLiteWriter.h" />
+    <ClInclude Include="..\..\..\Src\common\OCALite\OCF\OcaLiteCommandHandler.h" />
+    <ClInclude Include="..\..\..\Src\common\OCALite\OCF\Messages\OcaLiteHeader.h" />
+    <ClInclude Include="..\..\..\Src\common\OCALite\OCF\Messages\OcaLiteMessageCommand.h" />
+    <ClInclude Include="..\..\..\Src\common\OCALite\OCF\Messages\OcaLiteMessageGeneral.h" />
+    <ClInclude Include="..\..\..\Src\common\OCALite\OCF\Messages\OcaLiteMessageKeepAlive.h" />
+    <ClInclude Include="..\..\..\Src\common\OCALite\OCF\Messages\OcaLiteMessageNotification.h" />
+    <ClInclude Include="..\..\..\Src\common\OCALite\OCF\Messages\OcaLiteMessageResponse.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

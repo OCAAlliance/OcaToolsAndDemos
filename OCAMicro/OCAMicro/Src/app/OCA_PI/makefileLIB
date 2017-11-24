@@ -1,0 +1,237 @@
+# By downloading or using this file, the user agrees to be bound by the terms of the license 
+# agreement located at http://ocaalliance.com/EULA as an original contracting party.
+#
+#  Description        :   Makefile for the OCALite proto
+#
+
+NAME_MKE := makefileLIB
+
+TARGETS = stmCortexM4 stm32
+
+TYPE = LIB
+NAME = OCALiteProtoLIB
+
+USRINC = $(OCA_HOME)/../Application/inc; \
+		 $(OCA_HOME)/../Application/inc/tinysvcmdns; \
+		 $(OCA_HOME)/../Libraries/CMSIS/CM3/CoreSupport; \
+		 $(OCA_HOME)/../Libraries/CMSIS/CM3/DeviceSupport/ST/STM32F2xx; \
+		 $(OCA_HOME)/../Libraries/STM32F2x7_ETH_Driver/inc; \
+		 $(OCA_HOME)/../Libraries/STM32F2xx_StdPeriph_Driver/inc; \
+		 $(OCA_HOME)/../Utilities/Third_Party/FreeRTOSV7.1.1/include; \
+		 $(OCA_HOME)/../Utilities/Third_Party/FreeRTOSV7.1.1/portable/GCC/ARM_CM3; \
+		 $(OCA_HOME)/../Utilities/Third_Party/lwip-1.4.1/src/include; \
+		 $(OCA_HOME)/../Utilities/Third_Party/lwip-1.4.1/src/include/lwip; \
+		 $(OCA_HOME)/../Utilities/Third_Party/lwip-1.4.1/src/include/ipv4; \
+		 $(OCA_HOME)/../Utilities/Third_Party/lwip-1.4.1/port/STM32F2x7/FreeRTOS; \
+		 $(OCA_HOME)/../Utilities/Third_Party/lwip-1.4.1/port/STM32F2x7; \
+		 $(OCA_HOME)/Src; \
+		 $(OCA_HOME)/Src/common; \
+		 $(OCA_HOME)/Src/inc; \
+		 $(OCA_HOME)/Src/common/OCALite; \
+		 $(OCA_HOME)/Src/platform; 
+
+USRDEFS = STM32F207xx \
+		  STARTUP_FROM_RESET \
+		  FreeRTOS \
+		  LWIP_BEING_USED
+
+#timers.c is in FreeRTOS and lwip, we need lwip, so first src_inc lwip
+SRC_INC = $(OCA_HOME)/../Application/src; \
+		$(OCA_HOME)/../Libraries/CMSIS/CM3/CoreSupport; \
+		$(OCA_HOME)/../Libraries/STM32F2x7_ETH_Driver/src; \
+		$(OCA_HOME)/../Libraries/STM32F2xx_StdPeriph_Driver/src; \
+		$(OCA_HOME)/../Utilities/Third_Party/lwip-1.4.1/port/STM32F2x7/FreeRTOS; \
+		$(OCA_HOME)/../Utilities/Third_Party/lwip-1.4.1/src/api; \
+		$(OCA_HOME)/../Utilities/Third_Party/lwip-1.4.1/src/core/ipv4; \
+		$(OCA_HOME)/../Utilities/Third_Party/lwip-1.4.1/src/core/snmp; \
+		$(OCA_HOME)/../Utilities/Third_Party/lwip-1.4.1/src/core; \
+		$(OCA_HOME)/../Utilities/Third_Party/lwip-1.4.1/src/netif; \
+		$(OCA_HOME)/../Utilities/Third_Party/FreeRTOSV7.1.1/portable/GCC/ARM_CM3; \
+		$(OCA_HOME)/../Utilities/Third_Party/FreeRTOSV7.1.1; \
+		$(OCA_HOME)/../Utilities/Third_Party/FreeRTOSV7.1.1/portable/MemMang; \
+		$(OCA_HOME)/Src/app/Stm32CortexM3/OCALitePrototype; \
+		$(OCA_HOME)/Src/app/Stm32CortexM3/OCALitePrototype; \
+		$(OCA_HOME)/Src/common/HostInterfaceLite/OCA/OCF; \
+		$(OCA_HOME)/Src/common/HostInterfaceLite/OCA/OCP.1; \
+		$(OCA_HOME)/Src/common/OCALite/OCC/ControlClasses/Agents; \
+		$(OCA_HOME)/Src/common/OCALite/OCC/ControlClasses/Managers; \
+		$(OCA_HOME)/Src/common/OCALite/OCC/ControlClasses/Workers; \
+		$(OCA_HOME)/Src/common/OCALite/OCC/ControlClasses/Workers/Actuators; \
+		$(OCA_HOME)/Src/common/OCALite/OCC/ControlClasses/Workers/BlocksAndMatrices; \
+		$(OCA_HOME)/Src/common/OCALite/OCC/ControlClasses/Workers/Sensors; \
+		$(OCA_HOME)/Src/common/OCALite/OCC/ControlClasses; \
+		$(OCA_HOME)/Src/common/OCALite/OCC/ControlDataTypes; \
+		$(OCA_HOME)/Src/common/OCALite/OCF; \
+		$(OCA_HOME)/Src/common/OCALite/OCF/Messages; \
+		$(OCA_HOME)/Src/common/OCALite/OCP.1; \
+		$(OCA_HOME)/Src/common/OCALite/OCP.1/Messages; \
+		$(OCA_HOME)/Src/common/SharedLibraries/tinymDNS; \
+		$(OCA_HOME)/Src/platform/Stm32CortexM3/lib/UtilLib; \
+		$(OCA_HOME)/Src/platform/common/OcaLite/tinymdns; \
+		$(OCA_HOME)/Src/platform/common/OcaLite/LogicalDevices/ClockGenerator; \
+		$(OCA_HOME)/Src/platform/common/OcaLite/LogicalDevices/Switch; \
+		$(OCA_HOME)/Src/platform/common/OcaLite/HostInterface/OCA/OCF/Logging; \
+		$(OCA_HOME)/Src/platform/common/OcaLite/HostInterface/OCA/OCF/Timer; \
+		$(OCA_HOME)/Src/platform/common/OcaLite/HostInterface/OCA/OCF/Configuration; \
+		$(OCA_HOME)/Src/platform/common/OcaLite/HostInterface/OCA/OCP.1; \
+		$(OCA_HOME)/Src/platform/common/OcaLite/HostInterface/OCA/OCP.1/Network; \
+		$(OCA_HOME)/Src/platform/common/OcaLite/HostInterface/OCA/OCP.1/ZeroConf
+
+SRCS  = sys_arch.c \
+		ethernetif.c \
+		tcpip.c \
+		api_lib.c \
+		api_msg.c \
+		err.c \
+		netbuf.c \
+		netdb.c \
+		netifapi.c \
+		sockets.c \
+		ip_frag.c \
+		autoip.c \
+		icmp.c \
+		igmp.c \
+		inet.c \
+		inet_chksum.c \
+		ip.c \
+		ip_addr.c \
+		msg_out.c \
+		asn1_dec.c \
+		asn1_enc.c \
+		mib2.c \
+		mib_structs.c \
+		msg_in.c \
+		udp.c \
+		dhcp.c \
+		dns.c \
+		init.c \
+		mem.c \
+		memp.c \
+		netif.c \
+		pbuf.c \
+		raw.c \
+		stats.c \
+		sys.c \
+		tcp.c \
+		tcp_in.c \
+		def.c \
+		timers.c \
+		tcp_out.c \
+		etharp.c \
+		\
+		tasks.c \
+		list.c \
+		queue.c \
+		port.c \
+		fr_timers.c \
+		heap_2.c \
+		\
+		core_cm3.c \
+		stm32f2x7_eth.c \
+		misc.c \
+		stm32f2xx_crc.c \
+		stm32f2xx_dma.c \
+		stm32f2xx_exti.c \
+		stm32f2xx_flash.c \
+		stm32f2xx_gpio.c \
+		stm32f2xx_i2c.c \
+		stm32f2xx_rcc.c \
+		stm32f2xx_iwdg.c \
+		stm32f2xx_syscfg.c \
+		stm32f2xx_tim.c \
+		stm32f2xx_usart.c \
+		OCALitePrototype.cpp \
+		PILEDBitStringActuator.cpp \
+		PIRELAYBooleanActuator.cpp \
+		PISwitchBitStringSensor.cpp \
+		PISwitchLedBitStringActuator.cpp \
+		PIencoderInt8Sensor.cpp \
+		OcfLiteHostInterface.cpp \
+		Ocp1LiteHostInterface.cpp \
+		OcaLiteAgent.cpp \
+		OcaLiteNetwork.cpp \
+		OcaLiteDeviceManager.cpp \
+		OcaLiteFirmwareManager.cpp \
+		OcaLiteManager.cpp \
+		OcaLiteNetworkManager.cpp \
+		OcaLiteSubscriptionManager.cpp \
+		OcaLiteWorker.cpp \
+		OcaLiteBooleanActuator.cpp \
+		OcaLiteActuator.cpp \
+		OcaLiteBasicActuator.cpp \
+		OcaLiteBitstringActuator.cpp \
+		OcaLiteBlock.cpp \
+		OcaLiteBasicSensor.cpp \
+		OcaLiteBitstringSensor.cpp \
+		OcaLiteInt8Sensor.cpp \
+		OcaLiteSensor.cpp \
+		OcaLiteRoot.cpp \
+		OcaLiteBlob.cpp \
+		OcaLiteBlobFixedLen.cpp \
+		OcaLiteBlockMember.cpp \
+		OcaLiteClassID.cpp \
+		OcaLiteClassIdentification.cpp \
+		OcaLiteEvent.cpp \
+		OcaLiteEventData.cpp \
+		OcaLiteEventID.cpp \
+		OcaLiteEventSubscriptionDataTypes.cpp \
+		OcaLiteFrameworkDataTypes.cpp \
+		OcaLiteList.cpp \
+		OcaLiteManagementDataTypes.cpp \
+		OcaLiteManagerDescriptor.cpp \
+		OcaLiteMethod.cpp \
+		OcaLiteMethodID.cpp \
+		OcaLiteModelDescription.cpp \
+		OcaLiteModelGUID.cpp \
+		OcaLiteNetworkAddress.cpp \
+		OcaLiteNetworkDataTypes.cpp \
+		OcaLiteNetworkNodeID.cpp \
+		OcaLiteNetworkStatistics.cpp \
+		OcaLiteNetworkSystemInterfaceID.cpp \
+		OcaLiteObjectIdentification.cpp \
+		OcaLitePort.cpp \
+		OcaLitePortID.cpp \
+		OcaLitePropertyChangedEventData.cpp \
+		OcaLitePropertyID.cpp \
+		OcaLiteString.cpp \
+		OcaLiteTemplateHelpers.cpp \
+		OcaLiteVersion.cpp \
+		OcaLiteBitstring.cpp \
+		OcaLiteCommandHandler.cpp \
+		OcaLiteHeader.cpp \
+		OcaLiteMessageCommand.cpp \
+		OcaLiteMessageGeneral.cpp \
+		OcaLiteMessageKeepAlive.cpp \
+		OcaLiteMessageNotification.cpp \
+		OcaLiteMessageResponse.cpp \
+		Ocp1LiteNetwork.cpp \
+		Ocp1LiteNetworkAddress.cpp \
+		Ocp1LiteNetworkNodeID.cpp \
+		Ocp1LiteNetworkSystemInterfaceID.cpp \
+		Ocp1LiteReader.cpp \
+		Ocp1LiteSocketConnection.cpp \
+		Ocp1LiteWriter.cpp \
+		Ocp1LiteMessageCommand.cpp \
+		Ocp1LiteMessageHeader.cpp \
+		Ocp1LiteMessageKeepAlive.cpp \
+		Ocp1LiteMessageNotification.cpp \
+		Ocp1LiteMessageResponse.cpp \
+		mdns.c \
+		mdnsd.c \
+		Rs232Debug.c \
+		Watchdog.c \
+		Timer.c \
+		tinymDNSWrapper.cpp \
+		ClockGenerator.cpp \
+		Switch.cpp \
+		OcaLiteOcfLogger.cpp \
+		OcaLiteOcfTimer.cpp \
+		OcaLiteOcfConfiguration.cpp \
+		Ocp1HostInterfaceOcaLite.cpp \
+		LwIPAdapterOcaLite.cpp \
+		OcaLiteOcp1Network.cpp \
+		OcaLiteOcp1Socket.cpp \
+		Stm32Interrupts.cpp \
+		OcaLiteOcp1Service.cpp
+
+include $(OCA_HOME)/Src/makeCpp.inc

@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="SourceEdit|Win32">
+      <Configuration>SourceEdit</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="tinymDNSWrapper.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="tinymDNSWrapper.cpp" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{A4C2381E-82E8-4918-93FE-A53192D9A763}</ProjectGuid>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='SourceEdit|Win32'">
+    <PlatformToolset>v110</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='SourceEdit|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>TARGET_STM32;STM32F437xx;WIN32;_USING_V110_SDK71_;LWIP_NETIF_LINK_CALLBACK;__ALIGN_BEGIN=;LWIP_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(OCA_HOME)\Src\app;$(OCA_HOME)\Src\common;$(OCA_HOME)\Src\common\SharedLibraries\FreeRTOS\Source\include;$(OCA_HOME)\Src\common\SharedLibraries\LwIP\src\include;$(OCA_HOME)\Src\common\SharedLibraries\LwIP\src\include\ipv4;$(OCA_HOME)\Src\common\SharedLibraries\LwIP\system;$(OCA_HOME)\Src\common\SharedLibraries\mDNSd;$(OCA_HOME)\Src\inc;$(OCA_HOME)\Src\platform;$(OCA_HOME)\Src\platform\CMSIS\Include;$(OCA_HOME)\Src\platform\CMSIS\RTOS_1.02;$(OCA_HOME)\Src\platform\common\OcaLite\FreeRTOS\Stm32CortexM4;$(OCA_HOME)\Src\platform\common\OcaLite\LwIP\Stm32CortexM4;$(OCA_HOME)\Src\platform\Stm32CortexM4\lib\StdPeriphLib\STM32F4xx_HAL_Driver\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

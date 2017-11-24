@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{8B57CD44-CEA6-4103-8F6C-B59240585E10}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>OCALite</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v110</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v110</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>..\..\..\Obj\winntApp\$(Configuration)\</OutDir>
+    <IntDir>$(OutDir)\Intermediate\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>..\..\..\Obj\winntApp\$(Configuration)\</OutDir>
+    <IntDir>$(OutDir)\Intermediate\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;NOGDI;_DEBUG;_CONSOLE;_HAS_EXCEPTIONS=0;_CRT_SECURE_NO_WARNINGS;DANTE_CM_METERING_SUBSCRIPTIONS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\common;..\..\common\OCALite;..\..\inc;..\OCALiteDante;..\..\common\OCALite\ControlClasses\Managers;$(CAP_HOME)\..\API\include\</AdditionalIncludeDirectories>
+      <ProgramDataBaseFileName>$(OutputPath)$(AssemblyName).pdb</ProgramDataBaseFileName>
+      <PrecompiledHeaderFile />
+      <PrecompiledHeaderOutputFile />
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>WS2_32.lib;Netapi32.lib;Iphlpapi.lib;../../platform/common/OcaLite/BonjourSDK/x86/dnssd.lib;$(CAP_HOME)/../API/lib/Debug/Win32/dapid.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;NOGDI;DANTE_CM_METERING_SUBSCRIPTIONS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\common;..\..\common\OCALite;..\..\inc;..\OCALiteDante;..\..\common\OCALite\ControlClasses\Managers;$(CAP_HOME)\..\API\include\</AdditionalIncludeDirectories>
+      <ProgramDataBaseFileName>$(OutputPath)$(AssemblyName).pdb</ProgramDataBaseFileName>
+      <PrecompiledHeaderFile />
+      <PrecompiledHeaderOutputFile />
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>WS2_32.lib;Netapi32.lib;Iphlpapi.lib;../../platform/common/OcaLite/BonjourSDK/x86/dnssd.lib;$(CAP_HOME)/../API/lib/Release/Win32/dapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\OCA_BKNII\OCALiteOCCFactory.cpp" />
+    <ClCompile Include="DanteLiteConMon.cpp" />
+    <ClCompile Include="DanteLiteHostInterface.cpp" />
+    <ClCompile Include="HostInterface\OCA\OCF\Configuration\OcaLiteOcfConfiguration.cpp" />
+    <ClCompile Include="HostInterface\OCA\OCF\Logging\OcaLiteOcfLogger.cpp" />
+    <ClCompile Include="HostInterface\OCA\OCF\Timer\OcaLiteOcfTimer.cpp" />
+    <ClCompile Include="HostInterface\OCA\OCP.1\Network\OcaLiteOcp1Network.cpp" />
+    <ClCompile Include="HostInterface\OCA\OCP.1\Network\OcaLiteOcp1Socket.cpp" />
+    <ClCompile Include="HostInterface\OCA\OCP.1\Ocp1HostInterfaceOcaLite.cpp" />
+    <ClCompile Include="HostInterface\OCA\OCP.1\ZeroConf\OcaLiteOcp1Service.cpp" />
+    <ClCompile Include="OCALiteDante.cpp" />
+    <ClCompile Include="OcaLiteDanteLvlSensor.cpp" />
+    <ClCompile Include="OcaLiteDanteMediaClock.cpp" />
+    <ClCompile Include="OcaLiteNetworkSignalChannel.cpp" />
+    <ClCompile Include="OcaLiteNetworkSignalChannelDante.cpp" />
+    <ClCompile Include="OcaLiteStreamNetwork.cpp" />
+    <ClCompile Include="OcaLiteStreamNetworkDante.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\common\OCALiteLib.vcxproj">
+      <Project>{6647ba68-abf1-44dc-b10a-b1c14ddc460d}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="DanteLiteHostInterface.h" />
+    <ClInclude Include="OcaLiteDanteLvlSensor.h" />
+    <ClInclude Include="OcaLiteDanteMediaClock.h" />
+    <ClInclude Include="OcaLiteNetworkSignalChannel.h" />
+    <ClInclude Include="OcaLiteNetworkSignalChannelDante.h" />
+    <ClInclude Include="OcaLiteStreamNetworkDante.h" />
+    <ClInclude Include="OcaLiteStreamNetwork.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

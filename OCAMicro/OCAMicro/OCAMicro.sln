@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Express 2012 for Windows Desktop
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F6ED33DD-ABAC-44F6-93A8-5981215B9E83}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OCALite", "Src\app\OCALite\OCALite.vcxproj", "{B4B92F7D-8080-472F-9F35-171A3F72D81D}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OCALiteDante", "Src\app\OCALiteDante\OCALiteDante.vcxproj", "{8B57CD44-CEA6-4103-8F6C-B59240585E10}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OCALiteLib", "Src\common\OCALiteLib.vcxproj", "{6647BA68-ABF1-44DC-B10A-B1C14DDC460D}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OCAMicroBrk", "Src\app\OCA_BKNII\OCAMicroBrk.vcxproj", "{34C33AF7-9D4B-4A41-8511-6B9919F58132}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B4B92F7D-8080-472F-9F35-171A3F72D81D}.Debug|Win32.ActiveCfg = Debug|Win32
+		{B4B92F7D-8080-472F-9F35-171A3F72D81D}.Debug|Win32.Build.0 = Debug|Win32
+		{B4B92F7D-8080-472F-9F35-171A3F72D81D}.Release|Win32.ActiveCfg = Release|Win32
+		{B4B92F7D-8080-472F-9F35-171A3F72D81D}.Release|Win32.Build.0 = Release|Win32
+		{8B57CD44-CEA6-4103-8F6C-B59240585E10}.Debug|Win32.ActiveCfg = Debug|Win32
+		{8B57CD44-CEA6-4103-8F6C-B59240585E10}.Debug|Win32.Build.0 = Debug|Win32
+		{8B57CD44-CEA6-4103-8F6C-B59240585E10}.Release|Win32.ActiveCfg = Release|Win32
+		{8B57CD44-CEA6-4103-8F6C-B59240585E10}.Release|Win32.Build.0 = Release|Win32
+		{6647BA68-ABF1-44DC-B10A-B1C14DDC460D}.Debug|Win32.ActiveCfg = Debug|Win32
+		{6647BA68-ABF1-44DC-B10A-B1C14DDC460D}.Debug|Win32.Build.0 = Debug|Win32
+		{6647BA68-ABF1-44DC-B10A-B1C14DDC460D}.Release|Win32.ActiveCfg = Release|Win32
+		{6647BA68-ABF1-44DC-B10A-B1C14DDC460D}.Release|Win32.Build.0 = Release|Win32
+		{34C33AF7-9D4B-4A41-8511-6B9919F58132}.Debug|Win32.ActiveCfg = Debug|Win32
+		{34C33AF7-9D4B-4A41-8511-6B9919F58132}.Release|Win32.ActiveCfg = Release|Win32
+		{34C33AF7-9D4B-4A41-8511-6B9919F58132}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

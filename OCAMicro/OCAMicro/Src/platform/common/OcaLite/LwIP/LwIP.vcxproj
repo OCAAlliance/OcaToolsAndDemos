@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="SourceEdit|Win32">
+      <Configuration>SourceEdit</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\common\SharedLibraries\LwIP\src\api\api_lib.c" />
+    <ClCompile Include="..\..\..\..\common\SharedLibraries\LwIP\src\api\api_msg.c" />
+    <ClCompile Include="..\..\..\..\common\SharedLibraries\LwIP\src\api\err.c" />
+    <ClCompile Include="..\..\..\..\common\SharedLibraries\LwIP\src\api\netbuf.c" />
+    <ClCompile Include="..\..\..\..\common\SharedLibraries\LwIP\src\api\netdb.c" />
+    <ClCompile Include="..\..\..\..\common\SharedLibraries\LwIP\src\api\netifapi.c" />
+    <ClCompile Include="..\..\..\..\common\SharedLibraries\LwIP\src\api\sockets.c" />
+    <ClCompile Include="..\..\..\..\common\SharedLibraries\LwIP\src\api\tcpip.c" />
+    <ClCompile Include="..\..\..\..\common\SharedLibraries\LwIP\src\core\def.c" />
+    <ClCompile Include="..\..\..\..\common\SharedLibraries\LwIP\src\core\dhcp.c" />
+    <ClCompile Include="..\..\..\..\common\SharedLibraries\LwIP\src\core\dns.c" />
+    <ClCompile Include="..\..\..\..\common\SharedLibraries\LwIP\src\core\init.c" />
+    <ClCompile Include="..\..\..\..\common\SharedLibraries\LwIP\src\core\ipv4\autoip.c" />
+    <ClCompile Include="..\..\..\..\common\SharedLibraries\LwIP\src\core\ipv4\icmp.c" />
+    <ClCompile Include="..\..\..\..\common\SharedLibraries\LwIP\src\core\ipv4\igmp.c" />
+    <ClCompile Include="..\..\..\..\common\SharedLibraries\LwIP\src\core\ipv4\inet.c" />
+    <ClCompile Include="..\..\..\..\common\SharedLibraries\LwIP\src\core\ipv4\inet_chksum.c" />
+    <ClCompile Include="..\..\..\..\common\SharedLibraries\LwIP\src\core\ipv4\ip.c" />
+    <ClCompile Include="..\..\..\..\common\SharedLibraries\LwIP\src\core\ipv4\ip_addr.c" />
+    <ClCompile Include="..\..\..\..\common\SharedLibraries\LwIP\src\core\ipv4\ip_frag.c" />
+    <ClCompile Include="..\..\..\..\common\SharedLibraries\LwIP\src\core\ipv6\icmp6.c" />
+    <ClCompile Include="..\..\..\..\common\SharedLibraries\LwIP\src\core\ipv6\inet6.c" />
+    <ClCompile Include="..\..\..\..\common\SharedLibraries\LwIP\src\core\ipv6\ip6.c" />
+    <ClCompile Include="..\..\..\..\common\SharedLibraries\LwIP\src\core\ipv6\ip6_addr.c" />
+    <ClCompile Include="..\..\..\..\common\SharedLibraries\LwIP\src\core\lwip_timers.c" />
+    <ClCompile Include="..\..\..\..\common\SharedLibraries\LwIP\src\core\mem.c" />
+    <ClCompile Include="..\..\..\..\common\SharedLibraries\LwIP\src\core\memp.c" />
+    <ClCompile Include="..\..\..\..\common\SharedLibraries\LwIP\src\core\netif.c" />
+    <ClCompile Include="..\..\..\..\common\SharedLibraries\LwIP\src\core\pbuf.c" />
+    <ClCompile Include="..\..\..\..\common\SharedLibraries\LwIP\src\core\raw.c" />
+    <ClCompile Include="..\..\..\..\common\SharedLibraries\LwIP\src\core\stats.c" />
+    <ClCompile Include="..\..\..\..\common\SharedLibraries\LwIP\src\core\sys.c" />
+    <ClCompile Include="..\..\..\..\common\SharedLibraries\LwIP\src\core\tcp.c" />
+    <ClCompile Include="..\..\..\..\common\SharedLibraries\LwIP\src\core\tcp_in.c" />
+    <ClCompile Include="..\..\..\..\common\SharedLibraries\LwIP\src\core\tcp_out.c" />
+    <ClCompile Include="..\..\..\..\common\SharedLibraries\LwIP\src\core\udp.c" />
+    <ClCompile Include="..\..\..\..\common\SharedLibraries\LwIP\src\netif\etharp.c" />
+    <ClCompile Include="..\..\..\..\common\SharedLibraries\LwIP\system\OS\sys_arch.c" />
+    <ClCompile Include="Stm32CortexM4\ethernetif.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\ipv4\lwip\autoip.h" />
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\ipv4\lwip\icmp.h" />
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\ipv4\lwip\igmp.h" />
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\ipv4\lwip\inet.h" />
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\ipv4\lwip\inet_chksum.h" />
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\ipv4\lwip\ip.h" />
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\ipv4\lwip\ip_addr.h" />
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\ipv4\lwip\ip_frag.h" />
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\ipv6\lwip\icmp.h" />
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\ipv6\lwip\inet.h" />
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\ipv6\lwip\ip.h" />
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\ipv6\lwip\ip_addr.h" />
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\lwip\api.h" />
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\lwip\api_msg.h" />
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\lwip\arch.h" />
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\lwip\debug.h" />
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\lwip\def.h" />
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\lwip\dhcp.h" />
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\lwip\dns.h" />
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\lwip\err.h" />
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\lwip\init.h" />
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\lwip\lwip_timers.h" />
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\lwip\mem.h" />
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\lwip\memp.h" />
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\lwip\memp_std.h" />
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\lwip\netbuf.h" />
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\lwip\netdb.h" />
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\lwip\netif.h" />
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\lwip\netifapi.h" />
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\lwip\opt.h" />
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\lwip\pbuf.h" />
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\lwip\raw.h" />
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\lwip\sio.h" />
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\lwip\snmp.h" />
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\lwip\snmp_asn1.h" />
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\lwip\snmp_msg.h" />
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\lwip\snmp_structs.h" />
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\lwip\sockets.h" />
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\lwip\stats.h" />
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\lwip\sys.h" />
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\lwip\tcp.h" />
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\lwip\tcpip.h" />
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\lwip\tcp_impl.h" />
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\lwip\udp.h" />
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\netif\etharp.h" />
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\netif\ppp_oe.h" />
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\netif\slipif.h" />
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\posix\netdb.h" />
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\src\include\posix\sys\socket.h" />
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\system\arch\cc.h" />
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\system\arch\cpu.h" />
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\system\arch\init.h" />
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\system\arch\lib.h" />
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\system\arch\perf.h" />
+    <ClInclude Include="..\..\..\..\common\SharedLibraries\LwIP\system\arch\sys_arch.h" />
+    <ClInclude Include="Stm32CortexM4\ethernetif.h" />
+    <ClInclude Include="Stm32CortexM4\lwipopts.h" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{B76FAFB9-C9DC-4FFD-A666-D5F95158B997}</ProjectGuid>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='SourceEdit|Win32'">
+    <PlatformToolset>v110</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='SourceEdit|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>TARGET_STM32;STM32F437xx;WIN32;_USING_V110_SDK71_;LWIP_NETIF_LINK_CALLBACK;__ALIGN_BEGIN=;LWIP_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(OCA_HOME)\Src\app;$(OCA_HOME)\Src\common;$(OCA_HOME)\Src\common\SharedLibraries\FreeRTOS\Source\include;$(OCA_HOME)\Src\common\SharedLibraries\LwIP\src\include;$(OCA_HOME)\Src\common\SharedLibraries\LwIP\src\include\ipv4;$(OCA_HOME)\Src\common\SharedLibraries\LwIP\system;$(OCA_HOME)\Src\inc;$(OCA_HOME)\Src\platform;$(OCA_HOME)\Src\platform\CMSIS\Include;$(OCA_HOME)\Src\platform\CMSIS\RTOS_1.02;$(OCA_HOME)\Src\platform\common\OcaLite\FreeRTOS\Stm32CortexM4;$(OCA_HOME)\Src\platform\common\OcaLite\LwIP\Stm32CortexM4;$(OCA_HOME)\Src\platform\Stm32CortexM4\lib\StdPeriphLib\STM32F4xx_HAL_Driver\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

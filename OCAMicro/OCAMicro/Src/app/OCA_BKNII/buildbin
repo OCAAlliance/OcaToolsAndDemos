@@ -1,0 +1,18 @@
+#!/bin/bash
+
+export LOGFILE=/dev/null
+export BBE_REV=3.4.0
+export BBE_HOME=~/bbe-${BBE_REV}
+
+export here=`pwd`
+
+export OCA_HOME=$here/../../../
+export DANTE_PATH=${BBE_HOME}
+
+echo "OCA_HOME: " $OCA_HOME
+echo "DANTE_PATH: " $DANTE_PATH
+
+make --makefile=makefileLIB $*
+make --makefile=makefileBIN $*
+
+

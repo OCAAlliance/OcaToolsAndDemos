@@ -1,0 +1,77 @@
+OCA Alliance EULA
+
+1.      Definitions
+
+“License”               shall mean the terms and conditions for use, reproduction, and distribution of the Work as defined by Sections 1 through 8 of this document.
+
+“Licensor”              shall mean the OCA Alliance and/or its members or entity authorized by the copyright owner that is granting the License.
+
+“Legal Entity”         shall mean the union of the acting entity and all other entities that control, are controlled by, or are under common control with that entity. For the purposes of this definition, “control” means (i) the power, direct or indirect, to cause the direction or management of such entity, whether by contract or otherwise, or (ii) ownership of fifty percent (50%) or more of the outstanding shares, or (iii) beneficial ownership of such entity.
+
+“You” (or “Your”)    shall mean an individual or Legal Entity exercising permissions granted by this License.
+
+“Source form”         shall mean the preferred form for making modifications, including but not limited to software source code, documentation source, electrical schematic diagrams, printed circuit board layouts, mechanical design of hardware, and configuration files.
+
+“Object form”          shall mean any form resulting from mechanical transformation or translation of a Source form, including but not limited to compiled object code, generated documentation, and conversions to other media types.
+
+“Embedded”          shall identify software which is incorporated into specific hardware and delivered with that hardware as part of a finished product.
+
+“Work”                    shall mean the package of computer files named “OCA Microdemo Source” available for download from the OCA ALLIANCE website, which may include technical documentation, software source code, hardware schematic diagrams, hardware printed circuit board layouts, and hardware bill of materials, and which may vary from time to time or at any time.
+
+“Derivative Works” shall mean any work, whether in Source or Object form, that is based on (or derived from) the Work and for which the editorial revisions, annotations, elaborations, or other modifications represent, as a whole, an original work of authorship. For the purposes of this License, Derivative Works shall not include works that remain separable from, or merely link (or bind by name) to the interfaces of, the Work and Derivative Works thereof.
+
+“Contribution”         shall mean any work of authorship, including the original version of the Work and any modifications or additions to that Work or Derivative Works thereof, that is intentionally submitted to Licensor for inclusion in the Work by the copyright owner or by an individual or Legal Entity authorized to submit on behalf of the copyright owner. For the purposes of this definition, “submitted” means any form of electronic, verbal, or written communication sent to the Licensor or its representatives, including but not limited to communication on electronic mailing lists, source code control systems, and issue tracking systems that are managed by, or on behalf of, the Licensor for the purpose of discussing and improving the Work, but excluding communication that is conspicuously marked or otherwise designated in writing by the copyright owner as “Not a Contribution.”
+
+“Contributor”          shall mean Licensor and any individual or Legal Entity on behalf of whom a Contribution has been received by Licensor and subsequently incorporated within the Work.
+2.      Grant of Copyright License
+
+Subject to the terms and conditions of this License, each Contributor hereby grants to You a perpetual, worldwide, non-exclusive, no-charge, royalty-free, irrevocable copyright license to use, reproduce, prepare Derivative Works of, publicly display, publicly perform, sublicense, and distribute the Work and such Derivative Works in Source or Object form.
+3.      Grant of Patent License
+
+Subject to the terms and conditions of this License, each Contributor who holds any patent rights to any aspect of the Work hereby grants to You a perpetual, worldwide, non-exclusive, no-charge, royalty-free, irrevocable (except as stated in this section) patent license to make, have made, use, offer to sell, sell, import, and otherwise transfer that part of the Work covered by such patent claims.  If You institute patent litigation against any entity (including a cross-claim or counterclaim in a lawsuit) alleging that the Work or a Contribution incorporated within the Work constitutes direct or contributory patent infringement, then any patent licenses granted to You under this License for that Work shall terminate as of the date such litigation is filed.
+4.      Redistribution
+4.1     Source or Object Redistribution
+
+You may reproduce and distribute copies of the Work or Derivative Works thereof as computer files in Source or Object form provided that You give any other recipients of the Work or Derivative Works a copy of this License.
+
+You may add Your own copyright statement to Your modifications and may provide additional or different license terms and conditions for use, reproduction, or distribution of Your modifications, or for any such Derivative Works as a whole, provided Your use, reproduction, and distribution of the Work otherwise complies with the conditions stated in this License.
+4.2     Embedded Redistribution
+
+You may reproduce and distribute Embedded copies of the Work or Derivative Works thereof provided that Your reproduction and distribution of the Work complies with the conditions stated in this License.
+5.      Trademarks
+
+This License does not grant permission to use the trade names, trademarks, service marks, or product names of the Licensor, except as required for reasonable and customary use in describing the origin of the Work.
+6.      Disclaimer of Warranty
+
+Licensor provides the Work (and each Contributor provides its Contributions) on an “AS IS” BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING, WITHOUT LIMITATION, ANY WARRANTIES OR CONDITIONS OF TITLE, NON-INFRINGEMENT, MERCHANTABILITY, OR FITNESS FOR A PARTICULAR PURPOSE. You are solely responsible for determining the appropriateness of using or redistributing the Work and assume any risks associated with Your exercise of permissions under this License.  Neither Licensor nor any Contributor warrants that the Work will be free from bugs, viruses, errors, or other program limitations, nor access to the Internet or to any other service or content through the Work.
+7.      Limitation of Liability, and Indemnification
+
+7.1                   No Liability
+
+In no event and under no legal theory, whether in tort (including negligence), contract, or otherwise, shall any Contributor be liable to You for damages, including any direct, indirect, special, incidental, or consequential damages of any character arising as a result of this License or out of the use or inability to use the Work (including but not limited to damages for loss of goodwill, work stoppage, equipment failure or malfunction, or any and all other commercial damages or losses), even if such Contributor has been advised of the possibility of such damages.  In downloading the Work, You hereby expressly acknowledge that the limitations of liability and damages set forth above are fundamental elements of the basis of the bargain between You and the Contributors, and that the Contributors would not have granted you the licenses to use the work without such limitations.
+
+7.2                   Indemnity
+
+You hereby agree to defend, indemnify and hold harmless each Contributor, their shareholders, members directors, officers, managers, employees, licensees, agents, successors and assigns from and against any and all loss, liability, damages, claims, actions, lawsuits, demands and expenses (including reasonable attorneys’ fees and costs) based directly or indirectly on any third party claim, suit or demand related to Your exploitation of any of the licenses hereby granted and the exploitation of any of such licenses through You and your successors, distributees and assigns.
+
+7.3                   Third Party Beneficiaries
+
+You hereby acknowledge and agree that each Contributor is an intended, express third party beneficiary to this License and may rely on and enforce the provisions of this License against You as if such Contributor had signed this License, to enforce its rights in and to the Work and afforded under this License.
+
+ 
+8.      Technical Support
+
+No Contributor shall be obliged to provide technical support for the Work.
+
+Other than documentation and training materials that may be distributed as part of the Work, no Contributor shall be required to provide training, advice, examples, or other assistance regarding use of the Work.
+
+Resolution of any and all technical problems arising from use of the software, whether due to errors in the Work, errors in Your application of the Work, or changes in the hardware or software environment in which the Work operates, shall be Your sole responsibility, and no Contributor shall be obliged to provide product updates, patches, or bug fixes for any reason.
+9.      Accepting Warranty or Additional Liability
+
+Notwithstanding Section 8 above, while redistributing the Work or Derivative Works thereof, You may choose to offer, and charge a fee for, acceptance of support, warranty, indemnity, or other liability obligations and/or rights (“Support Obligations”) consistent with this License.
+
+In accepting Support Obligations, You shall act only on Your own behalf and on Your sole responsibility, not on behalf of any Contributor.  By accepting Support Obligations, You agree to indemnify, defend, and hold all Contributors harmless for any liability incurred by, or claims asserted against, said Contributors pursuant to Your Support Obligations.
+
+    General
+
+This License shall be governed and construed in accordance with the internal laws of the State of Washington, United States of America, without reference to conflicts of laws principles.  The United Nations Convention on Contracts for the Sale of Goods does not apply to this License.  You agree to submit to the personal and exclusive jurisdiction of the courts located within Whatcom County in the State of Washington.  This License constitutes the entire agreement between the parties with respect to its subject matter, and supersedes any other written or oral agreement.

@@ -1,0 +1,19 @@
+# By downloading or using this file, the user agrees to be bound by the terms of the license 
+# agreement located at http://ocaalliance.com/EULA as an original contracting party.
+#!/bin/bash
+
+export LOGFILE=/dev/null
+export BBE_REV=3.4.0
+export BBE_HOME=~/bbe-${BBE_REV}
+
+export here=`pwd`
+
+export OCA_HOME=$here
+export DANTE_PATH=${BBE_HOME}
+
+pushd $here
+cd ./Src/app/OCA_BKNII
+./buildbin uBlazeRelease
+popd
+
+

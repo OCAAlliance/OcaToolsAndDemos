@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\Platform">
+      <UniqueIdentifier>{6bc6aaa7-2dac-426b-a63c-5eb87d546948}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Platform\HostInterface">
+      <UniqueIdentifier>{69dc7b71-dc5c-4cfd-9f02-9e9adb0a0cba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Platform\HostInterface\OCA">
+      <UniqueIdentifier>{d0cae88d-1598-4f04-a0c7-3a95408960a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Platform\HostInterface\OCA\OCP.1">
+      <UniqueIdentifier>{1fdada5a-449b-4382-8828-9d8d3c46ee83}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Platform\HostInterface\OCA\OCF">
+      <UniqueIdentifier>{d563595d-ac0f-4d83-aeae-3b1e452bfa59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Platform\HostInterface\OCA\OCF\Configuration">
+      <UniqueIdentifier>{59378630-50c3-4003-b6e5-5fdc024d6715}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Platform\HostInterface\OCA\OCF\Logging">
+      <UniqueIdentifier>{58c57f4f-376e-4aca-9cbd-d18cd390b409}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Platform\HostInterface\OCA\OCF\Timer">
+      <UniqueIdentifier>{7bad3d1a-f26d-4f4f-b1fb-79f34b235814}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Platform\HostInterface\OCA\OCP.1\ZeroConf">
+      <UniqueIdentifier>{c54e6e20-7c58-4229-ac4a-6eeb6a81bf2a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Platform\HostInterface\OCA\OCP.1\Network">
+      <UniqueIdentifier>{d93155e4-a864-4d42-8251-1cb01ac91406}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="OCALite.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HostInterface\OCA\OCF\Configuration\OcaLiteOcfConfiguration.cpp">
+      <Filter>Source Files\Platform\HostInterface\OCA\OCF\Configuration</Filter>
+    </ClCompile>
+    <ClCompile Include="HostInterface\OCA\OCF\Logging\OcaLiteOcfLogger.cpp">
+      <Filter>Source Files\Platform\HostInterface\OCA\OCF\Logging</Filter>
+    </ClCompile>
+    <ClCompile Include="HostInterface\OCA\OCF\Timer\OcaLiteOcfTimer.cpp">
+      <Filter>Source Files\Platform\HostInterface\OCA\OCF\Timer</Filter>
+    </ClCompile>
+    <ClCompile Include="HostInterface\OCA\OCP.1\Ocp1HostInterfaceOcaLite.cpp">
+      <Filter>Source Files\Platform\HostInterface\OCA\OCP.1</Filter>
+    </ClCompile>
+    <ClCompile Include="HostInterface\OCA\OCP.1\ZeroConf\OcaLiteOcp1Service.cpp">
+      <Filter>Source Files\Platform\HostInterface\OCA\OCP.1\ZeroConf</Filter>
+    </ClCompile>
+    <ClCompile Include="HostInterface\OCA\OCP.1\Network\OcaLiteOcp1Network.cpp">
+      <Filter>Source Files\Platform\HostInterface\OCA\OCP.1\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="HostInterface\OCA\OCP.1\Network\OcaLiteOcp1Socket.cpp">
+      <Filter>Source Files\Platform\HostInterface\OCA\OCP.1\Network</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

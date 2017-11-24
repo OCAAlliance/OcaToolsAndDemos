@@ -1,0 +1,64 @@
+# By downloading or using this file, the user agrees to be bound by the terms of the license 
+# agreement located at http://ocaalliance.com/EULA as an original contracting party.
+#
+#  Description        :   Makefile for the OCALite proto
+#
+
+NAME_MKE := makefileBIN
+
+TARGETS = stm32
+
+TYPE = DLL
+NAME = OCALiteProto
+
+BSP = OCAStm32F207xxOcaLiteBsp
+BSPLD = "$(OCA_HOME)/Src/app/Stm32CortexM3/Board Support Packages/OCAStm32F207xxOcaLite/OCAStm32F207xxOcaLite-rom.ld"
+
+USRINC = $(OCA_HOME)/../Application/inc; \
+		 $(OCA_HOME)/../Application/inc/tinysvcmdns; \
+		 $(OCA_HOME)/../Libraries/CMSIS/CM3/CoreSupport; \
+		 $(OCA_HOME)/../Libraries/CMSIS/CM3/DeviceSupport/ST/STM32F2xx; \
+		 $(OCA_HOME)/../Libraries/STM32F2x7_ETH_Driver/inc; \
+		 $(OCA_HOME)/../Libraries/STM32F2xx_StdPeriph_Driver/inc; \
+		 $(OCA_HOME)/../Utilities/Third_Party/FreeRTOSV7.1.1/include; \
+		 $(OCA_HOME)/../Utilities/Third_Party/FreeRTOSV7.1.1/portable/GCC/ARM_CM3; \
+		 $(OCA_HOME)/../Utilities/Third_Party/lwip-1.4.1/src/include; \
+		 $(OCA_HOME)/../Utilities/Third_Party/lwip-1.4.1/src/include/lwip; \
+		 $(OCA_HOME)/../Utilities/Third_Party/lwip-1.4.1/src/include/ipv4; \
+		 $(OCA_HOME)/../Utilities/Third_Party/lwip-1.4.1/port/STM32F2x7/FreeRTOS; \
+		 $(OCA_HOME)/../Utilities/Third_Party/lwip-1.4.1/port/STM32F2x7; \
+		 $(OCA_HOME)/Src; \
+		 $(OCA_HOME)/Src/common; \
+		 $(OCA_HOME)/Src/inc; \
+		 $(OCA_HOME)/Src/common/OCALite; \
+		 $(OCA_HOME)/Src/platform; 
+
+USRDEFS = STM32F207xx \
+		  STARTUP_FROM_RESET \
+		  FreeRTOS \
+		  LWIP_BEING_USED
+
+# The order of the libs is important for the GNU linker!
+# A library that depends on another library should before the library it depends on.
+LIBS = OCALiteProtoLIB
+
+SRC_INC = $(OCA_HOME)/../Application/src; \
+		  $(OCA_HOME)/Src/app/OCA_PI; \
+		  $(OCA_HOME)/Src/app/Stm32CortexM3/OCALitePrototype;
+
+SRCS  = stm32f2x7_eth_bsp.c \
+		stm32f2xx_it.c \
+		system_stm32f2xx.c \
+		i2c1_handler.c \
+		persist.c \
+		mac_addr.c \
+		led_matrix.c \
+		encoder.c \
+		usart1handler.c \
+		serial_debug_task.c \
+		main.cpp \
+		newlib_stubs.c \
+		ReducedStdLib.cpp \
+		switch_processing.cpp
+
+include $(OCA_HOME)/Src/makeCpp.inc

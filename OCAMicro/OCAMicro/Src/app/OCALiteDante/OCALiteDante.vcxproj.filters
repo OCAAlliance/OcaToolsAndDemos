@@ -1,0 +1,174 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\Platform">
+      <UniqueIdentifier>{6bc6aaa7-2dac-426b-a63c-5eb87d546948}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Platform\HostInterface">
+      <UniqueIdentifier>{69dc7b71-dc5c-4cfd-9f02-9e9adb0a0cba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Platform\HostInterface\OCA">
+      <UniqueIdentifier>{d0cae88d-1598-4f04-a0c7-3a95408960a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Platform\HostInterface\OCA\OCP.1">
+      <UniqueIdentifier>{1fdada5a-449b-4382-8828-9d8d3c46ee83}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Platform\HostInterface\OCA\OCF">
+      <UniqueIdentifier>{d563595d-ac0f-4d83-aeae-3b1e452bfa59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Platform\HostInterface\OCA\OCF\Configuration">
+      <UniqueIdentifier>{59378630-50c3-4003-b6e5-5fdc024d6715}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Platform\HostInterface\OCA\OCF\Logging">
+      <UniqueIdentifier>{58c57f4f-376e-4aca-9cbd-d18cd390b409}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Platform\HostInterface\OCA\OCF\Timer">
+      <UniqueIdentifier>{7bad3d1a-f26d-4f4f-b1fb-79f34b235814}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Platform\HostInterface\OCA\OCP.1\ZeroConf">
+      <UniqueIdentifier>{c54e6e20-7c58-4229-ac4a-6eeb6a81bf2a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Platform\HostInterface\OCA\OCP.1\Network">
+      <UniqueIdentifier>{d93155e4-a864-4d42-8251-1cb01ac91406}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Platform\HostInterface\Dante">
+      <UniqueIdentifier>{ec8f1d98-7abb-4c89-a8cf-a2afcdf6c0fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\OCALite">
+      <UniqueIdentifier>{31ba6b96-414b-456e-a13d-dbc4ed702d22}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\OCALite\OCC">
+      <UniqueIdentifier>{72066197-fe7d-48f1-9cc3-0940b3c22b05}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\OCALite\OCC\ControlClasses">
+      <UniqueIdentifier>{a2618966-433b-49f0-8636-64762fe58a20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\OCALite\OCC\ControlClasses\Agents">
+      <UniqueIdentifier>{19c1d45b-6c86-458b-ab1d-0eed49f26c01}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\OCALite">
+      <UniqueIdentifier>{90ecfd78-6684-43d0-9b11-03202b0a291b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\OCALite\OCC">
+      <UniqueIdentifier>{2d076cf3-b457-4c2a-945a-fd422c593027}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\OCALite\OCC\ControlClasses">
+      <UniqueIdentifier>{26aa317a-d3b0-47e0-8fde-f4155da66969}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\OCALite\OCC\ControlClasses\Agents">
+      <UniqueIdentifier>{563fc58a-1609-414a-8cf2-692f6fd4d46d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\OCALite\OCC\ControlClasses\Worker">
+      <UniqueIdentifier>{4c4d6757-b199-4ea7-978a-926c16a1f414}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\OCALite\OCC\ControlClasses\Worker">
+      <UniqueIdentifier>{1558d069-395b-40f2-8bd3-2ea3fb27c0ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\OCALite\OCC\ControlClasses\Worker\Networking">
+      <UniqueIdentifier>{2e423576-78ad-4563-94ce-02af1715fdba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\OCALite\OCC\ControlClasses\Worker\Networking">
+      <UniqueIdentifier>{334d977d-d392-49cd-9516-a42e8a3ab8d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Platform">
+      <UniqueIdentifier>{3518b305-5485-4592-b7f8-643c0bb2299d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Platform\HostInterface">
+      <UniqueIdentifier>{3a1821cb-65f2-4275-a46f-448a14026e99}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Platform\HostInterface\Dante">
+      <UniqueIdentifier>{7ef6dad0-873f-48d7-b242-e0ca356d19d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\OCALite\OCC\ControlClasses\Worker\Sensors">
+      <UniqueIdentifier>{1508f3ea-a20c-446f-b0f8-7257126a574d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="HostInterface\OCA\OCF\Configuration\OcaLiteOcfConfiguration.cpp">
+      <Filter>Source Files\Platform\HostInterface\OCA\OCF\Configuration</Filter>
+    </ClCompile>
+    <ClCompile Include="HostInterface\OCA\OCF\Logging\OcaLiteOcfLogger.cpp">
+      <Filter>Source Files\Platform\HostInterface\OCA\OCF\Logging</Filter>
+    </ClCompile>
+    <ClCompile Include="HostInterface\OCA\OCF\Timer\OcaLiteOcfTimer.cpp">
+      <Filter>Source Files\Platform\HostInterface\OCA\OCF\Timer</Filter>
+    </ClCompile>
+    <ClCompile Include="HostInterface\OCA\OCP.1\Ocp1HostInterfaceOcaLite.cpp">
+      <Filter>Source Files\Platform\HostInterface\OCA\OCP.1</Filter>
+    </ClCompile>
+    <ClCompile Include="HostInterface\OCA\OCP.1\ZeroConf\OcaLiteOcp1Service.cpp">
+      <Filter>Source Files\Platform\HostInterface\OCA\OCP.1\ZeroConf</Filter>
+    </ClCompile>
+    <ClCompile Include="HostInterface\OCA\OCP.1\Network\OcaLiteOcp1Network.cpp">
+      <Filter>Source Files\Platform\HostInterface\OCA\OCP.1\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="HostInterface\OCA\OCP.1\Network\OcaLiteOcp1Socket.cpp">
+      <Filter>Source Files\Platform\HostInterface\OCA\OCP.1\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="OCALiteDante.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="OcaLiteNetworkSignalChannel.cpp">
+      <Filter>Source Files\OCALite\OCC\ControlClasses\Worker\Networking</Filter>
+    </ClCompile>
+    <ClCompile Include="OcaLiteNetworkSignalChannelDante.cpp">
+      <Filter>Source Files\OCALite\OCC\ControlClasses\Worker\Networking</Filter>
+    </ClCompile>
+    <ClCompile Include="OcaLiteStreamNetworkDante.cpp">
+      <Filter>Source Files\OCALite\OCC\ControlClasses\Agents</Filter>
+    </ClCompile>
+    <ClCompile Include="OcaLiteStreamNetwork.cpp">
+      <Filter>Source Files\OCALite\OCC\ControlClasses\Agents</Filter>
+    </ClCompile>
+    <ClCompile Include="DanteLiteHostInterface.cpp">
+      <Filter>Source Files\Platform\HostInterface\Dante</Filter>
+    </ClCompile>
+    <ClCompile Include="OcaLiteDanteMediaClock.cpp">
+      <Filter>Source Files\OCALite\OCC\ControlClasses\Agents</Filter>
+    </ClCompile>
+    <ClCompile Include="..\OCA_BKNII\OCALiteOCCFactory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DanteLiteConMon.cpp">
+      <Filter>Source Files\Platform\HostInterface\Dante</Filter>
+    </ClCompile>
+    <ClCompile Include="OcaLiteDanteLvlSensor.cpp">
+      <Filter>Source Files\OCALite\OCC\ControlClasses\Worker\Sensors</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="OcaLiteNetworkSignalChannel.h">
+      <Filter>Header Files\OCALite\OCC\ControlClasses\Worker\Networking</Filter>
+    </ClInclude>
+    <ClInclude Include="OcaLiteNetworkSignalChannelDante.h">
+      <Filter>Header Files\OCALite\OCC\ControlClasses\Worker\Networking</Filter>
+    </ClInclude>
+    <ClInclude Include="OcaLiteStreamNetwork.h">
+      <Filter>Header Files\OCALite\OCC\ControlClasses\Agents</Filter>
+    </ClInclude>
+    <ClInclude Include="OcaLiteStreamNetworkDante.h">
+      <Filter>Header Files\OCALite\OCC\ControlClasses\Agents</Filter>
+    </ClInclude>
+    <ClInclude Include="DanteLiteHostInterface.h">
+      <Filter>Header Files\Platform\HostInterface\Dante</Filter>
+    </ClInclude>
+    <ClInclude Include="OcaLiteDanteMediaClock.h">
+      <Filter>Source Files\OCALite\OCC\ControlClasses\Agents</Filter>
+    </ClInclude>
+    <ClInclude Include="OcaLiteDanteLvlSensor.h">
+      <Filter>Source Files\OCALite\OCC\ControlClasses\Worker\Sensors</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
