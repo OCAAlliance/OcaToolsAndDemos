@@ -130,10 +130,13 @@ public:
      * Sets the socket connection parameters.
      *
      * @param[in]   sessionID       The session ID for this socket connection
-     * @param[in]   timeout         Timeout to use for KeepAlive messages in seconds
+     * @param[in]   timeout         Timeout to use for KeepAlive messages in seconds.
+     * @param[in]   keepAliveInMilliseconds indicates if the KeepAlive messages timeout is in seconds or milliseconds
      */
     void SetSocketConnectionParameters(::OcaSessionID sessionID,
-                                       ::OcaUint16 timeout);
+                                       ::OcaUint32 timeout,
+                                       bool keepAliveInMilliseconds = false);
+
 
     /**
      * Are there pending messages for this socket connection?
@@ -182,7 +185,7 @@ private:
      *          sending the keepalive succeeded; OCASTATUS_PARTIALLY_SUCCEEDED or OCASTATUS_BUFFER_OVERFLOW
      *          if sending the keepalive did not succeed due to local issues (socket buffer overflow)
      */
-    ::OcaLiteStatus SendKeepAlive(::OcaUint16 heartBeatTimeOut, ::OcaUint32 messageSendBufferSize, 
+    ::OcaLiteStatus SendKeepAlive(::OcaUint32 heartBeatTimeOut, ::OcaUint32 messageSendBufferSize, 
                                   ::OcaUint8* pMessageSendBuffer);
 
     /**
@@ -212,6 +215,8 @@ private:
 
     /** Socket state */
     SocketState                 m_socketState;
+    /** Indicates that a keep alive time received is in seconds or milliseconds. */
+    bool                        m_isKeepAliveInMilliseconds;
 
     /** Buffer to use for storing received message */
     ::OcaUint8*                 m_pMessageReceiveBuffer;
@@ -232,7 +237,7 @@ private:
     ::OcaUint32                 m_bytesLeft;
 
     /** Nr of seconds between keep alive messages */
-    ::OcaUint16                 m_keepAliveTimeOut;
+    ::OcaUint32                 m_keepAliveTimeOut;
 
     /** Message state */
     OcaLiteMessageState             m_messageState;

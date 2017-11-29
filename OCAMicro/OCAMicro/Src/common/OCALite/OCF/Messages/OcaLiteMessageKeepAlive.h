@@ -39,12 +39,28 @@ public:
     }
 
     /**
+     * Getter for HeartBeatTime.
+     *
+     * @return m_HeartBeatTimeInMIlliseconds
+     */
+    ::OcaUint32 GetHeartBeatTimeInMilliseconds() const
+    {
+        return m_heartBeatTimeInMilliseconds;
+    }
+
+    /**
      * Writes the keep alive parameters to the message
      *
      * @param[in]   heartBeatTime       The heart beat time in seconds.
      */
     void WriteParameters(::OcaUint16 heartBeatTime);
 
+    /**
+     * Writes the keep alive parameters to the message
+     *
+     * @param[in]   heartBeatTimeInMilliseconds       The heart beat time in milliseconds.
+     */
+    void WriteParameters(::OcaUint32 heartBeatTimeInMilliseconds);
 protected:
     /**
      * Constructor
@@ -58,6 +74,8 @@ private:
     /** HeartBeatTime in seconds */
     ::OcaUint16          m_heartBeatTime;
 
+    /** HeartBeatTime in milliseconds */
+    ::OcaUint32          m_heartBeatTimeInMilliseconds;
     /** Private copy constructor; no copying of object allowed. */
     OcaLiteMessageKeepAlive(const ::OcaLiteMessageKeepAlive&);
     /** Private assignment operator; no assignment of object allowed. */

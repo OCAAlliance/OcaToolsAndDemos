@@ -37,13 +37,14 @@ Ocp1LiteSocketConnection::Ocp1LiteSocketConnection(::Ocp1LiteNetwork& network,
       m_sessionID(OCA_INVALID_SESSIONID),
       m_socket(-1),
       m_socketState(SOCKET_NOT_CONNECTED),
+      m_isKeepAliveInMilliseconds(false),
       m_pMessageReceiveBuffer(new ::OcaUint8[static_cast<size_t>(bufferSize)]),
       m_messageBufferSize(bufferSize),
       m_lastMessageSentTime(static_cast< ::OcaUint32>(0)),
       m_lastMessageReceivedTime(static_cast< ::OcaUint32>(0)),
       m_totalLength(static_cast< ::OcaUint32>(0)),
       m_bytesLeft(static_cast< ::OcaUint32>(0)),
-      m_keepAliveTimeOut(static_cast< ::OcaUint16>(0)),
+      m_keepAliveTimeOut(static_cast< ::OcaUint32>(0)),
       m_messageState(OCA_MSG_STATE_SYNC_FIND),
       m_pCurrentHeader(new ::Ocp1LiteMessageHeader),
       m_pduBytesLeft(static_cast< ::OcaUint32>(0)),
@@ -216,10 +217,12 @@ bool Ocp1LiteSocketConnection::HasPendingMessage() const
 }
 
 void Ocp1LiteSocketConnection::SetSocketConnectionParameters(::OcaSessionID sessionID,
-                                                             ::OcaUint16 timeout)
+                                                             ::OcaUint32 timeout, 
+                                                             bool keepAliveInMilliseconds)
 {
     m_sessionID = sessionID;
     m_keepAliveTimeOut = timeout;
+    m_isKeepAliveInMilliseconds = keepAliveInMilliseconds;
 
     // Reset the connection handling members
     m_socketState = SOCKET_CONNECTED;    
@@ -233,7 +236,7 @@ void Ocp1LiteSocketConnection::SetSocketConnectionParameters(::OcaSessionID sess
     m_messageBytesLeft = static_cast< ::OcaUint32>(0);
 }
 
-::OcaLiteStatus Ocp1LiteSocketConnection::SendKeepAlive(::OcaUint16 heartBeatTimeOut, ::OcaUint32 messageSendBufferSize, 
+::OcaLiteStatus Ocp1LiteSocketConnection::SendKeepAlive(::OcaUint32 heartBeatTimeOut, ::OcaUint32 messageSendBufferSize, 
                                                         ::OcaUint8* pMessageSendBuffer)
 {
     ::OcaLiteStatus status(OCASTATUS_PROCESSING_FAILED);
@@ -243,8 +246,14 @@ void Ocp1LiteSocketConnection::SetSocketConnectionParameters(::OcaSessionID sess
         if (NULL != pMsg)
         {
             ::Ocp1LiteMessageKeepAlive* pMsgKeepAlive(static_cast< ::Ocp1LiteMessageKeepAlive*>(pMsg)); //lint !e1774 Use static_cast since message type is known
-            pMsgKeepAlive->WriteParameters(heartBeatTimeOut);
-
+            if (m_isKeepAliveInMilliseconds)
+            {
+                pMsgKeepAlive->WriteParameters(heartBeatTimeOut);
+            }
+            else
+            {
+                pMsgKeepAlive->WriteParameters(static_cast< ::OcaUint16>(heartBeatTimeOut));
+            }
             status = SendOcaMessage(pMsgKeepAlive, m_parent.GetWriter(), messageSendBufferSize, pMessageSendBuffer);
 
             m_parent.ReturnMessage(pMsg);
@@ -258,21 +267,25 @@ bool Ocp1LiteSocketConnection::HandleKeepAlive(::OcaUint32 messageSendBufferSize
                                                ::OcaUint8* pMessageSendBuffer)
 {
     bool connectionValid(true);
-    if (m_keepAliveTimeOut > static_cast< ::OcaUint16>(0))
+    if (m_keepAliveTimeOut > static_cast< ::OcaUint32>(0))
     {
         if (static_cast< ::OcaUint32>(0) == m_lastMessageReceivedTime)
         {
             // First keep alive is sent, mark last receive time as current time.
             m_lastMessageReceivedTime = static_cast< ::OcaUint32>(::OcfLiteTimerGetTimerTickCount());
         }
-
-        if ((OcfLiteTimerGetTimerTickCount() - static_cast<UINT32>(m_lastMessageReceivedTime)) >= static_cast<UINT32>(static_cast<UINT32>(m_keepAliveTimeOut) * 1000 * MAX_KEEPALIVE_MISSED))
+        UINT32 multiplier(1000);
+        if (m_isKeepAliveInMilliseconds)
+        {
+            multiplier = 1;
+        }
+        if ((OcfLiteTimerGetTimerTickCount() - static_cast<UINT32>(m_lastMessageReceivedTime)) >= static_cast<UINT32>(static_cast<UINT32>(m_keepAliveTimeOut) * multiplier * MAX_KEEPALIVE_MISSED))
         {
             OCA_LOG_WARNING_PARAMS("Not received any message for %i secs on session %u", static_cast<int>(m_keepAliveTimeOut) * MAX_KEEPALIVE_MISSED, m_sessionID);
             connectionValid = false;
             m_socketState = SOCKET_NOT_CONNECTED;
         }
-        else if (OcfLiteTimerGetTimerTickCount() - static_cast<UINT32>(m_lastMessageSentTime) >= static_cast<UINT32>(m_keepAliveTimeOut) * 1000)
+        else if (OcfLiteTimerGetTimerTickCount() - static_cast<UINT32>(m_lastMessageSentTime) >= static_cast<UINT32>(m_keepAliveTimeOut) * multiplier)
         {
             // Send a keep alive message
             if (OCASTATUS_PROCESSING_FAILED == SendKeepAlive(static_cast< ::OcaUint16>(m_keepAliveTimeOut), messageSendBufferSize, pMessageSendBuffer))
@@ -385,17 +398,29 @@ void Ocp1LiteSocketConnection::ReceiveFromSocket(::OcaBoolean dataAvailable)
                             if (NULL != mess)
                             {
                                 const ::OcaUint8* pMessageData(m_pMessageReceiveBuffer + (m_totalLength - m_bytesLeft));
-                                if (mess->Unmarshal(m_bytesLeft, &pMessageData, m_parent.GetReader()))
+                                // Keep alive heartbeat size to be passed for unmarshalling
+                                ::OcaUint32 keepAliveSizeCopy(keepAliveSize);
+                                if (mess->Unmarshal(keepAliveSizeCopy, &pMessageData, m_parent.GetReader()))
                                 {
-                                    if (static_cast< ::OcaUint16>(0) == m_keepAliveTimeOut)
+                                    if (static_cast< ::OcaUint32>(0) == m_keepAliveTimeOut)
                                     {
                                         //lint -e{1774} Use static_cast since message type is known
                                         ::OcaLiteMessageKeepAlive* keepAliveMessage(static_cast< ::OcaLiteMessageKeepAlive*>(mess));
-                                        m_keepAliveTimeOut = keepAliveMessage->GetHeartBeatTime();
+                                        if (keepAliveMessage->GetHeartBeatTimeInMilliseconds() != (static_cast< ::OcaUint32>(0)))
+                                        {
+                                            m_isKeepAliveInMilliseconds = true;
+                                            m_keepAliveTimeOut = keepAliveMessage->GetHeartBeatTimeInMilliseconds();
+                                        }
+                                        else if (keepAliveMessage->GetHeartBeatTime() != (static_cast< ::OcaUint16>(0)))
+                                        {
+                                            m_isKeepAliveInMilliseconds = false;
+                                            m_keepAliveTimeOut = static_cast< ::OcaUint32>(keepAliveMessage->GetHeartBeatTime());
+                                        }
                                     }
                                 }
                                 m_parent.ReturnMessage(mess);
 
+                                m_bytesLeft -= keepAliveSize;
                                 m_pduBytesLeft -= keepAliveSize;
                                 m_messageBytesLeft = static_cast< ::OcaUint32>(0);
                                 m_lastMessageReceivedTime = static_cast< ::OcaUint32>(::OcfLiteTimerGetTimerTickCount());
