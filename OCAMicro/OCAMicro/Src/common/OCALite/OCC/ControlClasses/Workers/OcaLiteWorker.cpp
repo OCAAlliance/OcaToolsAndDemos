@@ -43,7 +43,10 @@ OcaLiteWorker::OcaLiteWorker(::OcaONo objectNumber, ::OcaBoolean lockable, const
 
 OcaLiteWorker::~OcaLiteWorker()
 {
-    ::OcaLiteBlock::GetRootBlock().RemoveObject(GetObjectNumber());
+    if (GetObjectNumber() != OCA_ROOT_BLOCK_ONO)
+    {
+        ::OcaLiteBlock::GetRootBlock().RemoveObject(GetObjectNumber());
+    }
 }
 
 ::OcaLiteStatus OcaLiteWorker::GetEnabled(::OcaBoolean& enabled) const
@@ -200,6 +203,7 @@ OcaLiteWorker::~OcaLiteWorker()
             case GET_OWNER:
             case GET_LATENCY:
             case SET_LATENCY:
+            case GET_PATH:
             case ADD_PORT:
             case DELETE_PORT:
                 rc = OCASTATUS_NOT_IMPLEMENTED;

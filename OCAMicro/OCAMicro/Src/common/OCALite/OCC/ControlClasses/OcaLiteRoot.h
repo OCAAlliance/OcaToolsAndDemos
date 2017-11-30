@@ -78,7 +78,9 @@ public:
         /** Unlock() */
         UNLOCK                      = 4,
         /** GetRole() */
-        GET_ROLE                    = 5
+        GET_ROLE                    = 5,
+        /** LockReadOnly() */
+        LOCK_READONLY               = 6
     };
 
     /** Property indexes for the supported properties. */

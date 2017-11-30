@@ -82,7 +82,19 @@ public:
         /** GetCurrentParamSetData() */
         GET_CURRENT_PARAMSET_DATA               = 13,
         /** StoreCurrentParamSetData() */
-        STORE_CURRENT_PARAMSET_DATA             = 14
+        STORE_CURRENT_PARAMSET_DATA             = 14,
+        /** GetGlobalType() */
+        GET_GLOBAL_TYPE                         = 15,
+        /** GetONoMap() */
+        GET_ONO_MAP                             = 16,
+        /** FindObjectsByRole() */
+        FIND_OBJECTS_BY_ROLE                    = 17,
+        /** FindObjectsByRoleRecursive() */
+        FIND_OBJECTS_BY_ROLE_RECURSIVE          = 18,
+        /** FindObjectsByLabelRecursive() */
+        FIND_OBJECTS_BY_LABEL_RECURSIVE         = 19,
+        /** FindObjectsByPath() */
+        FIND_OBJECTS_BY_PATH                    = 20
     };
 
     /** Property indexes for the supported properties. */
@@ -98,7 +110,18 @@ public:
         /** List of signal paths in the block. */
         OCA_PROP_SIGNAL_PATHS                       = 3,
         /** Library volume identifier of the paramset most recently applied to this block. */
-        OCA_PROP_MOST_RECENT_PARAM_SET_IDENTIFIER   = 4
+        OCA_PROP_MOST_RECENT_PARAM_SET_IDENTIFIER   = 4,
+        /**
+        * Global block type identifier for reusable blocks.
+        * @note This property is available since OCA 1.4.
+        */
+        OCA_PROP_GLOBAL_TYPE = 5,
+        /**
+        * For blocks constructed by factories. Map that indicates the actual ONos allocated to the constructing
+        * OcaBlockFactory's prototype ONos. Key is prototype ONo, value is actual ONo.
+        * @note This property is available since OCA 1.4.
+        */
+        OCA_PROP_ONO_MAP = 6
     };    
 
     /**
@@ -175,6 +198,17 @@ public:
      */
     ::OcaLiteRoot* GetObject(::OcaONo oNo);
 
+    /**
+     * Gets the object pointer of the object that has the specified object number.
+     * It recurses all the block members to find the object. Only for internal use.
+     * Implementation equals GetObject, GetObject is however sometimes not usable on platforms.
+     *
+     * @param[in] oNo   The object number of the object.
+     * @return Pointer to the object. If no object with that number exists
+     *         a null pointer is returned.
+     *
+    ::OcaLiteRoot* GetOCAObject(::OcaONo oNo);
+
     virtual void SessionLost(::OcaSessionID sessionID);
 
     virtual ::OcaLiteStatus Execute(const ::IOcaLiteReader& reader, const ::IOcaLiteWriter& writer, ::OcaSessionID sessionID, const ::OcaLiteMethodID& methodID,
@@ -215,7 +249,7 @@ private:
     typedef std::map< ::OcaONo, ::OcaLiteRoot*> OcaMemberList;
     OcaMemberList                           m_members;
 
-	/** List of members of type OcaBlock */
+    /** List of members of type OcaBlock */
     typedef std::vector< ::OcaLiteBlock*>       OcaLiteBlockList;
     OcaLiteBlockList                            m_blocks;
 };

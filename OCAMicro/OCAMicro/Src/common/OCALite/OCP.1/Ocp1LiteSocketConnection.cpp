@@ -317,7 +317,7 @@ void Ocp1LiteSocketConnection::ReceiveFromSocket(::OcaBoolean dataAvailable)
             else
             {
                 m_socketState = SOCKET_NOT_CONNECTED;
-                OCA_LOG_INFO_PARAMS("Lost connection to session %u", m_sessionID);
+                OCA_LOG_INFO_PARAMS("Lost connection to session %u (received bytes %d)", m_sessionID, bytesReceived);
             }
         }
 

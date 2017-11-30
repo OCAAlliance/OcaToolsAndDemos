@@ -58,6 +58,7 @@ OcaLiteAgent::~OcaLiteAgent()
             case GET_LABEL:
             case SET_LABEL:
             case GET_OWNER:
+            case GET_PATH:
                 rc = OCASTATUS_NOT_IMPLEMENTED;
                 break;
             default:

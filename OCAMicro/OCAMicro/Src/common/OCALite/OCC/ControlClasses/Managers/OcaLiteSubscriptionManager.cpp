@@ -242,8 +242,36 @@ void OcaLiteSubscriptionManager::FreeInstance()
                     }
                 }
                 break;
+            case GET_MAXIMUM_SUBSCRIBER_CONTEXT_LENGTH:
+                {
+                    ::OcaUint8 numberOfParameters(0);
+                    if (reader.Read(bytesLeft, &pCmdParameters, numberOfParameters) &&
+                        (0 == numberOfParameters))
+                    {
+                        ::OcaUint32 responseSize(::GetSizeValue< ::OcaUint8>(static_cast< ::OcaUint8>(0), writer) + ::GetSizeValue< ::OcaUint16>(static_cast< ::OcaUint16>(0), writer));
+                        responseBuffer = ::OcaLiteCommandHandler::GetInstance().GetResponseBuffer(responseSize);
+                        if (NULL != responseBuffer)
+                        {
+                            rc = OCASTATUS_OK;
+
+                            ::OcaUint8* pResponse(responseBuffer);
+                            writer.Write(static_cast<::OcaUint8>(1/*NrParameters*/), &pResponse);
+                            writer.Write(static_cast<::OcaUint16>(0/*ContextSize*/), &pResponse);
+
+                            *response = responseBuffer;
+                        }
+                        else
+                        {
+                            rc = OCASTATUS_BUFFER_OVERFLOW;
+                        }
+                    }
+                }
+                break;
             case DISABLE_NOTIFICATIONS:
             case RE_ENABLE_NOTIFICATIONS:
+            case REMOVE_SUBSCRIPTION_SPECIFIC:
+            case ADD_PROPERTY_CHANGE_SUBSCRIPTION:
+            case REMOVE_PROPERTY_CHANGE_SUBSCRIPTION:
                 rc = OCASTATUS_NOT_IMPLEMENTED;
                 break;
             default:
@@ -344,7 +372,7 @@ OcaLiteSubscriptionManager::OcaEventController::~OcaEventController()
 ::OcaLiteStatus OcaLiteSubscriptionManager::OcaEventController::AddSubscription(::OcaSessionID sessionID,
                                                                                 const ::OcaLiteEvent& ocaEvent,
                                                                                 const ::OcaLiteMethod& subscriber,
-                                                                                const ::OcaLiteBlob& context,
+                                                                                const ::OcaLiteBlob&,
                                                                                 ::OcaLiteNotificationDeliveryMode deliveryMode,
                                                                                 const ::OcaLiteNetworkAddress& destInfo)
 {
@@ -375,8 +403,8 @@ OcaLiteSubscriptionManager::OcaEventController::~OcaEventController()
         while ((ed_iter != m_eventDestinations.end()) &&
                (OCASTATUS_OK == rc))
         {
-            if ((ed_iter->GetSubscriber()   == subscriber) &&
-                (ed_iter->GetSessionID()    == sessionID))
+            if ((ed_iter->GetSubscriber() == subscriber) &&
+                (ed_iter->GetSessionID() == sessionID))
             {
                 rc = OCASTATUS_INVALID_REQUEST;
             }
@@ -389,7 +417,7 @@ OcaLiteSubscriptionManager::OcaEventController::~OcaEventController()
 
     if (OCASTATUS_OK == rc)
     {
-        OcaEventDestination eventDestination(subscriber, sessionID, deliveryMode, context, destInfo);
+        OcaEventDestination eventDestination(subscriber, sessionID, deliveryMode, destInfo);
         m_eventDestinations.push_back(eventDestination);
     }
     return rc;
@@ -424,9 +452,9 @@ void OcaLiteSubscriptionManager::OcaEventController::OnEvent(const ::OcaLiteEven
         ::OcaSessionID sessionID(ed_iter->GetSessionID());
             
         ::OcaLiteNotificationData OcaLiteNotificationData(ed_iter->GetSubscriber().GetONo(),
-                                                  ed_iter->GetSubscriber().GetMethodID(),
-                                                  ed_iter->GetContext(),
-                                                  &eventData);
+                                                          ed_iter->GetSubscriber().GetMethodID(),
+                                                          ::OcaLiteBlob(), // Always provide an empty context since we don't support context
+                                                          &eventData);
 
         // Send the notification directly
         if (::OcaLiteCommandHandler::GetInstance().SendNotification(ed_iter->GetDeliveryMode(),

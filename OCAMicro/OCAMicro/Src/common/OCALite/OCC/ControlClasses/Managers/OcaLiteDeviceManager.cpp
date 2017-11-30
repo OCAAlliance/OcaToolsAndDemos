@@ -632,6 +632,7 @@ void OcaLiteDeviceManager::SessionLost(::OcaSessionID sessionID)
             case CLEAR_RESET_CAUSE:
             case GET_MESSAGE:
             case SET_MESSAGE:
+            case GET_DEVICE_REVISION_ID:
                 rc = OCASTATUS_NOT_IMPLEMENTED;
                 break;
             default:

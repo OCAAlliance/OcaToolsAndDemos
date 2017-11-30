@@ -44,7 +44,9 @@ public:
         /** SetLabel() */
         SET_LABEL               = 2,
         /** GetOwner() */
-        GET_OWNER               = 3
+        GET_OWNER               = 3,
+        /** GetPath() */
+        GET_PATH                = 4
     };
 
     /** Property indexes for the supported properties. */

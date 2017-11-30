@@ -224,6 +224,10 @@ void OcaLiteNetworkManager::RemoveStreamNetwork(const ::OcaLiteAgent& network)
                     }
                 }
                 break;
+            case GET_CONTROL_NETWORKS:
+            case GET_MEDIA_TRANSPORT_NETWORKS:
+                rc = OCASTATUS_NOT_IMPLEMENTED;
+                break;
             default:
                 rc = OCASTATUS_BAD_METHOD;
                 break;

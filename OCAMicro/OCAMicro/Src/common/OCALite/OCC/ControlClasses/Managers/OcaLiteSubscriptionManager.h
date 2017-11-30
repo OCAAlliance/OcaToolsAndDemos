@@ -57,13 +57,21 @@ public:
     enum MethodIndex
     {
         /** AddSubscription() */
-        ADD_SUBSCRIPTION                = 1,
+        ADD_SUBSCRIPTION                        = 1,
         /** RemoveSubscription() */
-        REMOVE_SUBSCRIPTION             = 2,
+        REMOVE_SUBSCRIPTION                     = 2,
         /** DisableNotifications() */
-        DISABLE_NOTIFICATIONS           = 3,
+        DISABLE_NOTIFICATIONS                   = 3,
         /** ReEnableNotifications() */
-        RE_ENABLE_NOTIFICATIONS         = 4
+        RE_ENABLE_NOTIFICATIONS                 = 4,
+        /** RemoveSubscriptionSpecific() */
+        REMOVE_SUBSCRIPTION_SPECIFIC            = 5,
+        /** AddPropertyChangeSubscription() */
+        ADD_PROPERTY_CHANGE_SUBSCRIPTION        = 6,
+        /** RemovePropertyChangeSubscription() */
+        REMOVE_PROPERTY_CHANGE_SUBSCRIPTION     = 7,
+        /** GetMaximumSubscriberContextLength() */
+        GET_MAXIMUM_SUBSCRIBER_CONTEXT_LENGTH   = 8
     };
 
     /** Property indexes for the supported properties. */
@@ -332,18 +340,15 @@ public:
              * @param[in]  subscriber       Method subscriber
              * @param[in]  OcaSessionID     The network session
              * @param[in]  deliveryMode     Notification delivery mode
-             * @param[in]  context          Subscriber context
              * @param[in]  destInfo         Destination information
              */
             OcaEventDestination(const ::OcaLiteMethod& subscriber,
                                 ::OcaSessionID OcaSessionID,
                                 ::OcaLiteNotificationDeliveryMode deliveryMode,
-                                const ::OcaLiteBlob& context,
                                 const ::OcaLiteNetworkAddress& destInfo)
                 : m_subscriber(subscriber),
                   m_OcaLiteSessionID(OcaSessionID),
                   m_deliveryMode(deliveryMode),
-                  m_context(context),
                   m_destInfo(destInfo)
             {
             }
@@ -382,16 +387,6 @@ public:
             }
 
             /**
-             * Getter for the context
-             *
-             * @return The context
-             */
-            const ::OcaLiteBlob& GetContext() const
-            {
-                return m_context;
-            }
-
-            /**
              * Getter for the destination information
              *
              * @return The destination information
@@ -406,11 +401,9 @@ public:
             ::OcaLiteMethod                     m_subscriber;
             /** Session ID of the network session on which the OCA notification message
                 must be sent.*/
-            ::OcaSessionID                  m_OcaLiteSessionID;
+            ::OcaSessionID                      m_OcaLiteSessionID;
             /** Network notification delivery mode */
             ::OcaLiteNotificationDeliveryMode   m_deliveryMode;
-            /** Context */
-            ::OcaLiteBlob                       m_context;
             /** Destination information */
             ::OcaLiteNetworkAddress             m_destInfo;
         };

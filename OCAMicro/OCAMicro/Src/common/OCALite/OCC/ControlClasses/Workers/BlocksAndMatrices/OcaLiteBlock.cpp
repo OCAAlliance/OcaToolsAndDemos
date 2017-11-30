@@ -239,6 +239,11 @@ void OcaLiteBlock::RemoveObject(::OcaONo oNo)
     return pObject;
 }
 
+::OcaLiteRoot* OcaLiteBlock::GetOCAObject(::OcaONo oNo)
+{
+    return GetObject(oNo);
+}
+
 void OcaLiteBlock::SessionLost(::OcaSessionID sessionID)
 {
     for (OcaMemberList::iterator iter(m_members.begin()); m_members.end() != iter; ++iter)
@@ -336,6 +341,12 @@ void OcaLiteBlock::SessionLost(::OcaSessionID sessionID)
             case APPLY_PARAMSET:
             case GET_CURRENT_PARAMSET_DATA:
             case STORE_CURRENT_PARAMSET_DATA:
+            case GET_GLOBAL_TYPE:
+            case GET_ONO_MAP:
+            case FIND_OBJECTS_BY_ROLE:
+            case FIND_OBJECTS_BY_ROLE_RECURSIVE:
+            case FIND_OBJECTS_BY_LABEL_RECURSIVE:
+            case FIND_OBJECTS_BY_PATH:
                 rc = OCASTATUS_NOT_IMPLEMENTED;
                 break;
             default:

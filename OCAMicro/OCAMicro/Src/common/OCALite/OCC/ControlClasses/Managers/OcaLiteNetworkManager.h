@@ -42,9 +42,13 @@ public:
     enum MethodIndex
     {
         /** GetNetworks() */
-        GET_NETWORKS            = 1,
+        GET_NETWORKS                    = 1,
         /** GetStreamNetworks() */
-        GET_STREAM_NETWORKS     = 2
+        GET_STREAM_NETWORKS             = 2,
+        /** GetControlNetworks() */
+        GET_CONTROL_NETWORKS            = 3,
+        /** GetMediaTransportNetworks() */
+        GET_MEDIA_TRANSPORT_NETWORKS    = 4
     };
 
     /** Property indexes for the supported properties. */
@@ -52,9 +56,13 @@ public:
     enum PropertyIndex
     {
         /** Object numbers of OcaLiteNetwork objects, one for each network to which this device belongs. */
-        OCA_PROP_NETWORKS           = 1,
+        OCA_PROP_NETWORKS                 = 1,
         /** Object numbers of OcaStreamNetwork objects, one for each stream network to which this device belongs. */
-        OCA_PROP_STREAM_NETWORKS    = 2
+        OCA_PROP_STREAM_NETWORKS          = 2,
+        /** Object numbers of OcaControlNe twork objects, one for each control network to which this device belongs. */
+        OCA_PROP_CONTROL_NETWORKS         = 3,
+        /** Object numbers of OcaMediaTransportNetwork objects, one for each media transport network to which this device belongs. */
+        OCA_PROP_MEDIA_TRANSPORT_NETWORKS = 4
     };
 
     /**

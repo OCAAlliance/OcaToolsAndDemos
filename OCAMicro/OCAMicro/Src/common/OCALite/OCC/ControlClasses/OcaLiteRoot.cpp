@@ -26,7 +26,7 @@ static const ::OcaUint16        classID[]   = {OCA_ROOT_CLASSID};
 const ::OcaLiteClassID          OcaLiteRoot::CLASS_ID(static_cast< ::OcaUint16>(sizeof(classID) / sizeof(classID[0])), classID);
 
 /** Defines the class version of this class. */
-#define CLASS_VERSION       static_cast< ::OcaClassVersionNumber>(1)
+#define CLASS_VERSION       static_cast< ::OcaClassVersionNumber>(2)
 
 // ---- Helper functions ----
 
@@ -283,6 +283,9 @@ OcaLiteRoot::~OcaLiteRoot()
                         }
                     }
                 }
+                break;
+            case LOCK_READONLY:
+                rc = OCASTATUS_NOT_IMPLEMENTED;
                 break;
             default:
                 rc = OCASTATUS_BAD_METHOD;

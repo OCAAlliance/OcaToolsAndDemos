@@ -109,7 +109,9 @@ public:
         /** Setmessage() */
         SET_MESSAGE             = 18,
         /** GetManagers() */
-        GET_MANAGERS            = 19
+        GET_MANAGERS            = 19,
+        /** GetDeviceRevisionID() */
+        GET_DEVICE_REVISION_ID  = 20
     };
 
     /** Property indexes for the supported properties. */
@@ -144,7 +146,9 @@ public:
             of the text is devicedependent */
         OCA_PROP_MESSAGE                = 12,
         /** List of all manager object instantiated in this device */
-        OCA_PROP_MANAGERS               = 13
+        OCA_PROP_MANAGERS               = 13,
+        /** Overall device revision identifier.  Format of string is manufacturer-specific. */
+        OCA_PROP_DEVICE_REVISION_ID     = 14
     };
 
     /** Device operational state. */

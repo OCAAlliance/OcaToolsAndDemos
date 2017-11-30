@@ -66,7 +66,9 @@ public:
         /** GetLatency() */
         GET_LATENCY         = 11,
         /** SetLatency() */
-        SET_LATENCY         = 12
+        SET_LATENCY         = 12,
+        /** GetPath() */
+        GET_PATH            = 13
     };
 
     /** Property indexes for the supported properties. */
