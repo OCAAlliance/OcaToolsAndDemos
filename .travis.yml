@@ -8,6 +8,7 @@ addons:
       - libc6-i386
       - gcc-arm-none-eabi
       - libnewlib-arm-none-eabi
+      - libstdc++-arm-none-eabi-newlib
 
 script:
   - arm-none-eabi-gcc --version
