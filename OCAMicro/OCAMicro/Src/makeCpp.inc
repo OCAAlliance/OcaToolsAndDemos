@@ -25,7 +25,7 @@ ifeq ($(IGNORE_MAKE_ERRORS),Y)
   PREFIX := -@
 else
   ifneq ($(DISPLAY_MAKE_CMDS),Y)
-	PREFIX := @
+	PREFIX := 
   endif
 endif
 #
