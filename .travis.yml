@@ -5,11 +5,9 @@ sudo: false
 addons:
   apt:
     packages:
-      libc6-i386
+      - libc6-i386
+      - gcc-arm-none-eabi
 
-cache:
-  directories:
-    - $HOME/gcc-arm-none-eabi
 
 script:
   - cd OCAMicro/OCAMicro
