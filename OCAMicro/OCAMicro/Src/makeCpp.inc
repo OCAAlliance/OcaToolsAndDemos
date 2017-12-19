@@ -450,7 +450,7 @@ $(OUTFILE): $(INTDIR)/$(NAME).x $(OBJS) $(LIBS) $(NAME_MKE)
     ifeq ($(PLATFORM),uBlazeApp)
 	$(PREFIX)$(subst \,/,$(LD)) $(subst \,/,$(LDFLAGS)) $(foreach obj,$(OBJS),$(INTDIR)/$(obj)) $(LIBS) $(UBLAZESYSTEMLIBS)
     else
-	$(PREFIX)$(LD) $(LDFLAGS) @$(LSTFILE)
+	$(PREFIX)$(subst \,/,$(LD)) $(subst \,/,$(LDFLAGS)) @$(LSTFILE)
     endif
 	$(PREFIX)$(subst _FILE_,$(LSTFILE),$(subst _COMMAND_,$(RM) $(LSTFILE),$(IFEXIST)))
 
