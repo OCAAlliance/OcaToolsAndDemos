@@ -7,6 +7,7 @@ addons:
     packages:
       - libc6-i386
       - gcc-arm-none-eabi
+      - libnewlib-arm-none-eabi
 
 script:
   - arm-none-eabi-gcc --version
