@@ -73,7 +73,7 @@ ifneq ($(PLATFORM),)
     SD := gcc -M
     SE := sed
     RM := erase /F
-    MD := mkdir
+    MD := mkdir -p
     RN := ren _PATH__OLDNAME_ _NEWNAME_
     RD := rd /s/q
     RC :=
