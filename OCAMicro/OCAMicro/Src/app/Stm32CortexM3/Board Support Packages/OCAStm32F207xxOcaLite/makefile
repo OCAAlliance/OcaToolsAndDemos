@@ -3,7 +3,6 @@
 #
 #  Description        :   Makefile for the OCAStm32F437xxOcaLite Board Support Package.
 # 
-
 TARGETS = stm32
 
 TYPE = LIB
@@ -11,8 +10,6 @@ NAME = OCAStm32F207xxOcaLiteBsp
 
 SRC_INC =
 
-ifneq ($(RELEASE),Lint)
 SRCS = OCAStm32F207xxOcaLite-reset.S 
-endif
 
 include $(OCA_HOME)/Src/makeCpp.inc
