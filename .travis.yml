@@ -10,6 +10,7 @@ addons:
 
 script:
   - arm-none-eabi-gcc --version
+  - make --version
   - cd OCAMicro/OCAMicro
   - export OCA_HOME=`pwd`
   - cd Src
