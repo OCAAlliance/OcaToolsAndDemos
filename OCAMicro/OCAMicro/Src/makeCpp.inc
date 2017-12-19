@@ -72,15 +72,15 @@ ifneq ($(PLATFORM),)
     # Tools
     SD := gcc -M
     SE := sed
-    RM := erase /F
+    RM := rm -f
     MD := mkdir -p
-    RN := ren _PATH__OLDNAME_ _NEWNAME_
-    RD := rd /s/q
+    RN := mv _PATH__OLDNAME_ _NEWNAME_
+    RD := rm -rf
     RC :=
 
     # Commands
-    IFEXIST    := if exist _FILE_ _COMMAND_
-    IFNOTEXIST := if not exist _FILE_ _COMMAND_
+    IFEXIST    := if [ -e "_FILE_" ]; then _COMMAND_; fi
+    IFNOTEXIST := if [ ! -e "_FILE_" ]; then _COMMAND_; fi
 
     # Other OS dependent variables
     # Work around to make sure only a single backslash is set
