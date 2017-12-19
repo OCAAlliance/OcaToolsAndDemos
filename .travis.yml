@@ -8,10 +8,9 @@ addons:
       - libc6-i386
       - gcc-arm-none-eabi
 
-
 script:
+  - arm-none-eabi-gcc --version
   - cd OCAMicro/OCAMicro
-  - SET OCA_HOME=%CD%
-  - cd src
+  - export OCA_HOME=`pwd`
+  - cd Src
   - make stm32Release
-  - pushd %OCA_HOME%
