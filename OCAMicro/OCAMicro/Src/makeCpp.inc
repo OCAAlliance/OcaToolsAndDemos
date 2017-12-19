@@ -84,7 +84,7 @@ ifneq ($(PLATFORM),)
 
     # Other OS dependent variables
     # Work around to make sure only a single backslash is set
-    PATH_SEP := $(subst \\,\,\\)
+    PATH_SEP := $(subst \\,/,//)
 
     ifeq ($(PLATFORM),stm32App)
 
