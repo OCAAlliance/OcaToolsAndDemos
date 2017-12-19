@@ -25,7 +25,7 @@ ifeq ($(IGNORE_MAKE_ERRORS),Y)
   PREFIX := -@
 else
   ifneq ($(DISPLAY_MAKE_CMDS),Y)
-	PREFIX := 
+	PREFIX := @
   endif
 endif
 #
@@ -119,7 +119,7 @@ ifneq ($(PLATFORM),)
                    -D"NDEBUG" -DTARGET_STM32 \
                    $(foreach USRDEF,$(USRDEFS),-D"$(USRDEF)") \
                    $(foreach USRUNDEF,$(USRUNDEFS),-U"$(USRUNDEF)")
-        CCFLAGS = $(SDFLAGS) -mcpu=cortex-m3 -mthumb -o $(INTDIR)\$@
+        CCFLAGS = $(SDFLAGS) -mcpu=cortex-m3 -mthumb -o $(INTDIR)/$@
         CXXFLAGS := -std=gnu++0x
         ifeq ($(TYPE),DLL)
           LD := arm-none-eabi-g++
@@ -141,7 +141,7 @@ ifneq ($(PLATFORM),)
           LD := arm-none-eabi-ar
           OUT_EXT := $(LIB_EXT)
           ASFLAGS = -g -x assembler-with-cpp -c -mcpu=cortex-m3 -mthumb $(foreach USRDEF,$(USRDEFS),-D"$(USRDEF)") \
-					 $(foreach USRUNDEF,$(USRUNDEFS),-U"$(USRUNDEF)") -o $(INTDIR)\$@
+					 $(foreach USRUNDEF,$(USRUNDEFS),-U"$(USRUNDEF)") -o $(INTDIR)/$@
           LDFLAGS = crus $@
         endif
       endif
@@ -175,7 +175,7 @@ ifneq ($(PLATFORM),)
                    -D"NDEBUG" -DTARGET_STM32 \
                    $(foreach USRDEF,$(USRDEFS),-D"$(USRDEF)") \
                    $(foreach USRUNDEF,$(USRUNDEFS),-U"$(USRUNDEF)")
-        CCFLAGS = $(SDFLAGS) -mcpu=cortex-m3 -mthumb -o $(INTDIR)\$@
+        CCFLAGS = $(SDFLAGS) -mcpu=cortex-m3 -mthumb -o $(INTDIR)/$@
         CXXFLAGS := -std=gnu++0x
         ifeq ($(TYPE),DLL)
           LD := arm-none-eabi-g++
@@ -197,7 +197,7 @@ ifneq ($(PLATFORM),)
           LD := arm-none-eabi-ar
           OUT_EXT := $(LIB_EXT)
           ASFLAGS = -g -x assembler-with-cpp -c -mcpu=cortex-m3 -mthumb $(foreach USRDEF,$(USRDEFS),-D"$(USRDEF)") \
-					 $(foreach USRUNDEF,$(USRUNDEFS),-U"$(USRUNDEF)") -o $(INTDIR)\$@
+					 $(foreach USRUNDEF,$(USRUNDEFS),-U"$(USRUNDEF)") -o $(INTDIR)/$@
           LDFLAGS = crus $@
         endif
       endif
