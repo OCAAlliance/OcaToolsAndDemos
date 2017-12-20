@@ -13,3 +13,7 @@ A quick overview of the code:
 
 
 This project does contain other open source software. Thanks for all the great work! Keep it going.
+
+# Tavis-CI
+
+The project is automatically build in travis, for status https://travis-ci.org/OCAAlliance/OCAMicro.svg?branch=master
