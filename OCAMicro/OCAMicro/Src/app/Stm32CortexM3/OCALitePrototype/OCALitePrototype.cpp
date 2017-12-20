@@ -27,14 +27,16 @@
 #include <OCP.1/Ocp1LiteNetworkSystemInterfaceID.h>
 #include <StandardLib/StandardLib.h>
 
+// Local includes
+#include "PILEDBitStringActuator.h"
+#include "PIRELAYBooleanActuator.h"
+#include "PISwitchBitStringSensor.h"
+#include "PIencoderInt8Sensor.h"
+#include "PISwitchLedBitstringActuator.h"
+
 // platform
 #include <common/OcaLite/LogicalDevices/ClockGenerator/ClockGenerator.h>
 #include <common/OcaLite/LogicalDevices/Switch/Switch.h>
-#include <app/Stm32CortexM3/OCALitePrototype/PILEDBitStringActuator.h>
-#include <app/Stm32CortexM3/OCALitePrototype/PIRELAYBooleanActuator.h>
-#include <app/Stm32CortexM3/OCALitePrototype/PISwitchBitStringSensor.h>
-#include <app/Stm32CortexM3/OCALitePrototype/PIencoderInt8Sensor.h>
-#include <app/Stm32CortexM3/OCALitePrototype/PISwitchLedBitstringActuator.h>
 #include <common/OcaLite/HostInterface/OCA/OCP.1/LwIPAdapterOcaLite.h>
 #include <Stm32CortexM3/lib/UtilLib/Rs232Debug.h>
 #include <Stm32CortexM3/lib/UtilLib/Watchdog.h>
