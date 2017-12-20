@@ -16,3 +16,4 @@ script:
   - export OCA_HOME=`pwd`
   - cd Src
   - make stm32Release
+  - stat ../Obj/stm32App/Release/OCALiteProto.out
