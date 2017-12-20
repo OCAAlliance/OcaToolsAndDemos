@@ -3,7 +3,7 @@ language: cpp
 sudo: false
 
 before_install:
-- sudo add-apt-repository ppa:team-gcc-arm-embedded/ppa
+- yes "" | sudo add-apt-repository ppa:team-gcc-arm-embedded/ppa
 - sudo apt-get update -qq
 
 install:
