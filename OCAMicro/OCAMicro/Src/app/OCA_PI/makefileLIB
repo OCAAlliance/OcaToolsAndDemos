@@ -36,45 +36,45 @@ USRDEFS = STM32F207xx \
 		  LWIP_BEING_USED
 
 #timers.c is in FreeRTOS and lwip, we need lwip, so first src_inc lwip
-SRC_INC = $(OCA_HOME)/../Application/src; \
-		$(OCA_HOME)/../Libraries/CMSIS/CM3/CoreSupport; \
-		$(OCA_HOME)/../Libraries/STM32F2x7_ETH_Driver/src; \
-		$(OCA_HOME)/../Libraries/STM32F2xx_StdPeriph_Driver/src; \
-		$(OCA_HOME)/../Utilities/Third_Party/lwip-1.4.1/port/STM32F2x7/FreeRTOS; \
-		$(OCA_HOME)/../Utilities/Third_Party/lwip-1.4.1/src/api; \
-		$(OCA_HOME)/../Utilities/Third_Party/lwip-1.4.1/src/core/ipv4; \
-		$(OCA_HOME)/../Utilities/Third_Party/lwip-1.4.1/src/core/snmp; \
-		$(OCA_HOME)/../Utilities/Third_Party/lwip-1.4.1/src/core; \
-		$(OCA_HOME)/../Utilities/Third_Party/lwip-1.4.1/src/netif; \
-		$(OCA_HOME)/../Utilities/Third_Party/FreeRTOSV7.1.1/portable/GCC/ARM_CM3; \
-		$(OCA_HOME)/../Utilities/Third_Party/FreeRTOSV7.1.1; \
-		$(OCA_HOME)/../Utilities/Third_Party/FreeRTOSV7.1.1/portable/MemMang; \
-		$(OCA_HOME)/Src/app/Stm32CortexM3/OCALitePrototype; \
-		$(OCA_HOME)/Src/app/Stm32CortexM3/OCALitePrototype; \
-		$(OCA_HOME)/Src/common/HostInterfaceLite/OCA/OCF; \
-		$(OCA_HOME)/Src/common/HostInterfaceLite/OCA/OCP.1; \
-		$(OCA_HOME)/Src/common/OCALite/OCC/ControlClasses/Agents; \
-		$(OCA_HOME)/Src/common/OCALite/OCC/ControlClasses/Managers; \
-		$(OCA_HOME)/Src/common/OCALite/OCC/ControlClasses/Workers; \
-		$(OCA_HOME)/Src/common/OCALite/OCC/ControlClasses/Workers/Actuators; \
-		$(OCA_HOME)/Src/common/OCALite/OCC/ControlClasses/Workers/BlocksAndMatrices; \
-		$(OCA_HOME)/Src/common/OCALite/OCC/ControlClasses/Workers/Sensors; \
-		$(OCA_HOME)/Src/common/OCALite/OCC/ControlClasses; \
-		$(OCA_HOME)/Src/common/OCALite/OCC/ControlDataTypes; \
-		$(OCA_HOME)/Src/common/OCALite/OCF; \
-		$(OCA_HOME)/Src/common/OCALite/OCF/Messages; \
-		$(OCA_HOME)/Src/common/OCALite/OCP.1; \
-		$(OCA_HOME)/Src/common/OCALite/OCP.1/Messages; \
-		$(OCA_HOME)/Src/common/SharedLibraries/tinymDNS; \
-		$(OCA_HOME)/Src/platform/Stm32CortexM3/lib/UtilLib; \
-		$(OCA_HOME)/Src/platform/common/OcaLite/tinymdns; \
-		$(OCA_HOME)/Src/platform/common/OcaLite/LogicalDevices/ClockGenerator; \
-		$(OCA_HOME)/Src/platform/common/OcaLite/LogicalDevices/Switch; \
-		$(OCA_HOME)/Src/platform/common/OcaLite/HostInterface/OCA/OCF/Logging; \
-		$(OCA_HOME)/Src/platform/common/OcaLite/HostInterface/OCA/OCF/Timer; \
-		$(OCA_HOME)/Src/platform/common/OcaLite/HostInterface/OCA/OCF/Configuration; \
-		$(OCA_HOME)/Src/platform/common/OcaLite/HostInterface/OCA/OCP.1; \
-		$(OCA_HOME)/Src/platform/common/OcaLite/HostInterface/OCA/OCP.1/Network; \
+SRC_INC = $(OCA_HOME)/../Application/src \
+		$(OCA_HOME)/../Libraries/CMSIS/CM3/CoreSupport \
+		$(OCA_HOME)/../Libraries/STM32F2x7_ETH_Driver/src \
+		$(OCA_HOME)/../Libraries/STM32F2xx_StdPeriph_Driver/src \
+		$(OCA_HOME)/../Utilities/Third_Party/lwip-1.4.1/port/STM32F2x7/FreeRTOS \
+		$(OCA_HOME)/../Utilities/Third_Party/lwip-1.4.1/src/api \
+		$(OCA_HOME)/../Utilities/Third_Party/lwip-1.4.1/src/core/ipv4 \
+		$(OCA_HOME)/../Utilities/Third_Party/lwip-1.4.1/src/core/snmp \
+		$(OCA_HOME)/../Utilities/Third_Party/lwip-1.4.1/src/core \
+		$(OCA_HOME)/../Utilities/Third_Party/lwip-1.4.1/src/netif \
+		$(OCA_HOME)/../Utilities/Third_Party/FreeRTOSV7.1.1/portable/GCC/ARM_CM3 \
+		$(OCA_HOME)/../Utilities/Third_Party/FreeRTOSV7.1.1 \
+		$(OCA_HOME)/../Utilities/Third_Party/FreeRTOSV7.1.1/portable/MemMang \
+		$(OCA_HOME)/Src/app/Stm32CortexM3/OCALitePrototype \
+		$(OCA_HOME)/Src/app/Stm32CortexM3/OCALitePrototype \
+		$(OCA_HOME)/Src/common/HostInterfaceLite/OCA/OCF \
+		$(OCA_HOME)/Src/common/HostInterfaceLite/OCA/OCP.1 \
+		$(OCA_HOME)/Src/common/OCALite/OCC/ControlClasses/Agents \
+		$(OCA_HOME)/Src/common/OCALite/OCC/ControlClasses/Managers \
+		$(OCA_HOME)/Src/common/OCALite/OCC/ControlClasses/Workers \
+		$(OCA_HOME)/Src/common/OCALite/OCC/ControlClasses/Workers/Actuators \
+		$(OCA_HOME)/Src/common/OCALite/OCC/ControlClasses/Workers/BlocksAndMatrices \
+		$(OCA_HOME)/Src/common/OCALite/OCC/ControlClasses/Workers/Sensors \
+		$(OCA_HOME)/Src/common/OCALite/OCC/ControlClasses \
+		$(OCA_HOME)/Src/common/OCALite/OCC/ControlDataTypes \
+		$(OCA_HOME)/Src/common/OCALite/OCF \
+		$(OCA_HOME)/Src/common/OCALite/OCF/Messages \
+		$(OCA_HOME)/Src/common/OCALite/OCP.1 \
+		$(OCA_HOME)/Src/common/OCALite/OCP.1/Messages \
+		$(OCA_HOME)/Src/common/SharedLibraries/tinymDNS \
+		$(OCA_HOME)/Src/platform/Stm32CortexM3/lib/UtilLib \
+		$(OCA_HOME)/Src/platform/common/OcaLite/tinymdns \
+		$(OCA_HOME)/Src/platform/common/OcaLite/LogicalDevices/ClockGenerator \
+		$(OCA_HOME)/Src/platform/common/OcaLite/LogicalDevices/Switch \
+		$(OCA_HOME)/Src/platform/common/OcaLite/HostInterface/OCA/OCF/Logging \
+		$(OCA_HOME)/Src/platform/common/OcaLite/HostInterface/OCA/OCF/Timer \
+		$(OCA_HOME)/Src/platform/common/OcaLite/HostInterface/OCA/OCF/Configuration \
+		$(OCA_HOME)/Src/platform/common/OcaLite/HostInterface/OCA/OCP.1 \
+		$(OCA_HOME)/Src/platform/common/OcaLite/HostInterface/OCA/OCP.1/Network \
 		$(OCA_HOME)/Src/platform/common/OcaLite/HostInterface/OCA/OCP.1/ZeroConf
 
 SRCS  = sys_arch.c \
