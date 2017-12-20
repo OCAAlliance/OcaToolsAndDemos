@@ -142,7 +142,7 @@ bool Ocp1LiteSocketListen(INT32 socket, UINT8 backlog)
 bool Ocp1LiteSocketAccept(INT32 socket, INT32& newsocket)
 {
     int result;
-	int optionOn(1);
+    int optionOn(1);
 #ifdef WIN32
     SOCKADDR_INET newSocketAddress;
 
@@ -173,24 +173,24 @@ bool Ocp1LiteSocketAccept(INT32 socket, INT32& newsocket)
     newsocket = ::accept(socket, (struct sockaddr*)&socketAddr, (socklen_t*)&socketAddrLength);
 #endif
     
-	result = ::setsockopt(newsocket, SOL_SOCKET, SO_REUSEADDR, (char *)&optionOn, sizeof(optionOn));
-	if (0 != result)
-	{
-		OCA_LOG_ERROR_PARAMS("setsockopt SO_REUSEADDR failed, errorcode=%d",
-			errno);
-	}
+    result = ::setsockopt(newsocket, SOL_SOCKET, SO_REUSEADDR, (char *)&optionOn, sizeof(optionOn));
+    if (0 != result)
+    {
+        OCA_LOG_ERROR_PARAMS("setsockopt SO_REUSEADDR failed, errorcode=%d",
+            errno);
+    }
 
-	// Set TCP_NODELAY option for TCP sockets
-	if (0 == result)
-	{
-		result = ::setsockopt(newsocket, IPPROTO_TCP, TCP_NODELAY, (char *)&optionOn, sizeof(optionOn));
-		if (0 != result)
-		{
-			OCA_LOG_ERROR_PARAMS("setsockopt TCP_NODELAY failed, errorcode=%d",
-				errno);
-		}
-	}
-	
+    // Set TCP_NODELAY option for TCP sockets
+    if (0 == result)
+    {
+        result = ::setsockopt(newsocket, IPPROTO_TCP, TCP_NODELAY, (char *)&optionOn, sizeof(optionOn));
+        if (0 != result)
+        {
+            OCA_LOG_ERROR_PARAMS("setsockopt TCP_NODELAY failed, errorcode=%d",
+                errno);
+        }
+    }
+    
     return (newsocket != INVALID_SOCKET);
 
 }

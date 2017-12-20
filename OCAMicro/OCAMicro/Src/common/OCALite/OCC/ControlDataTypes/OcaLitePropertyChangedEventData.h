@@ -27,9 +27,7 @@
 
 /**
  * Enumeration describing property change type.
- * @ingroup EventSubscriptionDataTypes
  */
-//lint -strong(AJX, OcaLitePropertyChangeType)
 enum OcaLitePropertyChangeType  /* maps onto OcaUint8 */
 {
     /** Current value has changed. */
@@ -57,7 +55,6 @@ enum OcaLitePropertyChangeType  /* maps onto OcaUint8 */
  * such as the PropertyChanged event defined in OcaRoot, and the PeriodicObservation event defined
  * in OcaNumericObserver. The template parameter is the datatype of the changed property.
  * @tparam  DataType        The data type of the changed property.
- * @ingroup EventSubscriptionDataTypes
  */
 template <class DataType>
 class OcaLitePropertyChangedEventData : public ::OcaLiteEventData
@@ -254,8 +251,6 @@ private:
 
 // ---- Specialized Template Function Definition ----
 
-//lint -save -e1576 Explicit specialization does not occur in the same file as corresponding function template
-
 template <>
 void MarshalValue< ::OcaLitePropertyChangeType>(const ::OcaLitePropertyChangeType& value, ::OcaUint8** destination, const ::IOcaLiteWriter& writer);
 
@@ -264,7 +259,5 @@ bool UnmarshalValue< ::OcaLitePropertyChangeType>(::OcaLitePropertyChangeType& v
 
 template <>
 ::OcaUint32 GetSizeValue< ::OcaLitePropertyChangeType>(const ::OcaLitePropertyChangeType& value, const ::IOcaLiteWriter& writer);
-
-//lint -restore
 
 #endif // OCALITEPROPERTYCHANGEDEVENTDATA_H

@@ -49,7 +49,7 @@ enum OcaLiteSensorReadingState    /* maps onto OcaUint8 */
 class OcaLiteSensor : public ::OcaLiteWorker
 {
 public:
-	/** Method indexes for the supported methods. */
+    /** Method indexes for the supported methods. */
     enum MethodIndex
     {
         /** GetReadingState() */
@@ -108,8 +108,8 @@ protected:
     }
 
     virtual ::OcaClassVersionNumber GetClassVersion() const;
-	
-	/**
+    
+    /**
      * Gets the current reading state of the sensor. Must be implemented by derived classes
      * that actually implement the worker.
      *

@@ -29,12 +29,11 @@ class OcaLiteNetworkAddress;
 struct event_comparator : public binary_function< ::OcaLiteEvent, ::OcaLiteEvent, bool>
 {
     bool operator()(const ::OcaLiteEvent& lhs, const ::OcaLiteEvent& rhs) const;
-}; //lint !e1509 Base class destructor not virtual
+};
 
 // ---- Helper types and constants ----
 /**
  * The classID used for initialization.
- * @ingroup Managers
  */
 #define OCA_SUBSCRIPTION_MANAGER_CLASSID      OCA_MANAGER_CLASSID,static_cast< ::OcaUint16>(4)
 
@@ -47,13 +46,11 @@ struct event_comparator : public binary_function< ::OcaLiteEvent, ::OcaLiteEvent
  * handled by registering the correct local event handler of the
  * SubscriptionManager and letting this event handler send a notification
  * message via the CommandHandler.
- * @ingroup Managers
  */
 class OcaLiteSubscriptionManager : public ::OcaLiteManager
 {
 public:
     /** Method indexes for the supported methods. */
-    //lint -e(578) Hides inherited symbol
     enum MethodIndex
     {
         /** AddSubscription() */
@@ -64,18 +61,15 @@ public:
         DISABLE_NOTIFICATIONS                   = 3,
         /** ReEnableNotifications() */
         RE_ENABLE_NOTIFICATIONS                 = 4,
-        /** RemoveSubscriptionSpecific() */
-        REMOVE_SUBSCRIPTION_SPECIFIC            = 5,
         /** AddPropertyChangeSubscription() */
-        ADD_PROPERTY_CHANGE_SUBSCRIPTION        = 6,
+        ADD_PROPERTY_CHANGE_SUBSCRIPTION        = 5,
         /** RemovePropertyChangeSubscription() */
-        REMOVE_PROPERTY_CHANGE_SUBSCRIPTION     = 7,
+        REMOVE_PROPERTY_CHANGE_SUBSCRIPTION     = 6,
         /** GetMaximumSubscriberContextLength() */
-        GET_MAXIMUM_SUBSCRIBER_CONTEXT_LENGTH   = 8
+        GET_MAXIMUM_SUBSCRIBER_CONTEXT_LENGTH   = 7
     };
 
     /** Property indexes for the supported properties. */
-    //lint -e(578) Hides inherited symbol
     enum PropertyIndex
     {
         /** Events enabled or disabled. */
@@ -83,7 +77,6 @@ public:
     };
 
     /** Event indexes for supported events. */
-    //lint -e(578) Hides inherited symbol
     enum EventIndex
     {
         /**
@@ -109,7 +102,6 @@ public:
      * identifies the instantiated object. This is a class property instead of an object property. This
      * property will be overridden by each descendant class, in order to specify that class's ClassID.
      */
-    //lint -e(1516) Hides inherited member
     static const ::OcaLiteClassID CLASS_ID;
 
     /**

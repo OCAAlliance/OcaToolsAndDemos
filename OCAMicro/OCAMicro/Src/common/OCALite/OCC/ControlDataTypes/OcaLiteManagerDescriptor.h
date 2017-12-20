@@ -28,7 +28,6 @@
 
 /**
  * Description of a manager instance.
- * @ingroup ManagementDataTypes
  */
 class OcaLiteManagerDescriptor : public ::IOcaLiteMarshal
 {

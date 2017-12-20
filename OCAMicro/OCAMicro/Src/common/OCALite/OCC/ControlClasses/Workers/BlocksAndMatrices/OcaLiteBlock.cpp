@@ -29,7 +29,7 @@ const ::OcaLiteClassID                  OcaLiteBlock::CLASS_ID(static_cast< ::Oc
 ::OcaLiteBlock*                         OcaLiteBlock::m_pRootBlock(NULL);
 
 /** Defines the version increment of this class compared to its base class. */
-#define CLASS_VERSION_INCREMENT     static_cast< ::OcaClassVersionNumber>(0)
+#define CLASS_VERSION_INCREMENT     0
 
 // ---- Helper functions ----
 
@@ -39,8 +39,8 @@ const ::OcaLiteClassID                  OcaLiteBlock::CLASS_ID(static_cast< ::Oc
 
 OcaLiteBlock::OcaLiteBlock(::OcaONo objectNumber, ::OcaBoolean lockable, const ::OcaLiteString& role, const ::OcaLiteList< ::OcaLitePort>& ports, ::OcaONo type)
     : ::OcaLiteWorker(objectNumber, lockable, role, ports),
-      m_blocks(),
-      m_members()
+    m_members(),
+    m_blocks()
 {
     assert(((OCA_ROOT_BLOCK_TYPE == type) && (OCA_ROOT_BLOCK_ONO == objectNumber)) ||
            ((OCA_ROOT_BLOCK_TYPE != type) && (OCA_MINIMUM_DEVICE_OBJECT_ONO <= objectNumber)));
@@ -144,8 +144,8 @@ void OcaLiteBlock::FreeRootBlock()
         }
     }
 
-	
-	return rc;
+    
+    return rc;
 }
 
 ::OcaBoolean OcaLiteBlock::AddObject(::OcaLiteRoot& rObject)
@@ -163,7 +163,7 @@ void OcaLiteBlock::FreeRootBlock()
         ::OcaLiteWorker* pWorker(dynamic_cast< ::OcaLiteWorker*>(&rObject));
         ::OcaLiteBlock* pBlock(dynamic_cast< ::OcaLiteBlock*>(pWorker));
 
-		assert(m_members.end() == m_members.find(newObjectNumber));
+        assert(m_members.end() == m_members.find(newObjectNumber));
         static_cast<void>(m_members.insert(OcaMemberList::value_type(newObjectNumber, &rObject)));
 
         if (NULL != pBlock)
@@ -172,7 +172,7 @@ void OcaLiteBlock::FreeRootBlock()
             m_blocks.push_back(pBlock);
         }
 
-		// We are OCALite, don't expect dynamic objects in this implementation.
+        // We are OCALite, don't expect dynamic objects in this implementation.
         assert(::OcaLiteDeviceManager::GetInstance().GetOperationalState() == ::OcaLiteDeviceManager::OCA_OPSTATE_INITIALIZING);
 
         result = true;
@@ -198,7 +198,7 @@ void OcaLiteBlock::RemoveObject(::OcaONo oNo)
             static_cast<void>(m_blocks.erase(blockIter));
         }
 
-		static_cast<void>(m_members.erase(oNo));  //lint !e792 Void cast not needed for certain STL implementations
+        static_cast<void>(m_members.erase(oNo));
 
         // We are OCALite, don't expect dynamic objects in this implementation.
         assert(::OcaLiteDeviceManager::GetInstance().GetOperationalState() == ::OcaLiteDeviceManager::OCA_OPSTATE_SHUTTING_DOWN);
@@ -243,6 +243,7 @@ void OcaLiteBlock::RemoveObject(::OcaONo oNo)
 {
     return GetObject(oNo);
 }
+
 
 void OcaLiteBlock::SessionLost(::OcaSessionID sessionID)
 {
@@ -368,8 +369,7 @@ void OcaLiteBlock::SessionLost(::OcaSessionID sessionID)
     return rc;
 }
 
-//lint -e{835} A zero has been given as right argument to operator '+'
 ::OcaClassVersionNumber OcaLiteBlock::GetClassVersion() const
 {
-    return (OcaLiteWorker::GetClassVersion() + CLASS_VERSION_INCREMENT);
+    return static_cast< ::OcaClassVersionNumber>(static_cast<int>(OcaLiteWorker::GetClassVersion()) + CLASS_VERSION_INCREMENT);
 }

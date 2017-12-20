@@ -28,7 +28,6 @@
 // ---- Class Definition ----
 /**
  * Representation of a general OCA Message.
- * @ingroup Messages
  */
 class  OcaLiteMessageGeneral : public ::IOcaLiteMarshal
 {

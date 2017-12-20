@@ -26,7 +26,6 @@
 
 /**
  * Representation of an OCA event ID.
- * @ingroup FrameworkDataTypes
  */
 class OcaLiteEventID : public ::IOcaLiteMarshal
 {

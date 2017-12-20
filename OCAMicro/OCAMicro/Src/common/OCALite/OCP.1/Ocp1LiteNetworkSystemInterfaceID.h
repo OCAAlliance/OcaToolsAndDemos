@@ -48,7 +48,6 @@ enum Ocp1LiteIPParametersType   /* maps onto OcaUint8 */
 // ---- Class Definition ----
 /**
  * Representation of OCP.1 Network System Interface ID.
- * @ingroup OCP1
  */
 class Ocp1LiteNetworkSystemInterfaceID : public ::OcaLiteNetworkSystemInterfaceID
 {
@@ -246,8 +245,6 @@ private:
 
 // ---- Specialized Template Function Definition ----
 
-//lint -save -e1576 Explicit specialization does not occur in the same file as corresponding function template
-
 template <>
 void MarshalValue< ::Ocp1LiteIPParametersType>(const ::Ocp1LiteIPParametersType& value, ::OcaUint8** destination, const ::IOcaLiteWriter& writer);
 
@@ -256,7 +253,5 @@ bool UnmarshalValue< ::Ocp1LiteIPParametersType>(::Ocp1LiteIPParametersType& val
 
 template <>
 ::OcaUint32 GetSizeValue< ::Ocp1LiteIPParametersType>(const ::Ocp1LiteIPParametersType& value, const ::IOcaLiteWriter& writer);
-
-//lint -restore
 
 #endif // OCP1LITENETWORKSYSTEMINTERFACEID_H

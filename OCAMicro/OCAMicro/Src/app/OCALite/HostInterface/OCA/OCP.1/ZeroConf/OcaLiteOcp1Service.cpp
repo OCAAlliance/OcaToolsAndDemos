@@ -130,7 +130,7 @@ void Ocp1LiteServiceRun()
         SOCKET dnsServiceSocket(static_cast<SOCKET>(::DNSServiceRefSockFD(m_dnsService)));
 
         FD_ZERO(&readFds);
-        FD_SET(dnsServiceSocket, &readFds); //lint !e505 Redundant left argument to comma
+        FD_SET(dnsServiceSocket, &readFds);
 
 
         int result = ::select(0, &readFds, NULL, NULL, &tv);

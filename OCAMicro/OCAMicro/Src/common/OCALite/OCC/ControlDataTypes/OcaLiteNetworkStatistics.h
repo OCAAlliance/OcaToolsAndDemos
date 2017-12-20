@@ -26,7 +26,6 @@
 
 /**
  * The statistics of the network.
- * @ingroup NetworkDataTypes
  */
 class OcaLiteNetworkStatistics : public ::IOcaLiteMarshal
 {

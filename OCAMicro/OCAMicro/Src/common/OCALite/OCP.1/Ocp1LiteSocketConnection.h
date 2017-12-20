@@ -35,13 +35,11 @@ class Ocp1LiteNetwork;
  * Ocp1LiteSocketConnection is responsible for:
  * - sending and receiving Ocp.1Messages
  * - handling KeepAlive messages
- * @ingroup OCP1
  */
 class Ocp1LiteSocketConnection
 {
 public:
     /** Defines the possible return values. */
-    //lint -strong(AJX, OcaLiteSocketRetVal)
     enum OcaLiteSocketRetVal
     {
         /** No message is received */
@@ -110,7 +108,6 @@ public:
      *
      * @return  The socket, NULL if no socket available.
      */
-    //lint -e{1536} Exposing low access member 'Ocp1LiteSocketConnection::m_socket'
     INT32* GetSocket()
     {
         return &m_socket;
@@ -150,7 +147,6 @@ public:
 
 private:
     /** Defines the possible socket states. */
-    //lint -strong(AJX, SocketState)
     enum SocketState
     {
         /** No connection to remote device. */
@@ -162,7 +158,6 @@ private:
     };
 
     /** Enumeration of message states. */
-    //lint -strong(AJX, OcaLiteMessageState)
     enum OcaLiteMessageState
     {
         /** State find sync value. */

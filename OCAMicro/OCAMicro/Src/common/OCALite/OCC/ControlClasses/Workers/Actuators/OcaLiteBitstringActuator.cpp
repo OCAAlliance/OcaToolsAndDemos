@@ -25,7 +25,7 @@ static const ::OcaUint16        classID[]   = {OCA_BITSTRING_ACTUATOR_CLASSID};
 const ::OcaLiteClassID          OcaLiteBitstringActuator::CLASS_ID(static_cast< ::OcaUint16>(sizeof(classID) / sizeof(classID[0])), classID);
 
 /** Defines the version increment of this class compared to its base class. */
-#define CLASS_VERSION_INCREMENT     static_cast< ::OcaClassVersionNumber>(0)
+#define CLASS_VERSION_INCREMENT     0
 
 // ---- Helper functions ----
 
@@ -322,10 +322,9 @@ OcaLiteBitstringActuator::OcaLiteBitstringActuator(::OcaONo objectNumber,
     return rc;
 }
 
-//lint -e{835} A zero has been given as right argument to operator '+'
 ::OcaClassVersionNumber OcaLiteBitstringActuator::GetClassVersion() const
 {
-    return (OcaLiteBasicActuator::GetClassVersion() + CLASS_VERSION_INCREMENT);
+    return static_cast< ::OcaClassVersionNumber>(static_cast<int>(OcaLiteBasicActuator::GetClassVersion()) + CLASS_VERSION_INCREMENT);
 }
 
 ::OcaLiteStatus OcaLiteBitstringActuator::GetBitstringValue(::OcaLiteBitstring& bitString) const

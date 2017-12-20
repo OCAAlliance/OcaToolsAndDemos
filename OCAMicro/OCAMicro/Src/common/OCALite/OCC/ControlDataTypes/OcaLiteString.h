@@ -26,7 +26,6 @@
 
 /**
  * General character string, UTF-8 encoded.
- * @ingroup DataTypes
  */
 class OcaLiteString : public ::IOcaLiteMarshal
 {

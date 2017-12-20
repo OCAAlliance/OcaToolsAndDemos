@@ -24,7 +24,7 @@ static const ::OcaUint16        classID[]   = {OCA_FIRMWAREMANAGER_CLASSID};
 const ::OcaLiteClassID          OcaLiteFirmwareManager::CLASS_ID(static_cast< ::OcaUint16>(sizeof(classID) / sizeof(classID[0])), classID);
 
 /** Defines the version increment of this class compared to its base class. */
-#define CLASS_VERSION_INCREMENT     static_cast< ::OcaClassVersionNumber>(0)
+#define CLASS_VERSION_INCREMENT     0
 
 /** The main version */
 #ifndef MAINVERSION
@@ -36,7 +36,7 @@ const ::OcaLiteClassID          OcaLiteFirmwareManager::CLASS_ID(static_cast< ::
 #endif
 /* The build number */
 #ifndef BUILDNUMBER
-#define BUILDNUMBER 9999
+#define BUILDNUMBER 0
 #endif
 
 // ---- Helper functions ----
@@ -48,7 +48,8 @@ const ::OcaLiteClassID          OcaLiteFirmwareManager::CLASS_ID(static_cast< ::
 const ::OcaONo OcaLiteFirmwareManager::OBJECT_NUMBER(static_cast< ::OcaONo>(3));
 
 OcaLiteFirmwareManager::OcaLiteFirmwareManager()
-  : ::OcaLiteManager(OBJECT_NUMBER, ::OcaLiteString("FirmwareManager"), ::OcaLiteString("FirmwareManager"))
+  : ::OcaLiteManager(OBJECT_NUMBER, ::OcaLiteString("FirmwareManager"), ::OcaLiteString("FirmwareManager")),
+  m_updatingSession(OCA_INVALID_SESSIONID)
 {
 }
 
@@ -118,6 +119,139 @@ void OcaLiteFirmwareManager::FreeInstance()
                     }
                 }
                 break;
+            case START_UPDATE_PROCESS:
+                {
+                    ::OcaUint8 numberOfParameters(0);
+                    if (reader.Read(bytesLeft, &pCmdParameters, numberOfParameters) &&
+                        (0 == numberOfParameters))
+                    {
+                        if (OCA_INVALID_SESSIONID == m_updatingSession)
+                        {
+                            // Store this session ID to be the one to accept updates from
+                            m_updatingSession = sessionID;
+                            rc = OCASTATUS_OK;
+
+                            ::OcaUint32 responseSize(::GetSizeValue< ::OcaUint8>(static_cast< ::OcaUint8>(0), writer));
+                            responseBuffer = ::OcaLiteCommandHandler::GetInstance().GetResponseBuffer(responseSize);
+                            if (NULL != responseBuffer)
+                            {
+                                ::OcaUint8* pResponse(responseBuffer);
+                                writer.Write(static_cast< ::OcaUint8>(0/*NrParameters*/), &pResponse);
+
+                                *response = responseBuffer;
+                            }
+                            else
+                            {
+                                rc = OCASTATUS_BUFFER_OVERFLOW;
+                            }
+                        }
+                        else
+                        {
+                            rc = OCASTATUS_INVALID_REQUEST;
+                        }
+                    }
+                }
+                break;
+            case BEGIN_ACTIVE_IMAGE_UPDATE:
+                // TODO
+                break;
+            case ADD_IMAGE_DATA:
+                {
+                    ::OcaUint32 id;
+                    ::OcaLiteBlob data;
+                    ::OcaUint8 numberOfParameters(0);
+                    if (reader.Read(bytesLeft, &pCmdParameters, numberOfParameters) &&
+                        (2 == numberOfParameters) &&
+                        reader.Read(bytesLeft, &pCmdParameters, id) &&
+                        data.Unmarshal(bytesLeft, &pCmdParameters, reader))
+                    {
+                        if (sessionID == m_updatingSession)
+                        {
+                            // TODO Check the sequence ID. If the next one push the data to the next processor
+
+                            rc = OCASTATUS_OK;
+
+                            // All fine
+                            ::OcaUint32 responseSize(::GetSizeValue< ::OcaUint8>(static_cast< ::OcaUint8>(0), writer));
+                            responseBuffer = ::OcaLiteCommandHandler::GetInstance().GetResponseBuffer(responseSize);
+                            if (NULL != responseBuffer)
+                            {
+                                ::OcaUint8* pResponse(responseBuffer);
+                                writer.Write(static_cast< ::OcaUint8>(0/*NrParameters*/), &pResponse);
+
+                                *response = responseBuffer;
+                            }
+                            else
+                            {
+                                rc = OCASTATUS_BUFFER_OVERFLOW;
+                            }
+                        }
+                        else
+                        {
+                            rc = OCASTATUS_INVALID_REQUEST;
+                        }
+                    }
+                }
+                break;
+            case VERIFY_IMAGE:
+                {
+                    ::OcaLiteBlob data;
+                    ::OcaUint8 numberOfParameters(0);
+                    if (reader.Read(bytesLeft, &pCmdParameters, numberOfParameters) &&
+                        (1 == numberOfParameters) &&
+                        data.Unmarshal(bytesLeft, &pCmdParameters, reader))
+                    {
+                        if (sessionID == m_updatingSession)
+                        {
+                            // Verify the calculated hash with the one in the data
+                            OcaUint8 calculatedHash[4] = { 0 };
+
+                            // TODO fill calculatedHash
+
+                            if ((data.GetDataSize() == static_cast< ::OcaUint16>(4)) &&
+                                (calculatedHash[0] == data.GetData()[0]) &&
+                                (calculatedHash[1] == data.GetData()[1]) &&
+                                (calculatedHash[2] == data.GetData()[2]) &&
+                                (calculatedHash[3] == data.GetData()[3]))
+                            {
+                                rc = OCASTATUS_OK;
+
+                                // All fine
+                                ::OcaUint32 responseSize(::GetSizeValue< ::OcaUint8>(static_cast< ::OcaUint8>(0), writer));
+                                responseBuffer = ::OcaLiteCommandHandler::GetInstance().GetResponseBuffer(responseSize);
+                                if (NULL != responseBuffer)
+                                {
+                                    ::OcaUint8* pResponse(responseBuffer);
+                                    writer.Write(static_cast< ::OcaUint8>(0/*NrParameters*/), &pResponse);
+
+                                    *response = responseBuffer;
+                                }
+                                else
+                                {
+                                    rc = OCASTATUS_BUFFER_OVERFLOW;
+                                }
+                            }
+                            else
+                            {
+                                rc = OCASTATUS_DEVICE_ERROR;
+                            }
+                        }
+                        else
+                        {
+                            rc = OCASTATUS_INVALID_REQUEST;
+                        }
+                    }
+                }
+                break;
+            case END_ACTIVE_IMAGE_UPDATE:
+                //TODO
+                break;
+            case BEGIN_PASSIVE_COMPONENT_UPDATE:
+                //TODO
+                break;
+            case END_UPDATE_PROCESS:
+                //TODO
+                break;
             default:
                 rc = OCASTATUS_BAD_METHOD;
                 break;
@@ -147,8 +281,7 @@ void OcaLiteFirmwareManager::FreeInstance()
     return OCASTATUS_OK;
 }
 
-//lint -e{835} A zero has been given as right argument to operator '+'
 ::OcaClassVersionNumber OcaLiteFirmwareManager::GetClassVersion() const
 {
-    return (OcaLiteManager::GetClassVersion() + CLASS_VERSION_INCREMENT);
+    return static_cast< ::OcaClassVersionNumber>(static_cast<int>(OcaLiteManager::GetClassVersion()) + CLASS_VERSION_INCREMENT);
 }

@@ -28,7 +28,6 @@
 /**
  * Representation of an OCA (input or output) port that is used in the signal path representation
  * of an OCA device.
- * @ingroup BlockMatrixDataTypes
  */
 class OcaLitePort : public ::IOcaLiteMarshal
 {

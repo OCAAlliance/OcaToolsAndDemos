@@ -25,7 +25,6 @@ class Ocp1LiteMessageNotification;
 // ---- Class Definition ----
 /**
  * Representation of an OCP.1 Message Notification
- * @ingroup OCP1Messages
  */
 class Ocp1LiteMessageNotification : public ::OcaLiteMessageNotification
 {

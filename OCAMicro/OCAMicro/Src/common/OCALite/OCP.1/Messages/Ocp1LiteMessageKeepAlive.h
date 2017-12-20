@@ -25,7 +25,6 @@ class Ocp1LiteMessageKeepAlive;
 // ---- Class Definition ----
 /**
  * Representation of an OCP.1 Message Keep Alive
- * @ingroup OCP1Messages
  */
 class Ocp1LiteMessageKeepAlive : public ::OcaLiteMessageKeepAlive
 {

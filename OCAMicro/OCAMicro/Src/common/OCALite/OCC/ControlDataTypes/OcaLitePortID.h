@@ -23,9 +23,7 @@
 
 /**
  * Enumeration that describes whether a port is for input or output.
- * @ingroup BlockMatrixDataTypes
  */
-//lint -strong(AJX, OcaPortMode)
 enum OcaPortMode    /* maps onto OcaUint8 */
 {
     /** Input port. */
@@ -44,7 +42,6 @@ enum OcaPortMode    /* maps onto OcaUint8 */
  * Unique identifier of input or output port within a given worker or block class. Port
  * numbers are ordinals starting at 1, and there are separate numbering spaces for input
  * and output ports.
- * @ingroup BlockMatrixDataTypes
  */
 class OcaLitePortID : public ::IOcaLiteMarshal
 {
@@ -136,8 +133,6 @@ private:
 
 // ---- Specialized Template Function Definition ----
 
-//lint -save -e1576 Explicit specialization does not occur in the same file as corresponding function template
-
 template <>
 void MarshalValue< ::OcaPortMode>(const ::OcaPortMode& value, ::OcaUint8** destination, const ::IOcaLiteWriter& writer);
 
@@ -146,7 +141,5 @@ bool UnmarshalValue< ::OcaPortMode>(::OcaPortMode& value, ::OcaUint32& bytesLeft
 
 template <>
 ::OcaUint32 GetSizeValue< ::OcaPortMode>(const ::OcaPortMode& value, const ::IOcaLiteWriter& writer);
-
-//lint -restore
 
 #endif // OCALITEPORTID_H

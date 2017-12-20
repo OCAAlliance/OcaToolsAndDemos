@@ -26,7 +26,6 @@ class Ocp1LiteMessageHeader;
 
 /**
  * Representation of the header of an OCP.1 Message Header.
- * @ingroup OCP1Messages
  */
 class Ocp1LiteMessageHeader : public ::OcaLiteHeader
 {

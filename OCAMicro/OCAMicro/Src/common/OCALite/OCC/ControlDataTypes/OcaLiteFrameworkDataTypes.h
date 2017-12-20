@@ -25,18 +25,15 @@
  */
 
 /** Class version number, ascending from 1. */
-/*lint -strong(AJX, OcaClassVersionNumber)*/
 typedef ::OcaUint16     OcaClassVersionNumber;
 
 /** Object number of an OCA object. */
-/*lint -strong(AJX, OcaONo)*/
 typedef ::OcaUint32     OcaONo;
 
 /** The invalid object number */
 #define OCA_INVALID_ONO static_cast< ::OcaONo>(0)
 
 /** Standard status codes returned from method calls. */
-//lint -strong(AJX, OcaLiteStatus)
 enum OcaLiteStatus  /* maps onto OcaUint8 */
 {
     /** Operation succeeded. */
@@ -74,7 +71,6 @@ enum OcaLiteStatus  /* maps onto OcaUint8 */
 };
 
 /** Transport layer session ID. */
-/*lint -strong(AJX, OcaSessionID)*/
 typedef ::OcaUint16     OcaSessionID;
 
 /** The invalid session ID */
@@ -86,8 +82,6 @@ typedef ::OcaUint16     OcaSessionID;
 
 // ---- Specialized Template Function Definition ----
 
-//lint -save -e1576 Explicit specialization does not occur in the same file as corresponding function template
-
 template <>
 void MarshalValue< ::OcaLiteStatus>(const ::OcaLiteStatus& value, ::OcaUint8** destination, const ::IOcaLiteWriter& writer);
 
@@ -96,7 +90,5 @@ bool UnmarshalValue< ::OcaLiteStatus>(::OcaLiteStatus& value, ::OcaUint32& bytes
 
 template <>
 ::OcaUint32 GetSizeValue< ::OcaLiteStatus>(const ::OcaLiteStatus& value, const ::IOcaLiteWriter& writer);
-
-//lint -restore
 
 #endif /* OCALITEFRAMEWORKDATATYPES_H */

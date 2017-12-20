@@ -9,6 +9,7 @@
 
 // ---- Include system wide include files ----
 #include <OCC/ControlClasses/Agents/OcaLiteNetwork.h>
+#include <OCC/ControlClasses/Networks/OcaLiteMediaTransportNetwork.h>
 #include <OCC/ControlClasses/Workers/BlocksAndMatrices/OcaLiteBlock.h>
 #include <OCC/ControlDataTypes/OcaLiteMethodID.h>
 #include <OCC/ControlDataTypes/OcaLitePropertyChangedEventData.h>
@@ -24,7 +25,7 @@ static const ::OcaUint16        classID[]   = {OCA_NETWORKMANAGER_CLASSID};
 const ::OcaLiteClassID          OcaLiteNetworkManager::CLASS_ID(static_cast< ::OcaUint16>(sizeof(classID) / sizeof(classID[0])), classID);
 
 /** Defines the version increment of this class compared to its base class. */
-#define CLASS_VERSION_INCREMENT     static_cast< ::OcaClassVersionNumber>(0)
+#define CLASS_VERSION_INCREMENT     0
 
 // ---- Helper functions ----
 
@@ -38,7 +39,8 @@ const ::OcaONo OcaLiteNetworkManager::OBJECT_NUMBER(static_cast< ::OcaONo>(6));
 OcaLiteNetworkManager::OcaLiteNetworkManager()
   : ::OcaLiteManager(OBJECT_NUMBER, ::OcaLiteString("NetworkManager"), ::OcaLiteString("NetworkManager")),
      m_network(OCA_INVALID_ONO),
-     m_streamNetwork(OCA_INVALID_ONO)
+     m_streamNetwork(OCA_INVALID_ONO),
+     m_mediaTransportNetwork(OCA_INVALID_ONO)
 {
 }
 
@@ -85,6 +87,16 @@ void OcaLiteNetworkManager::FreeInstance()
     return OCASTATUS_OK;
 }
 
+::OcaLiteStatus OcaLiteNetworkManager::GetMediaTransportNetworks(::OcaLiteList< ::OcaONo>& networks) const
+{
+    networks.Clear();
+    if (OCA_INVALID_ONO != m_mediaTransportNetwork)
+    {
+        networks.Add(m_mediaTransportNetwork);
+    }
+    return OCASTATUS_OK;
+}
+
 ::OcaLiteNetwork* OcaLiteNetworkManager::GetNetwork() const
 {
     ::OcaLiteNetwork* pOcaLiteNetwork(NULL);
@@ -94,7 +106,7 @@ void OcaLiteNetworkManager::FreeInstance()
         ::OcaLiteRoot* pOcaRoot(OcaLiteBlock::GetRootBlock().GetObject(m_network));
         if (NULL != pOcaRoot)
         {
-            pOcaLiteNetwork = static_cast< ::OcaLiteNetwork*>(pOcaRoot); //lint !e1774 Use static_cast since type is known
+            pOcaLiteNetwork = static_cast< ::OcaLiteNetwork*>(pOcaRoot);
         }
     }
 
@@ -146,6 +158,32 @@ void OcaLiteNetworkManager::RemoveStreamNetwork(const ::OcaLiteAgent& network)
     if (m_streamNetwork == network.GetObjectNumber())
     {
         m_streamNetwork = OCA_INVALID_ONO;
+
+        // Don't send a property changed event. We assume this never happens in an online device.
+    }
+}
+
+::OcaBoolean OcaLiteNetworkManager::AddMediaTransportNetwork(const ::OcaLiteMediaTransportNetwork& network)
+{
+    ::OcaBoolean bSuccess(static_cast< ::OcaBoolean>(false));
+
+    if (OCA_INVALID_ONO == m_mediaTransportNetwork)
+    {
+        m_mediaTransportNetwork = network.GetObjectNumber();
+        bSuccess = static_cast< ::OcaBoolean>(true);
+
+        // Don't send a property changed event. We assume this never happens in an online device.
+    }
+
+    return bSuccess;
+}
+
+
+void OcaLiteNetworkManager::RemoveMediaTransportNetwork(const ::OcaLiteMediaTransportNetwork& network)
+{
+    if (m_mediaTransportNetwork == network.GetObjectNumber())
+    {
+        m_mediaTransportNetwork = OCA_INVALID_ONO;
 
         // Don't send a property changed event. We assume this never happens in an online device.
     }
@@ -224,8 +262,36 @@ void OcaLiteNetworkManager::RemoveStreamNetwork(const ::OcaLiteAgent& network)
                     }
                 }
                 break;
-            case GET_CONTROL_NETWORKS:
             case GET_MEDIA_TRANSPORT_NETWORKS:
+                {
+                    ::OcaUint8 numberOfParameters(0);
+                    if (reader.Read(bytesLeft, &pCmdParameters, numberOfParameters) &&
+                        (0 == numberOfParameters))
+                    {
+                        ::OcaLiteList< ::OcaONo> networks;
+                        rc = GetMediaTransportNetworks(networks);
+                        if (OCASTATUS_OK == rc)
+                        {
+                            ::OcaUint32 responseSize(::GetSizeValue< ::OcaUint8>(static_cast< ::OcaUint8>(1), writer) +
+                                networks.GetSize(writer));
+                            responseBuffer = ::OcaLiteCommandHandler::GetInstance().GetResponseBuffer(responseSize);
+                            if (NULL != responseBuffer)
+                            {
+                                ::OcaUint8* pResponse(responseBuffer);
+                                writer.Write(static_cast< ::OcaUint8>(1/*NrParameters*/), &pResponse);
+                                networks.Marshal(&pResponse, writer);
+
+                                *response = responseBuffer;
+                            }
+                            else
+                            {
+                                rc = OCASTATUS_BUFFER_OVERFLOW;
+                            }
+                        }
+                    }
+                }
+                break;
+            case GET_CONTROL_NETWORKS:
                 rc = OCASTATUS_NOT_IMPLEMENTED;
                 break;
             default:
@@ -246,8 +312,7 @@ void OcaLiteNetworkManager::RemoveStreamNetwork(const ::OcaLiteAgent& network)
     return rc;
 }
 
-//lint -e{835} A zero has been given as right argument to operator '+'
 ::OcaClassVersionNumber OcaLiteNetworkManager::GetClassVersion() const
 {
-    return (OcaLiteManager::GetClassVersion() + CLASS_VERSION_INCREMENT);
+    return static_cast< ::OcaClassVersionNumber>(static_cast<int>(OcaLiteManager::GetClassVersion()) + CLASS_VERSION_INCREMENT);
 }

@@ -22,7 +22,7 @@
 
 #ifndef OCA_CLASS_ID_SIZE
 /** The maximum depth of the class ID */
-#define OCA_CLASS_ID_SIZE 5
+#define OCA_CLASS_ID_SIZE 8
 #endif //OCA_CLASS_ID_SIZE
 
 /** Class ID field mask to identify a proprietary class. */
@@ -31,13 +31,21 @@
 /** Class ID field mask to identify a proprietary test class. */
 #define OCA_CLASS_ID_PROPRIETARY_TEST_CLASS_FIELD_MASK  static_cast< ::OcaUint16>(0xff00)
 
+/** Class ID field to identify a proprietary class (as of OCA 1.4). */
+#define OCA_CLASS_ID_PROPRIETARY_CLASS_FIELD            static_cast< ::OcaUint16>(0xffff)
+
+/** The CID (issued by the IEEE Registration Authority) for proprietary classes defined by the OCA Alliance. */
+#define OCA_ALLIANCE_COMPANY_ID                         0xFA2EE9
+
+/** The manufacturer ID in a class ID array to indicate a proprietary class. */
+#define OCA_CLASS_ID_PROPRIETARY_MANUFACTURER_ID(oui)   OCA_CLASS_ID_PROPRIETARY_CLASS_FIELD,static_cast< ::OcaUint16>((oui >> 16) & 0x00ff),static_cast< ::OcaUint16>(oui & 0xffff)
+
 // ---- Helper functions ----
 
 // ---- Class Definition ----
 
 /**
  * Class identifier : structured variable of the form a.b.c...
- * @ingroup FrameworkDataTypes
  */
 class OcaLiteClassID : public ::IOcaLiteMarshal
 {

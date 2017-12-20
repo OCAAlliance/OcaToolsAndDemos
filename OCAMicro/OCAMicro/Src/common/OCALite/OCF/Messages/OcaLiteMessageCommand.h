@@ -25,7 +25,6 @@ class OcaLiteMethodID;
 // ---- Class Definition ----
 /**
  * Representation of an OCA Command message.
- * @ingroup Messages
  */
 class  OcaLiteMessageCommand : public ::OcaLiteMessageGeneral
 {

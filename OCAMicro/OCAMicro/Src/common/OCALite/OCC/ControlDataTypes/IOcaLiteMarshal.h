@@ -27,7 +27,6 @@ class IOcaLiteReader;
  * Interface that defines the generic interface for all OCA data
  * types that need to be serialized (i.e. communicated between OCA
  * devices).
- * @ingroup DataTypes
  */
 class IOcaLiteMarshal
 {

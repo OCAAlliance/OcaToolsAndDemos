@@ -25,7 +25,6 @@ class Ocp1LiteMessageCommand;
 // ---- Class Definition ----
 /**
  * Representation of an OCP.1 Command message.
- * @ingroup OCP1Messages
  */
 class Ocp1LiteMessageCommand : public ::OcaLiteMessageCommand
 {

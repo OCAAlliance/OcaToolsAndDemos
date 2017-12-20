@@ -25,7 +25,6 @@ class OcaLiteVersion;
 
 /**
  * The classID used for initialization.
- * @ingroup Managers
  */
 #define OCA_FIRMWAREMANAGER_CLASSID      OCA_MANAGER_CLASSID,static_cast< ::OcaUint16>(3)
 
@@ -34,13 +33,11 @@ class OcaLiteVersion;
 // ---- Class Definition ----
 /**
  * Mandatory class that manages versions of the different firmware and software images of the device.
- * @ingroup Managers
  */
 class OcaLiteFirmwareManager : public ::OcaLiteManager
 {
 public:
     /** Method indexes for the supported methods. */
-    //lint -e(578) Hides inherited symbol
     enum MethodIndex
     {
         /** GetComponentVersions() */
@@ -62,7 +59,6 @@ public:
     };
 
     /** Property indexes for the supported properties. */
-    //lint -e(578) Hides inherited symbol
     enum PropertyIndex
     {
         /** List of the versions of the components of the device. */
@@ -79,7 +75,6 @@ public:
      * identifies the instantiated object. This is a class property instead of an object property. This
      * property will be overridden by each descendant class, in order to specify that class's ClassID.
      */
-    //lint -e(1516) Hides inherited member
     static const ::OcaLiteClassID CLASS_ID;
 
     /**
@@ -125,6 +120,8 @@ private:
 
     /** Singleton instance of the server */
     static ::OcaLiteFirmwareManager*          m_pSingleton;
+
+    ::OcaSessionID                            m_updatingSession;
 
     /** private copy constructor, no copying of object allowed */
     OcaLiteFirmwareManager(const ::OcaLiteFirmwareManager&);

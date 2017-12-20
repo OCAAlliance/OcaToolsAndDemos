@@ -21,7 +21,7 @@ static const ::OcaUint16        classID[]   = {OCA_SWITCH_CLASSID};
 const ::OcaLiteClassID          OcaLiteSwitch::CLASS_ID(static_cast< ::OcaUint16>(sizeof(classID) / sizeof(classID[0])), classID);
 
 /** Defines the version increment of this class compared to its base class. */
-#define CLASS_VERSION_INCREMENT     static_cast< ::OcaClassVersionNumber>(0)
+#define CLASS_VERSION_INCREMENT     0
 
 // ---- Helper functions ----
 
@@ -68,21 +68,15 @@ OcaLiteSwitch::OcaLiteSwitch(::OcaONo objectNumber, ::OcaBoolean lockable, const
 
 ::OcaLiteStatus OcaLiteSwitch::GetPosition(::OcaUint16& position, ::OcaUint16& minPosition, ::OcaUint16& maxPosition) const
 {
-    TakeMutex();
-
     ::OcaLiteStatus rc(GetPositionValue(position));
     minPosition = m_minPosition;
     maxPosition = m_maxPosition;
-
-    ReleaseMutex();
 
     return rc;
 }
 
 ::OcaLiteStatus OcaLiteSwitch::SetPosition(::OcaUint16 position)
 {
-    TakeMutex();
-
     ::OcaLiteStatus rc(OCASTATUS_PARAMETER_OUT_OF_RANGE);
     if ((position >= m_minPosition) && (position <= m_maxPosition))
     {
@@ -104,35 +98,22 @@ OcaLiteSwitch::OcaLiteSwitch(::OcaONo objectNumber, ::OcaBoolean lockable, const
                                                                           propertyID,
                                                                           actualPosition,
                                                                           OCAPROPERTYCHANGETYPE_CURRENT_CHANGED);
-                    ReleaseMutex();
                     PropertyChanged(eventData);
-                    TakeMutex();
                 }
             }
 
         }
     }
-
-    ReleaseMutex();
-
     return rc;
 }
 
 ::OcaLiteStatus OcaLiteSwitch::GetPositionName(::OcaUint16 index, ::OcaLiteString& name) const
 {
-    TakeMutex();
-
-    ::OcaLiteStatus rc(GetPositionNameValue(index, name));
-
-    ReleaseMutex();
-
-    return rc;
+    return GetPositionNameValue(index, name);
 }
 
 ::OcaLiteStatus OcaLiteSwitch::SetPositionName(::OcaUint16 index, const ::OcaLiteString& name)
 {
-    TakeMutex();
-
     ::OcaLiteStatus rc(OCASTATUS_PARAMETER_OUT_OF_RANGE);
     if ((index >= m_minPosition) && (index <= m_maxPosition))
     {
@@ -157,35 +138,22 @@ OcaLiteSwitch::OcaLiteSwitch(::OcaONo objectNumber, ::OcaBoolean lockable, const
                                                                                            propertyID,
                                                                                            actualNames,
                                                                                            OCAPROPERTYCHANGETYPE_CURRENT_CHANGED);
-                        ReleaseMutex();
                         PropertyChanged(eventData);
-                        TakeMutex();
                     }
                 }
             }
         }
     }
-
-    ReleaseMutex();
-
     return rc;
 }
 
 ::OcaLiteStatus OcaLiteSwitch::GetPositionNames(::OcaLiteList< ::OcaLiteString>& names) const
 {
-    TakeMutex();
-
-    ::OcaLiteStatus rc(GetPositionNamesValue(names));
-
-    ReleaseMutex();
-
-    return rc;
+    return GetPositionNamesValue(names);
 }
 
 ::OcaLiteStatus OcaLiteSwitch::SetPositionNames(const ::OcaLiteList< ::OcaLiteString>& names)
 {
-    TakeMutex();
-
     ::OcaLiteList< ::OcaLiteString> oldNames;
     ::OcaLiteStatus rc(GetPositionNamesValue(oldNames));
     if (OCASTATUS_OK == rc)
@@ -209,9 +177,7 @@ OcaLiteSwitch::OcaLiteSwitch(::OcaONo objectNumber, ::OcaBoolean lockable, const
                                                                                            propertyID,
                                                                                            actualNames,
                                                                                            OCAPROPERTYCHANGETYPE_CURRENT_CHANGED);
-                        ReleaseMutex();
                         PropertyChanged(eventData);
-                        TakeMutex();
                     }
                 }
             }
@@ -221,27 +187,16 @@ OcaLiteSwitch::OcaLiteSwitch(::OcaONo objectNumber, ::OcaBoolean lockable, const
             rc = OCASTATUS_PARAMETER_ERROR;
         }
     }
-
-    ReleaseMutex();
-
     return rc;
 }
 
 ::OcaLiteStatus OcaLiteSwitch::GetPositionEnabled(::OcaUint16 index, ::OcaBoolean& enabled) const
 {
-    TakeMutex();
-
-    ::OcaLiteStatus rc(GetPositionEnabledValue(index, enabled));
-
-    ReleaseMutex();
-
-    return rc;
+    return GetPositionEnabledValue(index, enabled);
 }
 
 ::OcaLiteStatus OcaLiteSwitch::SetPositionEnabled(::OcaUint16 index, ::OcaBoolean enabled)
 {
-    TakeMutex();
-
     ::OcaLiteStatus rc(OCASTATUS_PARAMETER_OUT_OF_RANGE);
     if ((index >= m_minPosition) && (index <= m_maxPosition))
     {
@@ -266,35 +221,22 @@ OcaLiteSwitch::OcaLiteSwitch(::OcaONo objectNumber, ::OcaBoolean lockable, const
                                                                                             propertyID,
                                                                                             actualEnableds,
                                                                                             OCAPROPERTYCHANGETYPE_CURRENT_CHANGED);
-                        ReleaseMutex();
                         PropertyChanged(eventData);
-                        TakeMutex();
                     }
                 }
             }
         }
     }
-
-    ReleaseMutex();
-
     return rc;
 }
 
 ::OcaLiteStatus OcaLiteSwitch::GetPositionEnableds(::OcaLiteList< ::OcaBoolean>& enableds) const
 {
-    TakeMutex();
-
-    ::OcaLiteStatus rc(GetPositionEnabledsValue(enableds));
-
-    ReleaseMutex();
-
-    return rc;
+    return GetPositionEnabledsValue(enableds);
 }
 
 ::OcaLiteStatus OcaLiteSwitch::SetPositionEnableds(const ::OcaLiteList< ::OcaBoolean>& enableds)
 {
-    TakeMutex();
-
     ::OcaLiteList< ::OcaBoolean> oldEnableds;
     ::OcaLiteStatus rc(GetPositionEnabledsValue(oldEnableds));
     if (OCASTATUS_OK == rc)
@@ -318,9 +260,7 @@ OcaLiteSwitch::OcaLiteSwitch(::OcaONo objectNumber, ::OcaBoolean lockable, const
                                                                                             propertyID,
                                                                                             actualEnableds,
                                                                                             OCAPROPERTYCHANGETYPE_CURRENT_CHANGED);
-                        ReleaseMutex();
                         PropertyChanged(eventData);
-                        TakeMutex();
                     }
                 }
             }
@@ -330,8 +270,6 @@ OcaLiteSwitch::OcaLiteSwitch(::OcaONo objectNumber, ::OcaBoolean lockable, const
             rc = OCASTATUS_PARAMETER_ERROR;
         }
     }
-
-    ReleaseMutex();
 
     return rc;
 }
@@ -348,7 +286,7 @@ OcaLiteSwitch::OcaLiteSwitch(::OcaONo objectNumber, ::OcaBoolean lockable, const
             const ::OcaUint8* pCmdParameters(parameters);
             ::OcaUint32 bytesLeft(parametersSize);
 
-			switch (methodID.GetMethodIndex())
+            switch (methodID.GetMethodIndex())
             {
             case GET_POSITION:
                 {
@@ -364,20 +302,20 @@ OcaLiteSwitch::OcaLiteSwitch(::OcaONo objectNumber, ::OcaBoolean lockable, const
                         {
                             ::OcaUint32 responseSize(::GetSizeValue< ::OcaUint8>(static_cast< ::OcaUint8>(3), writer) + 
                                                      ::GetSizeValue< ::OcaUint16>(position, writer) + 
-													 ::GetSizeValue< ::OcaUint16>(minPosition, writer) + 
-													 ::GetSizeValue< ::OcaUint16>(maxPosition, writer));
+                                                     ::GetSizeValue< ::OcaUint16>(minPosition, writer) + 
+                                                     ::GetSizeValue< ::OcaUint16>(maxPosition, writer));
                             responseBuffer = ::OcaLiteCommandHandler::GetInstance().GetResponseBuffer(responseSize);
                             if (NULL != responseBuffer)
                             {
-							    ::OcaUint8* pResponse(responseBuffer);
+                                ::OcaUint8* pResponse(responseBuffer);
                                 writer.Write(static_cast< ::OcaUint8>(3/*NrParameters*/), &pResponse);
                                 ::MarshalValue< ::OcaUint16>(position, &pResponse, writer);
                                 ::MarshalValue< ::OcaUint16>(minPosition, &pResponse, writer);
                                 ::MarshalValue< ::OcaUint16>(maxPosition, &pResponse, writer);
 
                                 *response = responseBuffer;
-							}
-							else
+                            }
+                            else
                             {
                                 rc = OCASTATUS_BUFFER_OVERFLOW;
                             }
@@ -391,7 +329,7 @@ OcaLiteSwitch::OcaLiteSwitch(::OcaONo objectNumber, ::OcaBoolean lockable, const
                     ::OcaUint16 position;
                     if (reader.Read(bytesLeft, &pCmdParameters, numberOfParameters) &&
                         (1 == numberOfParameters) &&
-						reader.Read(bytesLeft, &pCmdParameters, position))
+                        reader.Read(bytesLeft, &pCmdParameters, position))
                     {
                         rc = SetPosition(position);
                         if (OCASTATUS_OK == rc)
@@ -400,12 +338,12 @@ OcaLiteSwitch::OcaLiteSwitch(::OcaONo objectNumber, ::OcaBoolean lockable, const
                             responseBuffer = ::OcaLiteCommandHandler::GetInstance().GetResponseBuffer(responseSize);
                             if (NULL != responseBuffer)
                             {
-							    ::OcaUint8* pResponse(responseBuffer);
+                                ::OcaUint8* pResponse(responseBuffer);
                                 writer.Write(static_cast< ::OcaUint8>(0/*NrParameters*/), &pResponse);
 
                                 *response = responseBuffer;
-							}
-							else
+                            }
+                            else
                             {
                                 rc = OCASTATUS_BUFFER_OVERFLOW;
                             }
@@ -416,10 +354,10 @@ OcaLiteSwitch::OcaLiteSwitch(::OcaONo objectNumber, ::OcaBoolean lockable, const
             case GET_POSITION_NAME:
                 {
                     ::OcaUint8 numberOfParameters(0);
-					::OcaUint16 index;
+                    ::OcaUint16 index;
                     if (reader.Read(bytesLeft, &pCmdParameters, numberOfParameters) &&
                         (1 == numberOfParameters) &&
-						reader.Read(bytesLeft, &pCmdParameters, index))
+                        reader.Read(bytesLeft, &pCmdParameters, index))
                     {
                         ::OcaLiteString name;
                         rc = GetPositionName(index, name);
@@ -446,26 +384,26 @@ OcaLiteSwitch::OcaLiteSwitch(::OcaONo objectNumber, ::OcaBoolean lockable, const
             case SET_POSITION_NAME:
                 {
                     ::OcaUint8 numberOfParameters(0);
-					::OcaUint16 index;
-					::OcaLiteString name;
+                    ::OcaUint16 index;
+                    ::OcaLiteString name;
                     if (reader.Read(bytesLeft, &pCmdParameters, numberOfParameters) &&
                         (2 == numberOfParameters) &&
-						reader.Read(bytesLeft, &pCmdParameters, index) &&
+                        reader.Read(bytesLeft, &pCmdParameters, index) &&
                         name.Unmarshal(bytesLeft, &pCmdParameters, reader))
                     {
-                        rc = SetPositionName(index, name); //lint !e864 Expression does not depend on order of evaluation
+                        rc = SetPositionName(index, name);
                         if (OCASTATUS_OK == rc)
                         {
                             ::OcaUint32 responseSize(::GetSizeValue< ::OcaUint8>(static_cast< ::OcaUint8>(0), writer));
                             responseBuffer = ::OcaLiteCommandHandler::GetInstance().GetResponseBuffer(responseSize);
                             if (NULL != responseBuffer)
                             {
-							    ::OcaUint8* pResponse(responseBuffer);
+                                ::OcaUint8* pResponse(responseBuffer);
                                 writer.Write(static_cast< ::OcaUint8>(0/*NrParameters*/), &pResponse);
 
                                 *response = responseBuffer;
-							}
-							else
+                            }
+                            else
                             {
                                 rc = OCASTATUS_BUFFER_OVERFLOW;
                             }
@@ -516,12 +454,12 @@ OcaLiteSwitch::OcaLiteSwitch(::OcaONo objectNumber, ::OcaBoolean lockable, const
                             responseBuffer = ::OcaLiteCommandHandler::GetInstance().GetResponseBuffer(responseSize);
                             if (NULL != responseBuffer)
                             {
-							    ::OcaUint8* pResponse(responseBuffer);
+                                ::OcaUint8* pResponse(responseBuffer);
                                 writer.Write(static_cast< ::OcaUint8>(0/*NrParameters*/), &pResponse);
 
                                 *response = responseBuffer;
-							}
-							else
+                            }
+                            else
                             {
                                 rc = OCASTATUS_BUFFER_OVERFLOW;
                             }
@@ -535,24 +473,24 @@ OcaLiteSwitch::OcaLiteSwitch(::OcaONo objectNumber, ::OcaBoolean lockable, const
                     ::OcaUint16 index;
                     if (reader.Read(bytesLeft, &pCmdParameters, numberOfParameters) &&
                         (1 == numberOfParameters) &&
-						reader.Read(bytesLeft, &pCmdParameters, index))
+                        reader.Read(bytesLeft, &pCmdParameters, index))
                     {
                         ::OcaBoolean enabled;
                         rc = GetPositionEnabled(index, enabled);
                         if (OCASTATUS_OK == rc)
                         {
                             ::OcaUint32 responseSize(::GetSizeValue< ::OcaUint8>(static_cast< ::OcaUint8>(1), writer) + 
-													 ::GetSizeValue< ::OcaBoolean>(enabled, writer));
+                                                     ::GetSizeValue< ::OcaBoolean>(enabled, writer));
                             responseBuffer = ::OcaLiteCommandHandler::GetInstance().GetResponseBuffer(responseSize);
                             if (NULL != responseBuffer)
                             {
-							    ::OcaUint8* pResponse(responseBuffer);
+                                ::OcaUint8* pResponse(responseBuffer);
                                 writer.Write(static_cast< ::OcaUint8>(1/*NrParameters*/), &pResponse);
                                 ::MarshalValue< ::OcaBoolean>(enabled, &pResponse, writer);
 
                                 *response = responseBuffer;
-							}
-							else
+                            }
+                            else
                             {
                                 rc = OCASTATUS_BUFFER_OVERFLOW;
                             }
@@ -567,22 +505,22 @@ OcaLiteSwitch::OcaLiteSwitch(::OcaONo objectNumber, ::OcaBoolean lockable, const
                     ::OcaBoolean enabled;
                     if (reader.Read(bytesLeft, &pCmdParameters, numberOfParameters) &&
                         (2 == numberOfParameters) &&
-						reader.Read(bytesLeft, &pCmdParameters, index) &&
-						reader.Read(bytesLeft, &pCmdParameters, enabled))
+                        reader.Read(bytesLeft, &pCmdParameters, index) &&
+                        reader.Read(bytesLeft, &pCmdParameters, enabled))
                     {
-                        rc = SetPositionEnabled(index, enabled); //lint !e864 Expression does not depend on order of evaluation
+                        rc = SetPositionEnabled(index, enabled);
                         if (OCASTATUS_OK == rc)
                         {
                             ::OcaUint32 responseSize(::GetSizeValue< ::OcaUint8>(static_cast< ::OcaUint8>(0), writer));
                             responseBuffer = ::OcaLiteCommandHandler::GetInstance().GetResponseBuffer(responseSize);
                             if (NULL != responseBuffer)
                             {
-							    ::OcaUint8* pResponse(responseBuffer);
+                                ::OcaUint8* pResponse(responseBuffer);
                                 writer.Write(static_cast< ::OcaUint8>(0/*NrParameters*/), &pResponse);
 
                                 *response = responseBuffer;
-							}
-							else
+                            }
+                            else
                             {
                                 rc = OCASTATUS_BUFFER_OVERFLOW;
                             }
@@ -633,12 +571,12 @@ OcaLiteSwitch::OcaLiteSwitch(::OcaONo objectNumber, ::OcaBoolean lockable, const
                             responseBuffer = ::OcaLiteCommandHandler::GetInstance().GetResponseBuffer(responseSize);
                             if (NULL != responseBuffer)
                             {
-							    ::OcaUint8* pResponse(responseBuffer);
+                                ::OcaUint8* pResponse(responseBuffer);
                                 writer.Write(static_cast< ::OcaUint8>(0/*NrParameters*/), &pResponse);
 
                                 *response = responseBuffer;
-							}
-							else
+                            }
+                            else
                             {
                                 rc = OCASTATUS_BUFFER_OVERFLOW;
                             }
@@ -665,10 +603,9 @@ OcaLiteSwitch::OcaLiteSwitch(::OcaONo objectNumber, ::OcaBoolean lockable, const
     return rc;
 }
 
-//lint -e{835} A zero has been given as right argument to operator '+'
 ::OcaClassVersionNumber OcaLiteSwitch::GetClassVersion() const
 {
-    return (OcaLiteActuator::GetClassVersion() + CLASS_VERSION_INCREMENT);
+    return static_cast< ::OcaClassVersionNumber>(static_cast<int>(OcaLiteActuator::GetClassVersion()) + CLASS_VERSION_INCREMENT);
 }
 
 ::OcaLiteStatus OcaLiteSwitch::GetPositionValue(::OcaUint16& position) const

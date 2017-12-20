@@ -24,7 +24,6 @@ class OcaLiteString;
 // ---- Class Definition ----
 /**
  * Interface that defines a writer for primitive types to an OcaUint8 array.
- * @ingroup OCF
  */
 class IOcaLiteWriter
 {

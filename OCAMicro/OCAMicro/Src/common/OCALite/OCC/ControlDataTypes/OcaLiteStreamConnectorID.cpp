@@ -3,7 +3,7 @@
  */
 
 /*
- *  Description         : OcaLiteNetworkSignalChannelID
+ *  Description         : OcaLiteStreamConnectorID
  *
  */
 
@@ -12,7 +12,7 @@
 // ---- FileInfo Macro ----
 
 // ---- Include local include files ----
-#include "OcaLiteNetworkSignalChannelID.h"
+#include "OcaLiteStreamConnectorID.h"
 
 // ---- Helper types and constants ----
 
@@ -22,29 +22,29 @@
 
 // ---- Class Implementation ----
 
-OcaLiteNetworkSignalChannelID::OcaLiteNetworkSignalChannelID()
+OcaLiteStreamConnectorID::OcaLiteStreamConnectorID()
     : ::IOcaLiteMarshal(),
       m_value()
 {
 }
 
-OcaLiteNetworkSignalChannelID::OcaLiteNetworkSignalChannelID(const ::OcaLiteBlob& value)
+OcaLiteStreamConnectorID::OcaLiteStreamConnectorID(const ::OcaLiteBlob& value)
     : ::IOcaLiteMarshal(),
       m_value(value)
 {
 }
 
-OcaLiteNetworkSignalChannelID::OcaLiteNetworkSignalChannelID(const ::OcaLiteNetworkSignalChannelID& source)
+OcaLiteStreamConnectorID::OcaLiteStreamConnectorID(const ::OcaLiteStreamConnectorID& source)
     : ::IOcaLiteMarshal(source),
       m_value(source.m_value)
 {
 }
 
-OcaLiteNetworkSignalChannelID::~OcaLiteNetworkSignalChannelID()
+OcaLiteStreamConnectorID::~OcaLiteStreamConnectorID()
 {
 }
 
-::OcaLiteNetworkSignalChannelID& OcaLiteNetworkSignalChannelID::operator=(const ::OcaLiteNetworkSignalChannelID& source)
+::OcaLiteStreamConnectorID& OcaLiteStreamConnectorID::operator=(const ::OcaLiteStreamConnectorID& source)
 {
     if (this != &source)
     {
@@ -54,22 +54,22 @@ OcaLiteNetworkSignalChannelID::~OcaLiteNetworkSignalChannelID()
     return *this;
 }
 
-bool OcaLiteNetworkSignalChannelID::operator==(const ::OcaLiteNetworkSignalChannelID& rhs) const
+bool OcaLiteStreamConnectorID::operator==(const ::OcaLiteStreamConnectorID& rhs) const
 {
     return (m_value == rhs.m_value);
 }
 
-bool OcaLiteNetworkSignalChannelID::operator!=(const ::OcaLiteNetworkSignalChannelID& rhs) const
+bool OcaLiteStreamConnectorID::operator!=(const ::OcaLiteStreamConnectorID& rhs) const
 {
     return !(operator==(rhs));
 }
 
-void OcaLiteNetworkSignalChannelID::Marshal(::OcaUint8** destination, const ::IOcaLiteWriter& writer) const
+void OcaLiteStreamConnectorID::Marshal(::OcaUint8** destination, const ::IOcaLiteWriter& writer) const
 {
     m_value.Marshal(destination, writer);
 }
 
-bool OcaLiteNetworkSignalChannelID::Unmarshal(::OcaUint32& bytesLeft, const ::OcaUint8** source, const ::IOcaLiteReader& reader)
+bool OcaLiteStreamConnectorID::Unmarshal(::OcaUint32& bytesLeft, const ::OcaUint8** source, const ::IOcaLiteReader& reader)
 {
     bool result(m_value.Unmarshal(bytesLeft, source, reader));
 
@@ -81,7 +81,7 @@ bool OcaLiteNetworkSignalChannelID::Unmarshal(::OcaUint32& bytesLeft, const ::Oc
     return result;
 }
 
-::OcaUint32 OcaLiteNetworkSignalChannelID::GetSize(const ::IOcaLiteWriter& writer) const
+::OcaUint32 OcaLiteStreamConnectorID::GetSize(const ::IOcaLiteWriter& writer) const
 {
     ::OcaUint32 length(m_value.GetSize(writer));
 

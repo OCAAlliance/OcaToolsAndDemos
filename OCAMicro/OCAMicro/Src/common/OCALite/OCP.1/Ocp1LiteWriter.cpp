@@ -98,54 +98,54 @@ void Ocp1LiteWriter::Write(const ::OcaUint8* values, ::OcaUint32 nrOfBytes, ::Oc
 ::OcaUint32 Ocp1LiteWriter::GetSize(::OcaBoolean value) const
 {
     return static_cast< ::OcaUint32>(1); // OCP.1 defines that an OcaBoolean in an OCP.1 message has a size of one byte independent of the effective size of an OcaBoolean in the target platform
-} //lint !e550 Symbol 'value' not accessed
+}
 
 ::OcaUint32 Ocp1LiteWriter::GetSize(::OcaInt8 value) const
 {
     return static_cast< ::OcaUint32>(sizeof(value));
-} //lint !e550 Symbol 'value' not accessed
+}
 
 ::OcaUint32 Ocp1LiteWriter::GetSize(::OcaInt16 value) const
 {
     return static_cast< ::OcaUint32>(sizeof(value));
-} //lint !e550 Symbol 'value' not accessed
+}
 
 ::OcaUint32 Ocp1LiteWriter::GetSize(::OcaInt32 value) const
 {
     return static_cast< ::OcaUint32>(sizeof(value));
-} //lint !e550 Symbol 'value' not accessed
+}
 
 ::OcaUint32 Ocp1LiteWriter::GetSize(::OcaInt64 value) const
 {
     return static_cast< ::OcaUint32>(sizeof(value));
-} //lint !e550 Symbol 'value' not accessed
+}
 
 ::OcaUint32 Ocp1LiteWriter::GetSize(::OcaUint8 value) const
 {
     return static_cast< ::OcaUint32>(sizeof(value));
-} //lint !e550 Symbol 'value' not accessed
+}
 
 ::OcaUint32 Ocp1LiteWriter::GetSize(::OcaUint16 value) const
 {
     return static_cast< ::OcaUint32>(sizeof(value));
-} //lint !e550 Symbol 'value' not accessed
+}
 
 ::OcaUint32 Ocp1LiteWriter::GetSize(::OcaUint32 value) const
 {
     return static_cast< ::OcaUint32>(sizeof(value));
-} //lint !e550 Symbol 'value' not accessed
+}
 
 ::OcaUint32 Ocp1LiteWriter::GetSize(::OcaUint64 value) const
 {
     return static_cast< ::OcaUint32>(sizeof(value));
-} //lint !e550 Symbol 'value' not accessed
+}
 
 ::OcaUint32 Ocp1LiteWriter::GetSize(::OcaFloat32 value) const
 {
     return static_cast< ::OcaUint32>(sizeof(value));
-} //lint !e550 Symbol 'value' not accessed
+}
 
 ::OcaUint32 Ocp1LiteWriter::GetSize(const ::OcaUint8* values, ::OcaUint32 nrOfBytes) const
 {
     return nrOfBytes;
-} //lint !e550 Symbol 'value' not accessed
+}

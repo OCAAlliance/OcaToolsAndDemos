@@ -1,20 +1,21 @@
-/*
- *  By downloading or using this file, the user agrees to be bound by the terms of the license 
+/*  By downloading or using this file, the user agrees to be bound by the terms of the license 
  *  agreement located at http://ocaalliance.com/EULA as an original contracting party.
- *
- *  Description         : OcaLiteNetworkNodeID
+ */
+
+/*
+ *  Description         : OcaLiteStreamParameters
  *
  */
 
-#ifndef OCALITENETWORKNODEID_H
-#define OCALITENETWORKNODEID_H
+#ifndef OCALITESTREAMPARAMETERS_H
+#define OCALITESTREAMPARAMETERS_H
 
 // ---- Include system wide include files ----
 
 // ---- Include local include files ----
-#include "IOcaLiteMarshal.h"
-#include "OcaLiteBlob.h"
-#include "OcaLiteString.h"
+#include <OCALite/OCC/ControlDataTypes/IOcaLiteMarshal.h>
+#include <OCALite/OCC/ControlDataTypes/OcaLiteBlob.h>
+#include <OCALite/OCC/ControlDataTypes/OcaLiteString.h>
 
 // ---- Referenced classes and types ----
 
@@ -28,32 +29,31 @@
  * ID (name or GUID) of network node. There may be one or more nodes per host. Nodes offer media
  * network services, and are what is discovered by discovery processes. Each instance of OcaNetwork (or
  * one of its subclasses) is a node.
- * @ingroup NetworkDataTypes
  */
-class OcaLiteNetworkNodeID : public ::IOcaLiteMarshal
+class OcaLiteStreamParameters : public ::IOcaLiteMarshal
 {
 public:
     /** Default constructor. */
-    OcaLiteNetworkNodeID();
+    OcaLiteStreamParameters();
 
     /**
      * Constructor.
      *
      * @param[in]   value       The value.
      */
-    explicit OcaLiteNetworkNodeID(const ::OcaLiteBlob& value);
+    explicit OcaLiteStreamParameters(const ::OcaLiteBlob& value);
 
     /**
      * Copy constructor.
      *
      * @param[in]   source      The source to copy the object from.
      */
-    OcaLiteNetworkNodeID(const ::OcaLiteNetworkNodeID& source);
+    OcaLiteStreamParameters(const ::OcaLiteStreamParameters& source);
 
     /**
      * Destructor.
      */
-    virtual ~OcaLiteNetworkNodeID();
+    virtual ~OcaLiteStreamParameters();
 
     /**
      * Getter for the value
@@ -71,7 +71,7 @@ public:
      * @param[in]   source      The source to assign the object from.
      * @return A reference to this object.
      */
-    ::OcaLiteNetworkNodeID& operator=(const ::OcaLiteNetworkNodeID& source);
+    ::OcaLiteStreamParameters& operator=(const ::OcaLiteStreamParameters& source);
 
     /**
      * The is-equal operator.
@@ -79,7 +79,7 @@ public:
      * @param[in]   rhs         The object to compare with.
      * @return True if the classes are equal.
      */
-    bool operator==(const ::OcaLiteNetworkNodeID& rhs) const;
+    bool operator==(const ::OcaLiteStreamParameters& rhs) const;
 
     /**
      * The is-not-equal operator.
@@ -87,7 +87,7 @@ public:
      * @param[in]   rhs         The object to compare with.
      * @return True if the classes are not equal.
      */
-    bool operator!=(const ::OcaLiteNetworkNodeID& rhs) const;
+    bool operator!=(const ::OcaLiteStreamParameters& rhs) const;
 
     // ---- IOcaLiteMarshal methods ----
 
@@ -109,4 +109,4 @@ private:
     ::OcaLiteBlob    m_value;
 };
 
-#endif // OCALITENETWORKNODEID_H
+#endif // OCALITESTREAMPARAMETERS_H

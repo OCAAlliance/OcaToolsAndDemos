@@ -101,9 +101,7 @@
     <ClCompile Include="OCALiteDante.cpp" />
     <ClCompile Include="OcaLiteDanteLvlSensor.cpp" />
     <ClCompile Include="OcaLiteDanteMediaClock.cpp" />
-    <ClCompile Include="OcaLiteNetworkSignalChannel.cpp" />
     <ClCompile Include="OcaLiteNetworkSignalChannelDante.cpp" />
-    <ClCompile Include="OcaLiteStreamNetwork.cpp" />
     <ClCompile Include="OcaLiteStreamNetworkDante.cpp" />
   </ItemGroup>
   <ItemGroup>

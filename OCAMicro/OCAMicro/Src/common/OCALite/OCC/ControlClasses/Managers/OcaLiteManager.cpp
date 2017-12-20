@@ -25,7 +25,7 @@ static const ::OcaUint16        classID[]   = {OCA_MANAGER_CLASSID};
 const ::OcaLiteClassID          OcaLiteManager::CLASS_ID(static_cast< ::OcaUint16>(sizeof(classID) / sizeof(classID[0])), classID);
 
 /** Defines the version increment of this class compared to its base class. */
-#define CLASS_VERSION_INCREMENT     static_cast< ::OcaClassVersionNumber>(0)
+#define CLASS_VERSION_INCREMENT     0
 
 // ---- Helper functions ----
 
@@ -65,8 +65,7 @@ const ::OcaLiteString& OcaLiteManager::GetName() const
     return static_cast< ::OcaBoolean>(true);
 }
 
-//lint -e{835} A zero has been given as right argument to operator '+'
 ::OcaClassVersionNumber OcaLiteManager::GetClassVersion() const
 {
-    return (OcaLiteRoot::GetClassVersion() + CLASS_VERSION_INCREMENT);
+    return static_cast< ::OcaClassVersionNumber>(static_cast<int>(OcaLiteRoot::GetClassVersion()) + CLASS_VERSION_INCREMENT);
 }

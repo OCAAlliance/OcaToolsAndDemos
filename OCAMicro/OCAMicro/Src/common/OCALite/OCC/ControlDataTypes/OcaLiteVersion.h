@@ -28,7 +28,6 @@
 /**
  * Representation of a version number of a (hardware/software) component of a device in the form
  * of Major.Minor.Build (e.g. 1.0.123).
- * @ingroup FrameworkDataTypes
  */
 class OcaLiteVersion : public ::IOcaLiteMarshal
 {

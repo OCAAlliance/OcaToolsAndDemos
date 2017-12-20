@@ -26,22 +26,22 @@
 
 typedef struct _DanteDeviceClocking
 {
-	uint32_t CurrentSampleRate;
-	uint32_t NumberOfSupportedRates;
-	uint32_t SupportedSampleRates[10];
+    uint32_t CurrentSampleRate;
+    uint32_t NumberOfSupportedRates;
+    uint32_t SupportedSampleRates[10];
 } DanteDeviceClocking, *pDanteDeviceClocking;
 
 typedef struct _DanteClockStatus
 {
-	conmon_audinate_servo_state_t	ServoState;
-	conmon_audinate_clock_source_t	ClockSource;
-	conmon_audinate_clock_state_t	ClockState;
-	conmon_audinate_ext_wc_state_t	ClockExternalWordClockState;
-	char *							DomainName;
-	conmon_audinate_port_state_t	ClockPortState[2];
-	uint32_t						ClockMaster;
-	uint16_t						ClockMuteState;
-	uint32_t						ClockLocked;
+    conmon_audinate_servo_state_t     ServoState;
+    conmon_audinate_clock_source_t    ClockSource;
+    conmon_audinate_clock_state_t     ClockState;
+    conmon_audinate_ext_wc_state_t    ClockExternalWordClockState;
+    char *                            DomainName;
+    conmon_audinate_port_state_t      ClockPortState[2];
+    uint32_t                          ClockMaster;
+    uint16_t                          ClockMuteState;
+    uint32_t                          ClockLocked;
 } DanteClockStatus, *pDanteClockStatus;
 
 /**

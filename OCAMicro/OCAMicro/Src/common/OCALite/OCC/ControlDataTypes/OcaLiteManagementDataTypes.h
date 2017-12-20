@@ -29,7 +29,6 @@
  * boot loader, all other values of this enumeration are device-specific and will
  * be specified by subclassing this enumeration.
  */
-//lint -strong(AJX, OcaLiteComponent)
 enum OcaLiteComponent /* maps onto OcaUint16 */
 {
     /** The boot loader image. */
@@ -42,8 +41,6 @@ enum OcaLiteComponent /* maps onto OcaUint16 */
 
 // ---- Specialized Template Function Definition ----
 
-//lint -save -e1576 Explicit specialization does not occur in the same file as corresponding function template
-
 template <>
 void MarshalValue< ::OcaLiteComponent>(const ::OcaLiteComponent& value, ::OcaUint8** destination, const ::IOcaLiteWriter& writer);
 
@@ -52,7 +49,5 @@ bool UnmarshalValue< ::OcaLiteComponent>(::OcaLiteComponent& value, ::OcaUint32&
 
 template <>
 ::OcaUint32 GetSizeValue< ::OcaLiteComponent>(const ::OcaLiteComponent& value, const ::IOcaLiteWriter& writer);
-
-//lint -restore
 
 #endif /* OCALITEMANAGEMENTDATATYPES_H */

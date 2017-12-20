@@ -27,7 +27,6 @@
 
 /**
  * Representation of an OCA method, i.e. the unique combination of an ONo and a MethodID.
- * @ingroup EventSubscriptionDataTypes
  */
 class OcaLiteMethod : public ::IOcaLiteMarshal
 {

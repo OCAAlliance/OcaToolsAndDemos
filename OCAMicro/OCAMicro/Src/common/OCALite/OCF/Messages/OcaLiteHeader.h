@@ -26,13 +26,11 @@
 
 /**
  * Representation of the header of a OCA header.
- * @ingroup Messages
  */
 class  OcaLiteHeader : public ::IOcaLiteMarshal
 {
 public:
     /** Enumeration of message types. */
-    //lint -strong(AJX, OcaLiteMessageType)
     enum OcaLiteMessageType
     {
         /** Command - No response required. */
@@ -100,8 +98,6 @@ private:
 
 // ---- Specialized Template Function Definition ----
 
-//lint -save -e1576 Explicit specialization does not occur in the same file as corresponding function template
-
 template <>
 void MarshalValue< ::OcaLiteHeader::OcaLiteMessageType>(const ::OcaLiteHeader::OcaLiteMessageType& value, ::OcaUint8** destination, const ::IOcaLiteWriter& writer);
 
@@ -110,7 +106,5 @@ bool UnmarshalValue< ::OcaLiteHeader::OcaLiteMessageType>(::OcaLiteHeader::OcaLi
 
 template <>
 ::OcaUint32 GetSizeValue< ::OcaLiteHeader::OcaLiteMessageType>(const ::OcaLiteHeader::OcaLiteMessageType& value, const ::IOcaLiteWriter& writer);
-
-//lint -restore
 
 #endif // OCALITEHEADER_H

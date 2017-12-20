@@ -23,7 +23,6 @@
 // ---- Class Definition ----
 /**
  * Specific writer to write data to be sent over an OCP.1 network.
- * @ingroup OCP1
  */
 class Ocp1LiteWriter : public ::IOcaLiteWriter
 {

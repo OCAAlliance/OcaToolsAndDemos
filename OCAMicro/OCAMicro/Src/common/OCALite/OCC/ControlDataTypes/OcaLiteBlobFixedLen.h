@@ -29,7 +29,6 @@
 /**
  * Representation of a binary large object with a fixed-length.
  * @tparam  Len         The length of the BLOB in bytes.
- * @ingroup DataTypes
  */
 template < ::OcaUint16 Len>
 class OcaLiteBlobFixedLen : public ::IOcaLiteMarshal

@@ -1,8 +1,6 @@
 /*  By downloading or using this file, the user agrees to be bound by the terms of the license 
  *  agreement located at http://ocaalliance.com/EULA as an original contracting party.
- */
-
-/*
+ *
  *  Description         : OcaLiteAgent
  *
  */
@@ -26,7 +24,7 @@ static const ::OcaUint16        classID[]   = {OCA_AGENT_CLASSID};
 const ::OcaLiteClassID          OcaLiteAgent::CLASS_ID(static_cast< ::OcaUint16>(sizeof(classID) / sizeof(classID[0])), classID);
 
 /** Defines the version increment of this class compared to its base class. */
-#define CLASS_VERSION_INCREMENT     static_cast< ::OcaClassVersionNumber>(0)
+#define CLASS_VERSION_INCREMENT     0
 
 // ---- Helper functions ----
 
@@ -80,8 +78,7 @@ OcaLiteAgent::~OcaLiteAgent()
     return rc;
 }
 
-//lint -e{835} A zero has been given as right argument to operator '+'
 ::OcaClassVersionNumber OcaLiteAgent::GetClassVersion() const
 {
-    return (OcaLiteRoot::GetClassVersion() + CLASS_VERSION_INCREMENT);
+    return static_cast< ::OcaClassVersionNumber>(static_cast<int>(OcaLiteRoot::GetClassVersion()) + CLASS_VERSION_INCREMENT);
 }

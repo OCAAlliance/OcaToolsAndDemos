@@ -23,7 +23,7 @@ static const ::OcaUint16        classID[]   = {OCA_NETWORK_SIGNAL_CHANNEL_DANTE_
 const ::OcaLiteClassID          OcaLiteNetworkSignalChannelDante::CLASS_ID(static_cast< ::OcaUint16>(sizeof(classID) / sizeof(classID[0])), classID);
 
 /** Defines the version increment of this class compared to its base class. */
-#define CLASS_VERSION_INCREMENT     static_cast< ::OcaClassVersionNumber>(0)
+#define CLASS_VERSION_INCREMENT     0
 
 // ---- Helper functions ----
 
@@ -48,7 +48,7 @@ OcaLiteNetworkSignalChannelDante::OcaLiteNetworkSignalChannelDante(::OcaONo obje
        m_encodings(encodings),
        m_sampleRate(sampleRate),
        m_channelNr(channelNr),
-	   m_DanteSubscription(idAdvertised)
+       m_DanteSubscription(idAdvertised)
 {
     RemoteChannelIDChanged(::OcaLiteNetworkSignalChannelDanteID(::OcaLiteString("")));
 }
@@ -197,10 +197,9 @@ OcaLiteNetworkSignalChannelDante::~OcaLiteNetworkSignalChannelDante()
     return rc;
 }
 
-//lint -e{835} A zero has been given as right argument to operator '+'
 ::OcaClassVersionNumber OcaLiteNetworkSignalChannelDante::GetClassVersion() const
 {
-    return (OcaLiteNetworkSignalChannel::GetClassVersion() + CLASS_VERSION_INCREMENT);
+    return static_cast< ::OcaClassVersionNumber>(static_cast<int>(OcaLiteNetworkSignalChannel::GetClassVersion()) + CLASS_VERSION_INCREMENT);
 }
 
 ::OcaLiteStatus OcaLiteNetworkSignalChannelDante::SetRemoteChannelIDValue(::OcaLiteNetworkSignalChannelID signalChannelID)
@@ -213,7 +212,7 @@ OcaLiteNetworkSignalChannelDante::~OcaLiteNetworkSignalChannelDante()
         if (NULL != signalChannelIDDante)
         {
             // Subscribe to the channel
-            if(DanteLiteHostInterfaceSetDanteChannelSubscription(m_channelNr, signalChannelIDDante->GetdanteId().GetLength() > 0 ? signalChannelIDDante->GetdanteId().GetString().c_str() : NULL))
+            if(DanteLiteHostInterfaceSetDanteChannelSubscription(m_channelNr, signalChannelIDDante->GetStringValue().GetLength() > 0 ? signalChannelIDDante->GetStringValue().GetString().c_str() : NULL))
             {
                 rc = OCASTATUS_OK;
             }
@@ -227,15 +226,15 @@ OcaLiteNetworkSignalChannelDante::~OcaLiteNetworkSignalChannelDante()
 
 void OcaLiteNetworkSignalChannelDante::DanteRemoteChannelIDChanged(::OcaLiteNetworkSignalChannelID remoteChannelID)
 {
-	OcaLiteNetworkSignalChannel::RemoteChannelIDChanged(remoteChannelID);
-	m_DanteSubscription.getDanteIDFromBase(remoteChannelID, m_SubscriptionStr);
+    OcaLiteNetworkSignalChannel::RemoteChannelIDChanged(remoteChannelID);
+    m_DanteSubscription.GetStringValueFromBase(remoteChannelID, m_SubscriptionStr);
 }
 
 ::OcaBoolean OcaLiteNetworkSignalChannelDante::GetSubscriptionName(OcaLiteString &Name)
 {
-	if(m_SubscriptionStr.GetLength()) {
-		Name = m_SubscriptionStr;
-		return true;
-	}
-	return false;
+    if(m_SubscriptionStr.GetLength()) {
+        Name = m_SubscriptionStr;
+        return true;
+    }
+    return false;
 }

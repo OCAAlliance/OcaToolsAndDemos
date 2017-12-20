@@ -27,7 +27,6 @@
 
 /**
  * Identifier that specifies the system interface used by a network.
- * @ingroup NetworkDataTypes
  */
 class OcaLiteNetworkSystemInterfaceID : public ::IOcaLiteMarshal
 {

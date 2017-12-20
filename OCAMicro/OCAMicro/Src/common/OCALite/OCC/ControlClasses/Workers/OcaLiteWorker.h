@@ -21,26 +21,22 @@ class OcaLiteBlock;
 // ---- Helper types and constants ----
 /**
  * The classID used for initialization.
- * @ingroup Workers
  */
 #define OCA_WORKER_CLASSID      OCA_ROOT_CLASSID,static_cast< ::OcaUint16>(1)
 
 // ---- Helper functions ----
 
 /** Frequency value in Hertz. */
-/*lint -strong(AJX, OcaFrequency)*/
 typedef ::OcaFloat32   OcaLiteFrequency;
 
 // ---- Class Definition ----
 /**
  * Abstract base class for classes that represent the device's application and support functions.
- * @ingroup Workers
  */
 class OcaLiteWorker : public ::OcaLiteRoot
 {
 public:
     /** Method indexes for the supported methods. */
-    //lint -e(578) Hides inherited symbol
     enum MethodIndex
     {
         /** GetEnabled() */
@@ -72,7 +68,6 @@ public:
     };
 
     /** Property indexes for the supported properties. */
-    //lint -e(578) Hides inherited symbol
     enum PropertyIndex
     {
         /** Read/write property that indicates whether the worker object is enabled in the device. If an object
@@ -104,7 +99,6 @@ public:
      * identifies the instantiated object. This is a class property instead of an object property. This
      * property will be overridden by each descendant class, in order to specify that class's ClassID.
      */
-    //lint -e(1516) Hides inherited member
     static const ::OcaLiteClassID CLASS_ID;
 
     // ---- Interface methods  ----

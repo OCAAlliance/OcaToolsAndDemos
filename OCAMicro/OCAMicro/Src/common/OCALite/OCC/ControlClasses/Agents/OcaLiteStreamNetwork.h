@@ -10,19 +10,20 @@
 
 // ---- Include system wide include files ----
 #include <OCC/ControlClasses/Agents/OcaLiteAgent.h>
-#include <OCC/ControlDataTypes/OcaLiteNetworkNodeID.h>
+#include <OCC/ControlDataTypes/OcaLiteBlobDataType.h>
 #include <OCC/ControlDataTypes/OcaLiteNetworkDataTypes.h>
 #include <OCC/ControlDataTypes/OcaLiteNetworkSystemInterfaceID.h>
+#include <OCC/ControlDataTypes/OcaLiteList.h>
 
 // ---- Include local include files ----
 
 // ---- Referenced classes and types ----
 class OcaLiteNetworkSignalChannel;
+class OcaLiteStreamConnector;
 
 // ---- Helper types and constants ----
 /**
  * The classID used for initialization.
- * @ingroup StreamNetwork
  */
 #define OCA_STREAMNETWORK_CLASSID   OCA_AGENT_CLASSID,static_cast< ::OcaUint16>(10)
 
@@ -31,13 +32,11 @@ class OcaLiteNetworkSignalChannel;
 // ---- Class Definition ----
 /**
  * Abstract base class for defining stream network.
- * @ingroup StreamNetwork
  */
 class OcaLiteStreamNetwork : public ::OcaLiteAgent
 {
 public:
     /** Method indexes for the supported methods. */
-    //lint -e(578) Hides inherited symbol
     enum MethodIndex
     {
         /** GetLinkType() */
@@ -79,7 +78,6 @@ public:
     };
 
     /** Property indexes for the supported properties. */
-    //lint -e(578) Hides inherited symbol
     enum PropertyIndex
     {
         /** Network link type - e.g. wired Ethernet, USB, ... See the OcaNetworkType enum for details. This
@@ -124,7 +122,6 @@ public:
      * identifies the instantiated object. This is a class property instead of an object property. This
      * property will be overridden by each descendant class, in order to specify that class's ClassID.
      */
-    //lint -e(1516) Hides inherited member
     static const ::OcaLiteClassID CLASS_ID;
 
     // ---- Interface methods ----
@@ -159,7 +156,7 @@ protected:
                          ::OcaBoolean lockable,
                          const ::OcaLiteString& role,
                          ::OcaLiteNetworkLinkType linkType,
-                         const ::OcaLiteNetworkNodeID& idAdvertised,
+                         const ::OcaLiteBlobDataType& idAdvertised,
                          ::OcaLiteNetworkControlProtocol controlProtocol,
                          ::OcaLiteNetworkMediaProtocol mediaProtocol);
 
@@ -172,12 +169,16 @@ protected:
 
     ::OcaBoolean AddSignalSourceSink(::OcaLiteNetworkSignalChannel& signalChannel);
 
+    ::OcaBoolean AddConnectorSourceSink(::OcaLiteStreamConnector& connector);
+
+    ::OcaBoolean RemoveConnectorSourceSink(::OcaLiteStreamConnector& connector);
+
 private:
     /** The network's link type. */
     ::OcaLiteNetworkLinkType                        m_networkLinkType;
 
     /** The network's advertised ID. */
-    ::OcaLiteNetworkNodeID                          m_idAdvertised;
+    ::OcaLiteBlobDataType                          m_idAdvertised;
 
     /** The network's control protocol. */
     ::OcaLiteNetworkControlProtocol                 m_networkControlProtocol;
@@ -189,8 +190,9 @@ private:
     ::OcaLiteList< ::OcaONo>                        m_signalSource;
     ::OcaLiteList< ::OcaONo>                        m_signalSink;
 
-	/** List with system interfaces */
-	::OcaLiteList< ::OcaLiteNetworkSystemInterfaceID>	m_interfaces;
+    /** List with single sources and sinks stream connectors */
+    ::OcaLiteList< ::OcaONo>                        m_connectorsSource;
+    ::OcaLiteList< ::OcaONo>                        m_connectorsSink;
 
     /** private copy constructor, no copying of object allowed */
     OcaLiteStreamNetwork(const ::OcaLiteStreamNetwork&);

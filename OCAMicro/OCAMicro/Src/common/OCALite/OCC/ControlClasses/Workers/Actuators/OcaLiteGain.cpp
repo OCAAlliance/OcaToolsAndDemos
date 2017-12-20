@@ -21,7 +21,7 @@ static const ::OcaUint16        classID[]   = {OCA_GAIN_CLASSID};
 const ::OcaLiteClassID          OcaLiteGain::CLASS_ID(static_cast< ::OcaUint16>(sizeof(classID) / sizeof(classID[0])), classID);
 
 /** Defines the version increment of this class compared to its base class. */
-#define CLASS_VERSION_INCREMENT     static_cast< ::OcaClassVersionNumber>(0)
+#define CLASS_VERSION_INCREMENT     0
 
 // ---- Helper functions ----
 
@@ -46,21 +46,13 @@ OcaLiteGain::OcaLiteGain(::OcaONo objectNumber, ::OcaBoolean lockable, const ::O
 
 ::OcaLiteStatus OcaLiteGain::GetGain(::OcaDB& gain, ::OcaDB& minGain, ::OcaDB& maxGain) const
 {
-    TakeMutex();
-
-    ::OcaLiteStatus rc(GetGainValue(gain));
     minGain = m_minGain;
     maxGain = m_maxGain;
-
-    ReleaseMutex();
-
-    return rc;
+    return GetGainValue(gain);
 }
 
 ::OcaLiteStatus OcaLiteGain::SetGain(::OcaDB gain)
 {
-    TakeMutex();
-
     ::OcaLiteStatus rc(OCASTATUS_PARAMETER_OUT_OF_RANGE);
 
     if ((gain >= m_minGain) && (gain <= m_maxGain))
@@ -85,16 +77,12 @@ OcaLiteGain::OcaLiteGain(::OcaONo objectNumber, ::OcaBoolean lockable, const ::O
                                                                           propertyID,
                                                                           actualGain,
                                                                           OCAPROPERTYCHANGETYPE_CURRENT_CHANGED);
-                        ReleaseMutex();
                         PropertyChanged(eventData);
-                        TakeMutex();
                     }
                 }
             }
         }
     }
-
-    ReleaseMutex();
     return rc;
 }
 
@@ -110,7 +98,7 @@ OcaLiteGain::OcaLiteGain(::OcaONo objectNumber, ::OcaBoolean lockable, const ::O
             const ::OcaUint8* pCmdParameters(parameters);
             ::OcaUint32 bytesLeft(parametersSize);
 
-			switch (methodID.GetMethodIndex())
+            switch (methodID.GetMethodIndex())
             {
             case GET_GAIN:
                 {
@@ -126,20 +114,20 @@ OcaLiteGain::OcaLiteGain(::OcaONo objectNumber, ::OcaBoolean lockable, const ::O
                         {
                             ::OcaUint32 responseSize(::GetSizeValue< ::OcaUint8>(static_cast< ::OcaUint8>(3), writer) + 
                                                      ::GetSizeValue< ::OcaDB>(gain, writer) + 
-													 ::GetSizeValue< ::OcaDB>(minGain, writer) + 
-													 ::GetSizeValue< ::OcaDB>(maxGain, writer));
+                                                     ::GetSizeValue< ::OcaDB>(minGain, writer) + 
+                                                     ::GetSizeValue< ::OcaDB>(maxGain, writer));
                             responseBuffer = ::OcaLiteCommandHandler::GetInstance().GetResponseBuffer(responseSize);
                             if (NULL != responseBuffer)
                             {
-							    ::OcaUint8* pResponse(responseBuffer);
+                                ::OcaUint8* pResponse(responseBuffer);
                                 writer.Write(static_cast< ::OcaUint8>(3/*NrParameters*/), &pResponse);
                                 ::MarshalValue< ::OcaDB>(gain, &pResponse, writer);
                                 ::MarshalValue< ::OcaDB>(minGain, &pResponse, writer);
                                 ::MarshalValue< ::OcaDB>(maxGain, &pResponse, writer);
 
                                 *response = responseBuffer;
-							}
-							else
+                            }
+                            else
                             {
                                 rc = OCASTATUS_BUFFER_OVERFLOW;
                             }
@@ -154,7 +142,7 @@ OcaLiteGain::OcaLiteGain(::OcaONo objectNumber, ::OcaBoolean lockable, const ::O
 
                     if (reader.Read(bytesLeft, &pCmdParameters, numberOfParameters) &&
                         (1 == numberOfParameters) &&
-						reader.Read(bytesLeft, &pCmdParameters, gain))
+                        reader.Read(bytesLeft, &pCmdParameters, gain))
                     {
                         rc = SetGain(gain);
                         if (OCASTATUS_OK == rc)
@@ -163,12 +151,12 @@ OcaLiteGain::OcaLiteGain(::OcaONo objectNumber, ::OcaBoolean lockable, const ::O
                             responseBuffer = ::OcaLiteCommandHandler::GetInstance().GetResponseBuffer(responseSize);
                             if (NULL != responseBuffer)
                             {
-							    ::OcaUint8* pResponse(responseBuffer);
+                                ::OcaUint8* pResponse(responseBuffer);
                                 writer.Write(static_cast< ::OcaUint8>(0/*NrParameters*/), &pResponse);
 
                                 *response = responseBuffer;
-							}
-							else
+                            }
+                            else
                             {
                                 rc = OCASTATUS_BUFFER_OVERFLOW;
                             }
@@ -195,10 +183,9 @@ OcaLiteGain::OcaLiteGain(::OcaONo objectNumber, ::OcaBoolean lockable, const ::O
     return rc;
 }
 
-//lint -e{835} A zero has been given as right argument to operator '+'
 ::OcaClassVersionNumber OcaLiteGain::GetClassVersion() const
 {
-    return (OcaLiteActuator::GetClassVersion() + CLASS_VERSION_INCREMENT);
+    return static_cast< ::OcaClassVersionNumber>(static_cast<int>(OcaLiteActuator::GetClassVersion()) + CLASS_VERSION_INCREMENT);
 }
 
 ::OcaLiteStatus OcaLiteGain::GetGainValue(::OcaDB& gain) const

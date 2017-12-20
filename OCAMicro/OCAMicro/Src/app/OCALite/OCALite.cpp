@@ -9,6 +9,7 @@
 
 #include <HostInterfaceLite/OCA/OCF/OcfLiteHostInterface.h>
 #include <HostInterfaceLite/OCA/OCP.1/Ocp1LiteHostInterface.h>
+#include <OCC/ControlDataTypes/OcaLiteStringInABlob.h>
 #include <OCC/ControlClasses/Workers/BlocksAndMatrices/OcaLiteBlock.h>
 #include <OCC/ControlClasses/Managers/OcaLiteDeviceManager.h>
 #include <OCC/ControlClasses/Managers/OcaLiteNetworkManager.h>
@@ -16,7 +17,6 @@
 #include <OCC/ControlClasses/Managers/OcaLiteFirmwareManager.h>
 #include <OCF/OcaLiteCommandHandler.h>
 #include <OCP.1/Ocp1LiteNetwork.h>
-#include <OCP.1/Ocp1LiteNetworkNodeID.h>
 #include <OCP.1/Ocp1LiteNetworkSystemInterfaceID.h>
 #include <StandardLib/StandardLib.h>
 

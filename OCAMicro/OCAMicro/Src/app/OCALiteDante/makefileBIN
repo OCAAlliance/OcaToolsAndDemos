@@ -46,9 +46,7 @@ SRCS  = OCALiteDante.cpp \
 		OcaLiteOcfLogger.cpp \
 		OcaLiteOcfTimer.cpp \
 		OcaLiteStreamNetworkDante.cpp \
-		OcaLiteStreamNetwork.cpp \
 		OcaLiteNetworkSignalChannelDante.cpp \
-		OcaLiteNetworkSignalChannel.cpp \
 		DanteLiteHostInterface.cpp
 
 include $(OCA_HOME)/Src/makeCpp.inc

@@ -46,7 +46,7 @@ void OcfLiteLogLogMessage(UINT8 logLevel, const char* type, const char* file, UI
         UINT32 messageLength(static_cast<UINT32>(::vsnprintf(NULL, 0, message, argList) + 1));
         if (messageLength <= MAX_FULL_MESSAGE_LENGTH)
         {
-            INT32 result(::vsprintf(m_fullLogMessage, message, argList));
+            INT32 result(::vsprintf_s(m_fullLogMessage, message, argList));
             bool bAddCarrageReturn = false;  
 
             if (static_cast<UINT32>(result) <= messageLength)

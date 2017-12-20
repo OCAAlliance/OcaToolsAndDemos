@@ -14,7 +14,7 @@
 #include <OCC/ControlDataTypes/OcaLiteEventSubscriptionDataTypes.h>
 #include <OCC/ControlDataTypes/OcaLiteList.h>
 #include <OCC/ControlDataTypes/OcaLiteNetworkDataTypes.h>
-#include <OCC/ControlDataTypes/OcaLiteNetworkNodeID.h>
+#include <OCC/ControlDataTypes/OcaLiteBlobDataType.h>
 #include <OCC/ControlDataTypes/OcaLiteNetworkSystemInterfaceID.h>
 #include <OCF/Messages/OcaLiteHeader.h>
 #include <OCF/Messages/OcaLiteMessageNotification.h>
@@ -44,7 +44,6 @@ struct OcaLiteMessageSessionID
 
 /**
  * The classID used for initialization.
- * @ingroup Agents
  */
 #define OCA_NETWORK_CLASSID      OCA_AGENT_CLASSID,static_cast< ::OcaUint16>(1)
 
@@ -55,13 +54,11 @@ struct OcaLiteMessageSessionID
  * Abstract base class for defining network classes to which this device belongs. May be a media transport
  * network, a control and monitoring network, or a network that does both.
  * This class will be subclassed to support networks of various types.
- * @ingroup Agents
  */
 class OcaLiteNetwork : public ::OcaLiteAgent
 {
 public:
     /** Method indexes for the supported methods. */
-    //lint -e(578) Hides inherited symbol
     enum MethodIndex
     {
         /** GetLinkType() */
@@ -93,7 +90,6 @@ public:
     };
 
     /** Property indexes for the supported properties. */
-    //lint -e(578) Hides inherited symbol
     enum PropertyIndex
     {
         /** Network link type - e.g. wired Ethernet, USB, ... See the OcaNetworkType enum for details. This
@@ -132,7 +128,6 @@ public:
      * identifies the instantiated object. This is a class property instead of an object property. This
      * property will be overridden by each descendant class, in order to specify that class's ClassID.
      */
-    //lint -e(1516) Hides inherited member
     static const ::OcaLiteClassID CLASS_ID;
 
     // ---- Interface methods ----

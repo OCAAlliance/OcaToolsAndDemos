@@ -23,7 +23,6 @@
 // ---- Class Definition ----
 /**
  * Representation of OCP.1 network address.
- * @ingroup OCP1
  */
 class Ocp1LiteNetworkAddress : public ::OcaLiteNetworkAddress
 {

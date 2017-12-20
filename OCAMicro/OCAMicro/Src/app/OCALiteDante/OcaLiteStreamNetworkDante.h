@@ -9,18 +9,17 @@
 #define OCALITESTREAMNETWORKDANTE_H
 
 // ---- Include system wide include files ----
-#include <OCC/ControlDataTypes/OcaLiteNetworkDanteNodeID.h>
+#include <OCC/ControlClasses/Agents/OcaLiteStreamNetwork.h>
+#include <OCC/ControlDataTypes/OcaLiteStringInABlob.h>
 #include <OCC/ControlDataTypes/OcaLiteList.h>
 
 // ---- Include local include files ----
-#include "OcaLiteStreamNetwork.h"
 
 // ---- Referenced classes and types ----
 
 // ---- Helper types and constants ----
 /**
  * The classID used for initialization.
- * @ingroup StreamNetwork
  */
 #define OCA_STREAMNETWORKDANTE_CLASSID OCA_STREAMNETWORK_CLASSID,(OCA_CLASS_ID_PROPRIETARY_CLASS_FIELD_MASK | static_cast< ::OcaUint16>(0x01))
 
@@ -29,13 +28,11 @@
 // ---- Class Definition ----
 /**
  * Abstract base class for defining stream network.
- * @ingroup StreamNetwork
  */
 class OcaLiteStreamNetworkDante : public ::OcaLiteStreamNetwork
 {
 public:
     /** Method indexes for the supported methods. */
-    //lint -e(578) Hides inherited symbol
     enum MethodIndex
     {
         /** GetMaxRxLatency() */
@@ -51,7 +48,6 @@ public:
     };
 
     /** Property indexes for the supported properties. */
-    //lint -e(578) Hides inherited symbol
     enum PropertyIndex
     {   
         /** Maximum rx latency */
@@ -85,7 +81,6 @@ public:
      * identifies the instantiated object. This is a class property instead of an object property. This
      * property will be overridden by each descendant class, in order to specify that class's ClassID.
      */
-    //lint -e(1516) Hides inherited member
     static const ::OcaLiteClassID CLASS_ID;
 
     // ---- Interface methods ----
@@ -102,7 +97,7 @@ public:
     /**
      * Check a channel subscription for a change.
      *
-     * @param[in]   Channel				The channel number to check
+     * @param[in]   Channel                The channel number to check
      * @param[out]  NewSubscription     The channel [potentially] new subscription
      * @return True if the initialization succeeded, false otherwise.
      */

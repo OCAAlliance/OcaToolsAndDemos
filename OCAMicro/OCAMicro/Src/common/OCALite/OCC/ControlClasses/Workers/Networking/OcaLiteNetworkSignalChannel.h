@@ -10,8 +10,9 @@
 #define OCALITENETWORKSIGNALCHANNEL_H
 
 // ---- Include system wide include files ----
+#include <OCC/ControlDataTypes/OcaLiteMap.h>
 #include <OCC/ControlDataTypes/OcaLiteNetworkDataTypes.h>
-#include <OCC/ControlDataTypes/OcaLiteNetworkSignalChannelID.h>
+#include <OCC/ControlDataTypes/OcaLiteStringInABlob.h>
 
 // ---- Include local include files ----
 #include <OCC/ControlClasses/Workers/OcaLiteWorker.h>
@@ -21,15 +22,12 @@
 // ---- Helper types and constants ----
 /**
  * The classID used for initialization.
- * @ingroup NetworkingWorkers
  */
 #define OCA_NETWORK_SIGNAL_CHANNEL_CLASSID  OCA_WORKER_CLASSID,static_cast< ::OcaUint16>(6)
 
 /**
  * Status options for OcaNetworkSignalChannel.
- * @ingroup MediaNetworkDataTypes
  */
-//lint -strong(AJX, OcaLiteNetworkSignalChannelStatus)
 enum OcaLiteNetworkSignalChannelStatus  /* maps onto OcaUint8 */
 {
     /** Channel is not ready to transfer data. */
@@ -52,13 +50,11 @@ enum OcaLiteNetworkSignalChannelStatus  /* maps onto OcaUint8 */
  *   to an OcaNetworkStreamConnector object and to the appropriate OcaStreamNetwork object.
  * - For channel-oriented media connection management, such as the Dante name-based routing
  *   mechanism, this worker will be linked only to the OcaStreamNetwork object.
- * @ingroup NetworkingWorkers
  */
 class OcaLiteNetworkSignalChannel : public ::OcaLiteWorker
 {
     public:
     /** Method indexes for the supported methods. */
-    //lint -e(578) Hides inherited symbol
     enum MethodIndex
     {
         /** GetIDAdvertised() */
@@ -86,7 +82,6 @@ class OcaLiteNetworkSignalChannel : public ::OcaLiteWorker
     };
 
     /** Property indexes for the supported properties. */
-    //lint -e(578) Hides inherited symbol
     enum PropertyIndex
     {
         /** Character name or binary identifier of the port that is advertised on the network to be found by
@@ -121,7 +116,6 @@ class OcaLiteNetworkSignalChannel : public ::OcaLiteWorker
      * identifies the instantiated object. This is a class property instead of an object property. This
      * property will be overridden by each descendant class, in order to specify that class's ClassID.
      */
-    //lint -e(1516) Hides inherited member
     static const ::OcaLiteClassID CLASS_ID;
 
     // ---- Interface methods ----
@@ -131,14 +125,18 @@ class OcaLiteNetworkSignalChannel : public ::OcaLiteWorker
 
     void StatusChanged(::OcaLiteNetworkSignalChannelStatus status);
 
-    void RemoteChannelIDChanged(::OcaLiteNetworkSignalChannelID remoteChannelID);
+    void RemoteChannelIDChanged(const ::OcaLiteNetworkSignalChannelID& remoteChannelID);
 
-    ::OcaLiteStatus SetRemoteChannelID(::OcaLiteNetworkSignalChannelID signalChannelID);
+    ::OcaLiteStatus SetRemoteChannelID(const ::OcaLiteNetworkSignalChannelID& signalChannelID);
 
     ::OcaLiteNetworkMediaSourceOrSink GetSourceOrSink() const
     {
         return m_sourceOrSink;
     }
+
+    ::OcaLiteStatus AddToConnector(::OcaONo connector, ::OcaLiteStreamConnectorPinIndex index);
+
+    ::OcaLiteStatus RemoveFromConnector(::OcaONo connector);
 
 protected:
     /**
@@ -170,23 +168,26 @@ protected:
 
     virtual ::OcaClassVersionNumber GetClassVersion() const;
 
-    virtual ::OcaLiteStatus SetRemoteChannelIDValue(::OcaLiteNetworkSignalChannelID signalChannelID);
+    virtual ::OcaLiteStatus SetRemoteChannelIDValue(const ::OcaLiteNetworkSignalChannelID& signalChannelID);
 
 private:
     /* Indicates whether this is a source or sink channel */
-    ::OcaLiteNetworkMediaSourceOrSink       m_sourceOrSink;
+    ::OcaLiteNetworkMediaSourceOrSink                           m_sourceOrSink;
 
     /* Indicates the current channel status */
-    ::OcaLiteNetworkSignalChannelStatus     m_status;
+    ::OcaLiteNetworkSignalChannelStatus                         m_status;
+
+    /* Connector pins. */
+    ::OcaLiteMap< ::OcaONo, ::OcaLiteStreamConnectorPinIndex>   m_connectorPins;
 
     /* Indicates the current subscription */
-    ::OcaLiteNetworkSignalChannelID         m_remoteChannelID;
+    ::OcaLiteNetworkSignalChannelID                             m_remoteChannelID;
 
     /* Indicates the current channel name */
-    ::OcaLiteNetworkSignalChannelID         m_idAdvertised;
+    ::OcaLiteNetworkSignalChannelID                             m_idAdvertised;
 
     /* Indicate the owner of this network */
-    ::OcaONo                                m_network;
+    ::OcaONo                                                    m_network;
 
     /** private copy constructor, no copying of object allowed */
     OcaLiteNetworkSignalChannel(const ::OcaLiteNetworkSignalChannel&);
@@ -196,8 +197,6 @@ private:
 
 // ---- Specialized Template Function Definition ----
 
-//lint -save -e1576 Explicit specialization does not occur in the same file as corresponding function template
-
 template <>
 void MarshalValue< ::OcaLiteNetworkSignalChannelStatus>(const ::OcaLiteNetworkSignalChannelStatus& value, ::OcaUint8** destination, const ::IOcaLiteWriter& writer);
 
@@ -206,7 +205,5 @@ bool UnmarshalValue< ::OcaLiteNetworkSignalChannelStatus>(::OcaLiteNetworkSignal
 
 template <> 
 ::OcaUint32 GetSizeValue< ::OcaLiteNetworkSignalChannelStatus>(const ::OcaLiteNetworkSignalChannelStatus& value, const ::IOcaLiteWriter& writer);
-
-//lint -restore
 
 #endif // OCALITENETWORKSIGNALCHANNEL_H

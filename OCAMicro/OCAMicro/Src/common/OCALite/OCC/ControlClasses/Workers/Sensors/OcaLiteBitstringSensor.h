@@ -48,8 +48,8 @@ public:
         /** The bitstring data */
         OCA_PROP_BITSTRING  = 1
     };
-	
-	/**
+    
+    /**
      * Destructor.
      */
     virtual ~OcaLiteBitstringSensor() {}
@@ -109,8 +109,8 @@ protected:
     }
 
     virtual ::OcaClassVersionNumber GetClassVersion() const;
-	
-	/**
+    
+    /**
      * Gets the value of the Bitstring property. 
      *
      * @param[out] bitString    The value of the Bitstring property
@@ -126,7 +126,7 @@ protected:
     void BitstringChanged(const ::OcaLiteBitstring& bitString);
 
 private:
-	/** Length of bitstring, in bits */
+    /** Length of bitstring, in bits */
     ::OcaUint16                             m_nrBits;
 
     /** private copy constructor, no copying of object allowed */

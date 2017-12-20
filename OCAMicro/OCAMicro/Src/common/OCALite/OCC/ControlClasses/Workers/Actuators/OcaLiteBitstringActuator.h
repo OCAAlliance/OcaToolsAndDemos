@@ -19,7 +19,6 @@
 // ---- Helper types and constants ----
 /**
  * The classID used for initialization.
- * @ingroup ActuatorWorkers
  */
 #define OCA_BITSTRING_ACTUATOR_CLASSID      OCA_BASIC_ACTUATOR_CLASSID,static_cast< ::OcaUint16>(13)
 
@@ -28,13 +27,11 @@
 // ---- Class Definition ----
 /**
  * Bitstring actuator. Maximum bitstring length is 65,536 bits.
- * @ingroup ActuatorWorkers
  */
 class OcaLiteBitstringActuator : public ::OcaLiteBasicActuator
 {
 public:
     /** Method indexes for the supported methods. */
-    //lint -e(578) Hides inherited symbol
     enum MethodIndex
     {
         /** GetNrBits() */
@@ -50,14 +47,13 @@ public:
     };
 
     /** Property indexes for the supported properties. */
-    //lint -e(578) Hides inherited symbol
     enum PropertyIndex
     {
         /** The bitstring data */
         OCA_PROP_BITSTRING  = 1
     };
-	
-	/**
+    
+    /**
      * Destructor.
      */
     virtual ~OcaLiteBitstringActuator() {}
@@ -67,7 +63,6 @@ public:
      * identifies the instantiated object. This is a class property instead of an object property. This
      * property will be overridden by each descendant class, in order to specify that class's ClassID.
      */
-    //lint -e(1516) Hides inherited member
     static const ::OcaLiteClassID CLASS_ID;
 
     // ---- Interface methods  ----
@@ -135,8 +130,8 @@ protected:
     }
 
     virtual ::OcaClassVersionNumber GetClassVersion() const;
-	
-	/**
+    
+    /**
      * Gets the value of the Bitstring property. 
      *
      * @param[out] bitString    The value of the Bitstring property
@@ -154,7 +149,7 @@ protected:
     virtual ::OcaLiteStatus SetBitstringValue(const ::OcaLiteBitstring& bitString) = 0;
 
 private:
-	/** The bitstring data */
+    /** The bitstring data */
     ::OcaLiteBitstring                          m_bitString;
 
     /** The maximum length of bitstring, in bits. */

@@ -30,7 +30,6 @@
 
 /**
  * 64-bit device type GUID.
- * @ingroup ManagementDataTypes
  */
 class OcaLiteModelGUID : public ::IOcaLiteMarshal
 {

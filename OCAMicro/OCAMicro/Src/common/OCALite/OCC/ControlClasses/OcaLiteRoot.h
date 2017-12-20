@@ -27,13 +27,11 @@ class OcaLiteMethodID;
 // ---- Helper types and constants ----
 /**
  * The classID used for initialization.
- * @ingroup OCC
  */
 #define OCA_ROOT_CLASSID            static_cast< ::OcaUint16>(1)
 
 /**
  * The minimum object number for device-specific objects.
- * @ingroup OCC
  */
 #define OCA_MINIMUM_DEVICE_OBJECT_ONO   static_cast< ::OcaONo>(4096)
 
@@ -43,7 +41,6 @@ class OcaLiteMethodID;
 /**
  * The abstract root class of which all OCA classes derive. It offers basic OCA functionality such as locking
  * an object and generalized data access.
- * @ingroup OCC
  */
 class OcaLiteRoot
 {
@@ -245,7 +242,6 @@ public:
 
 protected:
     /** Defines the possible executions contexts. */
-    //lint -strong(AJX, ExecContext)
     enum ExecContext
     {
         /** Execution is allowed. */
@@ -259,7 +255,6 @@ protected:
     };
 
     /** Defines the possible class contexts. */
-    //lint -strong(AJX, ClassContext)
     enum ClassContext
     {
         /** Correct class context. is allowed. */
@@ -306,8 +301,6 @@ protected:
      * @return The version of the class.
      */
     virtual ::OcaClassVersionNumber GetClassVersion() const;
-    void TakeMutex() const {}
-    void ReleaseMutex() const {}
 
 private:
     /**

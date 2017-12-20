@@ -26,7 +26,6 @@
 
 /**
  * Representation of an OCA property ID.
- * @ingroup FrameworkDataTypes
  */
 class OcaLitePropertyID : public ::IOcaLiteMarshal
 {

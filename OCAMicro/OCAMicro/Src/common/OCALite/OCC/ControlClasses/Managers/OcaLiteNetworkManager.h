@@ -18,12 +18,12 @@
 
 // ---- Referenced classes and types ----
 class OcaLiteNetwork;
+class OcaLiteMediaTransportNetwork;
 
 // ---- Helper types and constants ----
 
 /**
  * The classID used for initialization.
- * @ingroup Managers
  */
 #define OCA_NETWORKMANAGER_CLASSID      OCA_MANAGER_CLASSID,static_cast< ::OcaUint16>(6)
 
@@ -32,13 +32,11 @@ class OcaLiteNetwork;
 // ---- Class Definition ----
 /**
  * Mandatory manager for all media transport and control networks to which the device belongs.
- * @ingroup Managers
  */
 class OcaLiteNetworkManager : public ::OcaLiteManager
 {
 public:
     /** Method indexes for the supported methods. */
-    //lint -e(578) Hides inherited symbol
     enum MethodIndex
     {
         /** GetNetworks() */
@@ -52,15 +50,14 @@ public:
     };
 
     /** Property indexes for the supported properties. */
-    //lint -e(578) Hides inherited symbol
     enum PropertyIndex
     {
         /** Object numbers of OcaLiteNetwork objects, one for each network to which this device belongs. */
-        OCA_PROP_NETWORKS                 = 1,
+        OCA_PROP_NETWORKS           = 1,
         /** Object numbers of OcaStreamNetwork objects, one for each stream network to which this device belongs. */
-        OCA_PROP_STREAM_NETWORKS          = 2,
-        /** Object numbers of OcaControlNe twork objects, one for each control network to which this device belongs. */
-        OCA_PROP_CONTROL_NETWORKS         = 3,
+        OCA_PROP_STREAM_NETWORKS    = 2,
+        /** Object numbers of OcaControlNetwork objects, one for each control network to which this device belongs. */
+        OCA_PROP_CONTROL_NETWORKS = 3,
         /** Object numbers of OcaMediaTransportNetwork objects, one for each media transport network to which this device belongs. */
         OCA_PROP_MEDIA_TRANSPORT_NETWORKS = 4
     };
@@ -75,7 +72,6 @@ public:
      * identifies the instantiated object. This is a class property instead of an object property. This
      * property will be overridden by each descendant class, in order to specify that class's ClassID.
      */
-    //lint -e(1516) Hides inherited member
     static const ::OcaLiteClassID CLASS_ID;
 
     /**
@@ -108,6 +104,15 @@ public:
      * @return Indicates whether the property was successfully retrieved.
      */
     ::OcaLiteStatus GetStreamNetworks(::OcaLiteList< ::OcaONo>& networks) const;
+
+    /**
+     * Gets the value of the media transport networks property.
+     *
+     * @param[out] networks     Output parameter that holds the value of
+     *                          media transport network list
+     * @return Indicates whether the property was successfully retrieved.
+     */
+    ::OcaLiteStatus GetMediaTransportNetworks(::OcaLiteList< ::OcaONo>& networks) const;
 
     // ---- Miscellaneous methods ----
     /**
@@ -157,6 +162,26 @@ public:
      */
     void RemoveStreamNetwork(const ::OcaLiteAgent& network);
 
+    /**
+     * Adds a network to the network object list.
+     * Only for internal use.
+     *
+     * @param[in] network   The network to add
+     *
+     * @return Indicates whether the network object number was added successfully; if adding
+     *         the network object number failed or the object number was already in use.
+     */
+    ::OcaBoolean AddMediaTransportNetwork(const ::OcaLiteMediaTransportNetwork& network);
+
+    /**
+     * Deletes the network object number.
+     * Only for internal use.
+     *
+     * @param[in] network   The network that is removed
+     */
+    void RemoveMediaTransportNetwork(const ::OcaLiteMediaTransportNetwork& network);
+
+
     virtual ::OcaLiteStatus Execute(const ::IOcaLiteReader& reader, const ::IOcaLiteWriter& writer, ::OcaSessionID sessionID, const ::OcaLiteMethodID& methodID,
                                     ::OcaUint32 parametersSize, const ::OcaUint8* parameters, ::OcaUint8** response);
 
@@ -185,6 +210,8 @@ private:
     ::OcaONo                                    m_network;
     /** Object number of the one and only stream network */
     ::OcaONo                                    m_streamNetwork;
+    /** Object number of the one and only media transport network */
+    ::OcaONo                                    m_mediaTransportNetwork;
 };
 
 #endif // OCALITENETWORKMANAGER_H

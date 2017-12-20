@@ -23,7 +23,6 @@
 /**
  * Lock states of media clocks.
  */
- //lint -strong(AJX, OcaLiteMediaClockLockState)
 enum OcaLiteMediaClockLockState     /* maps onto OcaUint8 */
 {
     /** Lock state is undefined. */
@@ -43,7 +42,6 @@ enum OcaLiteMediaClockLockState     /* maps onto OcaUint8 */
 /**
  * Types of media clocks.
  */
-//lint -strong(AJX, OcaLiteMediaClockType)
 enum OcaLiteMediaClockType      /* maps onto OcaUint8 */
 {
     /** No network */
@@ -60,7 +58,6 @@ enum OcaLiteMediaClockType      /* maps onto OcaUint8 */
 
 /**
  * The classID used for initialization.
- * @ingroup Agents
  */
 #define OCA_MEDIACLOCK_CLASSID      OCA_AGENT_CLASSID,static_cast< ::OcaUint16>(6)
 
@@ -69,13 +66,11 @@ enum OcaLiteMediaClockType      /* maps onto OcaUint8 */
 // ---- Class Definition ----
 /**
  * A media clock, internal or external
- * @ingroup Agents
  */
 class OcaLiteMediaClock : public ::OcaLiteAgent
 {
 public:
     /** Method indexes for the supported methods. */
-    //lint -e(578) Hides inherited symbol
     enum MethodIndex
     {
         /** GetType() */
@@ -93,11 +88,12 @@ public:
         /** SetRate() */
         SET_RATE                    = 7,
         /** GetLockState() */
-        GET_LOCK_STATE              = 8
+        GET_LOCK_STATE              = 8,
+		/** GetTypesSupported() */
+		GET_TYPES_SUPPORTED			= 9,
     };
 
     /** Property indexes for the supported properties. */
-    //lint -e(578) Hides inherited symbol
     enum PropertyIndex
     {
         /** The type of the clock. */
@@ -122,7 +118,6 @@ public:
      * identifies the instantiated object. This is a class property instead of an object property. This
      * property will be overridden by each descendant class, in order to specify that class's ClassID.
      */
-    //lint -e(1516) Hides inherited member
     static const ::OcaLiteClassID CLASS_ID;
 
     // ---- Interface methods ----
@@ -158,6 +153,14 @@ public:
      * @return Indicates whether the operation succeeded.
      */
     ::OcaLiteStatus SetDomainID(::OcaUint16 id);
+
+	/**
+     * Gets the list of supported clock types.
+     *
+     * @param[out] types The supported clock types.
+     * @return Indicates whether the operation succeeded.
+     */
+    ::OcaLiteStatus GetTypesSupported(::OcaLiteList< ::OcaLiteMediaClockType>& types) const;
 
     /**
      * Gets the list of supported sampling rates.
@@ -210,6 +213,26 @@ protected:
                   ::OcaBoolean lockable,
                   const ::OcaLiteString& role,
                   ::OcaLiteMediaClockType type,
+                  ::OcaUint16 domainID,
+                  const ::OcaLiteList< ::OcaLiteMediaClockRate>& ratesSupported);
+
+    /**
+     * Constructor
+     *
+     * @param[in]   objectNumber            Object number of this instance.
+     * @param[in]   lockable                Indicates whether or not the object
+     *                                      is lockable.
+     * @param[in]   role                    The role of this instance.
+     * @param[in]   type                    The clock type.
+	 * @param[in]   typesSupported			List with the supported clock types of this instance.
+     * @param[in]   domainID                The domain ID value.
+     * @param[in]   ratesSupported          List with the supported rates of this instance.
+     */
+    OcaLiteMediaClock(::OcaONo objectNumber,
+                  ::OcaBoolean lockable,
+                  const ::OcaLiteString& role,
+                  ::OcaLiteMediaClockType type,
+				  const ::OcaLiteList< ::OcaLiteMediaClockType> typesSupported,
                   ::OcaUint16 domainID,
                   const ::OcaLiteList< ::OcaLiteMediaClockRate>& ratesSupported);
 
@@ -318,6 +341,9 @@ private:
     /** The supported sampling rates */
     ::OcaLiteList< ::OcaLiteMediaClockRate> m_ratesSupported;
 
+	/** The supported clock types */
+	::OcaLiteList< ::OcaLiteMediaClockType> m_typesSupported;
+
     /** private copy constructor, no copying of object allowed */
     OcaLiteMediaClock(const ::OcaLiteMediaClock&);
     /** private assignment operator, no assignment of object allowed */
@@ -325,21 +351,6 @@ private:
 };
 
 // ---- Specialized Template Function Definition ----
-
-//lint -save -e1576 Explicit specialization does not occur in the same file as corresponding function template
-
-template <>
-::OcaLiteMediaClockLockState GetDefaultValue< ::OcaLiteMediaClockLockState>(void);
-
-template <>
-::OcaLiteMediaClockType GetDefaultValue< ::OcaLiteMediaClockType>(void);
-
-template <>
-::OcaLiteString ValueToString< ::OcaLiteMediaClockLockState>(const ::OcaLiteMediaClockLockState& value);
-
-template <>
-::OcaLiteString ValueToString< ::OcaLiteMediaClockType>(const ::OcaLiteMediaClockType& value);
-
 template <>
 void MarshalValue< ::OcaLiteMediaClockLockState>(const ::OcaLiteMediaClockLockState& value, ::OcaUint8** destination, const ::IOcaLiteWriter& writer);
 
@@ -357,7 +368,5 @@ template <>
 
 template <>
 ::OcaUint32 GetSizeValue< ::OcaLiteMediaClockType>(const ::OcaLiteMediaClockType& value, const ::IOcaLiteWriter& writer);
-
-//lint -restore
 
 #endif // OCALITEMEDIACLOCK_H

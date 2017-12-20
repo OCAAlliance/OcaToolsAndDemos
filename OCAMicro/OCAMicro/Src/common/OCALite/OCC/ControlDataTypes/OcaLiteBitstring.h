@@ -28,7 +28,6 @@
 
 /**
  * Representation of a bitmask that is used on the network to send bitmask data.
- * @ingroup DataTypes
  */
 class OcaLiteBitstring : public ::IOcaLiteMarshal
 {

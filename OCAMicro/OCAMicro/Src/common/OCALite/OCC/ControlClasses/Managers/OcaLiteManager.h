@@ -19,7 +19,6 @@ class OcaLiteClassIdentification;
 // ---- Helper types and constants ----
 /**
  * The classID used for initialization.
- * @ingroup Managers
  */
 #define OCA_MANAGER_CLASSID            OCA_ROOT_CLASSID,static_cast< ::OcaUint16>(3)
 
@@ -31,7 +30,6 @@ class OcaLiteClassIdentification;
  * Abstract base class for classes that represent non-audio (i.e. control and monitoring) functions.
  * All concrete manager objects are lockable (the constructor of this class initializes the Root object
  * with the property Lockable true).
- * @ingroup Managers
  */
 class OcaLiteManager : public ::OcaLiteRoot
 {
@@ -41,7 +39,6 @@ public:
      * identifies the instantiated object. This is a class property instead of an object property. This
      * property will be overridden by each descendant class, in order to specify that class's ClassID.
      */
-    //lint -e(1516) Hides inherited member
     static const ::OcaLiteClassID CLASS_ID;
 
     /**

@@ -25,7 +25,6 @@ class Ocp1MessageResponse;
 // ---- Class Definition ----
 /**
  * Representation of an OCP.1 Message Response
- * @ingroup OCP1Messages
  */
 class Ocp1MessageResponse : public ::OcaLiteMessageResponse
 {

@@ -25,7 +25,7 @@ static const ::OcaUint16        classID[]   = {OCA_INT8_SENSOR_CLASSID};
 const ::OcaLiteClassID          OcaLiteInt8Sensor::CLASS_ID(static_cast< ::OcaUint16>(sizeof(classID) / sizeof(classID[0])), classID);
 
 /** Defines the version increment of this class compared to its base class. */
-#define CLASS_VERSION_INCREMENT     static_cast< ::OcaClassVersionNumber>(0)
+#define CLASS_VERSION_INCREMENT     0
 
 // ---- Helper functions ----
 
@@ -38,12 +38,12 @@ OcaLiteInt8Sensor::OcaLiteInt8Sensor(::OcaONo objectNumber,
                                            const ::OcaLiteString& role,
                                            const ::OcaLiteList< ::OcaLitePort>& ports,
                                            ::OcaInt8 minReading, 
-										   ::OcaInt8 maxReading)
+                                           ::OcaInt8 maxReading)
     : ::OcaLiteBasicSensor(objectNumber, lockable, role, ports),
       m_minReading(minReading),
       m_maxReading(maxReading)
 {
-	assert(minReading <= maxReading);
+    assert(minReading <= maxReading);
 }
 
 ::OcaLiteStatus OcaLiteInt8Sensor::GetReading(::OcaInt8& reading, ::OcaInt8& minReading, ::OcaInt8& maxReading) const
@@ -55,7 +55,7 @@ OcaLiteInt8Sensor::OcaLiteInt8Sensor(::OcaONo objectNumber,
     return rc;
 }
 
-	/**
+    /**
      * Gets the value of the limit properties. 
      *
      * @param[out]   minReading          Lower limit of the sensor
@@ -100,20 +100,20 @@ OcaLiteInt8Sensor::OcaLiteInt8Sensor(::OcaONo objectNumber,
                         {
                             ::OcaUint32 responseSize(::GetSizeValue< ::OcaUint8>(static_cast< ::OcaUint8>(1), writer) + 
                                                      ::GetSizeValue< ::OcaUint8>(reading, writer) + 
-													 ::GetSizeValue< ::OcaUint8>(minReading, writer) + 
-													 ::GetSizeValue< ::OcaUint8>(maxReading, writer));
+                                                     ::GetSizeValue< ::OcaUint8>(minReading, writer) + 
+                                                     ::GetSizeValue< ::OcaUint8>(maxReading, writer));
                             responseBuffer = ::OcaLiteCommandHandler::GetInstance().GetResponseBuffer(responseSize);
                             if (NULL != responseBuffer)
                             {
-							    ::OcaUint8* pResponse(responseBuffer);
+                                ::OcaUint8* pResponse(responseBuffer);
                                 writer.Write(static_cast< ::OcaUint8>(3/*NrParameters*/), &pResponse);
                                 ::MarshalValue< ::OcaUint8>(reading, &pResponse, writer);
-								::MarshalValue< ::OcaUint8>(minReading, &pResponse, writer);
-								::MarshalValue< ::OcaUint8>(maxReading, &pResponse, writer);
+                                ::MarshalValue< ::OcaUint8>(minReading, &pResponse, writer);
+                                ::MarshalValue< ::OcaUint8>(maxReading, &pResponse, writer);
 
                                 *response = responseBuffer;
-							}
-							else
+                            }
+                            else
                             {
                                 rc = OCASTATUS_BUFFER_OVERFLOW;
                             }
@@ -140,10 +140,9 @@ OcaLiteInt8Sensor::OcaLiteInt8Sensor(::OcaONo objectNumber,
     return rc;
 }
 
-//lint -e{835} A zero has been given as right argument to operator '+'
 ::OcaClassVersionNumber OcaLiteInt8Sensor::GetClassVersion() const
 {
-    return (OcaLiteBasicSensor::GetClassVersion() + CLASS_VERSION_INCREMENT);
+    return static_cast< ::OcaClassVersionNumber>(static_cast<int>(OcaLiteBasicSensor::GetClassVersion()) + CLASS_VERSION_INCREMENT);
 }
 
 void OcaLiteInt8Sensor::ReadingChanged(::OcaInt8 reading)

@@ -18,7 +18,6 @@
 // ---- Helper types and constants ----
 /**
  * The classID used for initialization.
- * @ingroup ActuatorWorkers
  */
 #define OCA_BOOLEAN_ACTUATOR_CLASSID      OCA_BASIC_ACTUATOR_CLASSID,static_cast< ::OcaUint16>(1)
 
@@ -46,8 +45,8 @@ public:
         /** Reading of the setting */
         OCA_PROP_SETTING  = 1
     };
-	
-	/**
+    
+    /**
      * Destructor.
      */
     virtual ~OcaLiteBooleanActuator() {}
@@ -57,7 +56,6 @@ public:
      * identifies the instantiated object. This is a class property instead of an object property. This
      * property will be overridden by each descendant class, in order to specify that class's ClassID.
      */
-    //lint -e(1516) Hides inherited member
     static const ::OcaLiteClassID CLASS_ID;
 
     // ---- Interface methods  ----
@@ -98,8 +96,8 @@ protected:
     }
 
     virtual ::OcaClassVersionNumber GetClassVersion() const;
-	
-	/**
+    
+    /**
      * Gets the value of the setting property. Can be overridden by derived classes
      * that actually implement this class.
      *
@@ -118,7 +116,7 @@ protected:
     virtual ::OcaLiteStatus SetSettingValue(::OcaBoolean setting) = 0;
 
 private:
-	/** The setting value */
+    /** The setting value */
     ::OcaBoolean                            m_setting;
 
     /** private copy constructor, no copying of object allowed */

@@ -27,7 +27,6 @@
 
 /**
  * Identification of an OCA class.
- * @ingroup FrameworkDataTypes
  */
 class OcaLiteClassIdentification : public ::IOcaLiteMarshal
 {

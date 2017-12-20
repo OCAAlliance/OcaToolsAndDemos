@@ -32,7 +32,6 @@
 /**
  * Class representing a list of items.
  * @tparam  DataType        The data type of the elements in the list.
- * @ingroup DataTypes
  */
 template <class DataType> class OcaLiteList : public ::IOcaLiteMarshal
 {

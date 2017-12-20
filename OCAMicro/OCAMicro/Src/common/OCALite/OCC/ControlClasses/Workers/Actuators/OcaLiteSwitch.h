@@ -22,7 +22,6 @@
 // ---- Helper types and constants ----
 /**
  * The classID used for initialization.
- * @ingroup ActuatorWorkers
  */
 #define OCA_SWITCH_CLASSID      OCA_ACTUATOR_CLASSID,static_cast< ::OcaUint16>(4)
 
@@ -31,13 +30,11 @@
 // ---- Class Definition ----
 /**
  * (n)-position single-pole switch
- * @ingroup ActuatorWorkers
  */
 class OcaLiteSwitch : public ::OcaLiteActuator
 {
 public:
     /** Method indexes for the supported methods. */
-    //lint -e(578) Hides inherited symbol
     enum MethodIndex
     {
         /** GetPosition() */
@@ -63,7 +60,6 @@ public:
     };
 
     /** Property indexes for the supported properties. */
-    //lint -e(578) Hides inherited symbol
     enum PropertyIndex
     {
         /** Current position of the switch */
@@ -84,7 +80,6 @@ public:
      * identifies the instantiated object. This is a class property instead of an object property. This
      * property will be overridden by each descendant class, in order to specify that class's ClassID.
      */
-    //lint -e(1516) Hides inherited member
     static const ::OcaLiteClassID CLASS_ID;
 
     // ---- Interface methods  ----

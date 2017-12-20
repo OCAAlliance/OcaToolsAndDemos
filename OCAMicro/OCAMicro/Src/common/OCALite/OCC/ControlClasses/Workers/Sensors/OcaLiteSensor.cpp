@@ -24,7 +24,7 @@ static const ::OcaUint16        classID[]   = {OCA_SENSOR_CLASSID};
 const ::OcaLiteClassID          OcaLiteSensor::CLASS_ID(static_cast< ::OcaUint16>(sizeof(classID) / sizeof(classID[0])), classID);
 
 /** Defines the version increment of this class compared to its base class. */
-#define CLASS_VERSION_INCREMENT     static_cast< ::OcaClassVersionNumber>(0)
+#define CLASS_VERSION_INCREMENT     0
 
 // ---- Helper functions ----
 
@@ -60,26 +60,26 @@ OcaLiteSensor::OcaLiteSensor(::OcaONo objectNumber, ::OcaBoolean lockable, const
             {
             case GET_READING_STATE:
                 {
-		              ::OcaUint8 numberOfParameters(0);
+                      ::OcaUint8 numberOfParameters(0);
                     if (reader.Read(bytesLeft, &pCmdParameters, numberOfParameters) &&
                         (0 == numberOfParameters))
                     {
-						      ::OcaLiteSensorReadingState state;
-						      rc = GetReadingState(state);
+                              ::OcaLiteSensorReadingState state;
+                              rc = GetReadingState(state);
                         if (OCASTATUS_OK == rc)
-						      {
-    							    ::OcaUint32 responseSize(::GetSizeValue< ::OcaUint8>(static_cast< ::OcaUint8>(1), writer) + 
+                              {
+                                    ::OcaUint32 responseSize(::GetSizeValue< ::OcaUint8>(static_cast< ::OcaUint8>(1), writer) + 
                                                      ::GetSizeValue< ::OcaLiteSensorReadingState>(state, writer));
                             responseBuffer = ::OcaLiteCommandHandler::GetInstance().GetResponseBuffer(responseSize);
                             if (NULL != responseBuffer)
                             {
-							           ::OcaUint8* pResponse(responseBuffer);
+                                       ::OcaUint8* pResponse(responseBuffer);
                                 writer.Write(static_cast< ::OcaUint8>(1/*NrParameters*/), &pResponse);
                                 ::MarshalValue< ::OcaLiteSensorReadingState>(state, &pResponse, writer);
 
                                 *response = responseBuffer;
-							       }
-							       else
+                                   }
+                                   else
                             {
                                 rc = OCASTATUS_BUFFER_OVERFLOW;
                             }
@@ -106,10 +106,9 @@ OcaLiteSensor::OcaLiteSensor(::OcaONo objectNumber, ::OcaBoolean lockable, const
     return rc;
 }
 
-//lint -e{835} A zero has been given as right argument to operator '+'
 ::OcaClassVersionNumber OcaLiteSensor::GetClassVersion() const
 {
-    return (OcaLiteWorker::GetClassVersion() + CLASS_VERSION_INCREMENT);
+    return static_cast< ::OcaClassVersionNumber>(static_cast<int>(OcaLiteWorker::GetClassVersion()) + CLASS_VERSION_INCREMENT);
 }
 
 void OcaLiteSensor::ReadingStateChanged(::OcaLiteSensorReadingState state)

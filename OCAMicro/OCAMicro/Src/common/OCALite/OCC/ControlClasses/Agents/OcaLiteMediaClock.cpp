@@ -22,7 +22,7 @@ static const ::OcaUint16        classID[]   = {OCA_MEDIACLOCK_CLASSID};
 const ::OcaLiteClassID          OcaLiteMediaClock::CLASS_ID(static_cast< ::OcaUint16>(sizeof(classID) / sizeof(classID[0])), classID);
 
 /** Defines the version increment of this class compared to its base class. */
-#define CLASS_VERSION_INCREMENT     static_cast< ::OcaClassVersionNumber>(0)
+#define CLASS_VERSION_INCREMENT     0
 
 // ---- Helper functions ----
 
@@ -39,7 +39,34 @@ OcaLiteMediaClock::OcaLiteMediaClock(::OcaONo objectNumber,
     : ::OcaLiteAgent(objectNumber, lockable, role),
       m_clockType(type),
       m_domainID(domainID),
-      m_ratesSupported(ratesSupported)
+      m_ratesSupported(ratesSupported),
+	  m_typesSupported()
+{
+	// Add all clock types if none provided
+	m_typesSupported.Add(OCAMEDIACLOCKTYPE_INTERNAL);
+	m_typesSupported.Add(OCAMEDIACLOCKTYPE_EXTERNAL);
+	m_typesSupported.Add(OCAMEDIACLOCKTYPE_NETWORK);
+	m_typesSupported.Add(OCAMEDIACLOCKTYPE_NONE);
+
+    ::OcaBoolean result(::OcaLiteMediaClockManager::GetInstance().AddMediaClock(*this));
+    if (!result)
+    {
+        OCA_LOG_ERROR_PARAMS("Unable to add media clock %u to media clock manager", objectNumber);
+    }
+}
+
+OcaLiteMediaClock::OcaLiteMediaClock(::OcaONo objectNumber,
+                             ::OcaBoolean lockable,
+                             const ::OcaLiteString& role,
+                             ::OcaLiteMediaClockType type,
+							 const ::OcaLiteList< ::OcaLiteMediaClockType> typesSupported,
+                             ::OcaUint16 domainID,
+                             const ::OcaLiteList< ::OcaLiteMediaClockRate>& ratesSupported)
+    : ::OcaLiteAgent(objectNumber, lockable, role),
+      m_clockType(type),
+      m_domainID(domainID),
+      m_ratesSupported(ratesSupported),
+	  m_typesSupported(typesSupported)
 {
     ::OcaBoolean result(::OcaLiteMediaClockManager::GetInstance().AddMediaClock(*this));
     if (!result)
@@ -55,19 +82,11 @@ OcaLiteMediaClock::~OcaLiteMediaClock()
 
 ::OcaLiteStatus OcaLiteMediaClock::GetType(::OcaLiteMediaClockType& type) const
 {
-    TakeMutex();
-
-    ::OcaLiteStatus rc(GetTypeValue(type));
-
-    ReleaseMutex();
-
-    return rc;
+    return GetTypeValue(type);
 }
 
 ::OcaLiteStatus OcaLiteMediaClock::SetType(::OcaLiteMediaClockType type)
 {
-    TakeMutex();
-
     ::OcaLiteMediaClockType oldType;
     ::OcaLiteStatus rc(GetTypeValue(oldType));
     if ((OCASTATUS_OK == rc) && (oldType != type))
@@ -77,34 +96,19 @@ OcaLiteMediaClock::~OcaLiteMediaClock()
         {
             m_clockType = type;
 
-            ReleaseMutex();
-
             ClockTypeChanged(m_clockType);
-
-            TakeMutex();
         }
     }
-
-    ReleaseMutex();
-
     return rc;
 }
 
 ::OcaLiteStatus OcaLiteMediaClock::GetDomainID(::OcaUint16& id) const
 {
-    TakeMutex();
-
-    ::OcaLiteStatus rc(GetDomainIDValue(id));
-
-    ReleaseMutex();
-
-    return rc;
+    return GetDomainIDValue(id);
 }
 
 ::OcaLiteStatus OcaLiteMediaClock::SetDomainID(::OcaUint16 id)
 {
-    TakeMutex();
-
     ::OcaUint16 oldID;
     ::OcaLiteStatus rc(GetDomainIDValue(oldID));
     if ((OCASTATUS_OK == rc) && (oldID != id))
@@ -119,43 +123,32 @@ OcaLiteMediaClock::~OcaLiteMediaClock()
                                                                   propertyId,
                                                                   m_domainID,
                                                                   OCAPROPERTYCHANGETYPE_CURRENT_CHANGED);
-            ReleaseMutex();
             PropertyChanged(eventData);
-            TakeMutex();
         }
     }
-
-    ReleaseMutex();
 
     return rc;
 }
 
+::OcaLiteStatus OcaLiteMediaClock::GetTypesSupported(::OcaLiteList< ::OcaLiteMediaClockType>& types) const
+{
+    types = m_typesSupported;
+    return OCASTATUS_OK;
+}
+
 ::OcaLiteStatus OcaLiteMediaClock::GetRatesSupported(::OcaLiteList< ::OcaLiteMediaClockRate>& rates) const
 {
-    TakeMutex();
-
     rates = m_ratesSupported;
-
-    ReleaseMutex();
-
     return OCASTATUS_OK;
 }
 
 ::OcaLiteStatus OcaLiteMediaClock::GetRate(::OcaLiteMediaClockRate& rate) const
 {
-    TakeMutex();
-
-    ::OcaLiteStatus rc(GetRateValue(rate));
-
-    ReleaseMutex();
-
-    return rc;
+    return GetRateValue(rate);
 }
 
 ::OcaLiteStatus OcaLiteMediaClock::SetRate(const ::OcaLiteMediaClockRate& rate)
 {
-    TakeMutex();
-
     ::OcaLiteStatus rc(OCASTATUS_PARAMETER_OUT_OF_RANGE);
     if (m_ratesSupported.Contains(rate))
     {
@@ -175,9 +168,7 @@ OcaLiteMediaClock::~OcaLiteMediaClock()
                                                                                     propertyId,
                                                                                     actualRate,
                                                                                     OCAPROPERTYCHANGETYPE_CURRENT_CHANGED);
-                    ReleaseMutex();
                     PropertyChanged(eventData);
-                    TakeMutex();
                 }
                 else
                 {
@@ -186,25 +177,16 @@ OcaLiteMediaClock::~OcaLiteMediaClock()
             }
         }
     }
-
-    ReleaseMutex();
-
     return rc;
 }
 
 ::OcaLiteStatus OcaLiteMediaClock::GetLockState(::OcaLiteMediaClockLockState& state) const
 {
-    TakeMutex();
-
-    ::OcaLiteStatus rc(GetLockStateValue(state));
-
-    ReleaseMutex();
-
-    return rc;
+    return GetLockStateValue(state);
 }
 
 ::OcaLiteStatus OcaLiteMediaClock::Execute(const ::IOcaLiteReader& reader, const ::IOcaLiteWriter& writer, ::OcaSessionID sessionID, const ::OcaLiteMethodID& methodID,
-										   ::OcaUint32 parametersSize, const ::OcaUint8* parameters, ::OcaUint8** response)
+                                           ::OcaUint32 parametersSize, const ::OcaUint8* parameters, ::OcaUint8** response)
 {
     ::OcaLiteStatus rc(OCASTATUS_PARAMETER_ERROR);
     if (!IsLocked(sessionID))
@@ -215,7 +197,7 @@ OcaLiteMediaClock::~OcaLiteMediaClock()
             const ::OcaUint8* pCmdParameters(parameters);
             ::OcaUint32 bytesLeft(parametersSize);
 
-			switch (methodID.GetMethodIndex())
+            switch (methodID.GetMethodIndex())
             {
             case GET_TYPE:
                 {
@@ -232,13 +214,13 @@ OcaLiteMediaClock::~OcaLiteMediaClock()
                             responseBuffer = ::OcaLiteCommandHandler::GetInstance().GetResponseBuffer(responseSize);
                             if (NULL != responseBuffer)
                             {
-							    ::OcaUint8* pResponse(responseBuffer);
+                                ::OcaUint8* pResponse(responseBuffer);
                                 writer.Write(static_cast< ::OcaUint8>(1/*NrParameters*/), &pResponse);
                                 ::MarshalValue< ::OcaLiteMediaClockType>(type, &pResponse, writer);
 
                                 *response = responseBuffer;
-							}
-							else
+                            }
+                            else
                             {
                                 rc = OCASTATUS_BUFFER_OVERFLOW;
                             }
@@ -252,7 +234,7 @@ OcaLiteMediaClock::~OcaLiteMediaClock()
                     ::OcaUint8 type;
                     if (reader.Read(bytesLeft, &pCmdParameters, numberOfParameters) &&
                         (1 == numberOfParameters) &&
-						reader.Read(bytesLeft, &pCmdParameters, type))
+                        reader.Read(bytesLeft, &pCmdParameters, type))
                     {
                         rc = SetType((OcaLiteMediaClockType)type);
                         if (OCASTATUS_OK == rc)
@@ -261,12 +243,12 @@ OcaLiteMediaClock::~OcaLiteMediaClock()
                             responseBuffer = ::OcaLiteCommandHandler::GetInstance().GetResponseBuffer(responseSize);
                             if (NULL != responseBuffer)
                             {
-							    ::OcaUint8* pResponse(responseBuffer);
+                                ::OcaUint8* pResponse(responseBuffer);
                                 writer.Write(static_cast< ::OcaUint8>(0/*NrParameters*/), &pResponse);
 
                                 *response = responseBuffer;
-							}
-							else
+                            }
+                            else
                             {
                                 rc = OCASTATUS_BUFFER_OVERFLOW;
                             }
@@ -289,13 +271,13 @@ OcaLiteMediaClock::~OcaLiteMediaClock()
                             responseBuffer = ::OcaLiteCommandHandler::GetInstance().GetResponseBuffer(responseSize);
                             if (NULL != responseBuffer)
                             {
-							    ::OcaUint8* pResponse(responseBuffer);
+                                ::OcaUint8* pResponse(responseBuffer);
                                 writer.Write(static_cast< ::OcaUint8>(1/*NrParameters*/), &pResponse);
                                 ::MarshalValue< ::OcaUint16>(domainID, &pResponse, writer);
 
                                 *response = responseBuffer;
-							}
-							else
+                            }
+                            else
                             {
                                 rc = OCASTATUS_BUFFER_OVERFLOW;
                             }
@@ -309,7 +291,7 @@ OcaLiteMediaClock::~OcaLiteMediaClock()
                     ::OcaUint16 domainID;
                     if (reader.Read(bytesLeft, &pCmdParameters, numberOfParameters) &&
                         (1 == numberOfParameters) &&
-						reader.Read(bytesLeft, &pCmdParameters, domainID))
+                        reader.Read(bytesLeft, &pCmdParameters, domainID))
                     {
                         rc = SetDomainID(domainID);
                         if (OCASTATUS_OK == rc)
@@ -318,12 +300,12 @@ OcaLiteMediaClock::~OcaLiteMediaClock()
                             responseBuffer = ::OcaLiteCommandHandler::GetInstance().GetResponseBuffer(responseSize);
                             if (NULL != responseBuffer)
                             {
-							    ::OcaUint8* pResponse(responseBuffer);
+                                ::OcaUint8* pResponse(responseBuffer);
                                 writer.Write(static_cast< ::OcaUint8>(0/*NrParameters*/), &pResponse);
 
                                 *response = responseBuffer;
-							}
-							else
+                            }
+                            else
                             {
                                 rc = OCASTATUS_BUFFER_OVERFLOW;
                             }
@@ -374,13 +356,13 @@ OcaLiteMediaClock::~OcaLiteMediaClock()
                             responseBuffer = ::OcaLiteCommandHandler::GetInstance().GetResponseBuffer(responseSize);
                             if (NULL != responseBuffer)
                             {
-							    ::OcaUint8* pResponse(responseBuffer);
+                                ::OcaUint8* pResponse(responseBuffer);
                                 writer.Write(static_cast< ::OcaUint8>(1/*NrParameters*/), &pResponse);
                                 ::MarshalValue< ::OcaLiteMediaClockRate>(rate, &pResponse, writer);
 
                                 *response = responseBuffer;
-							}
-							else
+                            }
+                            else
                             {
                                 rc = OCASTATUS_BUFFER_OVERFLOW;
                             }
@@ -394,7 +376,7 @@ OcaLiteMediaClock::~OcaLiteMediaClock()
                     ::OcaLiteMediaClockRate rate;
                     if (reader.Read(bytesLeft, &pCmdParameters, numberOfParameters) &&
                         (1 == numberOfParameters) &&
-						rate.Unmarshal(bytesLeft, &pCmdParameters, reader))
+                        rate.Unmarshal(bytesLeft, &pCmdParameters, reader))
                     {
                         rc = SetRate(rate);
                         if (OCASTATUS_OK == rc)
@@ -403,12 +385,12 @@ OcaLiteMediaClock::~OcaLiteMediaClock()
                             responseBuffer = ::OcaLiteCommandHandler::GetInstance().GetResponseBuffer(responseSize);
                             if (NULL != responseBuffer)
                             {
-							    ::OcaUint8* pResponse(responseBuffer);
+                                ::OcaUint8* pResponse(responseBuffer);
                                 writer.Write(static_cast< ::OcaUint8>(0/*NrParameters*/), &pResponse);
 
                                 *response = responseBuffer;
-							}
-							else
+                            }
+                            else
                             {
                                 rc = OCASTATUS_BUFFER_OVERFLOW;
                             }
@@ -431,13 +413,40 @@ OcaLiteMediaClock::~OcaLiteMediaClock()
                             responseBuffer = ::OcaLiteCommandHandler::GetInstance().GetResponseBuffer(responseSize);
                             if (NULL != responseBuffer)
                             {
-							    ::OcaUint8* pResponse(responseBuffer);
+                                ::OcaUint8* pResponse(responseBuffer);
                                 writer.Write(static_cast< ::OcaUint8>(1/*NrParameters*/), &pResponse);
                                 ::MarshalValue< ::OcaLiteMediaClockLockState>(state, &pResponse, writer);
 
                                 *response = responseBuffer;
-							}
-							else
+                            }
+                            else
+                            {
+                                rc = OCASTATUS_BUFFER_OVERFLOW;
+                            }
+                        }
+                    }
+                }
+            case GET_TYPES_SUPPORTED:
+                {
+                    ::OcaUint8 numberOfParameters(0);
+                    if (reader.Read(bytesLeft, &pCmdParameters, numberOfParameters) &&
+                        (0 == numberOfParameters))
+                    {
+                        ::OcaLiteList< ::OcaLiteMediaClockType> supportedTypes;
+                        rc = GetTypesSupported(supportedTypes);
+                        if (OCASTATUS_OK == rc)
+                        {
+                            ::OcaUint32 responseSize(::GetSizeValue< ::OcaUint8>(static_cast< ::OcaUint8>(1), writer) + supportedTypes.GetSize(writer));
+                            responseBuffer  = ::OcaLiteCommandHandler::GetInstance().GetResponseBuffer(responseSize);
+                            if (NULL != responseBuffer)
+                            {
+                                ::OcaUint8* pResponse(responseBuffer);
+                                writer.Write(static_cast< ::OcaUint8>(1/*NrParameters*/), &pResponse);
+                                supportedTypes.Marshal(&pResponse, writer);
+
+                                *response = responseBuffer;
+                            }
+                            else
                             {
                                 rc = OCASTATUS_BUFFER_OVERFLOW;
                             }
@@ -463,10 +472,9 @@ OcaLiteMediaClock::~OcaLiteMediaClock()
     return rc;
 }
 
-//lint -e{835} A zero has been given as right argument to operator '+'
 ::OcaClassVersionNumber OcaLiteMediaClock::GetClassVersion() const
 {
-    return (OcaLiteAgent::GetClassVersion() + CLASS_VERSION_INCREMENT);
+    return static_cast< ::OcaClassVersionNumber>(static_cast<int>(OcaLiteAgent::GetClassVersion()) + CLASS_VERSION_INCREMENT);
 }
 
 void OcaLiteMediaClock::LockStateChanged(::OcaLiteMediaClockLockState state)
@@ -481,11 +489,7 @@ void OcaLiteMediaClock::LockStateChanged(::OcaLiteMediaClockLockState state)
 
 void OcaLiteMediaClock::ClockTypeChanged(::OcaLiteMediaClockType type)
 {
-    TakeMutex();
-
     m_clockType = type;
-
-    ReleaseMutex();
 
     ::OcaLitePropertyID propertyId(CLASS_ID.GetFieldCount(), static_cast< ::OcaUint16>(OCA_PROP_TYPE));
     ::OcaLitePropertyChangedEventData< ::OcaLiteMediaClockType> eventData(GetObjectNumber(),
@@ -497,91 +501,17 @@ void OcaLiteMediaClock::ClockTypeChanged(::OcaLiteMediaClockType type)
 
 ::OcaLiteStatus OcaLiteMediaClock::GetTypeValue(::OcaLiteMediaClockType& type) const
 {
-    ::OcaLiteStatus rc(OCASTATUS_OK);
     type = m_clockType;
-    return rc;
+    return OCASTATUS_OK;
 }
 
 ::OcaLiteStatus OcaLiteMediaClock::GetDomainIDValue(::OcaUint16& id) const
 {
-    ::OcaLiteStatus rc(OCASTATUS_OK);
     id = m_domainID;
-    return rc;
+    return OCASTATUS_OK;
 }
 
 // ---- Function Implementation ----
-
-//lint -save -e1576 Explicit specialization does not occur in the same file as corresponding function template
-
-template <>
-::OcaLiteMediaClockLockState GetDefaultValue< ::OcaLiteMediaClockLockState>(void)
-{
-    return OCAMEDIACLOCKLOCKSTATE_UNDEFINED;
-}
-
-template <>
-::OcaLiteMediaClockType GetDefaultValue< ::OcaLiteMediaClockType>(void)
-{
-    return OCAMEDIACLOCKTYPE_NONE;
-}
-
-template <>
-::OcaLiteString ValueToString< ::OcaLiteMediaClockLockState>(const ::OcaLiteMediaClockLockState& value)
-{
-    ::OcaLiteString result;
-
-    switch (value)
-    {
-    case OCAMEDIACLOCKLOCKSTATE_UNDEFINED:
-        result = ::OcaLiteString("Undefined");
-        break;
-    case OCAMEDIACLOCKLOCKSTATE_LOCKED:
-        result = ::OcaLiteString("Locked");
-        break;
-    case OCAMEDIACLOCKLOCKSTATE_SYNCHRONIZING:
-        result = ::OcaLiteString("Synchronizing");
-        break;
-    case OCAMEDIACLOCKLOCKSTATE_FREERUN:
-        result = ::OcaLiteString("Free-run");
-        break;
-    case OCAMEDIACLOCKLOCKSTATE_STOPPED:
-        result = ::OcaLiteString("Stopped");
-        break;
-    default:
-        result = ValueToString< ::OcaUint8>(static_cast< ::OcaUint8>(value));
-        break;
-    }
-
-    return result;
-}
-
-template <>
-::OcaLiteString ValueToString< ::OcaLiteMediaClockType>(const ::OcaLiteMediaClockType& value)
-{
-    ::OcaLiteString result;
-
-    switch (value)
-    {
-    case OCAMEDIACLOCKTYPE_NONE:
-        result = ::OcaLiteString("None");
-        break;
-    case OCAMEDIACLOCKTYPE_INTERNAL:
-        result = ::OcaLiteString("Internal");
-        break;
-    case OCAMEDIACLOCKTYPE_NETWORK:
-        result = ::OcaLiteString("Network");
-        break;
-    case OCAMEDIACLOCKTYPE_EXTERNAL:
-        result = ::OcaLiteString("External");
-        break;
-    default:
-        result = ValueToString< ::OcaUint8>(static_cast< ::OcaUint8>(value));
-        break;
-    }
-
-    return result;
-}
-
 template <>
 void MarshalValue< ::OcaLiteMediaClockLockState>(const ::OcaLiteMediaClockLockState& value, ::OcaUint8** destination, const ::IOcaLiteWriter& writer)
 {
@@ -645,5 +575,3 @@ template <>
 {
     return GetSizeValue< ::OcaUint8>(static_cast< ::OcaUint8>(value), writer);
 }
-
-//lint -restore

@@ -9,7 +9,7 @@
 // ---- Include system wide include files ----
 #include <assert.h>
 #include <OCC/ControlDataTypes/OcaLiteMethodID.h>
-
+#include <OCC/ControlClasses/Workers/BlocksAndMatrices/OcaLiteBlock.h>
 
 // ---- FileInfo Macro ----
 
@@ -22,7 +22,7 @@ static const ::OcaUint16        classID[]   = {OCA_ACTUATOR_CLASSID};
 const ::OcaLiteClassID          OcaLiteActuator::CLASS_ID(static_cast< ::OcaUint16>(sizeof(classID) / sizeof(classID[0])), classID);
 
 /** Defines the version increment of this class compared to its base class. */
-#define CLASS_VERSION_INCREMENT     static_cast< ::OcaClassVersionNumber>(0)
+#define CLASS_VERSION_INCREMENT     0
 
 // ---- Helper functions ----
 
@@ -59,14 +59,13 @@ OcaLiteActuator::OcaLiteActuator(::OcaONo objectNumber, ::OcaBoolean lockable, c
     return rc;
 }
 
-//lint -e{835} A zero has been given as right argument to operator '+'
 ::OcaClassVersionNumber OcaLiteActuator::GetClassVersion() const
 {
-    return (OcaLiteWorker::GetClassVersion() + CLASS_VERSION_INCREMENT);
+    return static_cast< ::OcaClassVersionNumber>(static_cast<int>(OcaLiteWorker::GetClassVersion()) + CLASS_VERSION_INCREMENT);
 }
 
 
 OcaLiteActuator::~OcaLiteActuator()
 {
-   ; //::OcaLiteBlock::GetRootBlock().RemoveObject(GetObjectNumber());
+   ::OcaLiteBlock::GetRootBlock().RemoveObject(GetObjectNumber());
 }

@@ -21,7 +21,7 @@ static const ::OcaUint16        classID[]   = {OCA_MEDIACLOCKMANAGER_CLASSID};
 const ::OcaLiteClassID          OcaLiteMediaClockManager::CLASS_ID(static_cast< ::OcaUint16>(sizeof(classID) / sizeof(classID[0])), classID);
 
 /** Defines the version increment of this class compared to its base class. */
-#define CLASS_VERSION_INCREMENT     static_cast< ::OcaClassVersionNumber>(0)
+#define CLASS_VERSION_INCREMENT     0
 
 // ---- Helper functions ----
 
@@ -74,42 +74,28 @@ void OcaLiteMediaClockManager::FreeInstance()
 {
     ::OcaBoolean bResult(OcaLiteManager::Initialize());
 
-    TakeMutex();
-
     if (bResult)
     {
         m_bInitialized = true;
     }
-
-    ReleaseMutex();
 
     return bResult;
 }
 
 ::OcaBoolean OcaLiteMediaClockManager::Shutdown()
 {
-    TakeMutex();
-
     m_bInitialized = false;
-
-    ReleaseMutex();
 
     return OcaLiteManager::Shutdown();
 }
 
 ::OcaLiteStatus OcaLiteMediaClockManager::GetClocks(::OcaLiteList< ::OcaONo>& clocks) const
 {
-    TakeMutex();
-
-    ::OcaLiteStatus rc(InternalGetClocks(clocks));
-
-    ReleaseMutex();
-
-    return rc;
+    return InternalGetClocks(clocks);
 }
 
 ::OcaLiteStatus OcaLiteMediaClockManager::Execute(const ::IOcaLiteReader& reader, const ::IOcaLiteWriter& writer, ::OcaSessionID sessionID, const ::OcaLiteMethodID& methodID,
-	                                    ::OcaUint32 parametersSize, const ::OcaUint8* parameters, ::OcaUint8** response)
+                                        ::OcaUint32 parametersSize, const ::OcaUint8* parameters, ::OcaUint8** response)
 {
     ::OcaLiteStatus rc(OCASTATUS_PARAMETER_ERROR);
 
@@ -151,9 +137,9 @@ void OcaLiteMediaClockManager::FreeInstance()
                     }
                 }
                 break;
-			case GET_MEDIACLOCKTYPESSUPPORTED:
-				rc = OCASTATUS_NOT_IMPLEMENTED;
-				break;
+            case GET_MEDIACLOCKTYPESSUPPORTED:
+                rc = OCASTATUS_NOT_IMPLEMENTED;
+                break;
             default:
                 rc = OCASTATUS_BAD_METHOD;
                 break;
@@ -172,17 +158,14 @@ void OcaLiteMediaClockManager::FreeInstance()
     return rc;
 }
 
-//lint -e{835} A zero has been given as right argument to operator '+'
 ::OcaClassVersionNumber OcaLiteMediaClockManager::GetClassVersion() const
 {
-    return (OcaLiteManager::GetClassVersion() + CLASS_VERSION_INCREMENT);
+    return static_cast< ::OcaClassVersionNumber>(static_cast<int>(OcaLiteManager::GetClassVersion()) + CLASS_VERSION_INCREMENT);
 }
 
 ::OcaBoolean OcaLiteMediaClockManager::AddMediaClock(OcaLiteMediaClock& clock)
 {
     ::OcaBoolean result(static_cast< ::OcaBoolean>(false));
-
-    TakeMutex();
 
     if (m_mediaClockList.end() == m_mediaClockList.find(clock.GetObjectNumber()))
     {
@@ -210,9 +193,7 @@ void OcaLiteMediaClockManager::FreeInstance()
                                                                                      propertyId,
                                                                                      clockList,
                                                                                      OCAPROPERTYCHANGETYPE_ITEM_ADDED);
-                ReleaseMutex();
                 PropertyChanged(eventDataState);
-                TakeMutex();
 
                 result = static_cast< ::OcaBoolean>(true);
             }
@@ -224,25 +205,19 @@ void OcaLiteMediaClockManager::FreeInstance()
 
         if (clockTypesChanged)
         {
-            ReleaseMutex();
             NotifySupportedClockTypesChanged(OCAPROPERTYCHANGETYPE_ITEM_ADDED);
-            TakeMutex();
         }
     }
-
-    ReleaseMutex();
 
     return result;
 }
 
 void OcaLiteMediaClockManager::RemoveMediaClock(const OcaLiteMediaClock& clock)
 {
-    TakeMutex();
-
     MediaClockList::iterator iter(m_mediaClockList.find(clock.GetObjectNumber()));
     if (m_mediaClockList.end() != iter)
     {
-        static_cast<void>(m_mediaClockList.erase(iter)); //lint !e792 Void cast not needed for certain STL implementations
+        static_cast<void>(m_mediaClockList.erase(iter));
 
         bool clockTypesChanged(false);
         ::OcaLiteMediaClockType clockType;
@@ -263,9 +238,7 @@ void OcaLiteMediaClockManager::RemoveMediaClock(const OcaLiteMediaClock& clock)
                                                                                  propertyId,
                                                                                  clockList,
                                                                                  OCAPROPERTYCHANGETYPE_ITEM_DELETED);
-            ReleaseMutex();
             PropertyChanged(eventDataState);
-            TakeMutex();
         }
         else
         {
@@ -274,13 +247,9 @@ void OcaLiteMediaClockManager::RemoveMediaClock(const OcaLiteMediaClock& clock)
 
         if (clockTypesChanged)
         {
-            ReleaseMutex();
             NotifySupportedClockTypesChanged(OCAPROPERTYCHANGETYPE_ITEM_DELETED);
-            TakeMutex();
         }
     }
-
-    ReleaseMutex();
 }
 
 ::OcaLiteStatus OcaLiteMediaClockManager::InternalGetClocks(::OcaLiteList< ::OcaONo>& clocks) const
@@ -305,8 +274,6 @@ void OcaLiteMediaClockManager::RemoveMediaClock(const OcaLiteMediaClock& clock)
 
 void OcaLiteMediaClockManager::NotifySupportedClockTypesChanged(::OcaLitePropertyChangeType changeType)
 {
-    TakeMutex();
-
     ::OcaLiteList< ::OcaLiteMediaClockType> clockTypes;
     clockTypes.Reserve(static_cast< ::OcaUint16>(m_mediaClockTypeList.size()));
 
@@ -319,8 +286,6 @@ void OcaLiteMediaClockManager::NotifySupportedClockTypesChanged(::OcaLitePropert
             clockTypes.Add(iter->first);
         }
     }
-
-    ReleaseMutex();
 
     ::OcaLitePropertyID propertyId(CLASS_ID.GetFieldCount(), static_cast< ::OcaUint16>(OCA_PROP_CLOCK_SOURCE_TYPES_SUPPORTED));
     ::OcaLitePropertyChangedEventData< ::OcaLiteList< ::OcaLiteMediaClockType> > eventDataState(OBJECT_NUMBER,

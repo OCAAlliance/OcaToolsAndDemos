@@ -24,7 +24,6 @@ class OcaLiteString;
 // ---- Class Definition ----
 /**
  * Interface that defines a reader for primitive types from an OcaUint8 array.
- * @ingroup OCF
  */
 class IOcaLiteReader
 {

@@ -7,6 +7,7 @@
  */
 
 // ---- Include system wide include files ----
+#include <OCC/ControlClasses/Agents/OcaLiteStreamNetwork.h>
 #include <OCC/ControlClasses/Workers/BlocksAndMatrices/OcaLiteBlock.h>
 #include <OCC/ControlClasses/Managers/OcaLiteNetworkManager.h>
 #include <OCC/ControlDataTypes/OcaLiteMethodID.h>
@@ -19,14 +20,13 @@
 
 // ---- Include local include files ----
 #include "OcaLiteNetworkSignalChannel.h"
-#include "OcaLiteStreamNetwork.h"
 
 // ---- Helper types and constants ----
 static const ::OcaUint16        classID[]   = {OCA_NETWORK_SIGNAL_CHANNEL_CLASSID};
-const ::OcaLiteClassID              OcaLiteNetworkSignalChannel::CLASS_ID(static_cast< ::OcaUint16>(sizeof(classID) / sizeof(classID[0])), classID);
+const ::OcaLiteClassID          OcaLiteNetworkSignalChannel::CLASS_ID(static_cast< ::OcaUint16>(sizeof(classID) / sizeof(classID[0])), classID);
 
 /** Defines the version increment of this class compared to its base class. */
-#define CLASS_VERSION_INCREMENT     static_cast< ::OcaClassVersionNumber>(0)
+#define CLASS_VERSION_INCREMENT     0
 
 // ---- Helper functions ----
 
@@ -47,6 +47,7 @@ OcaLiteNetworkSignalChannel::OcaLiteNetworkSignalChannel(::OcaONo objectNumber,
                       ports),
       m_sourceOrSink(sourceOrSink),
       m_status(OCANETWORKSIGNALCHANNELSTATUS_NOT_CONNECTED),
+      m_connectorPins(),
       m_remoteChannelID(),
       m_idAdvertised(idAdvertised),
       m_network(network)
@@ -229,9 +230,33 @@ OcaLiteNetworkSignalChannel::~OcaLiteNetworkSignalChannel()
                     }
                 }
                 break;
+            case GET_CONNECTOR_PINS:
+                {
+                    ::OcaUint8 numberOfParameters(0);
+                    if (reader.Read(bytesLeft, &pCmdParameters, numberOfParameters) &&
+                        (0 == numberOfParameters))
+                    {
+                        ::OcaUint32 responseSize(::GetSizeValue< ::OcaUint8>(static_cast< ::OcaUint8>(1), writer) + m_connectorPins.GetSize(writer));
+                        responseBuffer = ::OcaLiteCommandHandler::GetInstance().GetResponseBuffer(responseSize);
+                        if (NULL != responseBuffer)
+                        {
+                            ::OcaUint8* pResponse(responseBuffer);
+                            writer.Write(static_cast< ::OcaUint8>(1/*NrParameters*/), &pResponse);
+                            m_connectorPins.Marshal(&pResponse, writer);
+
+                            *response = responseBuffer;
+
+                            rc = OCASTATUS_OK;
+                        }
+                        else
+                        {
+                            rc = OCASTATUS_BUFFER_OVERFLOW;
+                        }
+                    }
+                }
+                break;
             case SET_NETWORK:
             case SET_ID_ADVERTISED:
-            case GET_CONNECTOR_PINS:
             case ADD_TO_CONNECTOR:
             case REMOVE_FROM_CONNECTOR:
                 {
@@ -257,7 +282,71 @@ OcaLiteNetworkSignalChannel::~OcaLiteNetworkSignalChannel()
     return rc;
 }
 
-::OcaLiteStatus OcaLiteNetworkSignalChannel::SetRemoteChannelID(::OcaLiteNetworkSignalChannelID signalChannelID)
+
+
+::OcaLiteStatus OcaLiteNetworkSignalChannel::AddToConnector(::OcaONo connector, ::OcaLiteStreamConnectorPinIndex index)
+{
+
+    ::OcaLiteStatus rc(OCASTATUS_DEVICE_ERROR);
+    if ((OCA_INVALID_ONO != connector) && (!m_connectorPins.ContainsKey(connector)))
+    {
+        rc = OCASTATUS_OK;
+    }
+    else
+    {
+        OCA_LOG_ERROR_PARAMS("Failed to add signal channel to connector %d, already present in %d", connector, m_connectorPins.GetCount());
+    }
+
+    if (OCASTATUS_OK == rc)
+    {
+        //Add the connector
+        ::OcaLiteMapItem< ::OcaONo, ::OcaLiteStreamConnectorPinIndex> item(connector, index);
+        m_connectorPins.Add(item);
+
+        ::OcaLitePropertyID propertyID(CLASS_ID.GetFieldCount(), static_cast< ::OcaUint16>(OCA_PROP_CONNECTOR_PINS));
+        ::OcaLitePropertyChangedEventData< ::OcaLiteMap< ::OcaONo, ::OcaLiteStreamConnectorPinIndex> > eventData(GetObjectNumber(),
+                                                                                                                 propertyID,
+                                                                                                                 m_connectorPins,
+                                                                                                                 OCAPROPERTYCHANGETYPE_ITEM_ADDED);
+        PropertyChanged(eventData);
+    }
+    else
+    {
+        OCA_LOG_WARNING_PARAMS("Unable to add this signal channel to connector %u", connector);
+    }
+
+    return rc;
+}
+
+::OcaLiteStatus OcaLiteNetworkSignalChannel::RemoveFromConnector(::OcaONo connector)
+{
+    ::OcaLiteStatus rc(OCASTATUS_DEVICE_ERROR);
+    if (m_connectorPins.ContainsKey(connector))
+    {
+        rc = OCASTATUS_OK;
+    }
+
+    if (OCASTATUS_OK == rc)
+    {
+        m_connectorPins.Remove(connector);
+
+        ::OcaLitePropertyID propertyID(CLASS_ID.GetFieldCount(), static_cast< ::OcaUint16>(OCA_PROP_CONNECTOR_PINS));
+        ::OcaLitePropertyChangedEventData< ::OcaLiteMap< ::OcaONo, ::OcaLiteStreamConnectorPinIndex> > eventData(GetObjectNumber(),
+                                                                                                                 propertyID,
+                                                                                                                 m_connectorPins,
+                                                                                                                 OCAPROPERTYCHANGETYPE_ITEM_DELETED);
+        PropertyChanged(eventData);
+    }
+    else
+    {
+        OCA_LOG_WARNING_PARAMS("Unable to remove this signal channel from connector %u", connector);
+    }
+
+    return rc;
+}
+
+
+::OcaLiteStatus OcaLiteNetworkSignalChannel::SetRemoteChannelID(const ::OcaLiteNetworkSignalChannelID& signalChannelID)
 {
     ::OcaLiteStatus rc(SetRemoteChannelIDValue(signalChannelID));
     if (OCASTATUS_OK == rc)
@@ -267,15 +356,14 @@ OcaLiteNetworkSignalChannel::~OcaLiteNetworkSignalChannel()
     return rc;
 }
 
-::OcaLiteStatus  OcaLiteNetworkSignalChannel::SetRemoteChannelIDValue(::OcaLiteNetworkSignalChannelID signalChannelID)
+::OcaLiteStatus  OcaLiteNetworkSignalChannel::SetRemoteChannelIDValue(const ::OcaLiteNetworkSignalChannelID& signalChannelID)
 {
     return OCASTATUS_PROCESSING_FAILED;
 }
 
-//lint -e{835} A zero has been given as right argument to operator '+'
 ::OcaClassVersionNumber OcaLiteNetworkSignalChannel::GetClassVersion() const
 {
-    return (OcaLiteWorker::GetClassVersion() + CLASS_VERSION_INCREMENT);
+    return static_cast< ::OcaClassVersionNumber>(static_cast<int>(OcaLiteWorker::GetClassVersion()) + CLASS_VERSION_INCREMENT);
 }
 
 void OcaLiteNetworkSignalChannel::StatusChanged(::OcaLiteNetworkSignalChannelStatus status)
@@ -290,7 +378,7 @@ void OcaLiteNetworkSignalChannel::StatusChanged(::OcaLiteNetworkSignalChannelSta
     PropertyChanged(eventData);
 }
 
-void OcaLiteNetworkSignalChannel::RemoteChannelIDChanged(::OcaLiteNetworkSignalChannelID remoteChannelID)
+void OcaLiteNetworkSignalChannel::RemoteChannelIDChanged(const ::OcaLiteNetworkSignalChannelID& remoteChannelID)
 {
     m_remoteChannelID = remoteChannelID;
 
@@ -304,8 +392,6 @@ void OcaLiteNetworkSignalChannel::RemoteChannelIDChanged(::OcaLiteNetworkSignalC
 
 
 // ---- Function Implementation ----
-
-//lint -save -e1576 Explicit specialization does not occur in the same file as corresponding function template
 
 template <>
 void MarshalValue< ::OcaLiteNetworkSignalChannelStatus>(const ::OcaLiteNetworkSignalChannelStatus& value, ::OcaUint8** destination, const ::IOcaLiteWriter& writer)
@@ -338,5 +424,3 @@ template <>
 {
     return GetSizeValue< ::OcaUint8>(static_cast< ::OcaUint8>(value), writer);
 }
-
-//lint -restore

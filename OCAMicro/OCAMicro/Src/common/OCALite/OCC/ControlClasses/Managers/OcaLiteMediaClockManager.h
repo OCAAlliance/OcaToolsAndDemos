@@ -25,7 +25,6 @@
 
 /**
  * The classID used for initialization.
- * @ingroup Managers
  */
 #define OCA_MEDIACLOCKMANAGER_CLASSID      OCA_MANAGER_CLASSID,static_cast< ::OcaUint16>(7)
 
@@ -41,17 +40,15 @@ class OcaLiteMediaClockManager : public ::OcaLiteManager
 {
 public:
     /** Method indexes for the supported methods. */
-    //lint -e(578) Hides inherited symbol
     enum MethodIndex
     {
         /** GetClocks() */
         GET_CLOCKS                          = 1,
-		/** Get_MediaClockTypesSupported() */
-		GET_MEDIACLOCKTYPESSUPPORTED		= 2,
+        /** Get_MediaClockTypesSupported() */
+        GET_MEDIACLOCKTYPESSUPPORTED        = 2,
     };
 
     /** Property indexes for the supported properties. */
-    //lint -e(578) Hides inherited symbol
     enum PropertyIndex
     {
         /** List of clock source types supported by this device */
@@ -71,7 +68,6 @@ public:
      * identifies the instantiated object. This is a class property instead of an object property. This
      * property will be overridden by each descendant class, in order to specify that class's ClassID.
      */
-    //lint -e(1516) Hides inherited member
     static const ::OcaLiteClassID CLASS_ID;
 
     /**

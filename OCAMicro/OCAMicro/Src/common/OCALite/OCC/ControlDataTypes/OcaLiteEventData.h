@@ -28,7 +28,6 @@
  * Base class for classes containing event data. This base class holds the event data that every
  * event must pass. If an event has additional parameters they must be added in derived classes, and
  * the derived classes must take care of marshaling and unmarshaling the additional data.
- * @ingroup EventSubscriptionDataTypes
  */
 class OcaLiteEventData : public ::IOcaLiteMarshal
 {

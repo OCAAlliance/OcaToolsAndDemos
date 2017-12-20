@@ -1,9 +1,6 @@
-/*
 /*  By downloading or using this file, the user agrees to be bound by the terms of the license 
  *  agreement located at http://ocaalliance.com/EULA as an original contracting party.
- */
-
-/*
+ *
  *  Description         : The OcaLiteCommandHandler.
  *
  */
@@ -231,7 +228,7 @@ void OcaLiteCommandHandler::HandleNetworks(::OcaUint32 timeout)
         ::OcaLiteMessageGeneral* pMsg(pOcaLiteNetwork->RetrieveMessage(::OcaLiteHeader::OCA_MSG_NTF));
         if (NULL != pMsg)
         {
-            ::OcaLiteMessageNotification* pMsgNotification(static_cast< ::OcaLiteMessageNotification*>(pMsg));  //lint !e1774 Use static_cast since message type is known
+            ::OcaLiteMessageNotification* pMsgNotification(static_cast< ::OcaLiteMessageNotification*>(pMsg));
             if (pMsgNotification->WriteParameters(notification.GetTargetONo(), notification.GetMethodID(),
                                                   notification.GetContext(), *(notification.GetEventData()),
                                                   pOcaLiteNetwork->GetWriter()))
@@ -273,7 +270,7 @@ void OcaLiteCommandHandler::HandleMessages()
                     {
                     case ::OcaLiteHeader::OCA_MSG_CMD:
                         {
-                            ::OcaLiteMessageCommand* cmdMess(static_cast< ::OcaLiteMessageCommand*>(msg));  //lint !e1774 Use static_cast since message type is known
+                            ::OcaLiteMessageCommand* cmdMess(static_cast< ::OcaLiteMessageCommand*>(msg));
 
                             // Find the object to execute the command on
                             ::OcaLiteRoot* pOcaLiteRoot(GetDeviceObject(cmdMess->GetTargetONo()));
@@ -300,15 +297,13 @@ void OcaLiteCommandHandler::HandleMessages()
                         break;
                     case ::OcaLiteHeader::OCA_MSG_CMD_RRQ:
                         {
-                            //lint -e{1774} Use static_cast since message type is known
-                            const ::OcaLiteMessageCommand* cmdMess(static_cast< ::OcaLiteMessageCommand*>(msg));    //lint !e1774 Use static_cast since message type is known
-
+                            const ::OcaLiteMessageCommand* cmdMess(static_cast< ::OcaLiteMessageCommand*>(msg));
 
                             // Find the object to execute the command on
                             ::OcaLiteRoot* pOcaLiteRoot(GetDeviceObject(cmdMess->GetTargetONo()));
 
                             // Retrieve a new response message
-                            ::OcaLiteMessageResponse* pMsgResponse(static_cast< ::OcaLiteMessageResponse*>(pNetwork->RetrieveMessage(::OcaLiteHeader::OCA_MSG_RSP)));  //lint !e1774 Use static_cast since message type is known
+                            ::OcaLiteMessageResponse* pMsgResponse(static_cast< ::OcaLiteMessageResponse*>(pNetwork->RetrieveMessage(::OcaLiteHeader::OCA_MSG_RSP)));
                             
                             if (NULL != pMsgResponse)
                             {
@@ -333,12 +328,12 @@ void OcaLiteCommandHandler::HandleMessages()
                                     // Clear the response parameters
                                     if (OCASTATUS_OK != rc)
                                     {
-	                                    pMsgResponse->WriteParameters(cmdMess->GetHandle(), NULL, 0, rc);
+                                        pMsgResponse->WriteParameters(cmdMess->GetHandle(), NULL, 0, rc);
                                     }
-									else
-									{
-	                                    pMsgResponse->WriteParameters(cmdMess->GetHandle(), response, m_responseBufferSize, rc);
-									}
+                                    else
+                                    {
+                                        pMsgResponse->WriteParameters(cmdMess->GetHandle(), response, m_responseBufferSize, rc);
+                                    }
                                 }
                                 else
                                 {

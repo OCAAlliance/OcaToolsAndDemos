@@ -24,7 +24,6 @@
  */
 
 /** A ratio expressed in dB. Typically used for gain settings. */
-/*lint -strong(AJX, OcaDB)*/
 typedef ::OcaFloat32    OcaDB;
 
 /**
@@ -32,7 +31,6 @@ typedef ::OcaFloat32    OcaDB;
  * used for parameters that reflect analogue signal values, e.g. pre-ADC input
  * signals and post-DAC output signals.
  */
-/*lint -strong(AJX, OcaDBV)*/
 typedef ::OcaDB         OcaDBV;
 
 /**
@@ -40,11 +38,9 @@ typedef ::OcaDB         OcaDBV;
  * used for parameters that reflect analogue signal values, e.g. pre-ADC input
  * signals and post-DAC output signals.
  */
-/*lint -strong(AJX, OcaDBu)*/
 typedef ::OcaDB         OcaDBu;
 
 /** An absolute level expressed in dB relative to the device maximum internal digital signal level. */
-/*lint -strong(AJX, OcaDBfs)*/
 typedef ::OcaDB         OcaDBfs;
 
 /**
@@ -52,11 +48,9 @@ typedef ::OcaDB         OcaDBfs;
  * The device zero level is the absolute level which is (OcaDeviceManager.Headroom) dB below the
  * internal digital maximum level.
  */
-/*lint -strong(AJX, OcaDBz)*/
 typedef ::OcaDB         OcaDBz;
 
 /** Mute states. */
-//lint -strong(AJX, OcaLiteMuteState)
 enum OcaLiteMuteState   /* maps onto OcaUint8 */
 {
     /** Muted. */
@@ -68,7 +62,6 @@ enum OcaLiteMuteState   /* maps onto OcaUint8 */
 };
 
 /** Polarity states. */
-//lint -strong(AJX, OcaLitePolarityState)
 enum OcaLitePolarityState   /* maps onto OcaUint8 */
 {
     /** Non-inverted. */
@@ -80,7 +73,6 @@ enum OcaLitePolarityState   /* maps onto OcaUint8 */
 };
 
 /** Enumeration of types of delay units that are available in OCA. */
-//lint -strong(AJX, OcaLiteDelayUnit)
 enum OcaLiteDelayUnit       /* maps onto OcaUint8 */
 {
     /** Time. */
@@ -94,61 +86,22 @@ enum OcaLiteDelayUnit       /* maps onto OcaUint8 */
 };
 
 /** Frequency value in Hertz. */
-/*lint -strong(AJX, OcaFrequency)*/
 typedef ::OcaFloat32   OcaFrequency;
-
-/** Strong datatype for frequency response. */
-/*lint -strong(AJX, OcaFrequencyResponse)*/
-//typedef ::OcaMap< ::OcaFrequency, ::OcaDB>   OcaFrequencyResponse;
 
 /**
  * Time of day in OCA standard format (Network Time Protocol format)
  * which is 32-bits for the number of seconds since January 1, 1900
  * followed by a 32-bit part for the fractional second.
  */
-/*lint -strong(AJX, OcaTimeOfDay*/
 typedef ::OcaUint64     OcaTimeOfDay;
 
-/**
- * Creates an OcaTimeOfDay value based on the date/time components in local time.
- * @note Conversion will give unpredicted results for a date before January 1, 1970.
- *       In a debug build, the code will break on a date prior to January 1, 1970.
- *
- * @param[in]   year            The year in four digit notation.
- * @param[in]   month           The month (1-12)
- * @param[in]   day             The day of the month (1-31)
- * @param[in]   hour            The hour (0-23)
- * @param[in]   minute          The minute (0-59)
- * @param[in]   second          The second (0-59)
- * @param[in]   fraction        The fraction of the seconds in 1/(2^32) seconds
- * @return The OcaTimeOfDay representing the date and time.
- */
-::OcaTimeOfDay CreateTimeOfDay(::OcaUint16 year, ::OcaUint8 month, ::OcaUint8 day, ::OcaUint8 hour, ::OcaUint8 minute, ::OcaUint8 second, ::OcaUint32 fraction);
-
-/**
- * Parses an OcaTimeOfDay value into the date/time different components in local time.
- *
- * @param[in]   timeOfDay       The time of day value to parse.
- * @param[out]  year            The year in four digit notation.
- * @param[out]  month           The month (1-12)
- * @param[out]  day             The day of the month (1-31)
- * @param[out]  hour            The hour (0-23)
- * @param[out]  minute          The minute (0-59)
- * @param[out]  second          The second (0-59)
- * @param[out]  fraction        The fraction of the seconds in 1/(2^32) seconds
- * @return True if parsing succeeded, false if not.
- */
-bool ParseTimeOfDay(::OcaTimeOfDay timeOfDay, ::OcaUint16& year, ::OcaUint8& month, ::OcaUint8& day, ::OcaUint8& hour, ::OcaUint8& minute, ::OcaUint8& second, ::OcaUint32& fraction);
-
 /** Time interval in seconds. */
-/*lint -strong(AJX, OcaTimeInterval)*/
 typedef ::OcaFloat32    OcaTimeInterval;
 
 /**
  * General-purpose period of time in milliseconds. As this type is mostly used for management
  * purposes and integer base type is used and it is expressed in milliseconds.
  */
-/*lint -strong(AJX, OcaPeriod)*/
 typedef ::OcaUint32     OcaPeriod;
 
 /**
@@ -158,7 +111,6 @@ typedef ::OcaUint32     OcaPeriod;
  * interfaces. The datatype of a reading expressed in one of these units of
  * measure is OcaFloat32.
  */
-//lint -strong(AJX, OcaLiteUnitOfMeasure)
 enum OcaLiteUnitOfMeasure   /* maps onto OcaUint8 */
 {
     /** No reading. */
@@ -186,7 +138,6 @@ enum OcaLiteUnitOfMeasure   /* maps onto OcaUint8 */
  * before presenting it) to keep the user presentation uniform. Note that the
  * presentation unit may be equal to the unit of the property (in which case of
  * course no conversion is needed). */
-//lint -strong(AJX, OcaLitePresentationUnit)
 enum OcaLitePresentationUnit    /* maps onto OcaUint8 */
 {
     /** dB(0.775 VRMS) - voltage relative to 0.775 volts. */
@@ -202,7 +153,6 @@ enum OcaLitePresentationUnit    /* maps onto OcaUint8 */
 /**
  * Enumeration of the types of level detector characteristics. Used in dynamics classes and for sensors.
  */
-//lint -strong(AJX, OcaLiteLevelDetectionLaw)
 enum OcaLiteLevelDetectionLaw    /* maps onto OcaUint8 */
 {
     /** No detection (i.e. never trigger) */
@@ -216,11 +166,10 @@ enum OcaLiteLevelDetectionLaw    /* maps onto OcaUint8 */
 };
 
 /** Temperature in degree Celsius. */
-/*lint -strong(AJX, OcaFloat32)*/
 typedef ::OcaFloat32    OcaTemperature;
 
 /** @} */ /* end of adding to group OCA */
 
 // ---- Specialized Template Function Definition ----
 
-#endif /* OCLITEAWORKERDATATYPES_H */
+#endif // OCLITEAWORKERDATATYPES_H 

@@ -23,7 +23,6 @@
 // ---- Class Definition ----
 /** 
  * Representation of an Oca KeepAlive message. 
- * @ingroup Messages
  */
 class  OcaLiteMessageKeepAlive : public ::OcaLiteMessageGeneral
 {

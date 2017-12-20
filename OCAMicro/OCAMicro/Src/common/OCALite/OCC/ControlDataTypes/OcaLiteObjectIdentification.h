@@ -27,7 +27,6 @@
 
 /**
  * Object identification. Composite of object number and object's class.
- * @ingroup FrameworkDataTypes
  */
 class OcaLiteObjectIdentification : public ::IOcaLiteMarshal
 {

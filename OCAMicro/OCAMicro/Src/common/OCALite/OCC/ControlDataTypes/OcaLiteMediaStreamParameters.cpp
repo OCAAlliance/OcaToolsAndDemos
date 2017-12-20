@@ -1,9 +1,7 @@
 /*  By downloading or using this file, the user agrees to be bound by the terms of the license 
  *  agreement located at http://ocaalliance.com/EULA as an original contracting party.
- */
-
-/*
- *  Description         : OcaLiteNetworkNodeID
+ *
+ *  Description         : OcaLiteMediaStreamParameters
  *
  */
 
@@ -12,7 +10,7 @@
 // ---- FileInfo Macro ----
 
 // ---- Include local include files ----
-#include "OcaLiteNetworkNodeID.h"
+#include "OcaLiteMediaStreamParameters.h"
 
 // ---- Helper types and constants ----
 
@@ -22,29 +20,29 @@
 
 // ---- Class Implementation ----
 
-OcaLiteNetworkNodeID::OcaLiteNetworkNodeID()
+OcaLiteMediaStreamParameters::OcaLiteMediaStreamParameters()
     : ::IOcaLiteMarshal(),
       m_value()
 {
 }
 
-OcaLiteNetworkNodeID::OcaLiteNetworkNodeID(const ::OcaLiteBlob& value)
+OcaLiteMediaStreamParameters::OcaLiteMediaStreamParameters(const ::OcaLiteBlob& value)
     : ::IOcaLiteMarshal(),
       m_value(value)
 {
 }
 
-OcaLiteNetworkNodeID::OcaLiteNetworkNodeID(const ::OcaLiteNetworkNodeID& source)
+OcaLiteMediaStreamParameters::OcaLiteMediaStreamParameters(const ::OcaLiteMediaStreamParameters& source)
     : ::IOcaLiteMarshal(source),
       m_value(source.m_value)
 {
 }
 
-OcaLiteNetworkNodeID::~OcaLiteNetworkNodeID()
+OcaLiteMediaStreamParameters::~OcaLiteMediaStreamParameters()
 {
 }
 
-::OcaLiteNetworkNodeID& OcaLiteNetworkNodeID::operator=(const ::OcaLiteNetworkNodeID& source)
+::OcaLiteMediaStreamParameters& OcaLiteMediaStreamParameters::operator=(const ::OcaLiteMediaStreamParameters& source)
 {
     if (this != &source)
     {
@@ -54,22 +52,22 @@ OcaLiteNetworkNodeID::~OcaLiteNetworkNodeID()
     return *this;
 }
 
-bool OcaLiteNetworkNodeID::operator==(const ::OcaLiteNetworkNodeID& rhs) const
+bool OcaLiteMediaStreamParameters::operator==(const ::OcaLiteMediaStreamParameters& rhs) const
 {
     return (m_value == rhs.m_value);
 }
 
-bool OcaLiteNetworkNodeID::operator!=(const ::OcaLiteNetworkNodeID& rhs) const
+bool OcaLiteMediaStreamParameters::operator!=(const ::OcaLiteMediaStreamParameters& rhs) const
 {
     return !(operator==(rhs));
 }
 
-void OcaLiteNetworkNodeID::Marshal(::OcaUint8** destination, const ::IOcaLiteWriter& writer) const
+void OcaLiteMediaStreamParameters::Marshal(::OcaUint8** destination, const ::IOcaLiteWriter& writer) const
 {
     m_value.Marshal(destination, writer);
 }
 
-bool OcaLiteNetworkNodeID::Unmarshal(::OcaUint32& bytesLeft, const ::OcaUint8** source, const ::IOcaLiteReader& reader)
+bool OcaLiteMediaStreamParameters::Unmarshal(::OcaUint32& bytesLeft, const ::OcaUint8** source, const ::IOcaLiteReader& reader)
 {
     bool result(m_value.Unmarshal(bytesLeft, source, reader));
 
@@ -81,7 +79,7 @@ bool OcaLiteNetworkNodeID::Unmarshal(::OcaUint32& bytesLeft, const ::OcaUint8** 
     return result;
 }
 
-::OcaUint32 OcaLiteNetworkNodeID::GetSize(const ::IOcaLiteWriter& writer) const
+::OcaUint32 OcaLiteMediaStreamParameters::GetSize(const ::IOcaLiteWriter& writer) const
 {
     ::OcaUint32 length(m_value.GetSize(writer));
 

@@ -34,16 +34,16 @@ public:
                   ::OcaLiteMediaClockType type,
                   ::OcaUint16 domainID,
                   const ::OcaLiteList< ::OcaLiteMediaClockRate>& ratesSupported,
-				  const OcaLiteMediaClockRate& currentRate);
+                  const OcaLiteMediaClockRate& currentRate);
 
     /**
      * Destructor.
      */
     virtual ~DanteLiteOcaMediaClock();
 
-	::OcaLiteStatus Initialize();
+    ::OcaLiteStatus Initialize();
 
-	bool setNewDanteSampleRate(OcaUint32 newRate);
+    bool setNewDanteSampleRate(OcaUint32 newRate);
 
 protected:
 
@@ -57,7 +57,7 @@ protected:
      */
     virtual ::OcaLiteStatus SetTypeValue(::OcaLiteMediaClockType type);
 
-	/**
+    /**
      * Gets the current domain ID.
      * @note This method should not take the object's mutex itself.
      *       The mutex is already taken before this method is called.
@@ -67,7 +67,7 @@ protected:
      */
     virtual ::OcaLiteStatus GetDomainIDValue(::OcaUint16& id) const;
 
-	/**
+    /**
      * Sets the value of the DomainID property.
      * @note This method should not take the object's mutex itself.
      *       The mutex is already taken before this method is called.
@@ -108,10 +108,10 @@ protected:
     virtual ::OcaLiteStatus GetLockStateValue(::OcaLiteMediaClockLockState& state) const;
 
 private:
-	OcaLiteMediaClockRate	m_Rate;
-	OcaLiteMediaClockLockState	m_ClockState;
-	OcaUint16				m_DomainID;
-	OcaLiteMediaClockType		m_ClockType;
+    OcaLiteMediaClockRate         m_Rate;
+    OcaLiteMediaClockLockState    m_ClockState;
+    OcaUint16                     m_DomainID;
+    OcaLiteMediaClockType         m_ClockType;
 };
 
 #endif // _DANTEOCALITEMEDIACLOCK_H

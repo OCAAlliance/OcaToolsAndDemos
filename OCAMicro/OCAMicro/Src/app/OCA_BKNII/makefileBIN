@@ -51,9 +51,7 @@ SRCS  = OCALiteDante.cpp \
 		OcaLiteOcfTimer.cpp \
 		DanteLiteHostInterface.cpp \
 		DanteLiteConMon.cpp \
-		OcaLiteStreamNetwork.cpp \
 		OcaLiteStreamNetworkDante.cpp \
-		OcaLiteNetworkSignalChannel.cpp \
 		OcaLiteNetworkSignalChannelDante.cpp \
 		OcaLiteDanteLvlSensor.cpp \
 		OcaLiteDanteMediaClock.cpp

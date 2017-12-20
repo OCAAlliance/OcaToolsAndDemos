@@ -24,7 +24,6 @@
 // ---- Class Definition ----
 /**
  * Representation of an Oca Response message.
- * @ingroup Messages
  */
 class  OcaLiteMessageResponse : public ::OcaLiteMessageGeneral
 {

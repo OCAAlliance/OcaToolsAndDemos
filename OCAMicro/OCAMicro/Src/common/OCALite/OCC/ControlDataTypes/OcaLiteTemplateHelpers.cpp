@@ -27,9 +27,9 @@
 // ---- Helper functions ----
 extern "C" int CompareFloats(FLOAT firstValue, FLOAT secondValue, FLOAT delta)
 {
-    return ((isnan(firstValue) && isnan(secondValue)) ||    //lint !e747 Significant prototype coercion
-            (isinf(firstValue) && isinf(secondValue)) ||    //lint !e747 Significant prototype coercion
-            (fabs(firstValue - secondValue) < delta));      //lint !e747 Significant prototype coercion
+    return ((isnan(firstValue) && isnan(secondValue)) ||
+            (isinf(firstValue) && isinf(secondValue)) ||
+            (fabs(firstValue - secondValue) < delta));
 }
 
 extern "C" int CompareDoubles(DOUBLE firstValue, DOUBLE secondValue, DOUBLE delta)
@@ -42,8 +42,6 @@ extern "C" int CompareDoubles(DOUBLE firstValue, DOUBLE secondValue, DOUBLE delt
 // ---- Local data ----
 
 // ---- Function Implementation ----
-
-//lint -save -e1576 Explicit specialization does not occur in the same file as corresponding function template
 
 template <>
 bool CompareValue< ::OcaFloat32>(const ::OcaFloat32& lhs, const ::OcaFloat32& rhs)
@@ -384,5 +382,3 @@ template <>
 {
     return value;
 }
-
-//lint -restore

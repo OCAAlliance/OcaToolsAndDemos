@@ -22,7 +22,7 @@ static const ::OcaUint16        classID[]   = {OCA_BASIC_SENSOR_CLASSID};
 const ::OcaLiteClassID          OcaLiteBasicSensor::CLASS_ID(static_cast< ::OcaUint16>(sizeof(classID) / sizeof(classID[0])), classID);
 
 /** Defines the version increment of this class compared to its base class. */
-#define CLASS_VERSION_INCREMENT     static_cast< ::OcaClassVersionNumber>(0)
+#define CLASS_VERSION_INCREMENT     0
 
 // ---- Helper functions ----
 
@@ -59,8 +59,7 @@ OcaLiteBasicSensor::OcaLiteBasicSensor(::OcaONo objectNumber, ::OcaBoolean locka
     return rc;
 }
 
-//lint -e{835} A zero has been given as right argument to operator '+'
 ::OcaClassVersionNumber OcaLiteBasicSensor::GetClassVersion() const
 {
-    return (OcaLiteSensor::GetClassVersion() + CLASS_VERSION_INCREMENT);
+    return static_cast< ::OcaClassVersionNumber>(static_cast<int>(OcaLiteSensor::GetClassVersion()) + CLASS_VERSION_INCREMENT);
 }

@@ -23,7 +23,6 @@
 // ---- Class Definition ----
 /**
  * Specific reader to read data sent over an OCP.1 network.
- * @ingroup OCP1
  */
 class Ocp1LiteReader : public ::IOcaLiteReader
 {

@@ -26,7 +26,6 @@
 
 /**
  * Friendly description of this device model.
- * @ingroup ManagementDataTypes
  */
 class OcaLiteModelDescription : public ::IOcaLiteMarshal
 {

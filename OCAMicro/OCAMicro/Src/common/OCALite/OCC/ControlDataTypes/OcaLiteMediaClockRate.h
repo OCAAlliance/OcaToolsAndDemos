@@ -27,7 +27,6 @@
 
 /**
  * Media clock nominal rate and associated parameters.
- * @ingroup SamplingDataTypes
  */
 class OcaLiteMediaClockRate : public ::IOcaLiteMarshal
 {

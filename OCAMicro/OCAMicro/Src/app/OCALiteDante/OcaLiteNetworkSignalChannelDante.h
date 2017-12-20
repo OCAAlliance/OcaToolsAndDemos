@@ -10,18 +10,17 @@
 #define OCALITENETWORKSIGNALCHANNELDANTE_H
 
 // ---- Include system wide include files ----
-#include <OCC/ControlDataTypes/OcaLiteNetworkSignalChannelDanteID.h>
+#include <OCC/ControlClasses/Workers/Networking/OcaLiteNetworkSignalChannel.h>
 #include <OCC/ControlDataTypes/OcaLiteNetworkDataTypes.h>
+#include <OCC/ControlDataTypes/OcaLiteStringInABlob.h>
 
 // ---- Include local include files ----
-#include "OcaLiteNetworkSignalChannel.h"
 
 // ---- Referenced classes and types ----
 
 // ---- Helper types and constants ----
 /**
  * The classID used for initialization.
- * @ingroup NetworkingWorkers
  */
 #define OCA_NETWORK_SIGNAL_CHANNEL_DANTE_CLASSID  OCA_NETWORK_SIGNAL_CHANNEL_CLASSID,OCA_CLASS_ID_PROPRIETARY_CLASS_FIELD_MASK | static_cast< ::OcaUint16>(0x01)
 
@@ -30,13 +29,12 @@
 // ---- Class Definition ----
 
 /**
- * @ingroup NetworkingWorkers
+ * Representation of a signal channel Dante
  */
 class OcaLiteNetworkSignalChannelDante : public ::OcaLiteNetworkSignalChannel
 {
 public:
     /** Method indexes for the supported methods. */
-    //lint -e(578) Hides inherited symbol
     enum MethodIndex
     {
         /** GetEncodings() */
@@ -52,7 +50,6 @@ public:
     };
 
     /** Property indexes for the supported properties. */
-    //lint -e(578) Hides inherited symbol
     enum PropertyIndex
     {
         /** Supported encodings of the Dante channel */
@@ -103,25 +100,24 @@ public:
      * identifies the instantiated object. This is a class property instead of an object property. This
      * property will be overridden by each descendant class, in order to specify that class's ClassID.
      */
-    //lint -e(1516) Hides inherited member
     static const ::OcaLiteClassID CLASS_ID;
 
     // ---- Implement interface ----
     virtual ::OcaLiteStatus Execute(const ::IOcaLiteReader& reader, const ::IOcaLiteWriter& writer, ::OcaSessionID sessionID, const ::OcaLiteMethodID& methodID,
                                     ::OcaUint32 parametersSize, const ::OcaUint8* parameters, ::OcaUint8** response);
-	// Get channel number
-	virtual ::OcaUint16 GetChannelNumber() { return m_channelNr; }
+    // Get channel number
+    virtual ::OcaUint16 GetChannelNumber() { return m_channelNr; }
 
-	// Get Sample rate of the channel
-	virtual ::OcaLiteFrequency GetChannelSampleRate() { return m_sampleRate; }
+    // Get Sample rate of the channel
+    virtual ::OcaLiteFrequency GetChannelSampleRate() { return m_sampleRate; }
 
-	// Get Encoding of the channel
-	virtual ::OcaLiteList< ::OcaLiteEncoding> GetChannelEncoding() { return m_encodings; }
+    // Get Encoding of the channel
+    virtual ::OcaLiteList< ::OcaLiteEncoding> GetChannelEncoding() { return m_encodings; }
 
-	// Get current subscription ID string
-	virtual ::OcaBoolean GetSubscriptionName(OcaLiteString &Name);
+    // Get current subscription ID string
+    virtual ::OcaBoolean GetSubscriptionName(OcaLiteString &Name);
 
-	void DanteRemoteChannelIDChanged(::OcaLiteNetworkSignalChannelID remoteChannelID);
+    void DanteRemoteChannelIDChanged(::OcaLiteNetworkSignalChannelID remoteChannelID);
 
 
 protected:
@@ -151,8 +147,8 @@ private:
     /** private assignment operator, no assignment of object allowed */
     ::OcaLiteNetworkSignalChannelDante& operator=(const ::OcaLiteNetworkSignalChannelDante&);
 
-	::OcaLiteNetworkSignalChannelDanteID m_DanteSubscription;
-	::OcaLiteString						 m_SubscriptionStr;
+    ::OcaLiteNetworkSignalChannelDanteID    m_DanteSubscription;
+    ::OcaLiteString                         m_SubscriptionStr;
 };
 
 #endif //OCALITENETWORKSIGNALCHANNELDANTE_H

@@ -26,7 +26,6 @@ class OcaLiteEventData;
 // ---- Class Definition ----
 /**
  * Representation of an Oca Notification message.
- * @ingroup Messages
  */
 class  OcaLiteMessageNotification : public ::OcaLiteMessageGeneral
 {

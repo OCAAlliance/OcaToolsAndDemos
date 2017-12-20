@@ -17,11 +17,11 @@
 #include <HostInterfaceLite/OCA/OCP.1/Network/IOcp1LiteNetwork.h>
 #include <HostInterfaceLite/OCA/OCP.1/Network/IOcp1LiteSocket.h>
 #include <OCC/ControlDataTypes/OcaLiteNetworkStatistics.h>
+#include <OCC/ControlDataTypes/OcaLiteStringInABlob.h>
 #include <OCF/OcaLiteCommandHandler.h>
 
 // ---- Include local include files ----
 #include "Ocp1LiteNetwork.h"
-#include "Ocp1LiteNetworkNodeID.h"
 #include "Ocp1LiteNetworkSystemInterfaceID.h"
 
 // ---- Helper types and constants ----
@@ -85,10 +85,10 @@ Ocp1LiteNetwork::Ocp1LiteNetwork(::OcaONo objectNumber,
       m_bMsgRsp(false)
 #endif
 {
-    if (idAdvertised.GetNodeID().GetLength() > static_cast< ::OcaUint16>(0))
+    if (idAdvertised.GetStringValue().GetLength() > static_cast< ::OcaUint16>(0))
     {
         // Node ID is correctly passed
-        m_nodeID = idAdvertised.GetNodeID();
+        m_nodeID = idAdvertised.GetStringValue();
     }
     else
     {
@@ -162,15 +162,15 @@ Ocp1LiteNetwork::~Ocp1LiteNetwork()
 
 ::OcaLiteStatus Ocp1LiteNetwork::CreateMessageBuffer(void)
 {
-	// Data buffer
+    // Data buffer
     m_pDataBuffer = new ::OcaUint8[static_cast< size_t>(OCA_BUFFER_SIZE)];
 
-	return OCASTATUS_OK;
+    return OCASTATUS_OK;
 }
 
 void Ocp1LiteNetwork::Teardown()
 {
-    if (m_status == OCANETWORKSTATUS_STOPPED)
+    if ((m_status == OCANETWORKSTATUS_STOPPED) || (m_status == OCANETWORKSTATUS_UNKNOWN))
     {
         for (OcaSocketList::iterator sIter(m_ocaSocketList.begin()); sIter != m_ocaSocketList.end(); ++sIter)
         {
@@ -748,7 +748,7 @@ void Ocp1LiteNetwork::HandleControllers(OcaSocketList& controllerList, const Ocf
                         delete pSocketConnection;
                         OcaSocketList::iterator iterCopy(cIter);
                         ++cIter;
-                        static_cast<void>(controllerList.erase(iterCopy));  //lint !e792 Void cast not needed for certain STL implementations
+                        static_cast<void>(controllerList.erase(iterCopy));
                     }
                     break;
                 default:
@@ -772,7 +772,7 @@ void Ocp1LiteNetwork::HandleControllers(OcaSocketList& controllerList, const Ocf
             delete pSocketConnection;
             OcaSocketList::iterator iterCopy(cIter);
             ++cIter;
-            static_cast<void>(controllerList.erase(iterCopy));  //lint !e792 Void cast not needed for certain STL implementations
+            static_cast<void>(controllerList.erase(iterCopy));
         }
     }
 }

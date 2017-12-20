@@ -30,7 +30,7 @@ static const ::OcaUint16        classID[]   = {OCA_DEVICEMANAGER_CLASSID};
 const ::OcaLiteClassID          OcaLiteDeviceManager::CLASS_ID(static_cast< ::OcaUint16>(sizeof(classID) / sizeof(classID[0])), classID);
 
 /** Defines the version increment of this class compared to its base class. */
-#define CLASS_VERSION_INCREMENT     static_cast< ::OcaClassVersionNumber>(0)
+#define CLASS_VERSION_INCREMENT     0
 
 // ---- Helper functions ----
 
@@ -196,7 +196,7 @@ void OcaLiteDeviceManager::RemoveManager(const ::OcaLiteManager& rObject)
     OcaManagerList::const_iterator iter(m_managerObjects.find(oNo));
     if (m_managerObjects.end() != iter)
     {
-        static_cast<void>(m_managerObjects.erase(oNo));  //lint !e792 Void cast not needed for certain STL implementations
+        static_cast<void>(m_managerObjects.erase(oNo));
 
         // We are OCALite, don't expect dynamic objects in this implementation.
         assert(::OcaLiteDeviceManager::GetInstance().GetOperationalState() == ::OcaLiteDeviceManager::OCA_OPSTATE_SHUTTING_DOWN);
@@ -622,6 +622,39 @@ void OcaLiteDeviceManager::SessionLost(::OcaSessionID sessionID)
                     }
                 }
                 break;
+#ifdef _DEBUG
+            case GET_DEVICE_REVISION_ID:
+                {
+                    ::OcaUint8 numberOfParameters(0);
+                    if (reader.Read(bytesLeft, &pCmdParameters, numberOfParameters) &&
+                        (0 == numberOfParameters))
+                    {
+                        ::OcaLiteString deviceRevision("Compiled @ " __TIME__" " __DATE__);
+                        ::OcaUint32 responseSize(::GetSizeValue< ::OcaUint8>(static_cast< ::OcaUint8>(1), writer) +
+                            deviceRevision.GetSize(writer));
+                        responseBuffer = ::OcaLiteCommandHandler::GetInstance().GetResponseBuffer(responseSize);
+                        if (NULL != responseBuffer)
+                        {
+                            rc = OCASTATUS_OK;
+
+                            ::OcaUint8* pResponse(responseBuffer);
+                            writer.Write(static_cast< ::OcaUint8>(1/*NrParameters*/), &pResponse);
+                            deviceRevision.Marshal(&pResponse, writer);
+
+                            *response = responseBuffer;
+                        }
+                        else
+                        {
+                            rc = OCASTATUS_BUFFER_OVERFLOW;
+                        }
+                    }
+                }
+                break;
+#else
+            case GET_DEVICE_REVISION_ID:
+                rc = OCASTATUS_NOT_IMPLEMENTED;
+                break;
+#endif
             case SET_DEVICE_NAME:
             case GET_DEVICE_ROLE:
             case SET_DEVICE_ROLE:
@@ -632,7 +665,6 @@ void OcaLiteDeviceManager::SessionLost(::OcaSessionID sessionID)
             case CLEAR_RESET_CAUSE:
             case GET_MESSAGE:
             case SET_MESSAGE:
-            case GET_DEVICE_REVISION_ID:
                 rc = OCASTATUS_NOT_IMPLEMENTED;
                 break;
             default:
@@ -653,10 +685,9 @@ void OcaLiteDeviceManager::SessionLost(::OcaSessionID sessionID)
     return rc;
 }
 
-//lint -e{835} A zero has been given as right argument to operator '+'
 ::OcaClassVersionNumber OcaLiteDeviceManager::GetClassVersion() const
 {
-    return (OcaLiteManager::GetClassVersion() + CLASS_VERSION_INCREMENT);
+    return static_cast< ::OcaClassVersionNumber>(static_cast<int>(OcaLiteManager::GetClassVersion()) + CLASS_VERSION_INCREMENT);
 }
 
 ::OcaLiteStatus OcaLiteDeviceManager::GetEnabled(::OcaBoolean& enabled) const
@@ -745,8 +776,6 @@ void OcaLiteDeviceManager::SessionLost(::OcaSessionID sessionID)
 
 // ---- Function Implementation ----
 
-//lint -save -e1576 Explicit specialization does not occur in the same file as corresponding function template
-
 template <>
 void MarshalValue< ::OcaLiteDeviceState>(const ::OcaLiteDeviceState& value, ::OcaUint8** destination, const ::IOcaLiteWriter& writer)
 {
@@ -771,5 +800,3 @@ template <>
 {
     return GetSizeValue< ::OcaUint16>(static_cast< ::OcaUint16>(value), writer);
 }
-
-//lint -restore

@@ -120,16 +120,10 @@
     <ClCompile Include="OCALiteDante.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="OcaLiteNetworkSignalChannel.cpp">
-      <Filter>Source Files\OCALite\OCC\ControlClasses\Worker\Networking</Filter>
-    </ClCompile>
     <ClCompile Include="OcaLiteNetworkSignalChannelDante.cpp">
       <Filter>Source Files\OCALite\OCC\ControlClasses\Worker\Networking</Filter>
     </ClCompile>
     <ClCompile Include="OcaLiteStreamNetworkDante.cpp">
-      <Filter>Source Files\OCALite\OCC\ControlClasses\Agents</Filter>
-    </ClCompile>
-    <ClCompile Include="OcaLiteStreamNetwork.cpp">
       <Filter>Source Files\OCALite\OCC\ControlClasses\Agents</Filter>
     </ClCompile>
     <ClCompile Include="DanteLiteHostInterface.cpp">

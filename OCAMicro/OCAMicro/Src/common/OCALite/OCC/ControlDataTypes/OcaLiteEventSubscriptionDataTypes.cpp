@@ -22,8 +22,6 @@
 
 // ---- Function Implementation ----
 
-//lint -save -e1576 Explicit specialization does not occur in the same file as corresponding function template
-
 template <>
 void MarshalValue< ::OcaLiteNotificationDeliveryMode>(const ::OcaLiteNotificationDeliveryMode& value, ::OcaUint8** destination, const ::IOcaLiteWriter& writer)
 {
@@ -56,5 +54,3 @@ template <>
 {
     return GetSizeValue< ::OcaUint8>(static_cast< ::OcaUint8>(value), writer);
 }
-
-//lint -restore

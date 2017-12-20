@@ -43,35 +43,6 @@ OcaLiteClassID::OcaLiteClassID(::OcaUint16 fieldCount, const ::OcaUint16* fields
     assert(fieldCount <= static_cast< ::OcaUint16>(OCA_CLASS_ID_SIZE));
     assert(static_cast< ::OcaUint16>(1) == fields[0]);
 
-#ifdef _DEBUG
-    // Check if any derivate of a proprietary (test) class also is a proprietary (test) class
-    bool proprietaryClass(false);
-    bool testClass(false);
-    for (int i(0); i < static_cast<int>(fieldCount); i++)
-    {
-        if (proprietaryClass)
-        {
-            if ((fields[i] & OCA_CLASS_ID_PROPRIETARY_CLASS_FIELD_MASK) != OCA_CLASS_ID_PROPRIETARY_CLASS_FIELD_MASK)
-            {
-                // The field should also indicate it's a proprietary class
-                assert(false);
-            }
-            else
-            {
-                if (testClass &&
-                    ((fields[i] & OCA_CLASS_ID_PROPRIETARY_TEST_CLASS_FIELD_MASK) != OCA_CLASS_ID_PROPRIETARY_TEST_CLASS_FIELD_MASK))
-                {
-                    // The field should also indicate it's a proprietary test class
-                    assert(false);
-                }
-            }
-        }
-
-        proprietaryClass = ((fields[i] & OCA_CLASS_ID_PROPRIETARY_CLASS_FIELD_MASK) == OCA_CLASS_ID_PROPRIETARY_CLASS_FIELD_MASK);
-        testClass = ((fields[i] & OCA_CLASS_ID_PROPRIETARY_TEST_CLASS_FIELD_MASK) == OCA_CLASS_ID_PROPRIETARY_TEST_CLASS_FIELD_MASK);
-    }
-#endif
-
     // Copy the fields to the member
     ::memcpy(m_fields, fields, static_cast<size_t>(fieldCount) * sizeof(::OcaUint16));
 }

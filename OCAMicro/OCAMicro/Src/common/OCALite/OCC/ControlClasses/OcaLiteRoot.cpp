@@ -400,5 +400,5 @@ void OcaLiteRoot::PropertyChanged(const ::OcaLiteEventData& eventData)
 
 ::OcaClassVersionNumber OcaLiteRoot::GetClassVersion() const
 {
-    return CLASS_VERSION;
+    return static_cast< ::OcaClassVersionNumber>(CLASS_VERSION);
 }

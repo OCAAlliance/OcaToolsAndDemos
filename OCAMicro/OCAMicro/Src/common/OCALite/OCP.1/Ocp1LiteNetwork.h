@@ -13,6 +13,7 @@
 #include <HostInterfaceLite/OCA/OCP.1/ZeroConf/IOcp1LiteService.h>
 #include <OCC/ControlClasses/Agents/OcaLiteNetwork.h>
 #include <OCC/ControlDataTypes/OcaLiteBlobFixedLen.h>
+#include <OCC/ControlDataTypes/OcaLiteStringInABlob.h>
 
 // ---- Include local include files ----
 #include "Ocp1LiteNetworkAddress.h"
@@ -29,12 +30,10 @@
 
 // ---- Referenced classes and types ----
 class IOcp1LiteSocket;
-class Ocp1LiteNetworkNodeID;
 
 // ---- Helper types and constants ----
 /**
  * The classID used for initialization.
- * @ingroup OCP1
  */
 #define OCP1_NETWORK_CLASSID    OCA_NETWORK_CLASSID
 
@@ -44,7 +43,6 @@ class Ocp1LiteNetworkNodeID;
 /**
  * Specific network class for the TCP/IP network. This is a control only network.
  * @note This class currently is using only IPv4.
- * @ingroup OCP1
  */
 class Ocp1LiteNetwork : public ::OcaLiteNetwork
 {
@@ -140,9 +138,9 @@ protected:
 
     virtual ::OcaLiteStatus GetIdAdvertisedValue(::OcaLiteNetworkNodeID& nodeId) const;
 
-	virtual ::OcaLiteStatus SetStatus(::OcaLiteNetworkStatus status);
+    virtual ::OcaLiteStatus SetStatus(::OcaLiteNetworkStatus status);
 
-	virtual ::OcaLiteStatus CreateMessageBuffer(void);
+    virtual ::OcaLiteStatus CreateMessageBuffer(void);
 
     /**
      * Register a registration service.
@@ -236,6 +234,7 @@ private:
     ::Ocp1LiteMessageNotification*      m_pMsgNtf;
     ::Ocp1MessageResponse*              m_pMsgRsp;
 #ifdef _DEBUG
+    /** Boolean used in debug to track usage of messages */
     bool                                m_bMsgCmd;
     bool                                m_bMsgKeepAlive;
     bool                                m_bMsgNtf;

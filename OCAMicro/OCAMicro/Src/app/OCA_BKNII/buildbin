@@ -1,7 +1,7 @@
 #!/bin/bash
 
 export LOGFILE=/dev/null
-export BBE_REV=3.4.0
+export BBE_REV=3.4.1
 export BBE_HOME=~/bbe-${BBE_REV}
 
 export here=`pwd`

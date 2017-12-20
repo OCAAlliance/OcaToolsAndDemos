@@ -39,30 +39,12 @@ bool CompareValue(const DataType& lhs, const DataType& rhs)
 }
 
 /**
- * Returns the default initialization value.
- *
- * @tparam  DataType    The data type to get the default value for.
- * @return The default initialization value.
- */
-//lint -e{530} Symbol 'value' not initialized
-template <class DataType>
-DataType GetDefaultValue(void)
-{
-    DataType value;
-    return value;
-}
-
-/**
  * Returns the string representation of the given value.
  *
  * @param[in]   value       The value to get the string representation of.
  * @tparam      DataType    The data type to get the string representation of.
  * @return The string representation of the given value.
  */
-//lint -e{1013} Symbol 'ToString' not a member of class ''
-//lint -e{1055} Symbol 'ToString' undeclared, assumed to return int
-//lint -e{746} call to function 'ToString()' not made in the presence of a prototype
-//lint -e{64} Type mismatch (return) (OcaLiteString = int)
 
 template <class DataType>
 ::OcaLiteString ValueToString(const DataType& value)
@@ -79,10 +61,7 @@ template <class DataType>
  * @param[in]  writer       The writer that helps in serializing the value.
  * @tparam     DataType     The data type to marshal.
  */
-//lint -e{1013} Symbol 'Marshal' not a member of class ''
-//lint -e{1055} Symbol 'Marshal' undeclared, assumed to return int
-//lint -e{746} call to function 'Marshal()' not made in the presence of a prototype
-//lint -e{534} Ignoring return value of function 'Marshal()' (compare with line 85)
+
 template <class DataType>
 void MarshalValue(const DataType& value, ::OcaUint8** destination, const ::IOcaLiteWriter& writer)
 {
@@ -103,10 +82,7 @@ void MarshalValue(const DataType& value, ::OcaUint8** destination, const ::IOcaL
  * @tparam     DataType     The data type to unmarshal.
  * @return true when the unmarshal was successful, false otherwise.
  */
-//lint -e{1013} Symbol 'Unmarshal' not a member of class ''
-//lint -e{1055} Symbol 'Unmarshal' undeclared, assumed to return int
-//lint -e{746} call to function 'Unmarshal()' not made in the presence of a prototype
-//lint -e{1786} Implicit conversion to Boolean (return) (int to bool)
+
 template <class DataType>
 bool UnmarshalValue(DataType& value, ::OcaUint32& bytesLeft, const ::OcaUint8** source, const ::IOcaLiteReader& reader)
 {
@@ -124,11 +100,7 @@ bool UnmarshalValue(DataType& value, ::OcaUint32& bytesLeft, const ::OcaUint8** 
  * @tparam     DataType     The data type to get the size of.
  * @return  Size of the value
  */
-//lint -e{1013} Symbol 'GetSize' not a member of class ''
-//lint -e{1055} Symbol 'GetSize' undeclared, assumed to return int
-//lint -e{746} call to function 'GetSize()' not made in the presence of a prototype
-//lint -e{632} Assignment to strong type 'OcaUint32' in context: return
-//lint -e{732} Loss of sign (return) (int to unsigned int)
+
 template <class DataType>
 ::OcaUint32 GetSizeValue(const DataType& value, const ::IOcaLiteWriter& writer)
 {

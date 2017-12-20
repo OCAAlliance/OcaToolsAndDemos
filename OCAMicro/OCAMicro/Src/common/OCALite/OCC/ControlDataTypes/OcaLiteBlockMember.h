@@ -26,7 +26,6 @@
 
 /**
  * Descibes an object that is a member of a block.
- * @ingroup BlockMatrixDataTypes
  */
 class OcaLiteBlockMember : public ::IOcaLiteMarshal
 {

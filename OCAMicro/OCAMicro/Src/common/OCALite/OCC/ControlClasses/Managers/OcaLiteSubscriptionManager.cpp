@@ -27,7 +27,7 @@ static const ::OcaUint16        classID[]   = {OCA_SUBSCRIPTION_MANAGER_CLASSID}
 const ::OcaLiteClassID          OcaLiteSubscriptionManager::CLASS_ID(static_cast< ::OcaUint16>(sizeof(classID) / sizeof(classID[0])), classID);
 
 /** Defines the version increment of this class compared to its base class. */
-#define CLASS_VERSION_INCREMENT     static_cast< ::OcaClassVersionNumber>(0)
+#define CLASS_VERSION_INCREMENT     0
 
 // ---- Helper functions ----
 
@@ -143,7 +143,7 @@ void OcaLiteSubscriptionManager::FreeInstance()
                 assert(NULL != pEventController);
                 if (pEventController->CanBeDeleted())
                 {
-                    static_cast<void>(m_eventHandlers.erase(em_iter));  //lint !e792 Void cast not needed for certain STL implementations
+                    static_cast<void>(m_eventHandlers.erase(em_iter));
 
                     delete pEventController;
                 }
@@ -255,8 +255,8 @@ void OcaLiteSubscriptionManager::FreeInstance()
                             rc = OCASTATUS_OK;
 
                             ::OcaUint8* pResponse(responseBuffer);
-                            writer.Write(static_cast<::OcaUint8>(1/*NrParameters*/), &pResponse);
-                            writer.Write(static_cast<::OcaUint16>(0/*ContextSize*/), &pResponse);
+                            writer.Write(static_cast< ::OcaUint8>(1/*NrParameters*/), &pResponse);
+                            writer.Write(static_cast< ::OcaUint16>(0/*ContextSize*/), &pResponse);
 
                             *response = responseBuffer;
                         }
@@ -269,9 +269,8 @@ void OcaLiteSubscriptionManager::FreeInstance()
                 break;
             case DISABLE_NOTIFICATIONS:
             case RE_ENABLE_NOTIFICATIONS:
-            case REMOVE_SUBSCRIPTION_SPECIFIC:
             case ADD_PROPERTY_CHANGE_SUBSCRIPTION:
-            case REMOVE_PROPERTY_CHANGE_SUBSCRIPTION:
+            case REMOVE_PROPERTY_CHANGE_SUBSCRIPTION:   
                 rc = OCASTATUS_NOT_IMPLEMENTED;
                 break;
             default:
@@ -310,7 +309,7 @@ void OcaLiteSubscriptionManager::SessionLost(::OcaSessionID sessionID)
             OcaEventHandlerMap::iterator iterCopy(em_iter);    // Effective STL
             ++em_iter;
             // Only iterCopy will be invalidated by the erase, em_iter remains valid
-            static_cast<void>(m_eventHandlers.erase(iterCopy));  //lint !e792 Void cast not needed for certain STL implementations
+            static_cast<void>(m_eventHandlers.erase(iterCopy));
         }
         else
         {
@@ -321,10 +320,9 @@ void OcaLiteSubscriptionManager::SessionLost(::OcaSessionID sessionID)
     OcaLiteManager::SessionLost(sessionID);
 }
 
-//lint -e{835} A zero has been given as right argument to operator '+'
 ::OcaClassVersionNumber OcaLiteSubscriptionManager::GetClassVersion() const
 {
-    return (OcaLiteManager::GetClassVersion() + CLASS_VERSION_INCREMENT);
+    return static_cast< ::OcaClassVersionNumber>(static_cast<int>(OcaLiteManager::GetClassVersion()) + CLASS_VERSION_INCREMENT);
 }
 
 ::OcaBoolean OcaLiteSubscriptionManager::SetNrEvents(::OcaUint16 nrEvents)

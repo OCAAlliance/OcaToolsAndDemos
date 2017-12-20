@@ -28,9 +28,7 @@ class OcaLiteManagerDescriptor;
  * Enumeration defining bit flags that indicate the device states OCA devices can be in. The state is returned
  * by the device's Device Manager on request. Any combination of the flags may be returned, unless
  * specified otherwise for the specific flag. A value '0' indicates the device is fully operational.
- * @ingroup ManagementDataTypes
  */
-//lint -strong(AJX, OcaLiteDeviceState)
 enum OcaLiteDeviceState    /* maps onto OcaUint16 */
 {
     /** If set the device is operational. This state 'logically follows'
@@ -51,7 +49,6 @@ enum OcaLiteDeviceState    /* maps onto OcaUint16 */
 
 /**
  * The classID used for initialization.
- * @ingroup Managers
  */
 #define OCA_DEVICEMANAGER_CLASSID      OCA_MANAGER_CLASSID,static_cast< ::OcaUint16>(1)
 /** The length of the reset key. */
@@ -63,13 +60,11 @@ enum OcaLiteDeviceState    /* maps onto OcaUint16 */
 /**
  * Manadatory class that manages information relevant to the whole
  * device and its network connection(s).
- * @ingroup Managers
  */
 class OcaLiteDeviceManager : public ::OcaLiteManager
 {
 public:
     /** Method indexes for the supported methods. */
-    //lint -e(578) Hides inherited symbol
     enum MethodIndex
     {
         /** GetOcaVersion() */
@@ -115,7 +110,6 @@ public:
     };
 
     /** Property indexes for the supported properties. */
-    //lint -e(578) Hides inherited symbol
     enum PropertyIndex
     {
         /** Read-only property that identifies the model of the device. */
@@ -152,7 +146,6 @@ public:
     };
 
     /** Device operational state. */
-    //lint -strong(AJX, OperationalState)
     enum OperationalState
     {
         /** The device is functioning normally. */
@@ -175,7 +168,6 @@ public:
      * identifies the instantiated object. This is a class property instead of an object property. This
      * property will be overridden by each descendant class, in order to specify that class's ClassID.
      */
-    //lint -e(1516) Hides inherited member
     static const ::OcaLiteClassID CLASS_ID;
 
     /**
@@ -395,8 +387,6 @@ private:
 
 // ---- Specialized Template Function Definition ----
 
-//lint -save -e1576 Explicit specialization does not occur in the same file as corresponding function template
-
 template <>
 void MarshalValue< ::OcaLiteDeviceState>(const ::OcaLiteDeviceState& value, ::OcaUint8** destination, const ::IOcaLiteWriter& writer);
 
@@ -405,7 +395,5 @@ bool UnmarshalValue< ::OcaLiteDeviceState>(::OcaLiteDeviceState& value, ::OcaUin
 
 template <>
 ::OcaUint32 GetSizeValue< ::OcaLiteDeviceState>(const ::OcaLiteDeviceState& value, const ::IOcaLiteWriter& writer);
-
-//lint -restore
 
 #endif // OCALITEDEVICEMANAGER_H

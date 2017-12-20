@@ -73,7 +73,7 @@ public:
         : m_targetONo(source.m_targetONo),
         m_methodID(source.m_methodID),
         m_context(source.m_context),
-        m_eventData(source.m_eventData) //lint !e1554 Direct pointer copy
+        m_eventData(source.m_eventData)
     {
     }
 
@@ -143,7 +143,6 @@ private:
  * it needs to invoke a command on. The command handler keeps track of all
  * network sessions that are active. If a network connection is lost it automatically
  * informs all OCA objects of this connection loss.
- * @ingroup OCF
  */
 class  OcaLiteCommandHandler
 {
@@ -247,10 +246,10 @@ public:
      * A call to this function should be followed by a select. The result should be provided to 
      * RunWithSelectSet. 
      *
-     * @param[in/out]   highest		The highest file descriptor.
-     * @param[in/out]   readSet		The read set.
-     * @param[in/out]   writeSet	The write set.
-     * @param[in/out]   exceptSet	The except set.
+     * @param[in/out]   highest     The highest file descriptor.
+     * @param[in/out]   readSet     The read set.
+     * @param[in/out]   writeSet    The write set.
+     * @param[in/out]   exceptSet   The except set.
      *
      * @return True if there are already messages pending in the socket layer. False if not.
      */
@@ -261,9 +260,9 @@ public:
      * function on a regular basis. The parameters which must be provided should be the result of a select.
      * The select sets can be filled with a call to AddSelectables.
      *
-     * @param[in]   readSet		The read set.
-     * @param[in]   writeSet	The write set.
-     * @param[in]   exceptSet	The except set.
+     * @param[in]   readSet     The read set.
+     * @param[in]   writeSet    The write set.
+     * @param[in]   exceptSet   The except set.
      */
     virtual void RunWithSelectSet(OcfLiteSelectableSet readSet, OcfLiteSelectableSet writeSet, OcfLiteSelectableSet exceptSet);
 

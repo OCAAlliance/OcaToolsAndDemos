@@ -200,7 +200,7 @@ bool Ocp1LiteSocketConnection::HasPendingMessage() const
             }
             else
             {
-                OCA_LOG_ERROR("Send returned negative value");
+                OCA_LOG_ERROR_PARAMS("Send returned negative value %d", sendResult);
                 result = OCASTATUS_PROCESSING_FAILED;
             }
         }
@@ -245,7 +245,7 @@ void Ocp1LiteSocketConnection::SetSocketConnectionParameters(::OcaSessionID sess
         ::OcaLiteMessageGeneral* pMsg(m_parent.RetrieveMessage(::OcaLiteHeader::OCA_MSG_KEEP_ALIVE));
         if (NULL != pMsg)
         {
-            ::Ocp1LiteMessageKeepAlive* pMsgKeepAlive(static_cast< ::Ocp1LiteMessageKeepAlive*>(pMsg)); //lint !e1774 Use static_cast since message type is known
+            ::Ocp1LiteMessageKeepAlive* pMsgKeepAlive(static_cast< ::Ocp1LiteMessageKeepAlive*>(pMsg));
             if (m_isKeepAliveInMilliseconds)
             {
                 pMsgKeepAlive->WriteParameters(heartBeatTimeOut);
@@ -261,7 +261,7 @@ void Ocp1LiteSocketConnection::SetSocketConnectionParameters(::OcaSessionID sess
     }
 
     return status;
-} //lint !e593 Custodial pointer 'pMessageSendBuffer' possibly not freed
+}
 
 bool Ocp1LiteSocketConnection::HandleKeepAlive(::OcaUint32 messageSendBufferSize, 
                                                ::OcaUint8* pMessageSendBuffer)
@@ -404,7 +404,6 @@ void Ocp1LiteSocketConnection::ReceiveFromSocket(::OcaBoolean dataAvailable)
                                 {
                                     if (static_cast< ::OcaUint32>(0) == m_keepAliveTimeOut)
                                     {
-                                        //lint -e{1774} Use static_cast since message type is known
                                         ::OcaLiteMessageKeepAlive* keepAliveMessage(static_cast< ::OcaLiteMessageKeepAlive*>(mess));
                                         if (keepAliveMessage->GetHeartBeatTimeInMilliseconds() != (static_cast< ::OcaUint32>(0)))
                                         {

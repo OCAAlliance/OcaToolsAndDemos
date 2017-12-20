@@ -23,19 +23,16 @@ class OcaLiteString;
 // ---- Helper types and constants ----
 /**
  * The classID used for initialization.
- * @ingroup BlockMatrixWorkers
  */
 #define OCA_BLOCK_CLASSID       OCA_WORKER_CLASSID,static_cast< ::OcaUint16>(3)
 
 /**
  * The object number of the OCA root block
- * @ingroup BlockMatrixWorkers
  */
 #define OCA_ROOT_BLOCK_ONO      static_cast< ::OcaONo>(100)
 
 /**
  * The block type of the OCA root block
- * @ingroup BlockMatrixWorkers
  */
 #define OCA_ROOT_BLOCK_TYPE     static_cast< ::OcaONo>(1)
 
@@ -46,13 +43,11 @@ class OcaLiteString;
  * - It can contain workers.
  * - It can contain agents.
  * - It has a signal flow topology.
- * @ingroup BlockMatrixWorkers
  */
 class OcaLiteBlock : public ::OcaLiteWorker
 {
 public:
     /** Method indexes for the supported methods. */
-    //lint -e(578) Hides inherited symbol
     enum MethodIndex
     {
         /** GetType() */
@@ -98,7 +93,7 @@ public:
     };
 
     /** Property indexes for the supported properties. */
-    //lint -e(578) Hides inherited symbol
+
     enum PropertyIndex
     {
         /** Readonly block type. For statically-defined blocks, this value is a Uint32 with a value
@@ -134,7 +129,6 @@ public:
      * identifies the instantiated object. This is a class property instead of an object property. This
      * property will be overridden by each descendant class, in order to specify that class's ClassID.
      */
-    //lint -e(1516) Hides inherited member
     static const ::OcaLiteClassID CLASS_ID;
 
     /**
@@ -250,8 +244,8 @@ private:
     OcaMemberList                           m_members;
 
     /** List of members of type OcaBlock */
-    typedef std::vector< ::OcaLiteBlock*>       OcaLiteBlockList;
-    OcaLiteBlockList                            m_blocks;
+    typedef std::vector< ::OcaLiteBlock*>   OcaLiteBlockList;
+    OcaLiteBlockList                        m_blocks;
 };
 
 #endif // OCALITEBLOCK_H

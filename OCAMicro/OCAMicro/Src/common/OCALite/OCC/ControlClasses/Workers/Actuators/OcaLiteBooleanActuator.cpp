@@ -25,7 +25,7 @@ static const ::OcaUint16        classID[]   = {OCA_BOOLEAN_ACTUATOR_CLASSID};
 const ::OcaLiteClassID          OcaLiteBooleanActuator::CLASS_ID(static_cast< ::OcaUint16>(sizeof(classID) / sizeof(classID[0])), classID);
 
 /** Defines the version increment of this class compared to its base class. */
-#define CLASS_VERSION_INCREMENT     static_cast< ::OcaClassVersionNumber>(0)
+#define CLASS_VERSION_INCREMENT     0
 
 // ---- Helper functions ----
 
@@ -38,7 +38,7 @@ OcaLiteBooleanActuator::OcaLiteBooleanActuator(::OcaONo objectNumber,
                                            const ::OcaLiteString& role,
                                            const ::OcaLiteList< ::OcaLitePort>& ports)
     : ::OcaLiteBasicActuator(objectNumber, lockable, role, ports),
-	  m_setting(static_cast< ::OcaBoolean>(false))
+      m_setting(static_cast< ::OcaBoolean>(false))
 {
 }
 
@@ -107,13 +107,13 @@ OcaLiteBooleanActuator::OcaLiteBooleanActuator(::OcaONo objectNumber,
                             responseBuffer = ::OcaLiteCommandHandler::GetInstance().GetResponseBuffer(responseSize);
                             if (NULL != responseBuffer)
                             {
-							    ::OcaUint8* pResponse(responseBuffer);
+                                ::OcaUint8* pResponse(responseBuffer);
                                 writer.Write(static_cast< ::OcaUint8>(1/*NrParameters*/), &pResponse);
                                 ::MarshalValue< ::OcaBoolean>(setting, &pResponse, writer);
 
                                 *response = responseBuffer;
-							}
-							else
+                            }
+                            else
                             {
                                 rc = OCASTATUS_BUFFER_OVERFLOW;
                             }
@@ -123,25 +123,25 @@ OcaLiteBooleanActuator::OcaLiteBooleanActuator(::OcaONo objectNumber,
                 break;
             case SET_SETTING:
                 {
-				    ::OcaUint8 numberOfParameters(0);
-					::OcaBoolean setting;
+                    ::OcaUint8 numberOfParameters(0);
+                    ::OcaBoolean setting;
                     if (reader.Read(bytesLeft, &pCmdParameters, numberOfParameters) &&
                         (1 == numberOfParameters) &&
-						reader.Read(bytesLeft, &pCmdParameters, setting))
+                        reader.Read(bytesLeft, &pCmdParameters, setting))
                     {
-				        rc = SetSetting(setting);
+                        rc = SetSetting(setting);
                         if (OCASTATUS_OK == rc)
                         {
                             ::OcaUint32 responseSize(::GetSizeValue< ::OcaUint8>(static_cast< ::OcaUint8>(0), writer));
                             responseBuffer = ::OcaLiteCommandHandler::GetInstance().GetResponseBuffer(responseSize);
                             if (NULL != responseBuffer)
                             {
-							    ::OcaUint8* pResponse(responseBuffer);
+                                ::OcaUint8* pResponse(responseBuffer);
                                 writer.Write(static_cast< ::OcaUint8>(0/*NrParameters*/), &pResponse);
 
                                 *response = responseBuffer;
-							}
-							else
+                            }
+                            else
                             {
                                 rc = OCASTATUS_BUFFER_OVERFLOW;
                             }
@@ -168,10 +168,9 @@ OcaLiteBooleanActuator::OcaLiteBooleanActuator(::OcaONo objectNumber,
     return rc;
 }
 
-//lint -e{835} A zero has been given as right argument to operator '+'
 ::OcaClassVersionNumber OcaLiteBooleanActuator::GetClassVersion() const
 {
-    return (OcaLiteBasicActuator::GetClassVersion() + CLASS_VERSION_INCREMENT);
+    return static_cast< ::OcaClassVersionNumber>(static_cast<int>(OcaLiteBasicActuator::GetClassVersion()) + CLASS_VERSION_INCREMENT);
 }
 
 ::OcaLiteStatus OcaLiteBooleanActuator::GetSettingValue(::OcaBoolean& setting) const

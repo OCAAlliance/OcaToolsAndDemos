@@ -26,7 +26,6 @@
 
 /**
  * Identifier that specifies the network address.
- * @ingroup NetworkDataTypes
  */
 class OcaLiteNetworkAddress : public ::IOcaLiteMarshal
 {

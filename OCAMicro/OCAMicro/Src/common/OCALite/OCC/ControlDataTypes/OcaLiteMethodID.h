@@ -26,7 +26,6 @@
 
 /**
  * Representation of an OCA method ID.
- * @ingroup FrameworkDataTypes
  */
 class OcaLiteMethodID : public ::IOcaLiteMarshal
 {

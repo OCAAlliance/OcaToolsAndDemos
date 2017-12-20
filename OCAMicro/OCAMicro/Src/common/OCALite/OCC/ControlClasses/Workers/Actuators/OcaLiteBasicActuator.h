@@ -18,7 +18,6 @@
 // ---- Helper types and constants ----
 /**
  * The classID used for initialization.
- * @ingroup Workers
  */
 #define OCA_BASIC_ACTUATOR_CLASSID      OCA_ACTUATOR_CLASSID,static_cast< ::OcaUint16>(1)
 
@@ -27,7 +26,6 @@
 // ---- Class Definition ----
 /**
  * Abstract base class for weakly typed actuators.
- * @ingroup ActuatorWorkers
  */
 class OcaLiteBasicActuator : public ::OcaLiteActuator
 {
@@ -42,7 +40,6 @@ public:
      * identifies the instantiated object. This is a class property instead of an object property. This
      * property will be overridden by each descendant class, in order to specify that class's ClassID.
      */
-    //lint -e(1516) Hides inherited member
     static const ::OcaLiteClassID CLASS_ID;
 
     // ---- Interface methods  ----

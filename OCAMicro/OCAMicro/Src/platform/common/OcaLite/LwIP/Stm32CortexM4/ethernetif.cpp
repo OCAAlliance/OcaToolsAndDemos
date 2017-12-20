@@ -49,8 +49,8 @@
 #define INTERFACE_THREAD_STACK_SIZE            ( 350 )
 
 /* Define those to better describe your network interface. */
-#define IFNAME0 'B' // Bosch
-#define IFNAME1 'S' // Security Systems
+#define IFNAME0 'B' 
+#define IFNAME1 'S' 
 
 /* Private macro -------------------------------------------------------------*/
 

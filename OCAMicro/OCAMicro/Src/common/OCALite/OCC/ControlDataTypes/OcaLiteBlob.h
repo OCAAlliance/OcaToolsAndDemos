@@ -29,7 +29,6 @@
 
 /**
  * Representation of a binary large object that is used on the network to send large chunks of binary data.
- * @ingroup DataTypes
  */
 class OcaLiteBlob : public ::IOcaLiteMarshal
 {

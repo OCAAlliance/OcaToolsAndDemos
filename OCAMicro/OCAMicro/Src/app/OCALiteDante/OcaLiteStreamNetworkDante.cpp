@@ -27,7 +27,7 @@ static const ::OcaUint16        classID[]   = {OCA_STREAMNETWORKDANTE_CLASSID};
 const ::OcaLiteClassID          OcaLiteStreamNetworkDante::CLASS_ID(static_cast< ::OcaUint16>(sizeof(classID) / sizeof(classID[0])), classID);
 
 /** Defines the version increment of this class compared to its base class. */
-#define CLASS_VERSION_INCREMENT     static_cast< ::OcaClassVersionNumber>(0)
+#define CLASS_VERSION_INCREMENT     0
 
 // ---- Helper functions ----
 
@@ -46,14 +46,14 @@ OcaLiteStreamNetworkDante::OcaLiteStreamNetworkDante(::OcaONo objectNumber,
                              idAdvertised,
                              OCANETWORKCONTROLPROTOCOL_NONE,
                              OCANETWORKMEDIAPROTOCOL_DANTE),
-	m_RxChannelsStartONo(0),
-	m_RxChannelsEndONo(0),
-	m_TxChannelsStartONo(0),
-	m_TxChannelsEndONo(0),
-	m_Initialized(false)
+    m_RxChannelsStartONo(0),
+    m_RxChannelsEndONo(0),
+    m_TxChannelsStartONo(0),
+    m_TxChannelsEndONo(0),
+    m_Initialized(false)
 {
-	// set the Host Interface with object number
-	DanteLiteHostInterfaceSetStreamNetworkObject(objectNumber);
+    // set the Host Interface with object number
+    DanteLiteHostInterfaceSetStreamNetworkObject(objectNumber);
 }
 
 OcaLiteStreamNetworkDante::~OcaLiteStreamNetworkDante()
@@ -63,19 +63,19 @@ OcaLiteStreamNetworkDante::~OcaLiteStreamNetworkDante()
 ::OcaBoolean OcaLiteStreamNetworkDante::InitSignalChannels(::OcaONo startONo, ::OcaONo& endONo)
 {
     bool bResult(false);
-	if(m_Initialized)
-		return false;
+    if(m_Initialized)
+        return false;
     if (::OcaLiteStreamNetwork::Initialize())
     {
         UINT16 nrRxChannels;
         UINT16 nrTxChannels;
-		char name[32];
+        char name[32];
         bResult = DanteLiteHostInterfaceGetNumberOfChannels(nrRxChannels, nrTxChannels);
         if (bResult)
         {
-			m_RxChannelsStartONo = startONo;
-			m_RxChannelsEndONo = startONo;
-			for (UINT16 channelCounter(0); (channelCounter < nrRxChannels) && bResult; channelCounter++)
+            m_RxChannelsStartONo = startONo;
+            m_RxChannelsEndONo = startONo;
+            for (UINT16 channelCounter(0); (channelCounter < nrRxChannels) && bResult; channelCounter++)
             {
                 ::OcaLiteList< ::OcaLiteEncoding> encodingList;
                 UINT32 encodings(DanteLiteHostInterfaceGetEncodings(channelCounter, true));
@@ -122,12 +122,12 @@ OcaLiteStreamNetworkDante::~OcaLiteStreamNetworkDante()
                 {
                     bResult = false;
                 }
-				m_RxChannelsEndONo++;
+                m_RxChannelsEndONo++;
             }
 
-			m_TxChannelsStartONo = startONo;
-			m_TxChannelsEndONo = startONo;
-			for (UINT16 channelCounter(0); (channelCounter < nrTxChannels) && bResult; channelCounter++)
+            m_TxChannelsStartONo = startONo;
+            m_TxChannelsEndONo = startONo;
+            for (UINT16 channelCounter(0); (channelCounter < nrTxChannels) && bResult; channelCounter++)
             {
                 ::OcaLiteList< ::OcaLiteEncoding> encodingList;
                 UINT32 encodings(DanteLiteHostInterfaceGetEncodings(channelCounter, false));
@@ -167,13 +167,13 @@ OcaLiteStreamNetworkDante::~OcaLiteStreamNetworkDante()
                 {
                     bResult = false;
                 }
-				m_TxChannelsEndONo++;
+                m_TxChannelsEndONo++;
             }
         }
     }
     endONo = startONo;
 
-	m_Initialized = true;
+    m_Initialized = true;
     return static_cast< ::OcaBoolean>(bResult);
 }
 
@@ -219,38 +219,37 @@ void OcaLiteStreamNetworkDante::Teardown()
     return rc;
 }
 
-//lint -e{835} A zero has been given as right argument to operator '+'
 ::OcaClassVersionNumber OcaLiteStreamNetworkDante::GetClassVersion() const
 {
-    return (OcaLiteStreamNetwork::GetClassVersion() + CLASS_VERSION_INCREMENT);
+    return static_cast< ::OcaClassVersionNumber>(static_cast<int>(OcaLiteStreamNetwork::GetClassVersion()) + CLASS_VERSION_INCREMENT);
 }
 
 // Check our receive OcaLiteNetworkSignalChannelDante objects to see if they need updating
 ::OcaBoolean OcaLiteStreamNetworkDante::CheckforNewSubscription(UINT32 Channel, const char *NewSubscription)
 {
-	char nullSub[1] = {0};
-	if(!m_Initialized)
-		return false;
-	// If there isn't a routing we'll get a NULL string which will cause an exception
-	if(!NewSubscription)
-		NewSubscription = nullSub;
-	OcaLiteString newSub(NewSubscription);
-	OcaLiteString subStr;
-	for(::OcaONo Obj(m_RxChannelsStartONo); Obj < m_RxChannelsEndONo; Obj++) {
-		// get the object
-		OcaLiteNetworkSignalChannelDante *pSigChan = reinterpret_cast<OcaLiteNetworkSignalChannelDante *>(::OcaLiteBlock::GetRootBlock().GetObject(Obj));
-		// is it the right channel number
-		if(Channel == pSigChan->GetChannelNumber()) {
-			// We've got the correct object, check the subscription
-			pSigChan->GetSubscriptionName(subStr);
-			// check for a subscription change
-			if(subStr != newSub) {
-				// subscription is different
-				pSigChan->DanteRemoteChannelIDChanged(::OcaLiteNetworkSignalChannelDanteID(newSub));
-				return true;
-			}
-		}
-	}
-	return false;
+    char nullSub[1] = {0};
+    if(!m_Initialized)
+        return false;
+    // If there isn't a routing we'll get a NULL string which will cause an exception
+    if(!NewSubscription)
+        NewSubscription = nullSub;
+    OcaLiteString newSub(NewSubscription);
+    OcaLiteString subStr;
+    for(::OcaONo Obj(m_RxChannelsStartONo); Obj < m_RxChannelsEndONo; Obj++) {
+        // get the object
+        OcaLiteNetworkSignalChannelDante *pSigChan = reinterpret_cast<OcaLiteNetworkSignalChannelDante *>(::OcaLiteBlock::GetRootBlock().GetObject(Obj));
+        // is it the right channel number
+        if(Channel == pSigChan->GetChannelNumber()) {
+            // We've got the correct object, check the subscription
+            pSigChan->GetSubscriptionName(subStr);
+            // check for a subscription change
+            if(subStr != newSub) {
+                // subscription is different
+                pSigChan->DanteRemoteChannelIDChanged(::OcaLiteNetworkSignalChannelDanteID(newSub));
+                return true;
+            }
+        }
+    }
+    return false;
 }
 

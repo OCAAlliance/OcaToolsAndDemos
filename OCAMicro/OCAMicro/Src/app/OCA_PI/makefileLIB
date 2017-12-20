@@ -169,6 +169,7 @@ SRCS  = sys_arch.c \
 		OcaLiteBlob.cpp \
 		OcaLiteBlobFixedLen.cpp \
 		OcaLiteBlockMember.cpp \
+		OcaLiteBlobDataType.cpp \
 		OcaLiteClassID.cpp \
 		OcaLiteClassIdentification.cpp \
 		OcaLiteEvent.cpp \
@@ -185,7 +186,6 @@ SRCS  = sys_arch.c \
 		OcaLiteModelGUID.cpp \
 		OcaLiteNetworkAddress.cpp \
 		OcaLiteNetworkDataTypes.cpp \
-		OcaLiteNetworkNodeID.cpp \
 		OcaLiteNetworkStatistics.cpp \
 		OcaLiteNetworkSystemInterfaceID.cpp \
 		OcaLiteObjectIdentification.cpp \
@@ -194,6 +194,7 @@ SRCS  = sys_arch.c \
 		OcaLitePropertyChangedEventData.cpp \
 		OcaLitePropertyID.cpp \
 		OcaLiteString.cpp \
+		OcaLiteStringInABlob.cpp \
 		OcaLiteTemplateHelpers.cpp \
 		OcaLiteVersion.cpp \
 		OcaLiteBitstring.cpp \
@@ -206,7 +207,6 @@ SRCS  = sys_arch.c \
 		OcaLiteMessageResponse.cpp \
 		Ocp1LiteNetwork.cpp \
 		Ocp1LiteNetworkAddress.cpp \
-		Ocp1LiteNetworkNodeID.cpp \
 		Ocp1LiteNetworkSystemInterfaceID.cpp \
 		Ocp1LiteReader.cpp \
 		Ocp1LiteSocketConnection.cpp \
