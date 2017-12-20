@@ -32,7 +32,7 @@
 #include "PIRELAYBooleanActuator.h"
 #include "PISwitchBitStringSensor.h"
 #include "PIencoderInt8Sensor.h"
-#include "PISwitchLedBitstringActuator.h"
+#include "PISwitchLedBitStringActuator.h"
 
 // platform
 #include <common/OcaLite/LogicalDevices/ClockGenerator/ClockGenerator.h>
