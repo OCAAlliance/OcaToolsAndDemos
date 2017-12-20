@@ -206,7 +206,7 @@ public:
      * @param[in] oNo   The object number of the object.
      * @return Pointer to the object. If no object with that number exists
      *         a null pointer is returned.
-     *
+     */
     ::OcaLiteRoot* GetOCAObject(::OcaONo oNo);
 
     virtual void SessionLost(::OcaSessionID sessionID);
