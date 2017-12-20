@@ -17,4 +17,3 @@ This project does contain other open source software. Thanks for all the great w
 # Tavis-CI
 
 The project is automatically build in travis-ci: [![Build Status](https://secure.travis-ci.org/OCAAlliance/OCAMicro.svg?branch=master)](http://travis-ci.org/OCAAlliance/OCAMicro)
-for status 
