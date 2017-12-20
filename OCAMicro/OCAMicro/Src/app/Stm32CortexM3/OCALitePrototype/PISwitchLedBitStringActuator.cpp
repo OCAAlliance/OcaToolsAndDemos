@@ -3,14 +3,14 @@
  */
 
 /*
- *  Description         : The PISwitchLedBitstringActuator class.
+ *  Description         : The PISwitchLedBitStringActuator class.
  *
  */
 
 // ---- Include system wide include files ----
 
 // ---- Include local include files ----
-#include <app/Stm32CortexM3/OCALitePrototype/PISwitchLedBitstringActuator.h>
+#include <app/Stm32CortexM3/OCALitePrototype/PISwitchLedBitStringActuator.h>
 #include "main.h"
 //#include "PILEDBitStringActuator.h"
 
@@ -22,7 +22,7 @@
 
 // ---- Class Implementation ----
 
-PISwitchLedBitstringActuator::PISwitchLedBitstringActuator(::OcaONo objectNumber, ::OcaUint16 length)
+PISwitchLedBitStringActuator::PISwitchLedBitStringActuator(::OcaONo objectNumber, ::OcaUint16 length)
     : ::OcaLiteBitstringActuator(objectNumber,
                              static_cast< ::OcaBoolean>(true),
                              ::OcaLiteString("GPIO LED BitString Actuator"),
@@ -33,7 +33,7 @@ PISwitchLedBitstringActuator::PISwitchLedBitstringActuator(::OcaONo objectNumber
     assert(static_cast< ::OcaUint16>(0) < length);
 }
 
-::OcaLiteStatus PISwitchLedBitstringActuator::SetBitstringValue(const ::OcaLiteBitstring& bitString)
+::OcaLiteStatus PISwitchLedBitStringActuator::SetBitstringValue(const ::OcaLiteBitstring& bitString)
 {
     OcaUint8 i;
     OcaUint16 numBits;

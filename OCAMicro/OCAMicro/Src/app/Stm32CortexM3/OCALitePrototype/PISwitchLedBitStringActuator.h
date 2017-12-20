@@ -26,7 +26,7 @@
  * Handles LEDs connected to GPIO pins.
  * @ingroup STM32Classes
  */
-class PISwitchLedBitstringActuator : public ::OcaLiteBitstringActuator
+class PISwitchLedBitStringActuator : public ::OcaLiteBitstringActuator
 {
 public:
     /**
@@ -35,12 +35,12 @@ public:
      * @param[in] objectNumber  The objectNumber.
      * @param[in] length        The number of LEDs.
      */
-    PISwitchLedBitstringActuator(::OcaONo objectNumber, ::OcaUint16 length);
+    PISwitchLedBitStringActuator(::OcaONo objectNumber, ::OcaUint16 length);
 
     /**
      * Destructor
      */
-    virtual ~PISwitchLedBitstringActuator() {}
+    virtual ~PISwitchLedBitStringActuator() {}
 
 protected:
 
@@ -56,9 +56,9 @@ protected:
 private:
 
     /** Private copy constructor to prevent copying. */
-    PISwitchLedBitstringActuator(const ::PISwitchLedBitstringActuator&);
+    PISwitchLedBitStringActuator(const ::PISwitchLedBitStringActuator&);
     /** Private assignment operator to prevent assignment. */
-    ::PISwitchLedBitstringActuator& operator=(const ::PISwitchLedBitstringActuator& source);
+    ::PISwitchLedBitStringActuator& operator=(const ::PISwitchLedBitStringActuator& source);
 
     /** The bitstring */
     ::OcaLiteBitstring m_bitstring;

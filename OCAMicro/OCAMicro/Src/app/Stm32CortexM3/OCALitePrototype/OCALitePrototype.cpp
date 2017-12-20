@@ -51,7 +51,7 @@ static const int8_t UintTask[] = "UintTask";
 
 ::PISwitchBitStringSensor*  g_PI_Switches;
 ::PIencoderInt8Sensor*      g_PI_encoders[2];
-::PISwitchLedBitstringActuator* g_PI_SwitchLeds;
+::PISwitchLedBitStringActuator* g_PI_SwitchLeds;
 // ---- Include local include files ----
 
 // ---- Helper types and constants ----
@@ -175,7 +175,7 @@ static void UserInteractionThread(void * argument)
                         ::OcaLiteBlock::GetRootBlock().AddObject(*g_PI_encoders[i]);
                     }
 
-                    g_PI_SwitchLeds = new ::PISwitchLedBitstringActuator(static_cast< ::OcaONo>(10400), OcaUint16(8));
+                    g_PI_SwitchLeds = new ::PISwitchLedBitStringActuator(static_cast< ::OcaONo>(10400), OcaUint16(8));
                     ::OcaLiteBlock::GetRootBlock().AddObject(*g_PI_SwitchLeds);
                 }
             }
