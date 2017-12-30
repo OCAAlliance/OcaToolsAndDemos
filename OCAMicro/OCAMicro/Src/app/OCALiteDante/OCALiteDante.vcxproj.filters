@@ -132,14 +132,14 @@
     <ClCompile Include="OcaLiteDanteMediaClock.cpp">
       <Filter>Source Files\OCALite\OCC\ControlClasses\Agents</Filter>
     </ClCompile>
-    <ClCompile Include="..\OCA_BKNII\OCALiteOCCFactory.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="DanteLiteConMon.cpp">
       <Filter>Source Files\Platform\HostInterface\Dante</Filter>
     </ClCompile>
     <ClCompile Include="OcaLiteDanteLvlSensor.cpp">
       <Filter>Source Files\OCALite\OCC\ControlClasses\Worker\Sensors</Filter>
+    </ClCompile>
+    <ClCompile Include="OCALiteOCCFactory.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

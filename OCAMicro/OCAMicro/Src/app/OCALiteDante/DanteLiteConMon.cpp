@@ -653,7 +653,7 @@ static void DanteLiteStatusMessageCallback(conmon_client_t * client, conmon_chan
         uint16_t aud_type = conmon_audinate_message_get_type(body);
         const char *device_name = conmon_client_device_name_for_instance_id(client, &id);
         // check the message is a status message for us
-        if(0 != strcmp(DanteCMControlledDeviceName, device_name)) {
+        if((!device_name) || (0 != strcmp(DanteCMControlledDeviceName, device_name))) {
             return;
         }
         switch(aud_type) {
@@ -678,6 +678,11 @@ static void DanteLiteStatusMessageCallback(conmon_client_t * client, conmon_chan
             case CONMON_AUDINATE_MESSAGE_TYPE_RX_FLOW_CHANGE:
                 DanteLiteHostInterfaceRouterMarkComponentStale(DR_DEVICE_COMPONENT_RXFLOWS);
                 break;
+#ifndef BKN_1
+            case CONMON_AUDINATE_MESSAGE_TYPE_LOCK_STATUS:
+                DanteLiteHandleLockStatus(body);
+                break;
+#endif // BKN_1
             default:
                 deviceConMonDump && printf("DanteLiteStatusMessageCallback: Audinate msg (local): %d\n", aud_type);
                 break;
@@ -1067,6 +1072,7 @@ int DanteCMSendVendorMessage(conmon_message_body_t *msg, uint32_t size, const co
 void DanteCMForceUpdate(void)
 {
     aud_utime_t connectWait, currentTime;
+
     int loops = 2;
     while(loops) {
         DanteLiteHostInterfaceRun();

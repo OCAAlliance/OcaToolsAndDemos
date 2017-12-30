@@ -9,7 +9,7 @@ NAME_MKE := makefileLIB
 TARGETS = uBlaze
 
 TYPE = LIB
-NAME = OCALiteProtoLIB
+NAME = OCALiteBKNLIB
 
 USRINC = $(OCA_HOME)/../Application/inc; \
 		 $(OCA_HOME)/Src; \

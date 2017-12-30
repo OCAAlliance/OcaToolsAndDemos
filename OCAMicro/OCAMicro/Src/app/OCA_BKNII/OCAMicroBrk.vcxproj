@@ -173,8 +173,8 @@
     <ClCompile Include="..\..\..\Src\common\OCALite\OCF\Messages\OcaLiteMessageKeepAlive.cpp" />
     <ClCompile Include="..\..\..\Src\common\OCALite\OCF\Messages\OcaLiteMessageNotification.cpp" />
     <ClCompile Include="..\..\..\Src\common\OCALite\OCF\Messages\OcaLiteMessageResponse.cpp" />
+    <ClCompile Include="..\..\..\OCALiteDante\OCALiteOCCFactory.cpp" />
     <ClCompile Include="OCALite.cpp" />
-    <ClCompile Include="OCALiteOCCFactory.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\Src\makeCpp.inc" />

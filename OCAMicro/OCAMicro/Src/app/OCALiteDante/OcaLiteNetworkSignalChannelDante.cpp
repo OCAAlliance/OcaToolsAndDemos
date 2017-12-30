@@ -102,7 +102,8 @@ OcaLiteNetworkSignalChannelDante::~OcaLiteNetworkSignalChannelDante()
                     if (reader.Read(bytesLeft, &pCmdParameters, numberOfParameters) &&
                         (0 == numberOfParameters))
                     {
-                        ::OcaLiteString label(std::string(DanteLiteHostInterfaceGetDanteChannelLabel(m_channelNr, (GetSourceOrSink() == OCANETWORKMEDIASOURCEORSINK_SINK))));
+                        ::OcaLiteString label;
+                        DanteLiteHostInterfaceGetDanteChannelLabel(m_channelNr, (GetSourceOrSink() == OCANETWORKMEDIASOURCEORSINK_SINK), label);
                         
                         ::OcaUint32 responseSize(::GetSizeValue< ::OcaUint8>(static_cast< ::OcaUint8>(1), writer) + label.GetSize(writer));
                         responseBuffer = ::OcaLiteCommandHandler::GetInstance().GetResponseBuffer(responseSize);

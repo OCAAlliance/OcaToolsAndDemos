@@ -9,7 +9,7 @@ NAME_MKE := makefileBIN
 TARGETS = uBlaze
 
 TYPE = EXE
-NAME = OCALiteProto
+NAME = OCALiteBKNII
 
 USRINC = $(OCA_HOME)/../Application/inc; \
 		 $(OCA_HOME)/Src; \
@@ -20,13 +20,13 @@ USRINC = $(OCA_HOME)/../Application/inc; \
 		 $(OCA_HOME)/Src/app/OCALiteDante; \
 
 
-USRDEFS = __LINUX__ HAVE_CONFIG_H _LINUX_ DANTE_CM_METERING_SUBSCRIPTIONS
+USRDEFS = __LINUX__ HAVE_CONFIG_H _LINUX_ DANTE_CM_METERING_SUBSCRIPTIONS BKN_1
 
 UBLAZESYSTEMLIBS = dapi dns_sd
 
 # The order of the libs is important for the GNU linker!
 # A library that depends on another library should before the library it depends on.
-LIBS = OCALiteProtoLIB
+LIBS = OCALiteBKNLIB
 
 SRC_INC = $(OCA_HOME)/../Application/src \
 		  $(OCA_HOME)/Src/app/OCA_PI \
@@ -49,11 +49,11 @@ SRCS  = OCALiteDante.cpp \
 		OcaLiteOcfConfiguration.cpp \
 		OcaLiteOcfLogger.cpp \
 		OcaLiteOcfTimer.cpp \
-		DanteLiteHostInterface.cpp \
-		DanteLiteConMon.cpp \
 		OcaLiteStreamNetworkDante.cpp \
 		OcaLiteNetworkSignalChannelDante.cpp \
 		OcaLiteDanteLvlSensor.cpp \
-		OcaLiteDanteMediaClock.cpp
+		DanteLiteHostInterface.cpp \
+		OcaLiteDanteMediaClock.cpp \
+		DanteLiteConMon.cpp
 
 include $(OCA_HOME)/Src/makeCpp.inc

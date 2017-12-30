@@ -42,6 +42,7 @@ typedef struct _DanteClockStatus
     uint32_t                          ClockMaster;
     uint16_t                          ClockMuteState;
     uint32_t                          ClockLocked;
+    aud_bool_t                        IsPrefMaster;
 } DanteClockStatus, *pDanteClockStatus;
 
 /**
@@ -93,7 +94,7 @@ const char* DanteLiteHostInterfaceGetDanteChannelName(UINT16 channel, bool bRxCh
  *
  * @return The channel label
  */
-const char* DanteLiteHostInterfaceGetDanteChannelLabel(UINT16 channel, bool bRxChannel);
+OcaLiteStatus DanteLiteHostInterfaceGetDanteChannelLabel(UINT16 channel, bool bRxChannel, OcaLiteString& label);
 
 /**
  * Get the current dante channel subscription
@@ -193,6 +194,14 @@ void DanteCMForceUpdate(void);
 
 
 /**
+ * Get number of Dante networks on the device
+ * 
+ * @return Number of Dante Networks
+ */
+
+uint8_t DanteLiteHostInterfaceGetNumberNetworks(void);
+
+/**
  * Get the ip address for a system interface
  *
  * @param[in] interfaceid       The interface channel index
@@ -254,5 +263,79 @@ void DanteCMForceUpdate(void);
  * @return Link state as a bool.
  */
 ::OcaBoolean DanteLiteHostInterfaceGetLinkState(OcaUint32 interfaceid);
+
+/**
+ * Defines host interface callback type
+ */
+
+typedef void (*tDanteLiteHostInterfaceCB)(void *, OcaUint32 prefmaster);
+
+/**
+ * Sets to callback if the preferred master state changes
+ *
+ * @param[in] context			Context of OCA app to call callback with
+ *
+ * @param[in] prefmastercb		Pointer to Preferred Master Callback Function
+ *
+ * @param[in] clockmastercb		Pointer to Network Clock Master State Callback
+ */
+
+void DanteListHostInterfaceSetPrefMasterCallback(void * context, tDanteLiteHostInterfaceCB prefmastercb, tDanteLiteHostInterfaceCB clockmastercb);
+
+/**
+ * Sets to callback if the dante device lock changes
+ *
+ * @param[in] context			Context of OCA app to call callback with
+ *
+ * @param[in] devicelockcb		Pointer to Dante Device Lock Callback Function
+ *
+ */
+
+void DanteListHostInterfaceSetDeviceLockCallback(void * context, tDanteLiteHostInterfaceCB devicelockcb);
+
+/**
+ * Sets preferred master state of device
+ *
+ * @param[in] prefmaster		State of preferred master (0: Off 1: On)
+ *
+ * @return	Whether operation was sucessful
+ *
+ */
+
+bool DanteLiteHostInterfaceSetPrefMaster(uint32_t prefmaster);
+
+/**
+ * Sets label for dante channel
+ *
+ * @param[in] channel			Channel Number
+ *
+ * @param[in] bRxChannel		Is it an RX channel?
+ *
+ * @param[in] name				Pointer to new name string
+ *
+ */
+
+OcaLiteStatus DanteLiteHostInterfaceSetDanteChannelLabel(UINT16 channel, bool bRxChannel, OcaLiteString * name);
+
+/**
+ * Sets device name of local device
+ *
+ * @param[in] newname			Pointer to Device Name String
+ *
+ * @return Sucess of operation
+ *
+ */
+
+uint8_t DanteLiteHostInterfaceSetDeviceName(const char * newname);
+
+/**
+ * Callback for Dante device lock status message
+ *
+ * @param[in] aud_msg			Pointer to audinate message
+ *
+ */
+#ifndef BKN_1
+void DanteLiteHandleLockStatus(const conmon_message_body_t *aud_msg);
+#endif // BKN_1
 
 #endif // DANTELITEHOSTINTERFACE_H

@@ -88,7 +88,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\OCA_BKNII\OCALiteOCCFactory.cpp" />
     <ClCompile Include="DanteLiteConMon.cpp" />
     <ClCompile Include="DanteLiteHostInterface.cpp" />
     <ClCompile Include="HostInterface\OCA\OCF\Configuration\OcaLiteOcfConfiguration.cpp" />
@@ -102,6 +101,7 @@
     <ClCompile Include="OcaLiteDanteLvlSensor.cpp" />
     <ClCompile Include="OcaLiteDanteMediaClock.cpp" />
     <ClCompile Include="OcaLiteNetworkSignalChannelDante.cpp" />
+    <ClCompile Include="OCALiteOCCFactory.cpp" />
     <ClCompile Include="OcaLiteStreamNetworkDante.cpp" />
   </ItemGroup>
   <ItemGroup>

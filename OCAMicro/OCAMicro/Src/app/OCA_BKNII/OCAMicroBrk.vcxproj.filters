@@ -375,10 +375,10 @@
     <ClCompile Include="..\..\..\Src\app\OCALiteDante\OcaLiteStreamNetworkDante.cpp">
       <Filter>Platform\HostInterface\Dante</Filter>
     </ClCompile>
-    <ClCompile Include="OCALiteOCCFactory.cpp">
+    <ClCompile Include="OCALite.cpp">
       <Filter>App</Filter>
     </ClCompile>
-    <ClCompile Include="OCALite.cpp">
+    <ClCompile Include="..\OCALiteDante\OCALiteOCCFactory.cpp">
       <Filter>App</Filter>
     </ClCompile>
   </ItemGroup>

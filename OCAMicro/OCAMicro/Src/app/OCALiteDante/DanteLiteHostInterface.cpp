@@ -1,4 +1,4 @@
-/*  By downloading or using this file, the user agrees to be bound by the terms of the license 
+/*  By downloading or using this file, the user agrees to be bound by the terms of the license
  *  agreement located at http://ocaalliance.com/EULA as an original contracting party.
  */
 
@@ -30,13 +30,13 @@ static aud_bool_t gs_bDrDeviceComm(AUD_FALSE);
 
 typedef struct sSystemInterface
 {
-	::OcaLiteString ipaddr;
-	::OcaLiteString gatewayaddr;
-	::OcaLiteString dnsaddr;
-	::OcaLiteString maskaddr;
-	::OcaBoolean linkup;
-	::OcaUint64 linkspeed;
-	::OcaUint8 macaddr[6];
+    ::OcaLiteString ipaddr;
+    ::OcaLiteString gatewayaddr;
+    ::OcaLiteString dnsaddr;
+    ::OcaLiteString maskaddr;
+    ::OcaBoolean linkup;
+    ::OcaUint64 linkspeed;
+    ::OcaUint8 macaddr[6];
 };
 
 struct sSystemInterface interfaces[2];
@@ -48,6 +48,12 @@ static DanteClockStatus gs_DeviceClockStatus;
 static conmon_info DanteCMCtrlInfo;
 static const conmon_networks_t * DanteCMNetworkInfo;
 static uint32_t DanteCMMediaClockOjectNumber(0);
+static uint8_t NDanteNetworks = 0;
+static void * DanteCMPrefMasterContext = 0;
+static void * DanteCMDeviceLockContext = 0;
+static void(*DanteCMPrefMasterCB)(void *, OcaUint32) = 0;
+static void(*DanteCMClockMasterCB)(void *, OcaUint32) = 0;
+static void(*DanteCMDeviceLockCB)(void *, OcaUint32) = 0;
 static aud_bool_t gs_runningLocal = AUD_TRUE;
 
 extern uint32_t DanteCMhadSampleRateStat;
@@ -92,7 +98,7 @@ bool DanteLiteHostInterfaceInitializeConMon(char *devName)
     memset(&gs_DeviceClocking, sizeof(DanteDeviceClocking), 0);
     memset(&gs_DeviceClockStatus, sizeof(DanteClockStatus), 0);
     // If devName == NULL then we're controlling the local device
-    if(!devName)
+    if (!devName)
         devName = (char *)localDevice;
     // setup the DanteCM
     return DanteCMInitialize(&DanteCMCtrlInfo, devName, GetDeviceStatusMessageCB(), GetDeviceMeteringMessageCB()) == AUD_SUCCESS;
@@ -102,26 +108,26 @@ bool DanteLiteHostInterfaceInitializeConMon(char *devName)
 aud_error_t DanteLiteWaitforRemoteHostResolved(void)
 {
     aud_error_t result;
-    const aud_utime_t comms_timeout = {10, 0};
+    const aud_utime_t comms_timeout = { 10, 0 };
     aud_utime_t now, then;
     aud_utime_get(&now);
     then = now;
     aud_utime_add(&then, &comms_timeout);
-    while(aud_utime_compare(&now, &then) < 0)
+    while (aud_utime_compare(&now, &then) < 0)
     {
         // update our sockets
         dante_sockets_clear(&gs_sockets);
         dr_devices_get_sockets(gs_devices, &gs_sockets);
-        timeval timeout = {0,1000};
+        timeval timeout = { 0,1000 };
         int select_result = select(gs_sockets.n, &gs_sockets.read_fds, NULL, NULL, &timeout);
         if (select_result < 0)
         {
             result = aud_error_get_last();
-        
-#ifdef _WIN32
-            int errCode  = WSAGetLastError();
 
-            if(!errCode)
+#ifdef _WIN32
+            int errCode = WSAGetLastError();
+
+            if (!errCode)
             {
                 aud_utime_get(&now);
                 continue;
@@ -145,74 +151,80 @@ aud_error_t DanteLiteWaitforRemoteHostResolved(void)
     return AUD_ERR_DONE;
 }
 
+uint8_t DanteLiteHostInterfaceGetNumberNetworks(void)
+{
+    return NDanteNetworks;
+}
+
 ::OcaLiteString DanteLiteHostInterfaceGetIPAddress(OcaUint32 interfaceid)
 {
-	return interfaces[interfaceid].ipaddr;
+    return interfaces[interfaceid].ipaddr;
 }
 
 ::OcaLiteString DanteLiteHostInterfaceGetNetMaskAddress(OcaUint32 interfaceid)
 {
-	return interfaces[interfaceid].maskaddr;
+    return interfaces[interfaceid].maskaddr;
 }
 
 ::OcaLiteString DanteLiteHostInterfaceGetDNSAddress(OcaUint32 interfaceid)
 {
-	return interfaces[interfaceid].dnsaddr;
+    return interfaces[interfaceid].dnsaddr;
 }
 
 ::OcaLiteString DanteLiteHostInterfaceGetGatewayAddress(OcaUint32 interfaceid)
 {
-	return interfaces[interfaceid].gatewayaddr;
+    return interfaces[interfaceid].gatewayaddr;
 }
 
 ::OcaUint64 DanteLiteHostInterfaceGetLinkSpeed(OcaUint32 interfaceid)
 {
-	return interfaces[interfaceid].linkspeed;
+    return interfaces[interfaceid].linkspeed;
 }
 
 ::OcaUint8 * DanteLiteHostInterfaceGetMACAddress(OcaUint32 interfaceid)
 {
-	return interfaces[interfaceid].macaddr;
+    return interfaces[interfaceid].macaddr;
 }
 
 ::OcaBoolean DanteLiteHostInterfaceGetLinkState(OcaUint32 interfaceid)
 {
-	return interfaces[interfaceid].linkup;
+    return interfaces[interfaceid].linkup;
 }
 
 void DanteLiteHostInterfacePopulateSystemInterface(const conmon_networks_t * networks, int interfaceid)
 {
-			struct in_addr a;
-			char in_buf[22], mask_buf[22], gw_buf[22], dns_buf[22];
+    struct in_addr a;
+    char in_buf[22], mask_buf[22], gw_buf[22], dns_buf[22];
 
-			const conmon_network_t * n = networks->networks + interfaceid;
+    const conmon_network_t * n = networks->networks + interfaceid;
 
-			// Convert addresses to strings
-			a.s_addr = n->ip_address;
-			strcpy ((char *)&in_buf, inet_ntoa (a));
-			interfaces[interfaceid].ipaddr = static_cast< ::OcaLiteString>(in_buf);
+    // Convert addresses to strings
+    a.s_addr = n->ip_address;
+    strcpy((char *)&in_buf, inet_ntoa(a));
+    interfaces[interfaceid].ipaddr = static_cast< ::OcaLiteString>(in_buf);
 
-			a.s_addr = n->netmask;
-			strcpy (mask_buf, inet_ntoa (a));
-			interfaces[interfaceid].maskaddr = static_cast< ::OcaLiteString>(mask_buf);
+    a.s_addr = n->netmask;
+    strcpy(mask_buf, inet_ntoa(a));
+    interfaces[interfaceid].maskaddr = static_cast< ::OcaLiteString>(mask_buf);
 
-			a.s_addr = n->gateway;
-			strcpy (gw_buf, inet_ntoa (a));
-			interfaces[interfaceid].gatewayaddr = static_cast< ::OcaLiteString>(gw_buf);
+    a.s_addr = n->gateway;
+    strcpy(gw_buf, inet_ntoa(a));
+    interfaces[interfaceid].gatewayaddr = static_cast< ::OcaLiteString>(gw_buf);
 
-			a.s_addr = n->dns_server;
-			strcpy (dns_buf, inet_ntoa (a));
-			interfaces[interfaceid].dnsaddr = static_cast< ::OcaLiteString>(dns_buf);
+    a.s_addr = n->dns_server;
+    strcpy(dns_buf, inet_ntoa(a));
+    interfaces[interfaceid].dnsaddr = static_cast< ::OcaLiteString>(dns_buf);
 
-			for (uint8_t i=0; i<6; i++)
-			{
-				interfaces[interfaceid].macaddr[i] = n->mac_address[i];
-			}
+    for (uint8_t i = 0; i < 6; i++)
+    {
+        interfaces[interfaceid].macaddr[i] = n->mac_address[i];
+    }
 
-			interfaces[interfaceid].linkup = n->is_up ? true : false;
+    interfaces[interfaceid].linkup = n->is_up ? true : false;
 
-			interfaces[interfaceid].linkspeed = n->link_speed;
+    interfaces[interfaceid].linkspeed = n->link_speed;
 }
+
 bool DanteLiteHostInterfaceInitialize(char *devName)
 {
     ::aud_error_t audResult(::aud_env_setup(&gs_audEnv));
@@ -222,7 +234,7 @@ bool DanteLiteHostInterfaceInitialize(char *devName)
         if (AUD_SUCCESS == audResult)
         {
             // if no device name is given open locally
-            if(!devName)
+            if (!devName)
             {    // open local device
                 audResult = ::dr_device_open_local(gs_devices, &gs_device);
                 gs_runningLocal = AUD_TRUE;
@@ -235,9 +247,9 @@ bool DanteLiteHostInterfaceInitialize(char *devName)
             }
             dr_device_set_changed_callback(gs_device, cbDeviceRouterDeviceChanged);
             // If we're connecting to a remote device we need to wait until it's "Resolved"
-            if(devName)
+            if (devName)
             {
-                if(AUD_SUCCESS != DanteLiteWaitforRemoteHostResolved())
+                if (AUD_SUCCESS != DanteLiteWaitforRemoteHostResolved())
                 {
                     printf("Failed to connect to remote device %s\n", devName);
                     return false;
@@ -257,16 +269,19 @@ bool DanteLiteHostInterfaceInitialize(char *devName)
                 }
             }
 
-			if (AUD_SUCCESS == audResult)
-			{
-				DanteCMNetworkInfo = conmon_client_get_networks(gs_conmon);
+            if (AUD_SUCCESS == audResult)
+            {
+                DanteCMNetworkInfo = conmon_client_get_networks(gs_conmon);
 
-				DanteLiteHostInterfacePopulateSystemInterface(DanteCMNetworkInfo, 0);
-				DanteLiteHostInterfacePopulateSystemInterface(DanteCMNetworkInfo, 1);
-			}
+                NDanteNetworks = DanteCMNetworkInfo->num_networks;
 
-			if (AUD_SUCCESS == audResult)
-			{
+                for (uint8_t i = 0; i < NDanteNetworks; i++) {
+                    DanteLiteHostInterfacePopulateSystemInterface(DanteCMNetworkInfo, i);
+                }
+            }
+
+            if (AUD_SUCCESS == audResult)
+            {
                 gs_bDrDeviceComm = AUD_TRUE;
                 audResult = dr_device_query_capabilities(gs_device, handleDrDeviceResponse, &gs_requestId);
 
@@ -296,7 +311,7 @@ bool DanteLiteHostInterfaceInitialize(char *devName)
 
 static void UpdateComponent(dr_device_component_t component)
 {
-    if(gs_device) {
+    if (gs_device) {
         if (dr_device_is_component_stale(gs_device, component))
         {
             deviceRoutingDump && printf("Component %d stale\n", component);
@@ -310,7 +325,7 @@ static void UpdateComponent(dr_device_component_t component)
                 dr_devices_get_sockets(gs_devices, &sockets);
                 dr_devices_process(gs_devices, &sockets);
             }
-            switch(component) {
+            switch (component) {
             case DR_DEVICE_COMPONENT_RXCHANNELS:
                 UpdateStreamNetworkDanteRxChannels();
                 break;
@@ -335,9 +350,9 @@ static void UpdateComponent(dr_device_component_t component)
 int DanteLiteHostInterfaceGetSocket()
 {
     int socketFd = -1;
-    if(DanteCMCtrlInfo.running) 
+    if (DanteCMCtrlInfo.running)
     {
-        socketFd = conmon_client_get_socket (DanteCMCtrlInfo.client);
+        socketFd = conmon_client_get_socket(DanteCMCtrlInfo.client);
     }
     return socketFd;
 }
@@ -388,8 +403,8 @@ bool DanteLiteHostInterfaceSetDanteChannelSubscription(UINT16 channel, const cha
                 if (pos != sSubscription.end())
                 {
                     std::string portName(sSubscription.substr(0, sSubscription.find("@")));
-                    std::string nodeName(sSubscription.substr(sSubscription.find("@")+1, sSubscription.size() - 3));
-            
+                    std::string nodeName(sSubscription.substr(sSubscription.find("@") + 1, sSubscription.size() - 3));
+
                     gs_bDrDeviceComm = AUD_TRUE;
                     audResult = dr_rxchannel_subscribe(rxChannels[channel], handleDrDeviceResponse, &gs_requestId, nodeName.c_str(), portName.c_str());
                 }
@@ -558,7 +573,7 @@ const char* DanteLiteHostInterfaceGetDanteChannelName(UINT16 channel, bool bRxCh
     return "";
 }
 
-const char* DanteLiteHostInterfaceGetDanteChannelLabel(UINT16 channel, bool bRxChannel)
+OcaLiteStatus DanteLiteHostInterfaceGetDanteChannelLabel(UINT16 channel, bool bRxChannel, OcaLiteString& label)
 {
     if (bRxChannel)
     {
@@ -568,7 +583,7 @@ const char* DanteLiteHostInterfaceGetDanteChannelLabel(UINT16 channel, bool bRxC
         uint16_t numChannels;
         if (AUD_SUCCESS == dr_device_get_rxchannels(gs_device, &numChannels, &rxChannels))
         {
-            return dr_rxchannel_get_name(rxChannels[channel]);
+            label = static_cast < ::OcaLiteString>  (dr_rxchannel_get_name(rxChannels[channel]));
         }
     }
     else
@@ -584,23 +599,89 @@ const char* DanteLiteHostInterfaceGetDanteChannelLabel(UINT16 channel, bool bRxC
             if ((AUD_SUCCESS == dr_txchannel_get_txlabels(txChannels[channel], &len, labels)) &&
                 (len > 0))
             {
-                return labels[0].name;
+                label = static_cast < ::OcaLiteString> (labels[0].name);
             }
             else
             {
-                return dr_txchannel_get_canonical_name(txChannels[channel]);
+                label = static_cast < ::OcaLiteString> (dr_txchannel_get_canonical_name(txChannels[channel]));
             }
         }
     }
 
-    return "";
+    return OCASTATUS_OK;
+}
+
+OcaLiteStatus DanteLiteHostInterfaceSetDanteChannelLabel(UINT16 channel, bool bRxChannel, OcaLiteString * name)
+{
+    if (bRxChannel)
+    {
+        UpdateComponent(DR_DEVICE_COMPONENT_RXCHANNELS);
+
+        dr_rxchannel_t** rxChannels;
+        uint16_t numChannels;
+        if (AUD_SUCCESS == dr_device_get_rxchannels(gs_device, &numChannels, &rxChannels))
+        {
+            dr_rxchannel_set_name(rxChannels[channel], handleDrDeviceResponse, &gs_requestId, (const char *)name->GetValue());
+        }
+    }
+    else
+    {
+        UpdateComponent(DR_DEVICE_COMPONENT_TXCHANNELS);
+
+        dr_txchannel_t** txChannels;
+        uint16_t numChannels;
+        if (AUD_SUCCESS == dr_device_get_txchannels(gs_device, &numChannels, &txChannels))
+        {
+            uint16_t len = 1;
+            dr_txlabel_t labels[1];
+            if ((AUD_SUCCESS == dr_txchannel_get_txlabels(txChannels[channel], &len, labels)) &&
+                (len > 0))
+            {
+                dr_txchannel_replace_txlabel(txChannels[channel], handleDrDeviceResponse, &gs_requestId, labels[0].name, (const char *)name->GetValue(), 0);
+            }
+            else
+            {
+                // No label exists
+                dr_txchannel_add_txlabel(txChannels[channel], handleDrDeviceResponse, &gs_requestId, (const char *)name->GetValue(), 0);
+            }
+        }
+    }
+
+    return OCASTATUS_OK;
+}
+
+uint8_t DanteLiteHostInterfaceSetDeviceName(const char * newname)
+{
+    uint8_t result = AUD_FALSE;
+
+#ifndef BKN_1 // Older versions of API don't have name check function
+
+    if (newname && dante_name_is_valid_device_name(newname))
+    {
+        result = dr_device_close_rename(gs_device, newname);
+    }
+
+#else
+    if (newname)
+    {
+        result = dr_device_close_rename(gs_device, newname);
+    }
+
+#endif
+
+    if (result != AUD_SUCCESS)
+    {
+        printf("Error renaming device\n");
+    }
+
+    return result;
 }
 
 
 const char* DanteLiteHostInterfaceGetDeviceName(void)
 {
     UpdateComponent(DR_DEVICE_COMPONENT_PROPERTIES);
-    if(gs_device)
+    if (gs_device)
         return dr_device_get_name(gs_device);
     else
         return OcfLiteConfigureGetDeviceName().c_str();
@@ -612,7 +693,7 @@ bool DanteLiteHostInterfaceGetNumberOfChannels(UINT16& nrRxChannels, UINT16& nrT
     UpdateComponent(DR_DEVICE_COMPONENT_RXCHANNELS);
     nrRxChannels = 0;
     nrTxChannels = 0;
-    if(gs_device) {
+    if (gs_device) {
         nrRxChannels = dr_device_num_rxchannels(gs_device);
         nrTxChannels = dr_device_num_txchannels(gs_device);
     }
@@ -624,8 +705,8 @@ static void cbDeviceRouterDeviceChanged(dr_device_t *device, dr_device_change_fl
 
     dr_device_change_index_t i;
 
-    (void) device;
-    
+    (void)device;
+
     deviceRoutingDump && printf("cbDeviceRouterDeviceChanged with changes");
     for (i = 0; i < DR_DEVICE_CHANGE_INDEX_COUNT; i++)
     {
@@ -658,11 +739,13 @@ void cbDeviceRouterSocketsChanged(const dr_devices_t * devices)
 
 void DanteLiteHandleClockStatus(const conmon_message_body_t *aud_msg)
 {
-    conmon_audinate_servo_state_t    servo_state   = conmon_audinate_clocking_status_get_servo_state(aud_msg);
-    conmon_audinate_clock_source_t    clock_source  = conmon_audinate_clocking_status_get_clock_source(aud_msg);
-    conmon_audinate_clock_state_t    clock_state   = conmon_audinate_clocking_status_get_clock_state(aud_msg);
+    conmon_audinate_servo_state_t    servo_state = conmon_audinate_clocking_status_get_servo_state(aud_msg);
+    conmon_audinate_clock_source_t    clock_source = conmon_audinate_clocking_status_get_clock_source(aud_msg);
+    conmon_audinate_clock_state_t    clock_state = conmon_audinate_clocking_status_get_clock_state(aud_msg);
+    aud_bool_t isprefmaster = conmon_audinate_clocking_status_is_clock_preferred(aud_msg);
+    uint32_t clockmaster = gs_DeviceClockStatus.ClockMaster;
     //const char *domainName = conmon_audinate_clocking_status_get_subdomain_name(aud_msg);
-    conmon_audinate_ext_wc_state_t  ext_wc_state  = conmon_audinate_clocking_status_get_ext_wc_state(aud_msg);
+    conmon_audinate_ext_wc_state_t  ext_wc_state = conmon_audinate_clocking_status_get_ext_wc_state(aud_msg);
     uint16_t mute_state = conmon_audinate_clocking_status_get_mute_flags(aud_msg);
 
     // we'll assume there's only one clock
@@ -672,44 +755,64 @@ void DanteLiteHandleClockStatus(const conmon_message_body_t *aud_msg)
 
     if (port_0_status) {
         gs_DeviceClockStatus.ClockPortState[0] = conmon_audinate_port_status_get_port_state(port_0_status, aud_msg);
-        if(gs_DeviceClockStatus.ClockPortState[0] == CONMON_AUDINATE_PORT_STATE_MASTER) {
+        if (gs_DeviceClockStatus.ClockPortState[0] == CONMON_AUDINATE_PORT_STATE_MASTER) {
             gs_DeviceClockStatus.ClockMaster = 1;
-        } else {
+        }
+        else {
             gs_DeviceClockStatus.ClockMaster = 0;
         }
-    } else {
+    }
+    else {
         gs_DeviceClockStatus.ClockMaster = 0;
     }
 
     if (!gs_DeviceClockStatus.ClockMaster && port_1_status) {
         conmon_audinate_port_state_t state1 = conmon_audinate_port_status_get_port_state(port_1_status, aud_msg);
-        if(state1 == CONMON_AUDINATE_PORT_STATE_MASTER) {
+        if (state1 == CONMON_AUDINATE_PORT_STATE_MASTER) {
             gs_DeviceClockStatus.ClockMaster = 1;
             deviceRoutingDump && printf("handleClockStatus: setting Master state from Secondary Port\n");
         }
     }
 
-    if ((mute_state != gs_DeviceClockStatus.ClockMuteState ) ||
+    if (isprefmaster != gs_DeviceClockStatus.IsPrefMaster) {
+        gs_DeviceClockStatus.IsPrefMaster = isprefmaster;
+
+        if (DanteCMPrefMasterCB) {
+            (*DanteCMPrefMasterCB)(DanteCMPrefMasterContext, gs_DeviceClockStatus.IsPrefMaster);
+        }
+
+    }
+
+    if (clockmaster != gs_DeviceClockStatus.ClockMaster) {
+        // Clock master has changed
+        if (DanteCMClockMasterCB) {
+            (*DanteCMClockMasterCB)(DanteCMPrefMasterContext, gs_DeviceClockStatus.ClockMaster);
+        }
+    }
+
+    if ((mute_state != gs_DeviceClockStatus.ClockMuteState) ||
         (clock_source != gs_DeviceClockStatus.ClockSource) ||
-        (clock_state != gs_DeviceClockStatus.ClockState    ) ||
+        (clock_state != gs_DeviceClockStatus.ClockState) ||
         (ext_wc_state != gs_DeviceClockStatus.ClockExternalWordClockState))
     {
-        deviceRoutingDump && printf("handleClockStatus: Servo (%d) = %s (%s), src = %d, Status = 0x%04x, Mute = 0x%04x ExtWc = %d\n", 
-            servo_state, gs_DeviceClockStatus.ClockLocked ? "Locked" : "Unlocked", 
-            gs_DeviceClockStatus.ClockMaster ? "Master" : "Slave", 
-            clock_source, clock_state, mute_state, ext_wc_state );
+        deviceRoutingDump && printf("handleClockStatus: Servo (%d) = %s (%s), src = %d, Status = 0x%04x, Mute = 0x%04x ExtWc = %d\n",
+            servo_state, gs_DeviceClockStatus.ClockLocked ? "Locked" : "Unlocked",
+            gs_DeviceClockStatus.ClockMaster ? "Master" : "Slave",
+            clock_source, clock_state, mute_state, ext_wc_state);
     }
-    gs_DeviceClockStatus.ClockSource                 = clock_source;
-    gs_DeviceClockStatus.ClockState                     = clock_state;
-    gs_DeviceClockStatus.ClockMuteState                 = mute_state;
+    gs_DeviceClockStatus.ClockSource = clock_source;
+    gs_DeviceClockStatus.ClockState = clock_state;
+    gs_DeviceClockStatus.ClockMuteState = mute_state;
     gs_DeviceClockStatus.ClockExternalWordClockState = ext_wc_state;
 
-    if( ((servo_state == CONMON_AUDINATE_SERVO_STATE_SYNC) || (servo_state == CONMON_AUDINATE_SERVO_STATE_SYNCING)) &&
-        (mute_state == 0) ) {
+    if (((servo_state == CONMON_AUDINATE_SERVO_STATE_SYNC) || (servo_state == CONMON_AUDINATE_SERVO_STATE_SYNCING)) &&
+        (mute_state == 0)) {
         gs_DeviceClockStatus.ClockLocked = 1;
-    } else if(mute_state != 0) {
+    }
+    else if (mute_state != 0) {
         gs_DeviceClockStatus.ClockLocked = 0;
-    } else {
+    }
+    else {
         gs_DeviceClockStatus.ClockLocked = 1;
     }
     DanteCMhadClockStat = 1;
@@ -717,10 +820,10 @@ void DanteLiteHandleClockStatus(const conmon_message_body_t *aud_msg)
     // On a Brooklyn module we'll get this and DanteLiteHandleSampleRateStatus()
 #ifdef WIN32
     // only need to do this if we're not remotely connected to a Brooklyn module
-    if(gs_runningLocal == AUD_TRUE)
+    if (gs_runningLocal == AUD_TRUE)
         DanteCMhadSampleRateStat = 1;
 #endif
-    if(DanteCMhadSampleRateStat & !DanteCMctrlInitialized) {
+    if (DanteCMhadSampleRateStat & !DanteCMctrlInitialized) {
         DanteCMctrlInitialized = 1;
     }
     // TODO: Need to update OCA media clock with changes
@@ -730,7 +833,7 @@ void DanteLiteHandleSampleRateStatus(const conmon_message_body_t *aud_msg)
 {
     uint32_t value;
     value = conmon_audinate_srate_get_current(aud_msg);
-    if(gs_DeviceClocking.CurrentSampleRate != value) {
+    if (gs_DeviceClocking.CurrentSampleRate != value) {
         gs_DeviceClocking.CurrentSampleRate = value;
         deviceRoutingDump && printf("Sample Rate = %u\n", value);
         // TODO: Need to update OCA media clock with change
@@ -740,20 +843,34 @@ void DanteLiteHandleSampleRateStatus(const conmon_message_body_t *aud_msg)
         }
     }
     value = conmon_audinate_srate_get_available_count(aud_msg);
-    if(gs_DeviceClocking.NumberOfSupportedRates != value) {
+    if (gs_DeviceClocking.NumberOfSupportedRates != value) {
         deviceRoutingDump && printf("Number of Supported Sample Rates = %u\n", value);
         gs_DeviceClocking.NumberOfSupportedRates = value;
-        for(uint32_t i = 0; i < value; i++) {
+        for (uint32_t i = 0; i < value; i++) {
             gs_DeviceClocking.SupportedSampleRates[i] = conmon_audinate_srate_get_available(aud_msg, i);
             deviceRoutingDump && printf("Rate[%d]: %u\n", i, gs_DeviceClocking.SupportedSampleRates[i]);
         }
         // TODO: Need to update OCA media clock with change
     }
     DanteCMhadSampleRateStat = 1;
-    if(DanteCMhadClockStat & !DanteCMctrlInitialized) {
+    if (DanteCMhadClockStat & !DanteCMctrlInitialized) {
         DanteCMctrlInitialized = 1;
     }
 }
+
+#ifndef BKN_1
+void DanteLiteHandleLockStatus(const conmon_message_body_t *aud_msg)
+{
+    aud_bool_t value;
+    value = conmon_audinate_get_lock_status(aud_msg);
+
+    if (DanteCMDeviceLockCB) {
+        (*DanteCMDeviceLockCB)(DanteCMDeviceLockContext, (OcaUint32)value);
+    }
+
+    printf("Audinate Lock Status %s\n", value == AUD_TRUE ? "True" : "False");
+}
+#endif // BKN_1
 
 pDanteClockStatus DanteLiteHostInterfaceGetDanteDanteDanteClockStatus()
 {
@@ -770,6 +887,36 @@ void DanteLiteHostInterfaceSetMediaClockObjectNumber(uint32_t objNumber)
     DanteCMMediaClockOjectNumber = objNumber;
 }
 
+void DanteListHostInterfaceSetPrefMasterCallback(void * context, tDanteLiteHostInterfaceCB prefmastercb, tDanteLiteHostInterfaceCB clockmastercb)
+{
+
+    DanteCMPrefMasterContext = context;
+    DanteCMPrefMasterCB = prefmastercb;
+    DanteCMClockMasterCB = clockmastercb;
+
+    // If already initialised then send value
+    if (DanteCMctrlInitialized) {
+        (*DanteCMPrefMasterCB)(DanteCMPrefMasterContext, gs_DeviceClockStatus.IsPrefMaster);
+        (*DanteCMClockMasterCB)(DanteCMPrefMasterContext, gs_DeviceClockStatus.ClockMaster);
+    }
+}
+
+void DanteListHostInterfaceSetDeviceLockCallback(void * context, tDanteLiteHostInterfaceCB devicelockcb)
+{
+#ifndef BKN_1
+    DanteCMDeviceLockContext = context;
+    DanteCMDeviceLockCB = devicelockcb;
+
+    if (DanteCMctrlInitialized) {
+        // Get initial state
+        conmon_message_body_t aud_msg;
+        conmon_audinate_init_query_message(&aud_msg, CONMON_AUDINATE_MESSAGE_TYPE_LOCK_QUERY, 0);
+        uint16_t msg_size = conmon_audinate_query_message_get_size(&aud_msg);
+        DanteCMSendAudinateMessage(&aud_msg, msg_size);
+    }
+#endif // BKN_1
+}
+
 bool DanteLiteHostInterfaceSetSampleRate(uint32_t srate)
 {
     uint16_t msg_size;
@@ -777,9 +924,9 @@ bool DanteLiteHostInterfaceSetSampleRate(uint32_t srate)
     aud_error_t rc;
     conmon_message_body_t aud_msg;
     // check if the sample rate is different
-    if(srate == gs_DeviceClocking.CurrentSampleRate)
+    if (srate == gs_DeviceClocking.CurrentSampleRate)
         return true;
-    conmon_audinate_init_srate_control (&aud_msg, /*CongestionDelay_uS*/0);
+    conmon_audinate_init_srate_control(&aud_msg, /*CongestionDelay_uS*/0);
     conmon_audinate_srate_control_set_rate(&aud_msg, srate);
     msg_size = conmon_audinate_srate_control_get_size(&aud_msg);
     mode = (uint32_t)conmon_audinate_srate_get_mode(&aud_msg);
@@ -787,9 +934,24 @@ bool DanteLiteHostInterfaceSetSampleRate(uint32_t srate)
     return (rc == AUD_SUCCESS);
 }
 
+bool DanteLiteHostInterfaceSetPrefMaster(uint32_t prefmaster)
+{
+    uint16_t msg_size;
+    aud_error_t rc;
+    conmon_message_body_t aud_msg;
+    // check if the sample rate is different
+    if (prefmaster == gs_DeviceClockStatus.IsPrefMaster)
+        return true;
+    conmon_audinate_init_clocking_control(&aud_msg, 0);
+    conmon_audinate_clocking_control_set_preferred(&aud_msg, (uint8_t)prefmaster);
+    msg_size = conmon_audinate_clocking_control_get_size(&aud_msg);
+    rc = DanteCMSendAudinateMessage(&aud_msg, msg_size);
+    return (rc == AUD_SUCCESS);
+}
+
 void DanteLiteHostInterfaceRouterMarkComponentStale(dr_device_component_t devComponent)
 {
-    if(gs_device && (devComponent < DR_DEVICE_COMPONENT_COUNT))
+    if (gs_device && (devComponent < DR_DEVICE_COMPONENT_COUNT))
         ::dr_device_mark_component_stale(gs_device, devComponent);
 }
 
@@ -808,13 +970,13 @@ void UpdateStreamNetworkDanteRxChannels()
     unsigned int n = dr_device_num_rxchannels(gs_device);
     OcaLiteStreamNetworkDante *pSNDante = reinterpret_cast<OcaLiteStreamNetworkDante *>(::OcaLiteBlock::GetRootBlock().GetObject(OcaLiteStreamNetworkDanteONo));
 
-    if(!pSNDante || !DanteCMctrlInitialized)
+    if (!pSNDante || !DanteCMctrlInitialized)
         return;
-    for(unsigned int chan = 0; chan < n; chan++) {
+    for (unsigned int chan = 0; chan < n; chan++) {
         // get each channels subscription and pass to the OcaLiteStreamNetworkDante object to sort out
         dr_rxchannel_t * rxc = dr_device_rxchannel_at_index(gs_device, chan);
         const char * sub = dr_rxchannel_get_subscription(rxc);
-        if(pSNDante->CheckforNewSubscription(chan, sub)) {
+        if (pSNDante->CheckforNewSubscription(chan, sub)) {
             deviceRoutingDump && printf("Rx Subscription Updated for channel %d to %s\n", chan, sub);
         }
     }
