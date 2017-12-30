@@ -207,7 +207,7 @@ public:
     ::OcaLiteMediaStreamParametersAes67& operator=(const ::OcaLiteMediaStreamParametersAes67& source);
 
     /**
-     * Creates an OcaLiteNetworkSignalChannelDanteID from the base class.
+     * Creates an OcaLiteMediaStreamParametersAes67 from the base class.
      *
      * @param[in]   baseClass   The base class to create the instance from.
      * @return The newly created instance, or NULL if parsing failed.

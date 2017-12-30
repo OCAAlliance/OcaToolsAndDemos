@@ -143,14 +143,8 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="OcaLiteNetworkSignalChannel.h">
-      <Filter>Header Files\OCALite\OCC\ControlClasses\Worker\Networking</Filter>
-    </ClInclude>
     <ClInclude Include="OcaLiteNetworkSignalChannelDante.h">
       <Filter>Header Files\OCALite\OCC\ControlClasses\Worker\Networking</Filter>
-    </ClInclude>
-    <ClInclude Include="OcaLiteStreamNetwork.h">
-      <Filter>Header Files\OCALite\OCC\ControlClasses\Agents</Filter>
     </ClInclude>
     <ClInclude Include="OcaLiteStreamNetworkDante.h">
       <Filter>Header Files\OCALite\OCC\ControlClasses\Agents</Filter>
@@ -158,11 +152,11 @@
     <ClInclude Include="DanteLiteHostInterface.h">
       <Filter>Header Files\Platform\HostInterface\Dante</Filter>
     </ClInclude>
-    <ClInclude Include="OcaLiteDanteMediaClock.h">
-      <Filter>Source Files\OCALite\OCC\ControlClasses\Agents</Filter>
-    </ClInclude>
     <ClInclude Include="OcaLiteDanteLvlSensor.h">
       <Filter>Source Files\OCALite\OCC\ControlClasses\Worker\Sensors</Filter>
+    </ClInclude>
+    <ClInclude Include="OcaLiteDanteMediaClock.h">
+      <Filter>Header Files\OCALite\OCC\ControlClasses\Agents</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

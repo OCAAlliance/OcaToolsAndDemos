@@ -97,6 +97,8 @@
     <ClCompile Include="OCALite\OCC\ControlClasses\Agents\OcaLiteAgent.cpp" />
     <ClCompile Include="OCALite\OCC\ControlClasses\Agents\OcaLiteMediaClock.cpp" />
     <ClCompile Include="OCALite\OCC\ControlClasses\Agents\OcaLiteNetwork.cpp" />
+    <ClCompile Include="OCALite\OCC\ControlClasses\Agents\OcaLiteStreamConnector.cpp" />
+    <ClCompile Include="OCALite\OCC\ControlClasses\Agents\OcaLiteStreamNetwork.cpp" />
     <ClCompile Include="OCALite\OCC\ControlClasses\Managers\OcaLiteDeviceManager.cpp" />
     <ClCompile Include="OCALite\OCC\ControlClasses\Managers\OcaLiteFirmwareManager.cpp" />
     <ClCompile Include="OCALite\OCC\ControlClasses\Managers\OcaLiteManager.cpp" />
@@ -148,12 +150,17 @@
     <ClCompile Include="OCALite\OCC\ControlDataTypes\OcaLiteMediaSourceConnector.cpp" />
     <ClCompile Include="OCALite\OCC\ControlDataTypes\OcaLiteMediaSourceConnectorChangedEventData.cpp" />
     <ClCompile Include="OCALite\OCC\ControlDataTypes\OcaLiteMediaStreamParameters.cpp" />
+    <ClCompile Include="OCALite\OCC\ControlDataTypes\OcaLiteMediaStreamParametersAes67.cpp" />
     <ClCompile Include="OCALite\OCC\ControlDataTypes\OcaLiteMethod.cpp" />
     <ClCompile Include="OCALite\OCC\ControlDataTypes\OcaLiteMethodID.cpp" />
     <ClCompile Include="OCALite\OCC\ControlDataTypes\OcaLiteModelDescription.cpp" />
     <ClCompile Include="OCALite\OCC\ControlDataTypes\OcaLiteModelGUID.cpp" />
     <ClCompile Include="OCALite\OCC\ControlDataTypes\OcaLiteMultiMap.cpp" />
     <ClCompile Include="OCALite\OCC\ControlDataTypes\OcaLiteNetworkAddress.cpp" />
+    <ClCompile Include="OCALite\OCC\ControlDataTypes\OcaLiteStream.cpp" />
+    <ClCompile Include="OCALite\OCC\ControlDataTypes\OcaLiteStreamConnectorID.cpp" />
+    <ClCompile Include="OCALite\OCC\ControlDataTypes\OcaLiteStreamID.cpp" />
+    <ClCompile Include="OCALite\OCC\ControlDataTypes\OcaLiteStreamParameters.cpp" />
     <ClCompile Include="OCALite\OCC\ControlDataTypes\OcaLiteStringInABlob.cpp" />
     <ClCompile Include="OCALite\OCC\ControlDataTypes\OcaLiteNetworkDataTypes.cpp" />
     <ClCompile Include="OCALite\OCC\ControlDataTypes\OcaLiteBlobDataType.cpp" />
@@ -206,7 +213,6 @@
     <ClInclude Include="OCALite\OCC\ControlClasses\Agents\OcaLiteNetwork.h" />
     <ClInclude Include="OCALite\OCC\ControlClasses\Agents\OcaLiteStreamConnector.h" />
     <ClInclude Include="OCALite\OCC\ControlClasses\Agents\OcaLiteStreamNetwork.h" />
-    <ClInclude Include="OCALite\OCC\ControlClasses\Agents\OcaLiteStreamNetworkAES67.h" />
     <ClInclude Include="OCALite\OCC\ControlClasses\Managers\OcaLiteDeviceManager.h" />
     <ClInclude Include="OCALite\OCC\ControlClasses\Managers\OcaLiteFirmwareManager.h" />
     <ClInclude Include="OCALite\OCC\ControlClasses\Managers\OcaLiteManager.h" />
@@ -251,6 +257,7 @@
     <ClInclude Include="OCALite\OCC\ControlDataTypes\OcaLiteManagerDescriptor.h" />
     <ClInclude Include="OCALite\OCC\ControlDataTypes\OcaLiteMediaClockRate.h" />
     <ClInclude Include="OCALite\OCC\ControlDataTypes\OcaLiteMap.h" />
+    <ClInclude Include="OCALite\OCC\ControlDataTypes\OcaLiteMediaCoding.h" />
     <ClInclude Include="OCALite\OCC\ControlDataTypes\OcaLiteMediaConnection.h" />
     <ClInclude Include="OCALite\OCC\ControlDataTypes\OcaLiteMediaConnectorStatus.h" />
     <ClInclude Include="OCALite\OCC\ControlDataTypes\OcaLiteMediaConnectorStatusChangedEventData.h" />
@@ -266,6 +273,10 @@
     <ClInclude Include="OCALite\OCC\ControlDataTypes\OcaLiteModelGUID.h" />
     <ClInclude Include="OCALite\OCC\ControlDataTypes\OcaLiteMultiMap.h" />
     <ClInclude Include="OCALite\OCC\ControlDataTypes\OcaLiteNetworkAddress.h" />
+    <ClInclude Include="OCALite\OCC\ControlDataTypes\OcaLiteStream.h" />
+    <ClInclude Include="OCALite\OCC\ControlDataTypes\OcaLiteStreamConnectorID.h" />
+    <ClInclude Include="OCALite\OCC\ControlDataTypes\OcaLiteStreamID.h" />
+    <ClInclude Include="OCALite\OCC\ControlDataTypes\OcaLiteStreamParameters.h" />
     <ClInclude Include="OCALite\OCC\ControlDataTypes\OcaLiteStringInABlob.h" />
     <ClInclude Include="OCALite\OCC\ControlDataTypes\OcaLiteNetworkDataTypes.h" />
     <ClInclude Include="OCALite\OCC\ControlDataTypes\OcaLiteBlobDataType.h" />

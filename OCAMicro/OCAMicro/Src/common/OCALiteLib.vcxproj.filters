@@ -462,6 +462,27 @@
     <ClCompile Include="OCALite\OCC\ControlDataTypes\OcaLiteMediaConnectorStatusChangedEventData.cpp">
       <Filter>Header Files\OCALite\OCC\ControlDataTypes</Filter>
     </ClCompile>
+    <ClCompile Include="OCALite\OCC\ControlClasses\Agents\OcaLiteStreamConnector.cpp">
+      <Filter>Source Files\OCALite\OCC\ControlClasses\Agents</Filter>
+    </ClCompile>
+    <ClCompile Include="OCALite\OCC\ControlClasses\Agents\OcaLiteStreamNetwork.cpp">
+      <Filter>Source Files\OCALite\OCC\ControlClasses\Agents</Filter>
+    </ClCompile>
+    <ClCompile Include="OCALite\OCC\ControlDataTypes\OcaLiteMediaStreamParametersAes67.cpp">
+      <Filter>Source Files\OCALite\OCC\ControlDataTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="OCALite\OCC\ControlDataTypes\OcaLiteStream.cpp">
+      <Filter>Source Files\OCALite\OCC\ControlDataTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="OCALite\OCC\ControlDataTypes\OcaLiteStreamConnectorID.cpp">
+      <Filter>Source Files\OCALite\OCC\ControlDataTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="OCALite\OCC\ControlDataTypes\OcaLiteStreamID.cpp">
+      <Filter>Source Files\OCALite\OCC\ControlDataTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="OCALite\OCC\ControlDataTypes\OcaLiteStreamParameters.cpp">
+      <Filter>Source Files\OCALite\OCC\ControlDataTypes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SharedLibraries\utf8\source\utf8\checked.h">
@@ -749,9 +770,6 @@
     <ClInclude Include="OCALite\OCC\ControlDataTypes\OcaLiteMap.h">
       <Filter>Header Files\OCALite\OCC\ControlDataTypes</Filter>
     </ClInclude>
-    <ClInclude Include="OCALite\OCC\ControlClasses\Agents\OcaLiteStreamNetworkAES67.h">
-      <Filter>Header Files\OCALite\OCC\ControlClasses\Agents</Filter>
-    </ClInclude>
     <ClInclude Include="OCALite\OCC\ControlClasses\Agents\OcaLiteStreamConnector.h">
       <Filter>Header Files\OCALite\OCC\ControlClasses\Agents</Filter>
     </ClInclude>
@@ -813,6 +831,21 @@
       <Filter>Header Files\OCALite\OCC\ControlDataTypes</Filter>
     </ClInclude>
     <ClInclude Include="OCALite\OCC\ControlDataTypes\OcaLiteMediaStreamParametersAes67.h">
+      <Filter>Header Files\OCALite\OCC\ControlDataTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="OCALite\OCC\ControlDataTypes\OcaLiteStreamParameters.h">
+      <Filter>Header Files\OCALite\OCC\ControlDataTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="OCALite\OCC\ControlDataTypes\OcaLiteStreamConnectorID.h">
+      <Filter>Header Files\OCALite\OCC\ControlDataTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="OCALite\OCC\ControlDataTypes\OcaLiteStreamID.h">
+      <Filter>Header Files\OCALite\OCC\ControlDataTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="OCALite\OCC\ControlDataTypes\OcaLiteStream.h">
+      <Filter>Header Files\OCALite\OCC\ControlDataTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="OCALite\OCC\ControlDataTypes\OcaLiteMediaCoding.h">
       <Filter>Header Files\OCALite\OCC\ControlDataTypes</Filter>
     </ClInclude>
   </ItemGroup>

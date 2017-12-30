@@ -113,10 +113,8 @@
     <ClInclude Include="DanteLiteHostInterface.h" />
     <ClInclude Include="OcaLiteDanteLvlSensor.h" />
     <ClInclude Include="OcaLiteDanteMediaClock.h" />
-    <ClInclude Include="OcaLiteNetworkSignalChannel.h" />
     <ClInclude Include="OcaLiteNetworkSignalChannelDante.h" />
     <ClInclude Include="OcaLiteStreamNetworkDante.h" />
-    <ClInclude Include="OcaLiteStreamNetwork.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

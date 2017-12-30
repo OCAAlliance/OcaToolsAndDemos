@@ -98,7 +98,6 @@ SRCS  = OcfLiteHostInterface.cpp \
 		OcaLiteMediaTransportNetworkAES67.cpp \
 		OcaLiteAES67NetworkAddress.cpp \
 		OcaLiteApplicationNetworkDataTypes.cpp \
-		OcaLiteNetworkSignalChannel.cpp \
 		OcaLiteEventData.cpp \
 		OcaLiteEventID.cpp \
 		OcaLiteEventSubscriptionDataTypes.cpp \
