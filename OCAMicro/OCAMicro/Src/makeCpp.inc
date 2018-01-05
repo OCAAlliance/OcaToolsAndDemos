@@ -70,21 +70,40 @@ ifneq ($(PLATFORM),)
     INTDIR := $(OUTDIR)/$(OBJINT)/$(NAME)
 
     # Tools
-    SD := gcc -M
-    SE := sed
-    RM := rm -f
-    MD := mkdir -p
-    RN := mv _PATH__OLDNAME_ _NEWNAME_
-    RD := rm -rf
-    RC :=
+    ifeq ($(OS),Windows_NT)
+        SD := gcc -M
+        SE := sed
+        RM := erase /F
+        MD := mkdir
+        RN := ren _PATH__OLDNAME_ _NEWNAME_
+        RD := rd /s/q
+        RC :=
+    else
+        SD := gcc -M
+        SE := sed
+        RM := rm -f
+        MD := mkdir -p
+        RN := mv _PATH__OLDNAME_ _NEWNAME_
+        RD := rm -rf
+        RC :=
+    endif
 
     # Commands
-    IFEXIST    := if [ -e "_FILE_" ]; then _COMMAND_; fi
-    IFNOTEXIST := if [ ! -e "_FILE_" ]; then _COMMAND_; fi
+    ifeq ($(OS),Windows_NT)
+        IFEXIST    := if exist _FILE_ _COMMAND_
+        IFNOTEXIST := if not exist _FILE_ _COMMAND_
+    else
+        IFEXIST    := if [ -e "_FILE_" ]; then _COMMAND_; fi
+        IFNOTEXIST := if [ ! -e "_FILE_" ]; then _COMMAND_; fi
+    endif
 
     # Other OS dependent variables
     # Work around to make sure only a single backslash is set
-    PATH_SEP := $(subst \\,/,/)
+    ifeq ($(OS),Windows_NT)
+        PATH_SEP := $(subst \\,\,\\)
+    else
+        PATH_SEP := $(subst \\,/,/)
+    endif
 
     ifeq ($(PLATFORM),stm32App)
 
@@ -119,7 +138,11 @@ ifneq ($(PLATFORM),)
                    -D"NDEBUG" -DTARGET_STM32 \
                    $(foreach USRDEF,$(USRDEFS),-D"$(USRDEF)") \
                    $(foreach USRUNDEF,$(USRUNDEFS),-U"$(USRUNDEF)")
-        CCFLAGS = $(SDFLAGS) -mcpu=cortex-m3 -mthumb -o $(INTDIR)/$@
+        ifeq ($(OS),Windows_NT)
+            CCFLAGS = $(SDFLAGS) -mcpu=cortex-m3 -mthumb -o $(INTDIR)\$@
+        else
+            CCFLAGS = $(SDFLAGS) -mcpu=cortex-m3 -mthumb -o $(INTDIR)/$@
+        endif
         CXXFLAGS := -std=gnu++0x
         ifeq ($(TYPE),DLL)
           LD := arm-none-eabi-g++
@@ -140,8 +163,13 @@ ifneq ($(PLATFORM),)
         ifeq ($(TYPE),LIB)
           LD := arm-none-eabi-ar
           OUT_EXT := $(LIB_EXT)
-          ASFLAGS = -g -x assembler-with-cpp -c -mcpu=cortex-m3 -mthumb $(foreach USRDEF,$(USRDEFS),-D"$(USRDEF)") \
+          ifeq ($(OS),Windows_NT)
+              ASFLAGS = -g -x assembler-with-cpp -c -mcpu=cortex-m3 -mthumb $(foreach USRDEF,$(USRDEFS),-D"$(USRDEF)") \
+					 $(foreach USRUNDEF,$(USRUNDEFS),-U"$(USRUNDEF)") -o $(INTDIR)\$@
+          else
+              ASFLAGS = -g -x assembler-with-cpp -c -mcpu=cortex-m3 -mthumb $(foreach USRDEF,$(USRDEFS),-D"$(USRDEF)") \
 					 $(foreach USRUNDEF,$(USRUNDEFS),-U"$(USRUNDEF)") -o $(INTDIR)/$@
+          endif
           LDFLAGS = crus $@
         endif
       endif
@@ -175,7 +203,11 @@ ifneq ($(PLATFORM),)
                    -D"NDEBUG" -DTARGET_STM32 \
                    $(foreach USRDEF,$(USRDEFS),-D"$(USRDEF)") \
                    $(foreach USRUNDEF,$(USRUNDEFS),-U"$(USRUNDEF)")
-        CCFLAGS = $(SDFLAGS) -mcpu=cortex-m3 -mthumb -o $(INTDIR)/$@
+        ifeq ($(OS),Windows_NT)
+            CCFLAGS = $(SDFLAGS) -mcpu=cortex-m3 -mthumb -o $(INTDIR)\$@
+        else
+            CCFLAGS = $(SDFLAGS) -mcpu=cortex-m3 -mthumb -o $(INTDIR)/$@
+        endif
         CXXFLAGS := -std=gnu++0x
         ifeq ($(TYPE),DLL)
           LD := arm-none-eabi-g++
@@ -196,8 +228,13 @@ ifneq ($(PLATFORM),)
         ifeq ($(TYPE),LIB)
           LD := arm-none-eabi-ar
           OUT_EXT := $(LIB_EXT)
+          ifeq ($(OS),Windows_NT)
           ASFLAGS = -g -x assembler-with-cpp -c -mcpu=cortex-m3 -mthumb $(foreach USRDEF,$(USRDEFS),-D"$(USRDEF)") \
+					 $(foreach USRUNDEF,$(USRUNDEFS),-U"$(USRUNDEF)") -o $(INTDIR)\$@
+          else
+              ASFLAGS = -g -x assembler-with-cpp -c -mcpu=cortex-m3 -mthumb $(foreach USRDEF,$(USRDEFS),-D"$(USRDEF)") \
 					 $(foreach USRUNDEF,$(USRUNDEFS),-U"$(USRUNDEF)") -o $(INTDIR)/$@
+          endif
           LDFLAGS = crus $@
         endif
       endif
