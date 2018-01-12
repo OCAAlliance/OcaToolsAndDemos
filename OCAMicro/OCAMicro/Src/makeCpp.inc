@@ -229,7 +229,7 @@ ifneq ($(PLATFORM),)
           LD := arm-none-eabi-ar
           OUT_EXT := $(LIB_EXT)
           ifeq ($(OS),Windows_NT)
-          ASFLAGS = -g -x assembler-with-cpp -c -mcpu=cortex-m3 -mthumb $(foreach USRDEF,$(USRDEFS),-D"$(USRDEF)") \
+              ASFLAGS = -g -x assembler-with-cpp -c -mcpu=cortex-m3 -mthumb $(foreach USRDEF,$(USRDEFS),-D"$(USRDEF)") \
 					 $(foreach USRUNDEF,$(USRUNDEFS),-U"$(USRUNDEF)") -o $(INTDIR)\$@
           else
               ASFLAGS = -g -x assembler-with-cpp -c -mcpu=cortex-m3 -mthumb $(foreach USRDEF,$(USRDEFS),-D"$(USRDEF)") \

@@ -207,7 +207,7 @@ bool AES67LiteHostInterfaceGetRxStream(UINT16 streamId, bool& multicast, UINT8& 
 bool AES67LiteHostInterfaceStopRxStream(UINT16 streamId, UINT16 channelCount, UINT16* channels);
 
 /**
- * Setup a sink stream. On input the parameters hold the requested values, values can be modified if something is not available from hardware.
+ * Setup a sink (network receive) stream. On input the parameters hold the requested values, values can be modified if something is not available from hardware.
  *
  * @param[in]     multicast             True iff multicast.
  * @param[in]     encoding              The number of bits in the encoding
@@ -235,6 +235,35 @@ bool AES67LiteHostInterfaceSetupRxStream(bool multicast, UINT8 encoding, UINT32 
                                          UINT16& sdpVersion, std::string& userName, UINT64& sessionID, UINT64& sessionVersion, std::string& originAddress, 
                                          std::string& sessionName, std::string& destinationAddress, UINT16& destinationPort, UINT8& timeToLive, const std::string& mediaLabel, 
                                          UINT64& packetTime, UINT32& offset);
+
+/**
+ * Setup a source (network transmit) stream. On input the parameters hold the requested values, values can be modified if something is not available from hardware.
+ *
+ * @param[in]     multicast             True iff multicast.
+ * @param[in]     encoding              The number of bits in the encoding
+ * @param[in]     sampleRate            The sample rate
+ * @param[in]     nrStreamSlots         The number of slots in the stream
+ * @param[in/out] nrChannels            The number of channels in the channels array.
+ * @param[in/out] channels              The channels, with <number of channels> channels[<number of channels>],<number of channels> channels[<number of channels>],etc.
+ * @param[out]    streamId              The none-zero hardware identifier.
+ * @param[in/out] sdpVersion            The sdp version
+ * @param[in/out] userName              The user name
+ * @param[in/out] sessionID             The session ID.
+ * @param[in/out] sessionVersion        The session version
+ * @param[in/out] originAddress         The origin address of the sream
+ * @param[in/out] sessionName           The session name
+ * @param[in/out] destinationAddress    The destination address of the stream
+ * @param[in/out] destinationPort       The destination port
+ * @param[in/out] timeToLive            The time to live
+ * @param[in/out] mediaLabel            The media label
+ * @param[in/out] packetTime            The packet time.
+ * @param[in/out] offset                The offset.
+ *
+ * @retun The result.
+ */
+bool AES67LiteHostInterfaceSetupTxStream(bool multicast, UINT8 encoding, UINT32 sampleRate, UINT16& nrChannels, UINT16* channels, UINT16& streamId, UINT16& sdpVersion, 
+                                         std::string& userName, UINT64& sessionID, UINT64& sessionVersion, std::string& originAddress, std::string& sessionName, 
+                                         std::string& destinationAddress, UINT16& destinationPort, UINT8& timeToLive, std::string& mediaLabel, UINT64& packetTime, UINT32& offset);
 
 /**
  * Modify the rx stream.

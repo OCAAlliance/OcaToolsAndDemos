@@ -876,7 +876,7 @@ const ::OcaLiteClassID& OcaLiteMediaTransportNetworkAes67::GetClassID() const
                     UINT64 packetTime(static_cast<UINT64>(static_cast<FLOAT>(parameters->GetPacketTime()) * OCA_TIME_INTERVAL_MICRO_SECOND_FACTOR));
                     UINT32 offset(static_cast<UINT32>(parameters->GetOffset()));
 
-                    if (/*AES67LiteHostInterfaceSetupSourceStream(connector.GetConnection().GetStreamCastMode() == OCAMEDIASTREAMCASTMODE_MULTICAST,
+                    if (AES67LiteHostInterfaceSetupTxStream(connector.GetConnection().GetStreamCastMode() == OCAMEDIASTREAMCASTMODE_MULTICAST,
                                                     encoding,
                                                     sampleRate,
                                                     nrChannels,
@@ -893,7 +893,7 @@ const ::OcaLiteClassID& OcaLiteMediaTransportNetworkAes67::GetClassID() const
                                                     timeToLive,
                                                     mediaLabel,
                                                     packetTime,
-                                                    offset)*/false)
+                                                    offset))
                     {
                         // Update the connection with the returned values
                         ::OcaLiteMediaStreamParametersAes67 newParameters(static_cast< ::OcaUint16>(sdpVersion),

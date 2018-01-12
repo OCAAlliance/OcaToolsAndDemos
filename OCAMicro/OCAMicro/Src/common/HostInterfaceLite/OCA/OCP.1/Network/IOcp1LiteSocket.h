@@ -20,7 +20,6 @@
 
 /**
  * Generic error value for a IOcp1LiteSocket error.
- * @ingroup OCP1HostInterface
  */
 #define ISOCKET_ERROR        -1
 

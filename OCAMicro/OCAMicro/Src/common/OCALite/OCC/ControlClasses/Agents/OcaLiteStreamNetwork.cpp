@@ -384,7 +384,7 @@ void OcaLiteStreamNetwork::Teardown()
             bResult = true;
 
             ::OcaLitePropertyID propertyID(CLASS_ID.GetFieldCount(), static_cast< ::OcaUint16>(OCA_PROP_STREAM_CONNECTORS_SOURCE));
-            ::OcaLitePropertyChangedEventData< ::OcaLiteList< ::OcaONo> > eventData(GetObjectNumber(),
+            ::OcaLitePropertyChangedEventData< ::OcaLiteList< ::OcaONo>> eventData(GetObjectNumber(),
                                                                                    propertyID,
                                                                                    m_connectorsSource,
                                                                                    OCAPROPERTYCHANGETYPE_ITEM_ADDED);
@@ -396,7 +396,7 @@ void OcaLiteStreamNetwork::Teardown()
             bResult = true;
 
             ::OcaLitePropertyID propertyID(CLASS_ID.GetFieldCount(), static_cast< ::OcaUint16>(OCA_PROP_STREAM_CONNECTORS_SINK));
-            ::OcaLitePropertyChangedEventData< ::OcaLiteList< ::OcaONo> > eventData(GetObjectNumber(),
+            ::OcaLitePropertyChangedEventData< ::OcaLiteList< ::OcaONo>> eventData(GetObjectNumber(),
                                                                                    propertyID,
                                                                                    m_connectorsSink,
                                                                                    OCAPROPERTYCHANGETYPE_ITEM_ADDED);
@@ -418,10 +418,10 @@ void OcaLiteStreamNetwork::Teardown()
             bResult = true;
 
             ::OcaLitePropertyID propertyID(CLASS_ID.GetFieldCount(), static_cast< ::OcaUint16>(OCA_PROP_STREAM_CONNECTORS_SOURCE));
-            ::OcaLitePropertyChangedEventData< ::OcaLiteList< ::OcaONo> > eventData(GetObjectNumber(),
-                                                                                    propertyID,
-                                                                                    m_connectorsSource,
-                                                                                    OCAPROPERTYCHANGETYPE_ITEM_ADDED);
+            ::OcaLitePropertyChangedEventData< ::OcaLiteList< ::OcaONo>> eventData(GetObjectNumber(),
+                propertyID,
+                m_connectorsSource,
+                OCAPROPERTYCHANGETYPE_ITEM_ADDED);
             PropertyChanged(eventData);
         }
         else if (sourceOrSink == OCANETWORKMEDIASOURCEORSINK_SINK)
@@ -430,10 +430,10 @@ void OcaLiteStreamNetwork::Teardown()
             bResult = true;
 
             ::OcaLitePropertyID propertyID(CLASS_ID.GetFieldCount(), static_cast< ::OcaUint16>(OCA_PROP_STREAM_CONNECTORS_SINK));
-            ::OcaLitePropertyChangedEventData< ::OcaLiteList< ::OcaONo> > eventData(GetObjectNumber(),
-                                                                                    propertyID,
-                                                                                    m_connectorsSink,
-                                                                                    OCAPROPERTYCHANGETYPE_ITEM_ADDED);
+            ::OcaLitePropertyChangedEventData< ::OcaLiteList< ::OcaONo>> eventData(GetObjectNumber(),
+                propertyID,
+                m_connectorsSink,
+                OCAPROPERTYCHANGETYPE_ITEM_ADDED);
             PropertyChanged(eventData);
         }
     }

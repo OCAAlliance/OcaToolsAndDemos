@@ -19,48 +19,39 @@
 // ---- Helper types and constants ----
 /**
  * No logging.
- * @ingroup OCFHostInterface
  */
 #define OCA_LOG_LVL_NONE    0
 /**
  * Level of software errors log messages.
- * @ingroup OCFHostInterface
  */
 #define OCA_LOG_LVL_ERROR   10
 /**
  * Level of warning log messages.
- * @ingroup OCFHostInterface
  */
 #define OCA_LOG_LVL_WARNING 20
 /**
  * Level of info log messages.
- * @ingroup OCFHostInterface
  */
 #define OCA_LOG_LVL_INFO    30
 /**
  * Level of trace log messages.
- * @ingroup OCFHostInterface
  */
 #define OCA_LOG_LVL_TRACE   40
 
 /**
  * The identification string of an error message.
- * @ingroup OCFHostInterface
  */
 #define OCA_ERROR_MESSAGE_HEADER    "Error:"
 /**
  * The identification string of a warning message.
- * @ingroup OCFHostInterface
  */
 #define OCA_WARNING_MESSAGE_HEADER  "Warning:"
 /**
  * The identification string of a info message.
- * @ingroup OCFHostInterface
  */
 #define OCA_INFO_MESSAGE_HEADER     "Info:"
 /**
  * The identification string of a trace message.
- * @ingroup OCFHostInterface
  */
 #define OCA_TRACE_MESSAGE_HEADER    "Trace:"
 
@@ -87,6 +78,5 @@ void OcfLiteLogLogMessage(UINT8 logLevel, const char* type, const char* file, UI
  * @param[in]  logLevel  The log level of the logger
  */
 void OcfLiteLogSetLogLevel(UINT8 logLevel);
-
 
 #endif // IOCFLITELOG_H

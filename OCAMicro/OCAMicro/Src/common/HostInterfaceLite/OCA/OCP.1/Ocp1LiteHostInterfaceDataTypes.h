@@ -19,7 +19,6 @@
 /**
  * Enumeration of Host Interface network protocol types.
  */
- //lint -strong(AJX, SocketNetworkProtocolType)
 enum SocketNetworkProtocolType
 {
     /** IP Version 4 */
@@ -31,7 +30,6 @@ enum SocketNetworkProtocolType
 /**
  * Enumeration of Host Interface socket protocol types.
  */
-//lint -strong(AJX, SocketTransportProtocolType)
 enum SocketTransportProtocolType
 {
     /** TCP protocol. */

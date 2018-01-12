@@ -23,9 +23,7 @@
 /**
  * The IP Parameter types. The way the device
  * gathered it's IP configuration
- * @ingroup OCP1HostInterface
  */
-//lint -strong(AJX, IPParametersType)
 enum IPParametersType
 {
     /**

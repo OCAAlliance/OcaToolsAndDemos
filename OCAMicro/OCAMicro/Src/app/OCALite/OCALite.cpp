@@ -29,6 +29,13 @@ extern int Ocp1LiteServiceGetSocket();
 
 int main(int argc, const char* argv[])
 {
+    UINT16 connectionPort = 65000;
+    if (argc > 1)
+    {
+        sscanf(argv[1], "%d", &connectionPort);
+    }
+    printf("Using connection port %d", connectionPort);
+
     // Initialize the host interfaces
     bool bSuccess = ::OcfLiteHostInterfaceInitialize();
     bSuccess = bSuccess && ::Ocp1LiteHostInterfaceInitialize();
@@ -49,7 +56,7 @@ int main(int argc, const char* argv[])
         ::OcaLiteString nodeId = ::OcaLiteString("OCALite@" + OcfLiteConfigureGetDeviceName());
         ::Ocp1LiteNetwork* ocp1Network = new ::Ocp1LiteNetwork(static_cast< ::OcaONo>(9000), static_cast< ::OcaBoolean>(true), 
                                                                ::OcaLiteString("Ocp1LiteNetwork"), ::Ocp1LiteNetworkNodeID(nodeId),
-                                                               interfaceId, txtRecords, ::OcaLiteString("local"), OcaInt16(65000U));
+                                                               interfaceId, txtRecords, ::OcaLiteString("local"), (OcaUint16)connectionPort);
         if (ocp1Network->Initialize())
         {
             if (::OcaLiteBlock::GetRootBlock().AddObject(*ocp1Network))

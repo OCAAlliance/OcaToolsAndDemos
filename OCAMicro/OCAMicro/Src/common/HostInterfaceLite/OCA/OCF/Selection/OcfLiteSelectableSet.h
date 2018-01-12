@@ -27,7 +27,6 @@
   #define FD_SETSIZE    10
   #define FD_SET(n, p)  ((p)->fd_bits[(n)/8] |=  (1 << ((n) & 7)))
   #define FD_CLR(n, p)  ((p)->fd_bits[(n)/8] &= ~(1 << ((n) & 7)))
-  //lint -emacro( 666, FD_ISSET )
   #define FD_ISSET(n,p) ((p)->fd_bits[(n)/8] &   (1 << ((n) & 7)))
   #define FD_ZERO(p)    memset((void*)(p),0,sizeof(*(p)))
 

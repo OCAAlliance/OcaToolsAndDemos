@@ -103,14 +103,14 @@ bool OcfLiteConfigureSetModelDescription(std::string& manufacturer, std::string&
 /**
  * Sets the Serial Number string of the device.
  *
- * @param[in] serial			The serial string.
+ * @param[in] serial            The serial string.
  */
 bool OcfLiteConfigureSetSerialNumber(std::string& serial);
 
 /**
  * Sets the Device name string.
  *
- * @param[in] name				The device name.
+ * @param[in] name                The device name.
  */
 bool OcfLiteConfigureSetDeviceName(std::string& name);
 
