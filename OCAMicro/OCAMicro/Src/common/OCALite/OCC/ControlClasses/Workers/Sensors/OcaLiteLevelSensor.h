@@ -96,8 +96,6 @@ protected:
     /**
      * Gets the value of the reading property. Must be implemented by derived classes
      * that actually implement the OcaLiteLevelSensor.
-     * @note This method does not take the object's mutex itself.
-     *       The mutex should be taken before this method is called.
      *
      * @param[out] reading      The value of the reading property
      * @return Indicates whether the operation succeeded.
@@ -106,8 +104,6 @@ protected:
 
     /**
      * Event that is emitted when the reading has changed.
-     * @note This method takes the object's mutex itself.
-     *       The mutex should not be taken before this method is called.
      *
      * @param[in]   reading     The value of the reading property
      */

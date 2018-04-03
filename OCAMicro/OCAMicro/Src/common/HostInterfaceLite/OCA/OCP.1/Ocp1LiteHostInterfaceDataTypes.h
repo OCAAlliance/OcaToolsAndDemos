@@ -12,11 +12,6 @@
 // ---- Include system wide include files ----
 
 /**
- * @addtogroup OCP1HostInterface
- * @{
- */
-
-/**
  * Enumeration of Host Interface network protocol types.
  */
 enum SocketNetworkProtocolType
@@ -37,7 +32,5 @@ enum SocketTransportProtocolType
     /** UDP protocol. */
     PROTOCOL_UDP     = 17
 };
-
-/** @} */ // end addtogroup Ocp1HostInterface
 
 #endif /* OCP1LITEHOSTINTERFACEDATATYPES_H */

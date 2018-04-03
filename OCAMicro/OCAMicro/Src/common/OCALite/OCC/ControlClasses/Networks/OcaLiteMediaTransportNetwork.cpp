@@ -74,7 +74,13 @@ struct connector_internal_id : public unary_function<ConnectorType, bool>
 
 OcaLiteMediaTransportNetwork::OcaLiteMediaTransportNetwork(::OcaONo objectNumber,
                                                            ::OcaBoolean lockable,
-                                                           const ::OcaLiteString& role)
+                                                           const ::OcaLiteString& role,
+                                                           ::OcaDBfs defaultAlignmentLevel,
+                                                           ::OcaDBfs minAlignmentLevel,
+                                                           ::OcaDBfs maxAlignmentLevel,
+                                                           ::OcaDB defaultAlignmentGain,
+                                                           ::OcaDB minAlignmentGain,
+                                                           ::OcaDB maxAlignmentGain)
     : ::OcaLiteApplicationNetwork(objectNumber, lockable, role),
       m_ocaPorts(),
       m_sourceConnectors(),
@@ -82,7 +88,13 @@ OcaLiteMediaTransportNetwork::OcaLiteMediaTransportNetwork(::OcaONo objectNumber
       m_connectorsStatuses(),
       m_pSourceConnectorChangedEventDelegate(NULL),
       m_pSinkConnectorChangedEventDelegate(NULL),
-      m_pConnectorStatusChangedEventDelegate(NULL)
+      m_pConnectorStatusChangedEventDelegate(NULL),
+      m_defaultAlignmentLevel(defaultAlignmentLevel),
+      m_minAlignmentLevel(minAlignmentLevel),
+      m_maxAlignmentLevel(maxAlignmentLevel),
+      m_defaultAlignmentGain(defaultAlignmentGain),
+      m_minAlignmentGain(minAlignmentGain),
+      m_maxAlignmentGain(maxAlignmentGain)
 {
     ::OcaLiteNetworkManager& networkManager(::OcaLiteNetworkManager::GetInstance());
     static_cast<void>(networkManager.AddMediaTransportNetwork(*this));
@@ -235,7 +247,7 @@ OcaLiteMediaTransportNetwork::~OcaLiteMediaTransportNetwork()
             if ((EMPTY_ID_INTERNAL != connector.GetIDInternal()) &&
                 !ConnectorsContainID(connector.GetIDInternal()))
             {
-                // Find the reserved connector again, since the mutex may have been released and/or the list may have changed
+                // Find the reserved connector again
                 emptySlot = std::find_if(m_sourceConnectors.begin(), m_sourceConnectors.end(), connector_internal_id<InternalMediaSourceConnector>(EMPTY_ID_INTERNAL));
                 if (m_sourceConnectors.end() != emptySlot)
                 {
@@ -318,7 +330,7 @@ OcaLiteMediaTransportNetwork::~OcaLiteMediaTransportNetwork()
             if ((EMPTY_ID_INTERNAL != connector.GetIDInternal()) &&
                 !ConnectorsContainID(connector.GetIDInternal()))
             {
-                // Find the reserved connector again, since the mutex may have been released and/or the list may have changed
+                // Find the reserved connector again
                 emptySlot = std::find_if(m_sinkConnectors.begin(), m_sinkConnectors.end(), connector_internal_id<InternalMediaSinkConnector>(EMPTY_ID_INTERNAL));
                 if (m_sinkConnectors.end() != emptySlot)
                 {
@@ -393,7 +405,7 @@ OcaLiteMediaTransportNetwork::~OcaLiteMediaTransportNetwork()
             {
                 if (oldConnector != connector)
                 {
-                    // Find the connector again, since the mutex may have been released and/or the list may have changed
+                    // Find the connector again
                     connectorIt = std::find_if(m_sourceConnectors.begin(), m_sourceConnectors.end(), connector_internal_id<InternalMediaSourceConnector>(connectorID));
                     if (m_sourceConnectors.end() != connectorIt)
                     {
@@ -453,7 +465,7 @@ OcaLiteMediaTransportNetwork::~OcaLiteMediaTransportNetwork()
                 {
                     if (oldConnector != connector)
                     {
-                        // Find the connector again, since the mutex may have been released and/or the list may have changed
+                        // Find the connector again
                         connectorIt = std::find_if(m_sinkConnectors.begin(), m_sinkConnectors.end(), connector_internal_id<InternalMediaSinkConnector>(connectorID));
                         if (m_sinkConnectors.end() != connectorIt)
                         {
@@ -499,7 +511,7 @@ OcaLiteMediaTransportNetwork::~OcaLiteMediaTransportNetwork()
         rc = DeleteSourceConnectorValue(connector);
         if (OCASTATUS_OK == rc)
         {
-            // Find the connector again, since the mutex may have been released and/or the list may have changed
+            // Find the connector again
             sourceIt = std::find_if(m_sourceConnectors.begin(), m_sourceConnectors.end(), connector_internal_id<InternalMediaSourceConnector>(connectorID));
             if (m_sourceConnectors.end() != sourceIt)
             {
@@ -518,7 +530,7 @@ OcaLiteMediaTransportNetwork::~OcaLiteMediaTransportNetwork()
             rc = DeleteSinkConnectorValue(connector);
             if (OCASTATUS_OK == rc)
             {
-                // Find the connector again, since the mutex may have been released and/or the list may have changed
+                // Find the connector again
                 sinkIt = std::find_if(m_sinkConnectors.begin(), m_sinkConnectors.end(), connector_internal_id<InternalMediaSinkConnector>(connectorID));
                 if (m_sinkConnectors.end() != sinkIt)
                 {
@@ -548,6 +560,28 @@ OcaLiteMediaTransportNetwork::~OcaLiteMediaTransportNetwork()
     }
 
     return rc;
+}
+
+::OcaLiteStatus OcaLiteMediaTransportNetwork::GetAlignmentLevel(::OcaDBfs& level,
+                                                                ::OcaDBfs& minLevel,
+                                                                ::OcaDBfs& maxLevel) const
+{
+    level = m_defaultAlignmentLevel;
+    minLevel = m_minAlignmentLevel;
+    maxLevel = m_maxAlignmentLevel;
+
+    return OCASTATUS_OK;
+}
+
+::OcaLiteStatus OcaLiteMediaTransportNetwork::GetAlignmentGain(::OcaDB& gain,
+                                                               ::OcaDB& minGain,
+                                                               ::OcaDB& maxGain) const
+{
+    gain = m_defaultAlignmentGain;
+    minGain = m_minAlignmentGain;
+    maxGain = m_maxAlignmentGain;
+
+    return OCASTATUS_OK;
 }
 
 ::OcaLiteStatus OcaLiteMediaTransportNetwork::Execute(const ::IOcaLiteReader& reader, const ::IOcaLiteWriter& writer, ::OcaSessionID sessionID, const ::OcaLiteMethodID& methodID,
@@ -1122,9 +1156,83 @@ OcaLiteMediaTransportNetwork::~OcaLiteMediaTransportNetwork()
                     }
                 }
                 break;
+            case GET_ALIGNMENT_LEVEL:
+                {
+                    ::OcaUint8 numberOfParameters(0);
+                    if (reader.Read(bytesLeft, &pCmdParameters, numberOfParameters) &&
+                        (0 == numberOfParameters))
+                    {
+                        ::OcaDBfs alignmentLevel;
+                        ::OcaDBfs minAlignmentLevel;
+                        ::OcaDBfs maxAlignmentLevel;
+                        rc = GetAlignmentLevel(alignmentLevel, minAlignmentLevel, maxAlignmentLevel);
+                        if (OCASTATUS_OK == rc)
+                        {
+                            ::OcaUint32 responseSize(::GetSizeValue< ::OcaUint8>(static_cast< ::OcaUint8>(3), writer) +
+                                                     ::GetSizeValue< ::OcaDBfs>(alignmentLevel, writer) +
+                                                     ::GetSizeValue< ::OcaDBfs>(minAlignmentLevel, writer) +
+                                                     ::GetSizeValue< ::OcaDBfs>(maxAlignmentLevel, writer));
+                            responseBuffer = ::OcaLiteCommandHandler::GetInstance().GetResponseBuffer(responseSize);
+
+                            if (NULL != responseBuffer)
+                            {
+                                ::OcaUint8* pResponse(responseBuffer);
+                                writer.Write(static_cast< ::OcaUint8>(3/*NrParameters*/), &pResponse);
+                                ::MarshalValue< ::OcaDB>(alignmentLevel, &pResponse, writer);
+                                ::MarshalValue< ::OcaDB>(minAlignmentLevel, &pResponse, writer);
+                                ::MarshalValue< ::OcaDB>(maxAlignmentLevel, &pResponse, writer);
+
+                                *response = responseBuffer;
+                            }
+                            else
+                            {
+                                rc = OCASTATUS_BUFFER_OVERFLOW;
+                            }
+                        }
+                    }
+                }
+                break;
+            case GET_ALIGNMENT_GAIN:
+                {
+                    ::OcaUint8 numberOfParameters(0);
+                    if (reader.Read(bytesLeft, &pCmdParameters, numberOfParameters) &&
+                        (0 == numberOfParameters))
+                    {
+                        ::OcaDB alignmentGain;
+                        ::OcaDB minAlignmentGain;
+                        ::OcaDB maxAlignmentGain;
+                        rc = GetAlignmentGain(alignmentGain, minAlignmentGain, maxAlignmentGain);
+                        if (OCASTATUS_OK == rc)
+                        {
+                            ::OcaUint32 responseSize(::GetSizeValue< ::OcaUint8>(static_cast< ::OcaUint8>(3), writer) +
+                                                     ::GetSizeValue< ::OcaDB>(alignmentGain, writer) +
+                                                     ::GetSizeValue< ::OcaDB>(minAlignmentGain, writer) +
+                                                     ::GetSizeValue< ::OcaDB>(maxAlignmentGain, writer));
+                            responseBuffer = ::OcaLiteCommandHandler::GetInstance().GetResponseBuffer(responseSize);
+
+                            if (NULL != responseBuffer)
+                            {
+                                ::OcaUint8* pResponse(responseBuffer);
+                                writer.Write(static_cast< ::OcaUint8>(3/*NrParameters*/), &pResponse);
+                                ::MarshalValue< ::OcaDBfs>(alignmentGain, &pResponse, writer);
+                                ::MarshalValue< ::OcaDBfs>(minAlignmentGain, &pResponse, writer);
+                                ::MarshalValue< ::OcaDBfs>(maxAlignmentGain, &pResponse, writer);
+
+                                *response = responseBuffer;
+                            }
+                            else
+                            {
+                                rc = OCASTATUS_BUFFER_OVERFLOW;
+                            }
+                        }
+                    }
+                }
+                break;
             case SET_PORT_NAME:
             case SET_CONNECTOR_CONNECTION:
             case SET_CONNECTOR_CODING:
+            case SET_CONNECTOR_ALIGNMENT_LEVEL:
+            case SET_CONNECTOR_ALIGNMENT_GAIN:
             case CONTROL_CONNECTOR:
                 rc = OCASTATUS_NOT_IMPLEMENTED;
                 break;

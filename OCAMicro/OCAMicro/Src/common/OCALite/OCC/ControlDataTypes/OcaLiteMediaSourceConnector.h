@@ -19,6 +19,7 @@
 #include "OcaLiteMap.h"
 #include "OcaLiteMediaCoding.h"
 #include "OcaLitePortID.h"
+#include "OcaLiteWorkerDataTypes.h"
 
 // ---- Referenced classes and types ----
 
@@ -47,10 +48,11 @@ public:
      * @param[in] coding         Specification of coding used by this connector.
      * @param[in] pinCount       Number of pins in this connector.
      * @param[in] channelPinMap  Map of stream pins (source channels) to OCA ports (input ports) of the owning OcaMediaNetwork object. This defines what source channels are sent to the network. A pin is identified by an OcaUint16 with value 1..MaxPinCount. Not having a certain pin identifier in this map means that the pin is empty (i.e. not carrying a source channel).
+     * @param[in] alignmentLevel The alignment level.
      */
     OcaLiteMediaSourceConnector(::OcaLiteMediaConnectorID IDInternal, ::OcaLiteString IDExternal, ::OcaLiteMediaConnection connection,
                                 ::OcaLiteMediaCoding coding, ::OcaUint16 pinCount, 
-                                ::OcaLiteMap< ::OcaUint16, ::OcaLitePortID> channelPinMap);
+                                ::OcaLiteMap< ::OcaUint16, ::OcaLitePortID> channelPinMap, ::OcaDBfs alignmentLevel);
 
     /**
      * Copy constructor.
@@ -74,7 +76,11 @@ public:
         return m_IDInternal;
     }
 
-
+    /**
+     * Set the internal ID.
+     *
+     * @param[in] idInternal    The internal ID.
+     */
     void SetIDInternal(::OcaLiteMediaConnectorID idInternal)
     {
         m_IDInternal = idInternal;
@@ -89,7 +95,12 @@ public:
     {
         return m_IDExternal;
     }
-
+    
+    /**
+     * Set the public name of the connector.
+     *
+     * @param[in] idExternal    The public name of the connector.
+     */
     void SetIDExternal(const ::OcaLiteString& idExternal)
     {
         m_IDExternal = idExternal;
@@ -105,6 +116,11 @@ public:
         return m_connection;
     }
 
+    /**
+     * Set the description of the stream connection.
+     *
+     * @param[in] connection    The stream connection.
+     */
     void SetConnection(const ::OcaLiteMediaConnection& connection)
     {
         m_connection = connection;
@@ -120,6 +136,11 @@ public:
         return m_coding;
     }
 
+    /** 
+     * Set the coding.
+     *
+     * @param[in] coding    The coding used by this connector.
+     */
     void SetCoding(const ::OcaLiteMediaCoding& coding)
     {
         m_coding = coding;
@@ -135,6 +156,11 @@ public:
         return m_pinCount;
     }
 
+    /**
+     * Set the pin count for this connector.
+     *
+     * @param[in] pinCount  The pin count.
+     */
     void SetPinCount(::OcaUint16 pinCount)
     {
         m_pinCount = pinCount;
@@ -150,6 +176,11 @@ public:
         return m_channelPinMap;
     }
 
+    /**
+     * Set the channel pin map.
+     *
+     * @param[in] channelPinMap The channel pin map
+     */
     void SetChannelPinMap(const ::OcaLiteMap< ::OcaUint16, ::OcaLitePortID>& channelPinMap)
     {
         m_channelPinMap = channelPinMap;
@@ -201,5 +232,7 @@ protected:
     ::OcaUint16                                 m_pinCount;
     /** The channel pin map */
     ::OcaLiteMap< ::OcaUint16, ::OcaLitePortID> m_channelPinMap;
+    /** The alignment level */
+    ::OcaDBfs                                   m_alignmentLevel;
 };
 #endif //OCALITEMEDIASOURCECONNECTOR_H

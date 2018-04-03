@@ -17,11 +17,6 @@
 extern "C" {
 #endif
 
-/**
- * @addtogroup ReducedCAPDevice
- * @{
- */
-
 /* ---- Definitions ---- */
 
 /* ---- Type declaration ---- */
@@ -54,8 +49,6 @@ void PrintIpAddress(char *buffer, const UINT8 numbers[]);
  * @param[in] numbers    The mac address numbers.
  */
 void PrintMacAsSerialNumber(char *buffer, const UINT8 numbers[]);
-
-/** @} */ /* end addtogroup ReducedCAPDevice */
 
 #ifdef __cplusplus
 }

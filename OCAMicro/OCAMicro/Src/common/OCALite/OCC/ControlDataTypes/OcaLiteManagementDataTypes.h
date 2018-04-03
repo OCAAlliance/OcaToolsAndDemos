@@ -20,11 +20,6 @@
 // ---- Helper types and constants ----
 
 /**
- * @addtogroup ManagementDataTypes
- * @{
- */
-
-/**
  * Enumeration of software and firmware components in the device. Except for the
  * boot loader, all other values of this enumeration are device-specific and will
  * be specified by subclassing this enumeration.
@@ -34,8 +29,6 @@ enum OcaLiteComponent /* maps onto OcaUint16 */
     /** The boot loader image. */
     OCACOMPONENT_BOOT_LOADER            = 0
 };
-
-/** @} */ /* end of adding to group OCA */
 
 // ---- Helper functions ----
 

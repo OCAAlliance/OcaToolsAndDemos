@@ -241,30 +241,6 @@ public:
     virtual void RemoveEventSubscription(const ::OcaLiteEventID& eventID);
 
 protected:
-    /** Defines the possible executions contexts. */
-    enum ExecContext
-    {
-        /** Execution is allowed. */
-        EXEC_OK,
-        /** Execution not possible due to lock. */
-        EXEC_LOCKED,
-        /** Execution should be done on a higher level. */
-        EXEC_HIGHER_LEVEL,
-        /** Execution not possible due to error. */
-        EXEC_ERROR
-    };
-
-    /** Defines the possible class contexts. */
-    enum ClassContext
-    {
-        /** Correct class context. is allowed. */
-        CLASS_CONTEXT_OK,
-        /** Part of higher class context. */
-        CLASS_CONTEXT_HIGHER_LEVEL,
-        /** Class context error. */
-        CLASS_CONTEXT_ERROR
-    };
-
     /**
      * Constructor
      *
@@ -320,7 +296,7 @@ private:
      * Read-only text property that describes object's role in the device. Particularly useful for workers,
      * e.g. "Input 1 Gain".
      */
-    ::OcaLiteString                             m_role;
+    ::OcaLiteString                         m_role;
 
     /** The session ID of the lockholder. */
     ::OcaSessionID                          m_lockHolder;

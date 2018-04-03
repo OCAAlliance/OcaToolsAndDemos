@@ -126,13 +126,6 @@ public:
      */
     bool operator!=(const ::OcaLiteMediaClockRate& rhs) const;
 
-    /**
-     * Returns a string that represents the current object.
-     *
-     * @return A string that represents the current object.
-     */
-    virtual ::OcaLiteString ToString() const;
-
     // ---- IOcaMarshal methods ----
 
     virtual void Marshal(::OcaUint8** destination, const ::IOcaLiteWriter& writer) const;

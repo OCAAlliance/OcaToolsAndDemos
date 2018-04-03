@@ -27,20 +27,22 @@ OcaLiteMediaSourceConnector::OcaLiteMediaSourceConnector()
     m_connection(), 
     m_coding(),
     m_pinCount(static_cast< ::OcaUint16>(0)),
-    m_channelPinMap()
+    m_channelPinMap(),
+    m_alignmentLevel()
 {
 }
 
 OcaLiteMediaSourceConnector::OcaLiteMediaSourceConnector(::OcaLiteMediaConnectorID IDInternal, ::OcaLiteString IDExternal, ::OcaLiteMediaConnection connection,
                                                          ::OcaLiteMediaCoding coding, ::OcaUint16 pinCount,
-                                                         ::OcaLiteMap< ::OcaUint16, ::OcaLitePortID> channelPinMap)
+                                                         ::OcaLiteMap< ::OcaUint16, ::OcaLitePortID> channelPinMap, OcaDBfs alignmentLevel)
     : ::IOcaLiteMarshal(),
     m_IDInternal(IDInternal),
     m_IDExternal(IDExternal),
     m_connection(connection),
     m_coding(coding),
     m_pinCount(pinCount),
-    m_channelPinMap(channelPinMap)
+    m_channelPinMap(channelPinMap),
+    m_alignmentLevel(alignmentLevel)
 {
 }
 
@@ -51,7 +53,8 @@ OcaLiteMediaSourceConnector::OcaLiteMediaSourceConnector(const ::OcaLiteMediaSou
     m_connection(source.m_connection),
     m_coding(source.m_coding),
     m_pinCount(source.m_pinCount),
-    m_channelPinMap(source.m_channelPinMap)
+    m_channelPinMap(source.m_channelPinMap),
+    m_alignmentLevel(source.m_alignmentLevel)
 {
 }
 
@@ -69,6 +72,7 @@ OcaLiteMediaSourceConnector::~OcaLiteMediaSourceConnector()
         m_coding = source.m_coding;
         m_pinCount = source.m_pinCount;
         m_channelPinMap = source.m_channelPinMap;
+        m_alignmentLevel = source.m_alignmentLevel;
     }
 
     return *this;
@@ -82,6 +86,7 @@ bool OcaLiteMediaSourceConnector::operator==(const ::OcaLiteMediaSourceConnector
     bResult = bResult && (m_coding == rhs.m_coding);
     bResult = bResult && (m_pinCount == rhs.m_pinCount);
     bResult = bResult && (m_channelPinMap == rhs.m_channelPinMap);
+    bResult = bResult && ::CompareValue< ::OcaDBfs>(m_alignmentLevel, rhs.m_alignmentLevel);
     return bResult;
 }
 
@@ -98,6 +103,7 @@ void OcaLiteMediaSourceConnector::Marshal(::OcaUint8** destination, const ::IOca
     m_coding.Marshal(destination, writer);
     writer.Write(m_pinCount, destination);
     m_channelPinMap.Marshal(destination, writer);
+    writer.Write(m_alignmentLevel, destination);
 }
 
 bool OcaLiteMediaSourceConnector::Unmarshal(::OcaUint32& bytesLeft, const ::OcaUint8** source, const ::IOcaLiteReader& reader)
@@ -106,9 +112,9 @@ bool OcaLiteMediaSourceConnector::Unmarshal(::OcaUint32& bytesLeft, const ::OcaU
     result = result && m_IDExternal.Unmarshal(bytesLeft, source, reader);
     result = result && m_connection.Unmarshal(bytesLeft, source, reader);
     result = result && m_coding.Unmarshal(bytesLeft, source, reader);
-    result = reader.Read(bytesLeft, source, m_pinCount);
+    result = result && reader.Read(bytesLeft, source, m_pinCount);
     result = result && m_channelPinMap.Unmarshal(bytesLeft, source, reader);
-
+    result = result && reader.Read(bytesLeft, source, m_alignmentLevel);
     if (!result)
     {
         (*this) = ::OcaLiteMediaSourceConnector();
@@ -125,5 +131,6 @@ bool OcaLiteMediaSourceConnector::Unmarshal(::OcaUint32& bytesLeft, const ::OcaU
     length += m_coding.GetSize(writer);
     length += writer.GetSize(m_pinCount);
     length += m_channelPinMap.GetSize(writer);
+    length += writer.GetSize(m_alignmentLevel);
     return length;
 }

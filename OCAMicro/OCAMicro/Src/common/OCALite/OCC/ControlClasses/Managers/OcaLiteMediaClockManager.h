@@ -15,6 +15,7 @@
 
 // ---- Referenced classes and types ----
 #include <OCC/ControlClasses/Agents/OcaLiteMediaClock.h>
+#include <OCC/ControlClasses/Agents/OcaLiteMediaClock3.h>
 #include <OCC/ControlDataTypes/OcaLiteList.h>
 #include <OCC/ControlDataTypes/OcaLiteMethodID.h>
 #include <OCC/ControlDataTypes/OcaLitePropertyChangedEventData.h>
@@ -44,8 +45,10 @@ public:
     {
         /** GetClocks() */
         GET_CLOCKS                          = 1,
-        /** Get_MediaClockTypesSupported() */
+        /** GetMediaClockTypesSupported() */
         GET_MEDIACLOCKTYPESSUPPORTED        = 2,
+        /** GetClock3s() */
+        GET_CLOCK3S                         = 3
     };
 
     /** Property indexes for the supported properties. */
@@ -55,7 +58,12 @@ public:
         OCA_PROP_CLOCK_SOURCE_TYPES_SUPPORTED  = 1,
         /** Object numbers of OcaLiteMediaClock objects,
             one for each clock which this device uses and/or sources. */
-        OCA_PROP_CLOCKS                        = 2
+        OCA_PROP_CLOCKS                        = 2,
+        /**
+         * Object numbers of OcaMediaClock3 objects,
+         * one for each clock which this device uses and/or sources.
+         */
+        OCA_PROP_CLOCK3S                       = 3
     };
 
     /**
@@ -96,6 +104,14 @@ public:
      */
     ::OcaLiteStatus GetClocks(::OcaLiteList< ::OcaONo>& clocks) const;
 
+    /**
+    * Gets the list of object numbers of OcaLiteMediaClock3 instances in this device.
+    *
+    * @param[out] clocks  Object numbers of the OcaLiteMediaClock3 instances.
+    * @return Indicates whether the operation succeeded.
+    */
+    ::OcaLiteStatus GetClock3s(::OcaLiteList< ::OcaONo>& clocks) const;
+
     virtual ::OcaLiteStatus Execute(const ::IOcaLiteReader& reader, const ::IOcaLiteWriter& writer, ::OcaSessionID sessionID, const ::OcaLiteMethodID& methodID,
                                     ::OcaUint32 parametersSize, const ::OcaUint8* parameters, ::OcaUint8** response);
 
@@ -117,6 +133,24 @@ public:
      */
     void RemoveMediaClock(const ::OcaLiteMediaClock& clock);
 
+    /**
+     * Add a media clock3 to the list of media clocks.
+     * Only for internal use.
+     *
+     * @param[in] clock     The media clock to add.
+     * @return Indicates whether the media clock object number was added successfully; false if adding
+     *         the media clock object number failed or the object number was already in use.
+     */
+    ::OcaBoolean AddMediaClock3(::OcaLiteMediaClock3& clock);
+
+    /**
+     * Remove a media clock3 from the list of media clocks.
+     * Only for internal use.
+     *
+     * @param[in] clock     The media clock that is removed.
+     */
+    void RemoveMediaClock3(const ::OcaLiteMediaClock3& clock);
+
 protected:
     /**
      * Constructor
@@ -137,19 +171,7 @@ protected:
 
 private:
     /**
-     * Gets the list of object numbers of OcaLiteMediaClock instances in this device.
-     * @note This method does not take the object's mutex itself.
-     *       The mutex should be taken before this method is called.
-     *
-     * @param[out] clocks  Object numbers of the OcaLiteMediaClock instances.
-     * @return Indicates whether the operation succeeded.
-     */
-    ::OcaLiteStatus InternalGetClocks(::OcaLiteList< ::OcaONo>& clocks) const;
-
-    /**
      * Notifies the supported media clock types property changed.
-     * @note This method takes the object's mutex itself.
-     *       The mutex should not be taken before this method is called.
      *
      * @param[in]   changeType          The change type to notify.
      */
@@ -161,6 +183,10 @@ private:
     /** List with media clocks. */
     typedef std::map< ::OcaONo, ::OcaLiteMediaClock*> MediaClockList;
     MediaClockList                          m_mediaClockList;
+
+    /** List with media clocks. */
+    typedef std::map< ::OcaONo, ::OcaLiteMediaClock3*> MediaClock3List;
+    MediaClock3List                         m_mediaClock3List;
 
     /** Boolean which indicates whether the current class is initialized. */
     bool                                    m_bInitialized;

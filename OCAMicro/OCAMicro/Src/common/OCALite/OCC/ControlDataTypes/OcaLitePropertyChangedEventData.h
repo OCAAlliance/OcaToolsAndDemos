@@ -31,17 +31,17 @@
 enum OcaLitePropertyChangeType  /* maps onto OcaUint8 */
 {
     /** Current value has changed. */
-    OCAPROPERTYCHANGETYPE_CURRENT_CHANGED       = 1,
+    OCAPROPERTYCHANGETYPE_CURRENT_CHANGED   = 1,
     /** Minimum value has changed. */
-    OCAPROPERTYCHANGETYPE_MIN_CHANGED           = 2,
+    OCAPROPERTYCHANGETYPE_MIN_CHANGED       = 2,
     /** Maximum value has changed. */
-    OCAPROPERTYCHANGETYPE_MAX_CHANGED           = 3,
+    OCAPROPERTYCHANGETYPE_MAX_CHANGED       = 3,
     /** An item has been added to a list or a map property. */
-    OCAPROPERTYCHANGETYPE_ITEM_ADDED            = 4,
+    OCAPROPERTYCHANGETYPE_ITEM_ADDED        = 4,
     /** An item of a list or a map property has been changed. */
-    OCAPROPERTYCHANGETYPE_ITEM_CHANGED          = 5,
+    OCAPROPERTYCHANGETYPE_ITEM_CHANGED      = 5,
     /** An item of a list or a map property has been deleted. */
-    OCAPROPERTYCHANGETYPE_ITEM_DELETED          = 6,
+    OCAPROPERTYCHANGETYPE_ITEM_DELETED      = 6,
     /** Maximum value used for range checking */
     OCAPROPERTYCHANGETYPE_MAXIMUM
 };

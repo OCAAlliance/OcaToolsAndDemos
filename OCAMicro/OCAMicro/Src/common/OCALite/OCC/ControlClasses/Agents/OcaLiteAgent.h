@@ -37,22 +37,22 @@ public:
     enum MethodIndex
     {
         /** GetLabel() */
-        GET_LABEL               = 1,
+        GET_LABEL   = 1,
         /** SetLabel() */
-        SET_LABEL               = 2,
+        SET_LABEL   = 2,
         /** GetOwner() */
-        GET_OWNER               = 3,
+        GET_OWNER   = 3,
         /** GetPath() */
-        GET_PATH                = 4
+        GET_PATH    = 4
     };
 
     /** Property indexes for the supported properties. */
     enum PropertyIndex
     {
         /** Property that identifies the label. */
-        OCA_PROP_LABEL          = 1,
+        OCA_PROP_LABEL  = 1,
         /** Read-only property that indentifies the owner. */
-        OCA_PROP_OWNER          = 2
+        OCA_PROP_OWNER  = 2
     };
 
     /**

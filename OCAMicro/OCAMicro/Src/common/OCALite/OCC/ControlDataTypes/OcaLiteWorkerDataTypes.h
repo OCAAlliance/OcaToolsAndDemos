@@ -18,11 +18,6 @@
 
 // ---- Helper types and constants ----
 
-/**
- * @addtogroup WorkerDataTypes
- * @{
- */
-
 /** A ratio expressed in dB. Typically used for gain settings. */
 typedef ::OcaFloat32    OcaDB;
 
@@ -167,8 +162,6 @@ enum OcaLiteLevelDetectionLaw    /* maps onto OcaUint8 */
 
 /** Temperature in degree Celsius. */
 typedef ::OcaFloat32    OcaTemperature;
-
-/** @} */ /* end of adding to group OCA */
 
 // ---- Specialized Template Function Definition ----
 

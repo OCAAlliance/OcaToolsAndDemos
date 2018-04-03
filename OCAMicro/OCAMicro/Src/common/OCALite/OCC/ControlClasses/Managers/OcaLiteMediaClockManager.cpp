@@ -91,7 +91,42 @@ void OcaLiteMediaClockManager::FreeInstance()
 
 ::OcaLiteStatus OcaLiteMediaClockManager::GetClocks(::OcaLiteList< ::OcaONo>& clocks) const
 {
-    return InternalGetClocks(clocks);
+    ::OcaLiteStatus rc(OCASTATUS_DEVICE_ERROR);
+
+    if (m_bInitialized)
+    {
+        clocks.Clear();
+        MediaClockList::const_iterator iter(m_mediaClockList.begin());
+        while (m_mediaClockList.end() != iter)
+        {
+            clocks.Add(iter->first);
+            ++iter;
+        }
+
+        rc = OCASTATUS_OK;
+    }
+
+    return rc;
+}
+
+::OcaLiteStatus OcaLiteMediaClockManager::GetClock3s(::OcaLiteList< ::OcaONo>& clocks) const
+{
+    ::OcaLiteStatus rc(OCASTATUS_DEVICE_ERROR);
+
+    if (m_bInitialized)
+    {
+        clocks.Clear();
+        MediaClock3List::const_iterator iter(m_mediaClock3List.begin());
+        while (m_mediaClock3List.end() != iter)
+        {
+            clocks.Add(iter->first);
+            ++iter;
+        }
+
+        rc = OCASTATUS_OK;
+    }
+
+    return rc;
 }
 
 ::OcaLiteStatus OcaLiteMediaClockManager::Execute(const ::IOcaLiteReader& reader, const ::IOcaLiteWriter& writer, ::OcaSessionID sessionID, const ::OcaLiteMethodID& methodID,
@@ -140,6 +175,34 @@ void OcaLiteMediaClockManager::FreeInstance()
             case GET_MEDIACLOCKTYPESSUPPORTED:
                 rc = OCASTATUS_NOT_IMPLEMENTED;
                 break;
+            case GET_CLOCK3S:
+                {
+                    ::OcaUint8 numberOfParameters(0);
+                    if (reader.Read(bytesLeft, &pCmdParameters, numberOfParameters) &&
+                        (0 == numberOfParameters))
+                    {
+                        ::OcaLiteList< ::OcaONo> clockList;
+                        rc = GetClock3s(clockList);
+                        if (OCASTATUS_OK == rc)
+                        {
+                            ::OcaUint32 responseSize(::GetSizeValue< ::OcaUint8>(static_cast< ::OcaUint8>(1), writer) + clockList.GetSize(writer));
+                            responseBuffer = ::OcaLiteCommandHandler::GetInstance().GetResponseBuffer(responseSize);
+                            if (NULL != responseBuffer)
+                            {
+                                ::OcaUint8* pResponse(responseBuffer);
+                                writer.Write(static_cast< ::OcaUint8>(1/*NrParameters*/), &pResponse);
+                                clockList.Marshal(&pResponse, writer);
+
+                                *response = responseBuffer;
+                            }
+                            else
+                            {
+                                rc = OCASTATUS_BUFFER_OVERFLOW;
+                            }
+                        }
+                    }
+                }
+            break;
             default:
                 rc = OCASTATUS_BAD_METHOD;
                 break;
@@ -185,7 +248,7 @@ void OcaLiteMediaClockManager::FreeInstance()
         if (OCASTATUS_OK == rc)
         {
             ::OcaLiteList< ::OcaONo> clockList;
-            rc = InternalGetClocks(clockList);
+            rc = GetClocks(clockList);
             if (OCASTATUS_OK == rc)
             {
                 ::OcaLitePropertyID propertyId(CLASS_ID.GetFieldCount(), static_cast< ::OcaUint16>(OCA_PROP_CLOCKS));
@@ -231,7 +294,7 @@ void OcaLiteMediaClockManager::RemoveMediaClock(const OcaLiteMediaClock& clock)
         }
 
         ::OcaLiteList< ::OcaONo> clockList;
-        if (OCASTATUS_OK == InternalGetClocks(clockList))
+        if (OCASTATUS_OK == GetClocks(clockList))
         {
             ::OcaLitePropertyID propertyId(CLASS_ID.GetFieldCount(), static_cast< ::OcaUint16>(OCA_PROP_CLOCKS));
             ::OcaLitePropertyChangedEventData< ::OcaLiteList< ::OcaONo> > eventDataState(OBJECT_NUMBER,
@@ -252,24 +315,59 @@ void OcaLiteMediaClockManager::RemoveMediaClock(const OcaLiteMediaClock& clock)
     }
 }
 
-::OcaLiteStatus OcaLiteMediaClockManager::InternalGetClocks(::OcaLiteList< ::OcaONo>& clocks) const
+::OcaBoolean OcaLiteMediaClockManager::AddMediaClock3(OcaLiteMediaClock3& clock)
 {
-    ::OcaLiteStatus rc(OCASTATUS_DEVICE_ERROR);
+    ::OcaBoolean result(static_cast< ::OcaBoolean>(false));
 
-    if (m_bInitialized)
+    if (m_mediaClock3List.end() == m_mediaClock3List.find(clock.GetObjectNumber()))
     {
-        clocks.Clear();
-        MediaClockList::const_iterator iter(m_mediaClockList.begin());
-        while (m_mediaClockList.end() != iter)
-        {
-            clocks.Add(iter->first);
-            ++iter;
-        }
+        static_cast<void>(m_mediaClock3List.insert(MediaClock3List::value_type(clock.GetObjectNumber(), &clock)));
 
-        rc = OCASTATUS_OK;
+        ::OcaLiteList< ::OcaONo> clockList;
+        ::OcaLiteStatus rc(GetClock3s(clockList));
+
+        if (OCASTATUS_OK == rc)
+        {
+            ::OcaLitePropertyID propertyId(CLASS_ID.GetFieldCount(), static_cast< ::OcaUint16>(OCA_PROP_CLOCK3S));
+            ::OcaLitePropertyChangedEventData< ::OcaLiteList< ::OcaONo> > eventDataState(OBJECT_NUMBER,
+                                                                                         propertyId,
+                                                                                         clockList,
+                                                                                         OCAPROPERTYCHANGETYPE_ITEM_ADDED);
+            PropertyChanged(eventDataState);
+
+            result = static_cast< ::OcaBoolean>(true);
+        }
+        else
+        {
+            OCA_LOG_WARNING("Failed to retrieve clock list");
+        }
     }
 
-    return rc;
+    return result;
+}
+
+void OcaLiteMediaClockManager::RemoveMediaClock3(const OcaLiteMediaClock3& clock)
+{
+    MediaClock3List::iterator iter(m_mediaClock3List.find(clock.GetObjectNumber()));
+    if (m_mediaClock3List.end() != iter)
+    {
+        static_cast<void>(m_mediaClock3List.erase(iter));
+
+        ::OcaLiteList< ::OcaONo> clockList;
+        if (OCASTATUS_OK == GetClock3s(clockList))
+        {
+            ::OcaLitePropertyID propertyId(CLASS_ID.GetFieldCount(), static_cast< ::OcaUint16>(OCA_PROP_CLOCK3S));
+            ::OcaLitePropertyChangedEventData< ::OcaLiteList< ::OcaONo> > eventDataState(OBJECT_NUMBER,
+                                                                                         propertyId,
+                                                                                         clockList,
+                                                                                         OCAPROPERTYCHANGETYPE_ITEM_DELETED);
+            PropertyChanged(eventDataState);
+        }
+        else
+        {
+            OCA_LOG_WARNING("Failed to retrieve clock list");
+        }
+    }
 }
 
 void OcaLiteMediaClockManager::NotifySupportedClockTypesChanged(::OcaLitePropertyChangeType changeType)

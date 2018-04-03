@@ -6,6 +6,7 @@
  */
 
 // ---- Include system wide include files ----
+#define _CRT_SECURE_NO_WARNINGS
 #include <HostInterfaceLite/OCA/OCF/OcfLiteHostInterface.h>
 
 // ---- FileInfo Macro ----

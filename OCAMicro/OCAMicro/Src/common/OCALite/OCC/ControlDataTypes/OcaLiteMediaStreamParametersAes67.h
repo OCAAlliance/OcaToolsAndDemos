@@ -53,6 +53,7 @@ public:
      * @param[in] packetTime            The packet time.
      * @param[in] offset                The offset.
      * @param[in] linkOffset            The link offset.
+     * @param[in] payloadType           The payload type.
      */
     OcaLiteMediaStreamParametersAes67(::OcaUint16 sdpVersion,
                                       const ::OcaLiteString& userName,
@@ -65,7 +66,8 @@ public:
                                       const ::OcaLiteString& mediaLabel,
                                       ::OcaTimeInterval packetTime,
                                       ::OcaUint32 offset,
-                                      ::OcaTimeInterval linkOffset);
+                                      ::OcaTimeInterval linkOffset,
+                                      ::OcaUint8 payloadType);
 
 
     /**
@@ -188,6 +190,16 @@ public:
         return m_linkOffset;
     }
 
+    /**
+     * Get the payload type
+     *
+     * @return The m_payloadType property.
+     */
+    ::OcaUint8 GetPayloadType() const
+    {
+        return m_payloadType;
+    }
+
    /**
      * Copy constructor.
      *
@@ -221,17 +233,20 @@ private:
     /**
      * Unmarshal the base and fill the members
      *
-     * @param[in]  baseClass            The base class the read the values from.
-     * @param[out] encoding                Output parameter holding the encoding.
-     * @param[out] sampleRate            Output parameter holding the samplerate.
-     * @param[out] sessionVersion        Output parameter holding the session version.
-     * @param[out] sessionID            Output parameter holding the session ID.
-     * @param[out] sessionName            Output parameter holding the session name.
-     * @param[out] nrslots                Output parameter holding the nr slots.
-     * @param[out] originAddress        Output parameter holding the origin address.
-     * @param[out] destinationAddress    Output parameter holding the destination address.
-     * @param[out] timeToLive            Output parameter holding the time to live.
-     * @param[out] mediaClockOffset        Output parameter holding the media clock offset.
+     * @param[in]  baseClass                The base class the read the values from.
+     * @param[out] sdpVersion               Output parameter holding the sdp version.
+     * @param[out] userName                 Output parameter holding the user name.
+     * @param[out] sessionID                Output parameter holding the session identifier.
+     * @param[out] sessionVersion           Output parameter holding the session version.
+     * @param[out] originAddress            Output parameter holding the origin address.
+     * @param[out] sessionName              Output parameter holding the session name.
+     * @param[out] destinationAddress       Output parameter holding the destination address.
+     * @param[out] timeToLive               Output parameter holding the time to live.
+     * @param[out] mediaLabel               Output parameter holding the media label.
+     * @param[out] packetTime               Output parameter holding the packet time.
+     * @param[out] offset                   Output parameter holding the offset.
+     * @param[out] linkOffset               Output parameter holding the link offset.
+     * @param[out] payloadType              Output parameter holding the payload type.
      *
      * @return True if succeeded, false if not. 
      */
@@ -247,7 +262,8 @@ private:
                                   ::OcaLiteString& mediaLabel,
                                   ::OcaTimeInterval& packetTime,
                                   ::OcaUint32& offset,
-                                  ::OcaTimeInterval& linkOffset);
+                                  ::OcaTimeInterval& linkOffset,
+                                  ::OcaUint8& payloadType);
 
     /** Update the base blob with the private members */
     void UpdateBlob();
@@ -275,6 +291,8 @@ private:
     ::OcaUint32 m_offset;
     /** Link offset */
     ::OcaTimeInterval m_linkOffset;
+    /** The payload type */
+    ::OcaUint8 m_payloadType;
 };
 
 #endif //OCALITEMEDIASTREAMPARAMETERSAES67_H

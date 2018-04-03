@@ -113,6 +113,19 @@ INT32 Ocp1LiteSocketSendTo(INT32 socket, const void* buffer, INT32 length, const
  * @param[in]   socket  The socket (previously retreived via Ocp1LiteHostInterfaceRetrieveSocket)
  * @param[out]  buffer  Pointer to the receive buffer.
  * @param[in]   length  The length of the receive buffer (in number of bytes).
+ * @param[out]  fromIp  The IP address from which the datagram was received
+ * @param[out]  recvFromPort  The IP port from which the datagram was send on the remote side.
+ * @return Indicates the number of bytes that were received. A return
+ *         value of ISOCKET_ERROR indicates an error occurred when trying to receive.
+ */
+INT32 Ocp1LiteSocketReceiveFrom(INT32 socket, void* buffer, INT32 length, std::string& fromIp, UINT16& recvFromPort);
+
+/**
+ * Receives data from a bound socket into a receive buffer.
+ *
+ * @param[in]   socket  The socket (previously retreived via Ocp1LiteHostInterfaceRetrieveSocket)
+ * @param[out]  buffer  Pointer to the receive buffer.
+ * @param[in]   length  The length of the receive buffer (in number of bytes).
  * @return Indicates the number of bytes that were received. A return
  *         value of ISOCKET_ERROR indicates an error occurred when trying to receive.
  *         A return value of 0 indicates the remote host has performed an

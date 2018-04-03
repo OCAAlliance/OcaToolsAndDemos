@@ -9,6 +9,7 @@
 #define OCALITEMULTIMAP_H
 
 // ---- Include system wide include files ----
+#include <algorithm>
 #include <limits>
 #include <assert.h>
 #include <OCF/IOcaLiteReader.h>

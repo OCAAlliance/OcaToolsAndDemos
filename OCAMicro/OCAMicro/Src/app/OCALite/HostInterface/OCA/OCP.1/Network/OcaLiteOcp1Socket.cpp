@@ -170,9 +170,56 @@ INT32 Ocp1LiteSocketSend(INT32 socket, const void* buffer, INT32 length)
 
 INT32 Ocp1LiteSocketSendTo(INT32 socket, const void* buffer, INT32 length, const std::string& hostOrIp, UINT16 port)
 {
-    assert(false);
+    assert(socket != SOCKET_ERROR);
+    struct sockaddr_in sockAddr;
 
-    return 0;
+    int socketAddressSize = sizeof(sockAddr);
+
+    struct addrinfo hints;
+    struct addrinfo* pAddressList = NULL;
+    INT32 error;
+
+    memset(&sockAddr, 0, sizeof(sockAddr));
+    sockAddr.sin_family = AF_INET;
+    sockAddr.sin_port = htons(port);
+
+    memset(&hints, 0, sizeof(hints));
+
+    hints.ai_family = AF_INET;
+
+    /* Get Address Info */
+    error = getaddrinfo(hostOrIp.c_str(), NULL, &hints, &pAddressList);
+    if (-1 != error)
+    {
+        struct sockaddr_in* resolvedAddress = (struct sockaddr_in*)pAddressList->ai_addr;
+        sockAddr.sin_addr = resolvedAddress->sin_addr;
+
+        error = sendto(socket, (char*)buffer, (int)length, 0, (struct sockaddr*)&sockAddr, socketAddressSize);
+    }
+
+    if (NULL != pAddressList)
+    {
+        freeaddrinfo(pAddressList);
+    }
+    return error;
+}
+
+INT32 Ocp1LiteSocketReceiveFrom(INT32 socket, void* buffer, INT32 length, std::string& fromIp, UINT16& recvFromPort)
+{
+    SOCKADDR_INET remoteSocketAddress;
+    PSOCKADDR pSocketAddress = PSOCKADDR(&remoteSocketAddress.Ipv4);
+    INT32 socketAddressSize = sizeof(remoteSocketAddress.Ipv4);
+    int result = recvfrom(socket, static_cast<char*>(buffer), length, 0, pSocketAddress, &socketAddressSize);
+
+    recvFromPort = ntohs(remoteSocketAddress.Ipv4.sin_port);
+    char address[25] = { 0 };
+    sprintf(address, "%d.%d.%d.%d",
+        (remoteSocketAddress.Ipv4.sin_addr.S_un.S_addr >> 0) & 0xFF,
+        (remoteSocketAddress.Ipv4.sin_addr.S_un.S_addr >> 8) & 0xFF,
+        (remoteSocketAddress.Ipv4.sin_addr.S_un.S_addr >> 16) & 0xFF,
+        (remoteSocketAddress.Ipv4.sin_addr.S_un.S_addr >> 24) & 0xFF);
+    static_cast<void>(fromIp.assign(address));
+    return result;
 }
 
 INT32 Ocp1LiteSocketReceive(INT32 socket, void* buffer, INT32 length)

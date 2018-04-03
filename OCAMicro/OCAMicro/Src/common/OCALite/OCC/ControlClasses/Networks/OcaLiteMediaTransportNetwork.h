@@ -86,8 +86,16 @@ public:
         SET_CONNECTOR_CONNECTION        = 20,
         /** SetConnectorCoding() */
         SET_CONNECTOR_CODING            = 21,
+        /** SetConnectorAlignmentLevel() */
+        SET_CONNECTOR_ALIGNMENT_LEVEL   = 22,
+        /** SetConnectorAlignmentGain() */
+        SET_CONNECTOR_ALIGNMENT_GAIN    = 23,
         /** DeleteConnector() */
-        DELETE_CONNECTOR                = 22
+        DELETE_CONNECTOR                = 24,
+        /** GetAlignmentLevel() */
+        GET_ALIGNMENT_LEVEL             = 25,
+        /** GetAlignmentGain() */
+        GET_ALIGNMENT_GAIN              = 26
     };
 
     /** Property indexes for the supported properties. */
@@ -305,6 +313,30 @@ public:
      */
     ::OcaLiteStatus DeleteConnector(::OcaLiteMediaConnectorID connectorID);
 
+    /**
+     * Gets the default, min, and max alignment levels for OcaMedia{Source|Sink}Connectors attached to this network.
+     *
+     * @param[out]  level               The default alignment level.
+     * @param[out]  minLevel            The minimum alignment level.
+     * @param[out]  maxLevel            The maximum alignment level.
+     * @return Indicates the success of the operation.
+     */
+    ::OcaLiteStatus GetAlignmentLevel(::OcaDBfs& level,
+                                      ::OcaDBfs& minLevel,
+                                      ::OcaDBfs& maxLevel) const;
+
+    /**
+     * Gets the default, min, and max alignment gains for OcaMediaSinkConnectors attached to this network.
+     *
+     * @param[out]  gain                The default alignment gain.
+     * @param[out]  minGain             The minimum alignment gain.
+     * @param[out]  maxGain             The maximum alignment gain.
+     * @return Indicates the success of the operation.
+     */
+    ::OcaLiteStatus GetAlignmentGain(::OcaDB& gain,
+                                     ::OcaDB& minGain,
+                                     ::OcaDB& maxGain) const;
+
     virtual ::OcaLiteStatus Execute(const ::IOcaLiteReader& reader, const ::IOcaLiteWriter& writer, ::OcaSessionID sessionID, const ::OcaLiteMethodID& methodID,
                                     ::OcaUint32 parametersSize, const ::OcaUint8* parameters, ::OcaUint8** response);
 
@@ -331,13 +363,27 @@ protected:
     /**
      * Constructor
      *
-     * @param[in]   objectNumber        Object number of this instance.
-     * @param[in]   lockable            Indicates whether or not the object
-     *                                  is lockable.
-     * @param[in]   role                Read-only text property that describes object's role
-     *                                  in the device. Particularly useful for workers, e.g. "Input 1 Gain".
+     * @param[in]   objectNumber            Object number of this instance.
+     * @param[in]   lockable                Indicates whether or not the object
+     *                                      is lockable.
+     * @param[in]   role                    Read-only text property that describes object's role
+     *                                      in the device. Particularly useful for workers, e.g. "Input 1 Gain".
+     * @param[in]   defaultAlignmentLevel   The default alignment level.
+     * @param[in]   minAlignmentLevel       The minimum alignment level.
+     * @param[in]   maxAlignmentLevel       The maximum alignment level.
+     * @param[in]   defaultAlignmentGain    The default alignment gain.
+     * @param[in]   minAlignmentGain        The minimum alignment gain.
+     * @param[in]   maxAlignmentGain        The maximum alignment gain.
      */
-    OcaLiteMediaTransportNetwork(::OcaONo objectNumber, ::OcaBoolean lockable, const ::OcaLiteString& role);
+    OcaLiteMediaTransportNetwork(::OcaONo objectNumber,
+                                 ::OcaBoolean lockable,
+                                 const ::OcaLiteString& role,
+                                 ::OcaDBfs defaultAlignmentLevel,
+                                 ::OcaDBfs minAlignmentLevel,
+                                 ::OcaDBfs maxAlignmentLevel,
+                                 ::OcaDB defaultAlignmentGain,
+                                 ::OcaDB minAlignmentGain,
+                                 ::OcaDB maxAlignmentGain);
 
     virtual const ::OcaLiteClassID& GetClassID() const
     {
@@ -378,8 +424,6 @@ protected:
 
     /**
      * Retrieves the OcaLiteMediaSourceConnector with the given internal ID.
-     * @note This method does not take the object's mutex itself.
-     *       The mutex should be taken before this method is called.
      *
      * @param[in]   id                  The internal ID to search for.
      * @param[out]  connector           The found source connector.
@@ -389,8 +433,6 @@ protected:
 
     /**
      * Retrieves the OcaLiteMediaSinkConnector with the given internal ID.
-     * @note This method does not take the object's mutex itself.
-     *       The mutex should be taken before this method is called.
      *
      * @param[in]   id                  The internal ID to search for.
      * @param[out]  connector           The found sink connector.
@@ -400,8 +442,6 @@ protected:
 
     /**
      * Gets the OcaLitePorts
-     * @note This method does not take the object's mutex itself.
-     *       The mutex should be taken before this method is called.
      *
      * @param[out]  ports       Output parameter that holds the value of
      *                          the OcaLitePorts
@@ -411,8 +451,6 @@ protected:
 
     /**
      * Gets the port with the given ID.
-     * @note This method does not take the object's mutex itself.
-     *       The mutex should be taken before this method is called.
      *
      * @param[in]   id      ID of the port to retrieve.
      * @returns The port with the given ID, NULL if the port is not found.
@@ -421,8 +459,6 @@ protected:
 
     /**
      * Adds an input or output port
-     * @note This method does not take the object's mutex itself.
-     *       The mutex should be taken before this method is called.
      *
      * @param[in]  label        Label of the port
      * @param[in]  portMode     The mode of the port
@@ -433,8 +469,6 @@ protected:
 
     /**
      * Deletes a port
-     * @note This method does not take the object's mutex itself.
-     *       The mutex should be taken before this method is called.
      *
      * @param[in]  id           Id of the port
      * @return Indicates whether the operation succeeded.
@@ -443,8 +477,6 @@ protected:
 
     /**
      * Adds a source connector and a new status to the administration and raises the associated events.
-     * @note This method does not take the object's mutex itself.
-     *       The mutex should be taken before this method is called.
      *
      * @param[in]   initialState    The initial state of the connector.
      * @param[in]   connector       The connector to add. The ID internal will be set to the assigned
@@ -456,8 +488,6 @@ protected:
 
     /**
      * Adds a sink connector and a new status to the administration and raises the associated events.
-     * @note This method does not take the object's mutex itself.
-     *       The mutex should be taken before this method is called.
      *
      * @param[in]   initialState    The initial status of the connector.
      * @param[in]   connector       The connector to add. The ID internal will be set to the assigned
@@ -469,8 +499,6 @@ protected:
 
     /**
      * Saves an updated source connector to the administration and raises the associated events.
-     * @note This method does not take the object's mutex itself.
-     *       The mutex should be taken before this method is called.
      *
      * @param[in]   connector       The connector to update.
      * @param[in]   changedElement  The changed element for the property change event.
@@ -481,8 +509,6 @@ protected:
 
     /**
      * Saves an updated sink connector to the administration and raises the associated events.
-     * @note This method does not take the object's mutex itself.
-     *       The mutex should be taken before this method is called.
      *
      * @param[in]   connector       The connector to update.
      * @param[in]   changedElement  The changed element for the property change event.
@@ -493,8 +519,6 @@ protected:
 
     /**
      * Deletes a connector from the administration and raises the associated events.
-     * @note This method does not take the object's mutex itself.
-     *       The mutex should be taken before this method is called.
      *
      * @param[in]   id      The identification of the connector to delete.
      * @return Indicates whether the operation succeeded.
@@ -503,12 +527,7 @@ protected:
 
     /**
      * Sets the name of a port of the media transport network object. Can be overridden
-     * by derived classes that actually implement the media transport network. As ports
-     * are mapped onto hardware by default this method will return "OK" in case port names
-     * are stored in the OCA data type and "Not Implemented" when the port names are not
-     * stored in the OCA data type (i.e. OCA_OBJECT_READONLY_PORTS is defined).
-     * @note This method should not take the object's mutex itself.
-     *       The mutex is already taken before this method is called.
+     * by derived classes that actually implement the media transport network.
      *
      * @param[in]   id          Id of the port
      * @param[in]   name        The value of port name
@@ -519,8 +538,6 @@ protected:
     /**
      * Sets the new connector status value in the network's administration and emits the appropriate
      * event if necessary.
-     * @note This method does not take the object's mutex itself.
-     *       The mutex should already be taken before this method is called.
      *
      * @param[in]       status          The new connector status.
      */
@@ -530,8 +547,6 @@ protected:
      * Adds a source connector with the given ID to this network. The new connector
      * is an output parameter. Must be implemented by derived classes
      * that actually implement this class.
-     * @note This method should not take the object's mutex itself.
-     *       The mutex is already taken before this method is called.
      *
      * @param[in]       initialState    The initial state of the connector.
      * @param[in,out]   connector       The connector to add. This connector will be updated by this method.
@@ -546,8 +561,6 @@ protected:
      * Adds a sink connector with the given ID to this network. The new connector
      * is an output parameter. Must be implemented by derived classes
      * that actually implement this class.
-     * @note This method should not take the object's mutex itself.
-     *       The mutex is already taken before this method is called.
      * @note To update the connector status in the administration, use the method UpdateConnectorStatus.
      *
      * @param[in]       initialState    The initial state of the connector.
@@ -562,8 +575,6 @@ protected:
     /**
      * Set a source connector's channel pin map.
      * Must be implemented by derived classes that actually implement this class.
-     * @note This method should not take the object's mutex itself.
-     *       The mutex is already taken before this method is called.
      *
      * @param[in]   connector           The connector to update. May be updated by this method.
      *                                  A changed value will be notified to any subscribers.
@@ -579,8 +590,6 @@ protected:
     /**
      * Set a sink connector's channel pin map.
      * Must be implemented by derived classes that actually implement this class.
-     * @note This method should not take the object's mutex itself.
-     *       The mutex is already taken before this method is called.
      *
      * @param[in]   connector           The connector to update. May be updated by this method.
      *                                  A changed value will be notified to any subscribers.
@@ -596,8 +605,6 @@ protected:
     /**
      * Deletes a source connector from this network. Closes all of its connections. Must be implemented by derived classes
      * that actually implement this class.
-     * @note This method should not take the object's mutex itself.
-     *       The mutex is already taken before this method is called.
      *
      * @param[in]   connector       The connector to delete.
      * @return Indicates whether the operation succeeded.
@@ -607,8 +614,6 @@ protected:
     /**
      * Deletes a sink connector from this network. Closes all of its connections. Must be implemented by derived classes
      * that actually implement this class.
-     * @note This method should not take the object's mutex itself.
-     *       The mutex is already taken before this method is called.
      *
      * @param[in]   connector       The connector to delete.
      * @return Indicates whether the operation succeeded.
@@ -858,8 +863,6 @@ private:
 
     /**
      * Event that is emitted when the ports have changed.
-     * @note This method does not take the object's mutex itself.
-     *       The mutex should be taken before this method is called.
      *
      * @param[in]   changeType      The change type for the property change event.
      */
@@ -867,8 +870,6 @@ private:
 
     /**
      * Event that is emitted when a source connector is added or deleted.
-     * @note This method does not take the object's mutex itself.
-     *       The mutex should be taken before this method is called.
      *
      * @param[in]   connector       The added or deleted source connector.
      * @param[in]   changeType      The change type for the property change event.
@@ -880,8 +881,6 @@ private:
 
     /**
      * Event that is emitted when a sink connector is added or deleted.
-     * @note This method does not take the object's mutex itself.
-     *       The mutex should be taken before this method is called.
      *
      * @param[in]   connector       The added or deleted sink connector.
      * @param[in]   changeType      The change type for the property change event.
@@ -893,8 +892,6 @@ private:
 
     /**
      * Event that is emitted when a connector status has changed.
-     * @note This method does not take the object's mutex itself.
-     *       The mutex should be taken before this method is called.
      *
      * @param[in]   status          The changed status.
      */
@@ -930,6 +927,24 @@ private:
     /** Pointer to class with eventhandler to call when the
         ConnectorStatusChangedEvent is generated. */
     IEventDelegate*                             m_pConnectorStatusChangedEventDelegate;
+
+    /** The default alignment level */
+    ::OcaDBfs                                   m_defaultAlignmentLevel;
+
+    /** The minimum alignment level */
+    ::OcaDBfs                                   m_minAlignmentLevel;
+    
+    /** The maximum alignment level */
+    ::OcaDBfs                                   m_maxAlignmentLevel;
+
+    /** The default alignment gain */
+    ::OcaDB                                     m_defaultAlignmentGain;
+    
+    /** The minimum alignment gain */
+    ::OcaDB                                     m_minAlignmentGain;
+
+    /** The maximum alignment gain */
+    ::OcaDB                                     m_maxAlignmentGain;
 
     /** private copy constructor, no copying of object allowed */
     OcaLiteMediaTransportNetwork(const ::OcaLiteMediaTransportNetwork&);

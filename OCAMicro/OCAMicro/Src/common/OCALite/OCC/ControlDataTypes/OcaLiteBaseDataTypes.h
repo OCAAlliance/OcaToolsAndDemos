@@ -18,11 +18,6 @@
 
 // ---- Helper types and constants ----
 
-/**
- * @addtogroup DataTypes
- * @{
- */
-
 /** True or false */
 typedef bool            OcaBoolean;
 
@@ -52,8 +47,6 @@ typedef UINT64          OcaUint64;
 
 /** Generic 32-bit float parameter */
 typedef FLOAT           OcaFloat32;
-
-/** @} */ /* end of adding to group OCA */
 
 /** Enumeration that describes all available base data types. */
 enum OcaLiteBaseDataType    /* maps onto OcaUint8 */

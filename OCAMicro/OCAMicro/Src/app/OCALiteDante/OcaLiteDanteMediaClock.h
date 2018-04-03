@@ -59,8 +59,6 @@ protected:
 
     /**
      * Gets the current domain ID.
-     * @note This method should not take the object's mutex itself.
-     *       The mutex is already taken before this method is called.
      *
      * @param[out] id    The domain ID.
      * @return Indicates whether the operation succeeded.
@@ -69,8 +67,6 @@ protected:
 
     /**
      * Sets the value of the DomainID property.
-     * @note This method should not take the object's mutex itself.
-     *       The mutex is already taken before this method is called.
      *
      * @param[in] id    The domain ID.
      * @return Indicates whether the operation succeeded.
@@ -79,8 +75,6 @@ protected:
 
     /**
      * Gets the current sampling rate.
-     * @note This method should not take the object's mutex itself.
-     *       The mutex is already taken before this method is called.
      *
      * @param[out] rate The sampling rate.
      * @return Indicates whether the operation succeeded.
@@ -89,8 +83,6 @@ protected:
 
     /**
      * Sets the sampling rate
-     * @note This method should not take the object's mutex itself.
-     *       The mutex is already taken before this method is called.
      *
      * @param[in] rate  The sampling rate.
      * @return Indicates whether the operation succeeded.
@@ -99,8 +91,6 @@ protected:
 
     /**
      * Gets the current media clock lock state.
-     * @note This method should not take the object's mutex itself.
-     *       The mutex is already taken before this method is called.
      *
      * @param[out] state    The media clock lock state.
      * @return Indicates whether the operation succeeded.

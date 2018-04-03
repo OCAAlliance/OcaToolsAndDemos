@@ -17,11 +17,6 @@
 
 // ---- Referenced classes and types ----
 
-/**
- * @addtogroup OCFHostInterface
- * @{
- */
-
 // ---- Helper types and constants ----
 
 // ---- Helper functions ----
@@ -211,7 +206,5 @@ bool OcfLiteHostInterfaceInitialize(void);
  * @param[in] timeout       The timeout in ms.
  */
 INT32 OcfLiteHostInterfaceSelect(INT32 highest, OcfLiteSelectableSet& readset,  OcfLiteSelectableSet& writeset, OcfLiteSelectableSet& exceptset, INT32 timeout);
-
-/** @} */ // end addtogroup OcfLiteHostInterface
 
 #endif // OCFLITEHOSTINTERFACE_H

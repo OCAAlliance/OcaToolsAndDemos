@@ -108,8 +108,6 @@ protected:
     /**
      * Gets the value of the Gain property. Can be overridden by derived classes
      * that actually implement the worker.
-     * @note This method should not take the object's mutex itself.
-     *       The mutex is already taken before this method is called.
      *
      * @param[out]  gain    The value of the Gain property
      * @return Indicates whether the operation succeeded.
@@ -119,8 +117,6 @@ protected:
     /**
      * Set the value of the Gain property. Must be implemented by derived classes
      * that actually implement the worker.
-     * @note This method should not take the object's mutex itself.
-     *       The mutex is already taken before this method is called.
      *
      * @param[in]  gain     Input parameter that holds the value of the Gain property.
      * @return Indicates whether the operation succeeded.

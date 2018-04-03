@@ -188,12 +188,13 @@ bool AES67LiteHostInterfaceGetRxStreamIds(std::vector<UINT16>& rxStreamIds);
  * @param[out] packetTime            The packet time.
  * @param[out] offset                The offset.
  * @param[out] linkOffset            The receiver latency.
+ * @param[out] payloadType           The payload type.
  *
  * @retun The result.
  */
 bool AES67LiteHostInterfaceGetRxStream(UINT16 streamId, bool& multicast, UINT8& encoding, UINT32& sampleRate, UINT16& nrChannels, UINT16* channels, UINT16& sdpVersion, std::string& userName, 
                                        UINT64& sessionID, UINT64& sessionVersion, std::string& originAddress, std::string& sessionName, std::string& destinationAddress, UINT16& destinationPort, 
-                                       std::string& mediaLabel, UINT64& packetTime, UINT32& offset, UINT64& linkOffset);
+                                       std::string& mediaLabel, UINT64& packetTime, UINT32& offset, UINT64& linkOffset, UINT8& payloadType);
 
 /**
  * Stop the sink stream 
@@ -228,13 +229,14 @@ bool AES67LiteHostInterfaceStopRxStream(UINT16 streamId, UINT16 channelCount, UI
  * @param[in/out] mediaLabel            The media label
  * @param[in/out] packetTime            The packet time.
  * @param[in/out] offset                The offset.
+ * @param[in/out] payloadType           The payload type.
  *
  * @retun The result.
  */
 bool AES67LiteHostInterfaceSetupRxStream(bool multicast, UINT8 encoding, UINT32 sampleRate, UINT16 nrStreamSlots, UINT16& nrChannels, UINT16* channels, UINT16& streamId, 
                                          UINT16& sdpVersion, std::string& userName, UINT64& sessionID, UINT64& sessionVersion, std::string& originAddress, 
                                          std::string& sessionName, std::string& destinationAddress, UINT16& destinationPort, UINT8& timeToLive, const std::string& mediaLabel, 
-                                         UINT64& packetTime, UINT32& offset);
+                                         UINT64& packetTime, UINT32& offset, UINT8& payloadType);
 
 /**
  * Setup a source (network transmit) stream. On input the parameters hold the requested values, values can be modified if something is not available from hardware.
@@ -258,12 +260,14 @@ bool AES67LiteHostInterfaceSetupRxStream(bool multicast, UINT8 encoding, UINT32 
  * @param[in/out] mediaLabel            The media label
  * @param[in/out] packetTime            The packet time.
  * @param[in/out] offset                The offset.
+ * @param[in/out] payloadType           The payload type.
  *
  * @retun The result.
  */
 bool AES67LiteHostInterfaceSetupTxStream(bool multicast, UINT8 encoding, UINT32 sampleRate, UINT16& nrChannels, UINT16* channels, UINT16& streamId, UINT16& sdpVersion, 
                                          std::string& userName, UINT64& sessionID, UINT64& sessionVersion, std::string& originAddress, std::string& sessionName, 
-                                         std::string& destinationAddress, UINT16& destinationPort, UINT8& timeToLive, std::string& mediaLabel, UINT64& packetTime, UINT32& offset);
+                                         std::string& destinationAddress, UINT16& destinationPort, UINT8& timeToLive, std::string& mediaLabel, UINT64& packetTime, 
+                                         UINT32& offset, UINT8& payloadType);
 
 /**
  * Modify the rx stream.
@@ -285,6 +289,7 @@ bool AES67LiteHostInterfaceSetupTxStream(bool multicast, UINT8 encoding, UINT32 
  * @param[in/out] mediaLabel            The media label
  * @param[in/out] packetTime            The packet time.
  * @param[in/out] offset                The offset.
+ * @param[in/out] payloadType           The payload type.
  * @param[in/out] nrChannelsOld         The number of channels in the old channels array.
  * @param[in/out] channelsOld           The old channels, with <number of channels> channels[<number of channels>],<number of channels> channels[<number of channels>],etc.
  * @param[in/out] nrChannels            The number of channels in the new channels array.
@@ -295,7 +300,7 @@ bool AES67LiteHostInterfaceSetupTxStream(bool multicast, UINT8 encoding, UINT32 
 bool AES67LiteHostInterfaceModifyRxStreamChannels(UINT16 streamId, bool multicast, UINT8 encoding, UINT32 sampleRate, UINT16 nrStreamSlots, UINT16 sdpVersion, 
                                                   const std::string& userName, UINT64 sessionID, UINT64 sessionVersion, const std::string& originAddress, 
                                                   const std::string& sessionName, const std::string& destinationAddress, UINT16 destinationPort, UINT8 timeToLive,
-                                                  const std::string& mediaLabel, UINT64 packetTime, UINT32 offset, UINT16 nrChannelsOld, 
+                                                  const std::string& mediaLabel, UINT64 packetTime, UINT32 offset, UINT8 payloadType, UINT16 nrChannelsOld,
                                                   UINT16* channelsOld, UINT16& nrChannels, UINT16* channels);
 
 /**
@@ -339,13 +344,15 @@ bool AES67LiteHostInterfaceStopTxStream(UINT16 streamId, UINT16 channelCount, UI
  * @param[out] mediaLabel           The media label.
  * @param[out] packetTime           The packet time.
  * @param[out] offset               The media clock offset.
+ * @param[out] payloadType          The payload type.
  *
+
  * @return The result of the operation.
  */
 bool AES67LiteHostInterfaceGetTxStream(UINT16 streamId, bool& multicast, UINT8& encoding, UINT32& sampleRate, UINT16& nrChannels, UINT16* channels, 
                                        UINT16& sdpVersion, std::string& userName, UINT64& sessionID, UINT64& sessionVersion, std::string& originAddress,
                                        std::string& sessionName, std::string& destinationAddress, UINT16& destinationPort, UINT8& timeToLive, 
-                                       std::string& mediaLabel, UINT64& packetTime, UINT32& offset);
+                                       std::string& mediaLabel, UINT64& packetTime, UINT32& offset, UINT8& payloadType);
 /*
  * Create a tx stream
  *
@@ -385,11 +392,13 @@ bool AES67LiteHostInterfaceGetTxStream(UINT16 streamId, bool& multicast, UINT8& 
  * @param[in, out]  packetTime              Contains the desired packet time of the stream in microseconds.
  * @param[out]      offset                  Indicates the relationship of the media clock to the RTP clock.This is an output
  *                                          parameter for the transmit stream.
+ * @param[in, out] payloadType              The payload type.
  * @return True if the transmit stream is created, false if not.
  */
-bool  AES67LiteHostInterfaceCreateTxStream(bool multicast, UINT8 encoding, UINT32 sampleRate, UINT16& nrChannels, UINT16* channels, UINT16& streamId, UINT16& sdpVersion, 
-                                           std::string& userName, UINT64& sessionID, UINT64& sessionVersion, std::string& originAddress, std::string& sessionName, 
-                                           std::string& destinationAddress, UINT16& destinationPort, UINT8& timeToLive, const std::string& mediaLabel, UINT64& packetTime, UINT32& offset);
+bool AES67LiteHostInterfaceCreateTxStream(bool multicast, UINT8 encoding, UINT32 sampleRate, UINT16& nrChannels, UINT16* channels, UINT16& streamId, UINT16& sdpVersion, 
+                                          std::string& userName, UINT64& sessionID, UINT64& sessionVersion, std::string& originAddress, std::string& sessionName, 
+                                          std::string& destinationAddress, UINT16& destinationPort, UINT8& timeToLive, const std::string& mediaLabel, UINT64& packetTime, 
+                                          UINT32& offset, UINT8& payloadType);
 
 
 

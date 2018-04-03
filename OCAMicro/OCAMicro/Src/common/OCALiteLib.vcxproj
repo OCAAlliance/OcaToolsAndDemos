@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -12,7 +12,7 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{6647BA68-ABF1-44DC-B10A-B1C14DDC460D}</ProjectGuid>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <Keyword>ManagedCProj</Keyword>
     <RootNamespace>OCALiteLib</RootNamespace>
   </PropertyGroup>
@@ -20,14 +20,14 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v110</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <CLRSupport>false</CLRSupport>
     <CharacterSet>NotSet</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v110</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <CLRSupport>false</CLRSupport>
     <CharacterSet>
     </CharacterSet>
@@ -96,6 +96,7 @@
     <ClCompile Include="HostInterfaceLite\OCA\OCP.1\Ocp1LiteHostInterface.cpp" />
     <ClCompile Include="OCALite\OCC\ControlClasses\Agents\OcaLiteAgent.cpp" />
     <ClCompile Include="OCALite\OCC\ControlClasses\Agents\OcaLiteMediaClock.cpp" />
+    <ClCompile Include="OCALite\OCC\ControlClasses\Agents\OcaLiteMediaClock3.cpp" />
     <ClCompile Include="OCALite\OCC\ControlClasses\Agents\OcaLiteNetwork.cpp" />
     <ClCompile Include="OCALite\OCC\ControlClasses\Agents\OcaLiteStreamConnector.cpp" />
     <ClCompile Include="OCALite\OCC\ControlClasses\Agents\OcaLiteStreamNetwork.cpp" />
@@ -210,6 +211,7 @@
     <ClInclude Include="HostInterfaceLite\OCA\OCP.1\ZeroConf\IOcp1LiteService.h" />
     <ClInclude Include="OCALite\OCC\ControlClasses\Agents\OcaLiteAgent.h" />
     <ClInclude Include="OCALite\OCC\ControlClasses\Agents\OcaLiteMediaClock.h" />
+    <ClInclude Include="OCALite\OCC\ControlClasses\Agents\OcaLiteMediaClock3.h" />
     <ClInclude Include="OCALite\OCC\ControlClasses\Agents\OcaLiteNetwork.h" />
     <ClInclude Include="OCALite\OCC\ControlClasses\Agents\OcaLiteStreamConnector.h" />
     <ClInclude Include="OCALite\OCC\ControlClasses\Agents\OcaLiteStreamNetwork.h" />

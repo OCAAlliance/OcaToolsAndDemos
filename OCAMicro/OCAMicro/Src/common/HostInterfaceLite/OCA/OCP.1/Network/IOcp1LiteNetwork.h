@@ -29,19 +29,19 @@ enum IPParametersType
     /**
      * Unknown Ip address type.
      */
-    NETWORK_CONFIGURATION_UNKNOWN = 0,
+    NETWORK_CONFIGURATION_UNKNOWN       = 0,
     /**
      * Link-local automatic IP Address assignment.
      */
-    NETWORK_CONFIGURATION_LINK_LOCAL = 1,
+    NETWORK_CONFIGURATION_LINK_LOCAL    = 1,
     /**
      * IP Address via the DHCP server.
      */
-    NETWORK_CONFIGURATION_DHCP = 2,
+    NETWORK_CONFIGURATION_DHCP          = 2,
     /**
      * Statically assigned IP Parameters.
      */
-    NETWORK_CONFIGURATION_STATIC = 3,
+    NETWORK_CONFIGURATION_STATIC        = 3,
     MAX_NETWORK_CONFIGURATION
 };
 

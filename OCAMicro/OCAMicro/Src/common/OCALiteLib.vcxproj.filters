@@ -483,6 +483,9 @@
     <ClCompile Include="OCALite\OCC\ControlDataTypes\OcaLiteStreamParameters.cpp">
       <Filter>Source Files\OCALite\OCC\ControlDataTypes</Filter>
     </ClCompile>
+    <ClCompile Include="OCALite\OCC\ControlClasses\Agents\OcaLiteMediaClock3.cpp">
+      <Filter>Source Files\OCALite\OCC\ControlClasses\Agents</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SharedLibraries\utf8\source\utf8\checked.h">
@@ -737,12 +740,6 @@
     <ClInclude Include="OCALite\OCC\ControlClasses\Agents\OcaLiteNetwork.h">
       <Filter>Header Files\OCALite\OCC\ControlClasses\Agents</Filter>
     </ClInclude>
-    <ClInclude Include="OCALite\OCC\ControlClasses\Workers\Actuators\OcaLiteGain.h">
-      <Filter>Source Files\OCALite\OCC\ControlClasses\Workers\Actuators</Filter>
-    </ClInclude>
-    <ClInclude Include="OCALite\OCC\ControlClasses\Workers\Actuators\OcaLiteSwitch.h">
-      <Filter>Source Files\OCALite\OCC\ControlClasses\Workers\Actuators</Filter>
-    </ClInclude>
     <ClInclude Include="OCALite\OCC\ControlClasses\Workers\Sensors\OcaLiteLevelSensor.h">
       <Filter>Source Files\OCALite\OCC\ControlClasses\Workers\Sensors</Filter>
     </ClInclude>
@@ -847,6 +844,15 @@
     </ClInclude>
     <ClInclude Include="OCALite\OCC\ControlDataTypes\OcaLiteMediaCoding.h">
       <Filter>Header Files\OCALite\OCC\ControlDataTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="OCALite\OCC\ControlClasses\Workers\Actuators\OcaLiteGain.h">
+      <Filter>Header Files\OCALite\OCC\ControlClasses\Workers\Actuators</Filter>
+    </ClInclude>
+    <ClInclude Include="OCALite\OCC\ControlClasses\Workers\Actuators\OcaLiteSwitch.h">
+      <Filter>Header Files\OCALite\OCC\ControlClasses\Workers\Actuators</Filter>
+    </ClInclude>
+    <ClInclude Include="OCALite\OCC\ControlClasses\Agents\OcaLiteMediaClock3.h">
+      <Filter>Header Files\OCALite\OCC\ControlClasses\Agents</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

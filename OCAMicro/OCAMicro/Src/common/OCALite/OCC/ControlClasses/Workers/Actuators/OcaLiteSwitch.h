@@ -210,8 +210,6 @@ protected:
     /**
      * Gets the value of the Position property. Can be overridden by derived classes
      * that actually implement this class.
-     * @note This method should not take the object's mutex itself.
-     *       The mutex is already taken before this method is called.
      *
      * @param[out] position  The value of the Position property
      * @return Indicates whether the operation succeeded.
@@ -221,8 +219,6 @@ protected:
     /**
      * Set the value of the position property. Must be implemented by derived classes
      * that actually implement the worker.
-     * @note This method should not take the object's mutex itself.
-     *       The mutex is already taken before this method is called.
      *
      * @param[in]  position    Input parameter that holds the value of the position property.
      * @return Indicates whether the operation succeeded.
@@ -232,8 +228,6 @@ protected:
     /**
      * Gets the value of the PositionName property. Can be overridden by derived classes
      * that actually implement this class.
-     * @note This method should not take the object's mutex itself.
-     *       The mutex is already taken before this method is called.
      *
      * @param[in]  index     Index of name to set.
      * @param[out] name      New name for this Position
@@ -244,8 +238,6 @@ protected:
     /**
      * Assigns a name to a given switch position. Must be implemented by derived classes
      * that actually implement the worker.
-     * @note This method should not take the object's mutex itself.
-     *       The mutex is already taken before this method is called.
      *
      * @param[in] index     Index of name to set.
      * @param[in] name      New name for this Position
@@ -256,8 +248,6 @@ protected:
     /**
      * Gets the value of the PositionNames property. Can be overridden by derived classes
      * that actually implement this class.
-     * @note This method should not take the object's mutex itself.
-     *       The mutex is already taken before this method is called.
      *
      * @param[out] names  The value of the PositionNames property
      * @return Indicates whether the operation succeeded.
@@ -267,8 +257,6 @@ protected:
     /**
      * Assigns names to the switch's positions. Must be implemented by derived classes
      * that actually implement the worker.
-     * @note This method should not take the object's mutex itself.
-     *       The mutex is already taken before this method is called.
      *
      * @param[in]  names    List of switch position names
      * @return Indicates whether the operation succeeded.
@@ -278,8 +266,6 @@ protected:
     /**
      * Gets the value of the PositionEnabled property. Can be overridden by derived classes
      * that actually implement this class.
-     * @note This method should not take the object's mutex itself.
-     *       The mutex is already taken before this method is called.
      *
      * @param[in]  index     Index of enabled to set.
      * @param[out] enabled   he enabled for this Position
@@ -290,8 +276,6 @@ protected:
     /**
      * Sets the enabled flag assigned to a given switch position. Must be implemented by derived classes
      * that actually implement the worker.
-     * @note This method should not take the object's mutex itself.
-     *       The mutex is already taken before this method is called.
      *
      * @param[in] index     Index of enabled flag to set.
      * @param[in] enabled   New value for the enabled flag for this Position
@@ -302,8 +286,6 @@ protected:
     /**
      * Gets the value of the PositionEnableds property. Can be overridden by derived classes
      * that actually implement this class.
-     * @note This method should not take the object's mutex itself.
-     *       The mutex is already taken before this method is called.
      *
      * @param[out] enableds  The value of the PositionEnableds property
      * @return Indicates whether the operation succeeded.
@@ -313,8 +295,6 @@ protected:
     /**
      * Sets list of enabled flags for the switch's positions. Must be implemented by derived classes
      * that actually implement the worker.
-     * @note This method should not take the object's mutex itself.
-     *       The mutex is already taken before this method is called.
      *
      * @param[in]  enableds List of enabled flags
      * @return Indicates whether the operation succeeded.

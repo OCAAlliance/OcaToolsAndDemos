@@ -78,8 +78,21 @@ public:
      *                                  is lockable.
      * @param[in]   role                Read-only text property that describes object's role
      *                                  in the device. Particularly useful for workers, e.g. "Input 1 Gain".
+     * @param[in] minAlignmentLevel     The minimum alignment level.
+     * @param[in] maxAlignmentLevel     The maximum alignment level.
+     * @param[in] defaultAlignmentGain  The default alignment gain.
+     * @param[in] minAlignmentGain      The minimum alignment gain.
+     * @param[in] maxAlignmentGain      The maximum alignmnet gain.
      */
-    OcaLiteMediaTransportNetworkAes67(::OcaONo objectNumber, ::OcaBoolean lockable, const ::OcaLiteString& role);
+    OcaLiteMediaTransportNetworkAes67(::OcaONo objectNumber,
+                                      ::OcaBoolean lockable,
+                                      const ::OcaLiteString& role,
+                                      ::OcaDBfs defaultAlignmentLevel,
+                                      ::OcaDBfs minAlignmentLevel,
+                                      ::OcaDBfs maxAlignmentLevel,
+                                      ::OcaDB defaultAlignmentGain,
+                                      ::OcaDB minAlignmentGain,
+                                      ::OcaDB maxAlignmentGain);
 
     /**
      * Destructor.
@@ -191,7 +204,8 @@ public:
                                    UINT8 timeToLive,
                                    const std::string& mediaLabel,
                                    UINT64 packetTime,
-                                   UINT32 offset);
+                                   UINT32 offset,
+                                   UINT8 payloadType);
 
     virtual void OnRxStreamCreated(UINT16 streamId,
                                    bool multicast,
@@ -210,7 +224,8 @@ public:
                                    const std::string& mediaLabel,
                                    UINT64 packetTime,
                                    UINT32 offset,
-                                   UINT64 linkOffset);
+                                   UINT64 linkOffset,
+                                   UINT8 payloadType);
 
     virtual void OnTxStreamModified(UINT16 streamId,
                                     UINT16 nrChannels,
@@ -263,8 +278,6 @@ private:
 
     /**
      * Adds an existing transmit stream to the administration.
-     * @note This method does not take the object's mutex itself.
-     *       The mutex should already be taken before this method is called.
      *
      * @param[in]   streamId                The host interface ID of the stream.
      * @param[in]   multicast               True if the stream is multicast, false if not.
@@ -287,6 +300,7 @@ private:
      * @param[in]   mediaLabel              May contain the optional medial label of the stream.
      * @param[in]   packetTime              Contains the desired packet time of the stream in microseconds.
      * @param[in]   offset                  Indicates the relationship of the media clock to the RTP clock.
+     * @param[in]   payloadType             The RTP payload type.
      */
     void AddTransmitStream(UINT16 streamId,
                            bool multicast,
@@ -305,12 +319,11 @@ private:
                            UINT8 timeToLive,
                            const std::string& mediaLabel,
                            UINT64 packetTime,
-                           UINT32 offset);
+                           UINT32 offset,
+                           UINT8 payloadType);
 
     /**
      * Adds an existing receive stream to the administration.
-     * @note This method does not take the object's mutex itself.
-     *       The mutex should already be taken before this method is called.
      *
      * @param[in]   streamId                The host interface ID of the stream.
      * @param[in]   multicast               True if the stream is multicast, false if not.
@@ -335,6 +348,7 @@ private:
      * @param[in]   packetTime              Contains the desired packet time of the stream in microseconds.
      * @param[in]   offset                  Indicates the relationship of the media clock to the RTP clock.
      * @param[in]   linkOffset              Indicates the link offset at the receive in microseconds.
+     * @param[in]   payloadType             The RTP payload type.
      */
     void AddReceiveStream(UINT16 streamId,
                           bool multicast,
@@ -353,7 +367,8 @@ private:
                           const std::string& mediaLabel,
                           UINT64 packetTime,
                           UINT32 offset,
-                          UINT64 linkOffset);
+                          UINT64 linkOffset,
+                          UINT8 payloadType);
 
     /**
      * Converts a channel array to a channel pin map.
@@ -435,12 +450,10 @@ private:
      * Determines the codec parameters based on the given data.
      *
      * @param[in]   encoding        The encoding.
-     * @param[in]   sampleRate      The sample rate.
      * @param[out]  codecParameters The codec parameters.
      * @return Indicates success of the operation.
      */
     static ::OcaLiteStatus DetermineCodecParameters(UINT8 encoding,
-                                                    UINT32 sampleRate,
                                                    ::OcaLiteString& codecParameters);
 
 

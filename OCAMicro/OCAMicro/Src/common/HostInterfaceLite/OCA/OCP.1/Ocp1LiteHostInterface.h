@@ -88,7 +88,4 @@ UINT32 ConvertFromNetworkOrderToHostByteOrder(UINT32 netlong);
  */
 UINT16 ConvertFromNetworkOrderToHostByteOrder(UINT16 netshort);
 
-
-/** @} */ // end addtogroup Ocp1LiteHostInterface
-
 #endif //OCP1LITEHOSTINTERFACE_H

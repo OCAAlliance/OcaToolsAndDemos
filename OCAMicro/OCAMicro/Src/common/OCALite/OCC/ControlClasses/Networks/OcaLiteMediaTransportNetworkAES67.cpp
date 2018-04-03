@@ -6,8 +6,10 @@
  */
 
 // ---- Include system wide include files ----
+#define _CRT_SECURE_NO_WARNINGS
 #include <assert.h>
 #include <HostInterfaceLite/OCA/AES67/AES67LiteHostInterface.h>
+#include <OCC/ControlClasses/Agents/OcaLiteMediaClock3.h>
 #include <OCC/ControlClasses/Managers/OcaLiteDeviceManager.h>
 #include <OCC/ControlClasses/Workers/BlocksAndMatrices/OcaLiteBlock.h>
 #include <OCC/ControlDataTypes/OcaLiteMethodID.h>
@@ -39,8 +41,24 @@ const ::OcaLiteClassID           OcaLiteMediaTransportNetworkAes67::CLASS_ID(sta
 
 // ---- Class Implementation ----
 
-OcaLiteMediaTransportNetworkAes67::OcaLiteMediaTransportNetworkAes67(::OcaONo objectNumber, ::OcaBoolean lockable, const ::OcaLiteString& role)
-    : ::OcaLiteMediaTransportNetwork(objectNumber, lockable, role)
+OcaLiteMediaTransportNetworkAes67::OcaLiteMediaTransportNetworkAes67(::OcaONo objectNumber,
+                                                                     ::OcaBoolean lockable, 
+                                                                     const ::OcaLiteString& role,
+                                                                     ::OcaDBfs defaultAlignmentLevel,
+                                                                     ::OcaDBfs minAlignmentLevel,
+                                                                     ::OcaDBfs maxAlignmentLevel,
+                                                                     ::OcaDB defaultAlignmentGain,
+                                                                     ::OcaDB minAlignmentGain,
+                                                                     ::OcaDB maxAlignmentGain)
+    : ::OcaLiteMediaTransportNetwork(objectNumber,
+                                     lockable,
+                                     role,
+                                     defaultAlignmentLevel,
+                                     minAlignmentLevel,
+                                     maxAlignmentLevel,
+                                     defaultAlignmentGain,
+                                     minAlignmentGain,
+                                     maxAlignmentGain)
 {
 }
 
@@ -540,15 +558,16 @@ OcaLiteMediaTransportNetworkAes67::~OcaLiteMediaTransportNetworkAes67()
             std::string mediaLabel;
             UINT64 packetTime;
             UINT32 offset;
+            UINT8 payloadType;
             if (AES67LiteHostInterfaceGetTxStream(*it, multicast, encoding, sampleRate, nrChannels,
                                                   channels, sdpVersion, userName, sessionID,
                                                   sessionVersion, originAddress, sessionName, destinationAddress,
-                                                  destinationPort, timeToLive, mediaLabel, packetTime, offset))
+                                                  destinationPort, timeToLive, mediaLabel, packetTime, offset, payloadType))
             {
                 AddTransmitStream(*it, multicast, encoding, sampleRate, nrChannels,
                                   channels, sdpVersion, userName, sessionID,
                                   sessionVersion, originAddress, sessionName, destinationAddress,
-                                  destinationPort, timeToLive, mediaLabel, packetTime, offset);
+                                  destinationPort, timeToLive, mediaLabel, packetTime, offset, payloadType);
             }
             else
             {
@@ -588,15 +607,16 @@ OcaLiteMediaTransportNetworkAes67::~OcaLiteMediaTransportNetworkAes67()
             UINT64 packetTime;
             UINT32 offset;
             UINT64 linkOffset;
+            UINT8 payloadType;
             if (AES67LiteHostInterfaceGetRxStream(*it, multicast, encoding, sampleRate, nrChannels,
                                                   channels, sdpVersion, userName, sessionID, sessionVersion,
                                                   originAddress, sessionName, destinationAddress, destinationPort,
-                                                  mediaLabel, packetTime, offset, linkOffset))
+                                                  mediaLabel, packetTime, offset, linkOffset, payloadType))
             {
                 AddReceiveStream(*it, multicast, encoding, sampleRate, nrChannels, channels,
                                  sdpVersion, userName, sessionID, sessionVersion, originAddress,
                                  sessionName, destinationAddress, destinationPort, mediaLabel, packetTime,
-                                 offset, linkOffset);
+                                 offset, linkOffset, payloadType);
             }
             else
             {
@@ -649,7 +669,8 @@ void OcaLiteMediaTransportNetworkAes67::OnTxStreamCreated(UINT16 streamId,
                                                           UINT8 timeToLive,
                                                           const std::string& mediaLabel,
                                                           UINT64 packetTime,
-                                                          UINT32 offset)
+                                                          UINT32 offset,
+                                                          UINT8 payloadType)
 {
     AddTransmitStream(streamId,
                       multicast,
@@ -668,7 +689,8 @@ void OcaLiteMediaTransportNetworkAes67::OnTxStreamCreated(UINT16 streamId,
                       timeToLive,
                       mediaLabel,
                       packetTime,
-                      offset);
+                      offset,
+                      payloadType);
 }
 
 void OcaLiteMediaTransportNetworkAes67::OnRxStreamCreated(UINT16 streamId,
@@ -688,7 +710,8 @@ void OcaLiteMediaTransportNetworkAes67::OnRxStreamCreated(UINT16 streamId,
                                                           const std::string& mediaLabel,
                                                           UINT64 packetTime,
                                                           UINT32 offset,
-                                                          UINT64 linkOffset)
+                                                          UINT64 linkOffset,
+                                                          UINT8 payloadType)
 {
     AddReceiveStream(streamId,
                      multicast,
@@ -707,7 +730,8 @@ void OcaLiteMediaTransportNetworkAes67::OnRxStreamCreated(UINT16 streamId,
                      mediaLabel,
                      packetTime,
                      offset,
-                     linkOffset);
+                     linkOffset,
+                     payloadType);
 }
 
 void OcaLiteMediaTransportNetworkAes67::OnTxStreamModified(UINT16 streamId,
@@ -875,6 +899,7 @@ const ::OcaLiteClassID& OcaLiteMediaTransportNetworkAes67::GetClassID() const
                     std::string mediaLabel(parameters->GetMediaLabel().GetString().data(), parameters->GetMediaLabel().GetString().length()); // Make an explicit copy to work around GCC Copy-On-Write mechanism
                     UINT64 packetTime(static_cast<UINT64>(static_cast<FLOAT>(parameters->GetPacketTime()) * OCA_TIME_INTERVAL_MICRO_SECOND_FACTOR));
                     UINT32 offset(static_cast<UINT32>(parameters->GetOffset()));
+                    UINT8 payloadType(static_cast<UINT8>(parameters->GetPayloadType()));
 
                     if (AES67LiteHostInterfaceSetupTxStream(connector.GetConnection().GetStreamCastMode() == OCAMEDIASTREAMCASTMODE_MULTICAST,
                                                     encoding,
@@ -893,23 +918,25 @@ const ::OcaLiteClassID& OcaLiteMediaTransportNetworkAes67::GetClassID() const
                                                     timeToLive,
                                                     mediaLabel,
                                                     packetTime,
-                                                    offset))
+                                                    offset, 
+                                                    payloadType))
                     {
                         // Update the connection with the returned values
                         ::OcaLiteMediaStreamParametersAes67 newParameters(static_cast< ::OcaUint16>(sdpVersion),
-                                                                        ::OcaLiteString(userName),
-                                                                        static_cast< ::OcaUint64>(sessionID),
-                                                                        static_cast< ::OcaUint64>(sessionVersion),
-                                                                        ::Ocp1LiteNetworkAddress(::OcaLiteString(originAddress),
-                                                                                            static_cast< ::OcaUint16>(0)),
-                                                                        ::OcaLiteString(sessionName),
-                                                                        ::Ocp1LiteNetworkAddress(::OcaLiteString(destinationAddress),
-                                                                                            static_cast< ::OcaUint16>(destinationPort)),
-                                                                        static_cast< ::OcaUint8>(timeToLive),
-                                                                        ::OcaLiteString(mediaLabel),
-                                                                        static_cast< ::OcaTimeInterval>(packetTime / OCA_TIME_INTERVAL_MICRO_SECOND_FACTOR),
-                                                                        static_cast< ::OcaUint32>(offset),
-                                                                        static_cast< ::OcaTimeInterval>(0));
+                                                                          ::OcaLiteString(userName),
+                                                                          static_cast< ::OcaUint64>(sessionID),
+                                                                          static_cast< ::OcaUint64>(sessionVersion),
+                                                                          ::Ocp1LiteNetworkAddress(::OcaLiteString(originAddress),
+                                                                                              static_cast< ::OcaUint16>(0)),
+                                                                          ::OcaLiteString(sessionName),
+                                                                          ::Ocp1LiteNetworkAddress(::OcaLiteString(destinationAddress),
+                                                                                              static_cast< ::OcaUint16>(destinationPort)),
+                                                                          static_cast< ::OcaUint8>(timeToLive),
+                                                                          ::OcaLiteString(mediaLabel),
+                                                                          static_cast< ::OcaTimeInterval>(packetTime / OCA_TIME_INTERVAL_MICRO_SECOND_FACTOR),
+                                                                          static_cast< ::OcaUint32>(offset),
+                                                                          static_cast< ::OcaTimeInterval>(0),
+                                                                          static_cast< ::OcaUint8>(payloadType));
                         connector.SetIDInternal(static_cast< ::OcaLiteMediaConnectorID>(streamId));
                         ::OcaLiteMediaConnection newConnection(connector.GetConnection().GetSecure(),
                                                             newParameters,
@@ -1034,25 +1061,27 @@ const ::OcaLiteClassID& OcaLiteMediaTransportNetworkAes67::GetClassID() const
                     UINT64 packetTime(static_cast<UINT64>(static_cast<FLOAT>(parameters->GetPacketTime()) * OCA_TIME_INTERVAL_MICRO_SECOND_FACTOR));
                     UINT32 offset(static_cast<UINT32>(parameters->GetOffset()));
                     UINT64 linkOffset(static_cast<UINT64>(static_cast<FLOAT>(parameters->GetLinkOffset()) * OCA_TIME_INTERVAL_MICRO_SECOND_FACTOR));
+                    UINT8 payloadType(static_cast<UINT8>(parameters->GetPayloadType()));
                     if (AES67LiteHostInterfaceSetupRxStream(connector.GetConnection().GetStreamCastMode() == OCAMEDIASTREAMCASTMODE_MULTICAST,
-                                                              encoding,
-                                                              sampleRate,
-                                                              static_cast<UINT16>(connector.GetPinCount()),
-                                                              nrChannels,
-                                                              channels,
-                                                              streamId,
-                                                              sdpVersion,
-                                                              userName,
-                                                              sessionID,
-                                                              sessionVersion,
-                                                              originAddress,
-                                                              sessionName,
-                                                              destinationAddress,
-                                                              destinationPort,
-                                                              timeToLive,
-                                                              mediaLabel,
-                                                              packetTime,
-                                                              offset))
+                                                            encoding,
+                                                            sampleRate,
+                                                            static_cast<UINT16>(connector.GetPinCount()),
+                                                            nrChannels,
+                                                            channels,
+                                                            streamId,
+                                                            sdpVersion,
+                                                            userName,
+                                                            sessionID,
+                                                            sessionVersion,
+                                                            originAddress,
+                                                            sessionName,
+                                                            destinationAddress,
+                                                            destinationPort,
+                                                            timeToLive,
+                                                            mediaLabel,
+                                                            packetTime,
+                                                            offset,
+                                                            payloadType))
                     {
                         // Update the connection with the returned values
                         ::OcaLiteMediaStreamParametersAes67 newParameters(static_cast< ::OcaUint16>(sdpVersion),
@@ -1068,7 +1097,8 @@ const ::OcaLiteClassID& OcaLiteMediaTransportNetworkAes67::GetClassID() const
                                                                           ::OcaLiteString(mediaLabel),
                                                                           static_cast< ::OcaTimeInterval>(packetTime / OCA_TIME_INTERVAL_MICRO_SECOND_FACTOR),
                                                                           static_cast< ::OcaUint32>(offset),
-                                                                          static_cast< ::OcaTimeInterval>(linkOffset / OCA_TIME_INTERVAL_MICRO_SECOND_FACTOR));
+                                                                          static_cast< ::OcaTimeInterval>(linkOffset / OCA_TIME_INTERVAL_MICRO_SECOND_FACTOR),
+                                                                          static_cast< ::OcaUint8>(payloadType));
                         connector.SetIDInternal(static_cast< ::OcaLiteMediaConnectorID>(streamId));
                         ::OcaLiteMediaConnection newConnection(connector.GetConnection().GetSecure(),
                                                                newParameters,
@@ -1200,58 +1230,60 @@ const ::OcaLiteClassID& OcaLiteMediaTransportNetworkAes67::GetClassID() const
             std::string mediaLabel(parameters->GetMediaLabel().GetString().data(), parameters->GetMediaLabel().GetString().length()); // Make an explicit copy to work around GCC Copy-On-Write mechanism
             UINT64 packetTime(static_cast<UINT64>(static_cast<FLOAT>(parameters->GetPacketTime()) * OCA_TIME_INTERVAL_MICRO_SECOND_FACTOR));
             UINT32 offset(static_cast<UINT32>(parameters->GetOffset()));
-            UINT64 linkOffset(static_cast<UINT64>(static_cast<FLOAT>(parameters->GetLinkOffset()) * OCA_TIME_INTERVAL_MICRO_SECOND_FACTOR));
-
+            UINT8 payloadType(static_cast<UINT8>(parameters->GetPayloadType()));
             // Determine the encoding and sample rate
             UINT8 encoding(static_cast<UINT8>(0));
             UINT32 sampleRate(0);
             rc = DetermineVerifiedEncodingAndSampleRate(false/*isSource*/, connector.GetCoding(), encoding, sampleRate);
 
-
-            if (AES67LiteHostInterfaceModifyRxStreamChannels(static_cast<UINT16>(connector.GetIDInternal()),
-                connector.GetConnection().GetStreamCastMode() == OCAMEDIASTREAMCASTMODE_MULTICAST,
-                encoding,
-                sampleRate,
-                static_cast<UINT16>(connector.GetPinCount()),
-                sdpVersion,
-                userName,
-                sessionID,
-                sessionVersion,
-                originAddress,
-                sessionName,
-                destinationAddress,
-                destinationPort,
-                timeToLive,
-                mediaLabel,
-                packetTime,
-                offset,
-                nrChannelsOld,
-                channelsOld,
-                nrChannels,
-                channels))
+            if (OCASTATUS_OK == rc)
             {
-                // Create a new channel pin map from the return values
-                ::OcaUint16 nrStreamSlots;
-                ::OcaLiteMultiMap< ::OcaUint16, ::OcaLitePortID> newChannelPinMap;
-                ConvertToPinMap(nrChannels, channels, nrStreamSlots, newChannelPinMap);
-                connector.SetPinCount(nrStreamSlots);
-
-                // Check if the channel pin map has changed
-                if (channelPinMap != newChannelPinMap)
+                if (AES67LiteHostInterfaceModifyRxStreamChannels(static_cast<UINT16>(connector.GetIDInternal()),
+                                                                 connector.GetConnection().GetStreamCastMode() == OCAMEDIASTREAMCASTMODE_MULTICAST,
+                                                                 encoding,
+                                                                 sampleRate,
+                                                                 static_cast<UINT16>(connector.GetPinCount()),
+                                                                 sdpVersion,
+                                                                 userName,
+                                                                 sessionID,
+                                                                 sessionVersion,
+                                                                 originAddress,
+                                                                 sessionName,
+                                                                 destinationAddress,
+                                                                 destinationPort,
+                                                                 timeToLive,
+                                                                 mediaLabel,
+                                                                 packetTime,
+                                                                 offset,
+                                                                 payloadType,
+                                                                 nrChannelsOld,
+                                                                 channelsOld,
+                                                                 nrChannels,
+                                                                 channels))
                 {
-                    rc = OCASTATUS_PARTIALLY_SUCCEEDED;
+                    // Create a new channel pin map from the return values
+                    ::OcaUint16 nrStreamSlots;
+                    ::OcaLiteMultiMap< ::OcaUint16, ::OcaLitePortID> newChannelPinMap;
+                    ConvertToPinMap(nrChannels, channels, nrStreamSlots, newChannelPinMap);
+                    connector.SetPinCount(nrStreamSlots);
+
+                    // Check if the channel pin map has changed
+                    if (channelPinMap != newChannelPinMap)
+                    {
+                        rc = OCASTATUS_PARTIALLY_SUCCEEDED;
+                    }
+                    else
+                    {
+                        rc = OCASTATUS_OK;
+                    }
+
+                    connector.SetChannelPinMap(newChannelPinMap);
                 }
                 else
                 {
-                    rc = OCASTATUS_OK;
+                    OCA_LOG_ERROR_PARAMS("Unable to modify RX stream %u", connector.GetIDInternal());
+                    rc = OCASTATUS_DEVICE_ERROR;
                 }
-
-                connector.SetChannelPinMap(newChannelPinMap);
-            }
-            else
-            {
-                OCA_LOG_ERROR_PARAMS("Unable to modify RX stream %u", connector.GetIDInternal());
-                rc = OCASTATUS_DEVICE_ERROR;
             }
         }
 
@@ -1345,7 +1377,8 @@ void OcaLiteMediaTransportNetworkAes67::AddTransmitStream(UINT16 streamId,
                                                           UINT8 timeToLive,
                                                           const std::string& mediaLabel,
                                                           UINT64 packetTime,
-                                                          UINT32 offset)
+                                                          UINT32 offset,
+                                                          UINT8 payloadType)
 {
     // Check if the stream is already part of the administration
     ::OcaLiteMediaSourceConnector sourceConnector;
@@ -1359,8 +1392,14 @@ void OcaLiteMediaTransportNetworkAes67::AddTransmitStream(UINT16 streamId,
 
         // Create the codec parameters
         ::OcaLiteString codecParameters;
-        if (OCASTATUS_OK == DetermineCodecParameters(encoding, sampleRate, codecParameters))
+        if (OCASTATUS_OK == DetermineCodecParameters(encoding, codecParameters))
         {
+            // Get the network's alignment level
+            ::OcaDBfs level;
+            ::OcaDBfs minLevel;
+            ::OcaDBfs maxLevel;
+            static_cast<void>(GetAlignmentLevel(level, minLevel, maxLevel));
+
             // Create a connector object with the data
             ::OcaLiteMediaSourceConnector connector(static_cast< ::OcaLiteMediaConnectorID>(streamId),
                                                     ::OcaLiteString(),
@@ -1378,13 +1417,15 @@ void OcaLiteMediaTransportNetworkAes67::AddTransmitStream(UINT16 streamId,
                                                                                                          ::OcaLiteString(mediaLabel),
                                                                                                          static_cast< ::OcaTimeInterval>(packetTime / OCA_TIME_INTERVAL_MICRO_SECOND_FACTOR),
                                                                                                          static_cast< ::OcaUint32>(offset),
-                                                                                                         static_cast< ::OcaTimeInterval>(0)),
+                                                                                                         static_cast< ::OcaTimeInterval>(0),
+                                                                                                         static_cast< ::OcaUint8>(payloadType)),
                                                                          multicast ? OCAMEDIASTREAMCASTMODE_MULTICAST : OCAMEDIASTREAMCASTMODE_UNICAST),
                                                     ::OcaLiteMediaCoding(static_cast< ::OcaLiteMediaCodingSchemeID>(0),
                                                                      codecParameters,
                                                                      OCA_INVALID_ONO),
                                                     static_cast< ::OcaUint16>(nrChannels),
-                                                    channelPinMap);
+                                                    channelPinMap,
+                                                    level);
 
             // Add the connector to the administration
             rc = InternalAddSourceConnector(OCAMEDIACONNECTORSTATE_RUNNING, connector);
@@ -1421,7 +1462,8 @@ void OcaLiteMediaTransportNetworkAes67::AddReceiveStream(UINT16 streamId,
                                                          const std::string& mediaLabel,
                                                          UINT64 packetTime,
                                                          UINT32 offset,
-                                                         UINT64 linkOffset)
+                                                         UINT64 linkOffset,
+                                                         UINT8 payloadType)
 {
     // Check if the stream is already part of the administration
     ::OcaLiteMediaSinkConnector sinkConnector;
@@ -1436,8 +1478,20 @@ void OcaLiteMediaTransportNetworkAes67::AddReceiveStream(UINT16 streamId,
 
         // Create the codec parameters
         ::OcaLiteString codecParameters;
-        if (OCASTATUS_OK == DetermineCodecParameters(encoding, sampleRate, codecParameters))
+        if (OCASTATUS_OK == DetermineCodecParameters(encoding, codecParameters))
         {
+            // Get the network's alignment level
+            ::OcaDBfs level;
+            ::OcaDBfs minLevel;
+            ::OcaDBfs maxLevel;
+            static_cast<void>(GetAlignmentLevel(level, minLevel, maxLevel));
+
+            // Get the network's alignment gain
+            ::OcaDB gain;
+            ::OcaDB minGain;
+            ::OcaDB maxGain;
+            static_cast<void>(GetAlignmentGain(gain, minGain, maxGain));
+
             // Create a connector object with the data
             ::OcaLiteMediaSinkConnector connector(static_cast< ::OcaLiteMediaConnectorID>(streamId),
                                                   ::OcaLiteString(),
@@ -1455,13 +1509,16 @@ void OcaLiteMediaTransportNetworkAes67::AddReceiveStream(UINT16 streamId,
                                                                                                        ::OcaLiteString(mediaLabel),
                                                                                                        static_cast< ::OcaTimeInterval>(packetTime / OCA_TIME_INTERVAL_MICRO_SECOND_FACTOR),
                                                                                                        static_cast< ::OcaUint32>(offset),
-                                                                                                       static_cast< ::OcaTimeInterval>(linkOffset / OCA_TIME_INTERVAL_MICRO_SECOND_FACTOR)),
+                                                                                                       static_cast< ::OcaTimeInterval>(linkOffset / OCA_TIME_INTERVAL_MICRO_SECOND_FACTOR),
+                                                                                                       static_cast< ::OcaUint8>(payloadType)),
                                                                        multicast ? OCAMEDIASTREAMCASTMODE_MULTICAST : OCAMEDIASTREAMCASTMODE_UNICAST),
                                                   ::OcaLiteMediaCoding(static_cast< ::OcaLiteMediaCodingSchemeID>(0),
                                                                    codecParameters,
                                                                    OCA_INVALID_ONO),
                                                   nrStreamSlots,
-                                                  channelPinMap);
+                                                  channelPinMap,
+                                                  level,
+                                                  gain);
 
             // Add the connector to the administration
             rc = InternalAddSinkConnector(OCAMEDIACONNECTORSTATE_RUNNING, connector);
@@ -1595,45 +1652,58 @@ void OcaLiteMediaTransportNetworkAes67::ConvertFromPinMap(const ::OcaLiteMultiMa
 {
     ::OcaLiteStatus rc(OCASTATUS_PARAMETER_ERROR);
 
-    // Verify the scheme ID. This must be set if there is a coding manager and there are more than
-    // one schemes available.
-    ::OcaLiteString foundScheme;
-
-    // Check the codec parameters: The codec parameters may not be empty;
-    if (coding.GetCodecParameters().GetLength() > static_cast< ::OcaUint16>(0))
+    if (coding.GetClockONo() != OCA_INVALID_ONO)
     {
-        // Try to parse the codec parameters
-        char schemeIdentifier('\0');
-        unsigned int bitDepth(0);
-        unsigned int requestedSampleRate(0);
-
-        if (3 == sscanf(reinterpret_cast<const char*>(coding.GetCodecParameters().GetValue()), "%c%u/%u", &schemeIdentifier, &bitDepth, &requestedSampleRate))
+        const ::OcaLiteMediaClock3* pMediaClock3(dynamic_cast<const ::OcaLiteMediaClock3*>(::OcaLiteBlock::GetRootBlock().GetObject(coding.GetClockONo())));
+        if (NULL != pMediaClock3)
         {
-            // Get the scheme from the codec parameters
-            size_t slashPos(coding.GetCodecParameters().GetString().find('/'));
-            ::OcaLiteString codecScheme(coding.GetCodecParameters().GetString().substr(0, slashPos));
-
-            // set the found scheme to the one from the string.
-            foundScheme = codecScheme;
-            sampleRate = requestedSampleRate;
-
-            // All required data is present
-            rc = OCASTATUS_OK;
+            ::OcaLiteMediaClockRate rate;
+            ::OcaONo timesourceONo;
+            rc = pMediaClock3->GetCurrentRate(rate, timesourceONo);
+            if (OCASTATUS_OK == rc)
+            {
+                sampleRate = static_cast<UINT32>(rate.GetNominalRate());
+            }
         }
         else
         {
-            OCA_LOG_ERROR("Codec parameters are not in the correct format");
+            rc = OCASTATUS_PROCESSING_FAILED;
         }
     }
-    else
+
+    // Check the codec parameters: The codec parameters may not be empty;
+    ::OcaLiteString foundScheme;
+    if (OCASTATUS_OK == rc)
     {
-        OCA_LOG_ERROR("No coding scheme is found in the codec parameters");
+        if (coding.GetCodecParameters().GetLength() > static_cast< ::OcaUint16>(0))
+        {
+            // Try to parse the codec parameters
+            char schemeIdentifier('\0');
+            unsigned int bitDepth(0);
+
+            if (2 == sscanf(reinterpret_cast<const char*>(coding.GetCodecParameters().GetValue()), "%c%u", &schemeIdentifier, &bitDepth))
+            {
+                // set the found scheme to the one from the string.
+                foundScheme = ::OcaLiteString(coding.GetCodecParameters().GetString());
+
+                // All required data is present
+                rc = OCASTATUS_OK;
+            }
+            else
+            {
+                OCA_LOG_ERROR("Codec parameters are not in the correct format");
+                rc = OCASTATUS_PROCESSING_FAILED;
+            }
+        }
+        else
+        {
+            OCA_LOG_ERROR("No coding scheme is found in the codec parameters");
+            rc = OCASTATUS_PROCESSING_FAILED;
+        }
     }
 
     if (OCASTATUS_OK == rc)
     {
-        // All required data is present
-
         // Try to convert the found scheme to the required enumeration
         if (::OcaLiteString("L16") == foundScheme)
         {
@@ -1654,7 +1724,6 @@ void OcaLiteMediaTransportNetworkAes67::ConvertFromPinMap(const ::OcaLiteMultiMa
 }
 
 ::OcaLiteStatus OcaLiteMediaTransportNetworkAes67::DetermineCodecParameters(UINT8 encoding,
-                                                                            UINT32 sampleRate,
                                                                             ::OcaLiteString& codecParameters)
 {
     ::OcaLiteStatus rc(OCASTATUS_OK);
@@ -1673,12 +1742,5 @@ void OcaLiteMediaTransportNetworkAes67::ConvertFromPinMap(const ::OcaLiteMultiMa
         rc = OCASTATUS_PARAMETER_OUT_OF_RANGE;
         break;
     }
-
-    if (OCASTATUS_OK == rc)
-    {
-        codecParameters += ::OcaLiteString("/");
-        codecParameters += ::ValueToString<UINT32>(sampleRate);
-    }
-
     return rc;
 }

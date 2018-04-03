@@ -18,18 +18,11 @@
 
 // ---- Helper types and constants ----
 
-/**
- * @addtogroup OCP1HostInterface
- * @{
- */
-
 /** Size of the MAC address (in bytes). */
 #define MAC_ADDRESS_SIZE 6
 
 // ---- Helper functions ----
 
 // ---- Class Definition ----
-
-/** @} */ // end addtogroup Ocp1HostInterface
 
 #endif // OCP1LITEHOSTINTERFACECONSTANTS_H

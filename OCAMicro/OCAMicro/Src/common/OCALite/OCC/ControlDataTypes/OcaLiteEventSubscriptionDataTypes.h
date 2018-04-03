@@ -20,11 +20,6 @@
 // ---- Helper types and constants ----
 
 /**
- * @addtogroup EventSubscriptionDataTypes
- * @{
- */
-
-/**
  * Enumeration for subscriptions that specifies whether its notification messages are
  * to be delivered by reliable means (e.g. TCP) or fast means (e.g. UDP).
  */
@@ -37,8 +32,6 @@ enum OcaLiteNotificationDeliveryMode    /* maps onto OcaUint8 */
     /** Maximum value used for range checking */
     OCANOTIFICATIONDELIVERYMODE_MAXIMUM
 };
-
-/** @} */ /* end of adding to group OCA */
 
 // ---- Helper functions ----
 

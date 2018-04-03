@@ -27,6 +27,13 @@
 
 static DNSServiceRef m_dnsService = NULL;
 
+/**
+ * Registration reply callback. Dummy implementation.
+ */ 
+static void DNSSD_API DNSServiceRegisterReply2(DNSServiceRef sdRef, DNSServiceFlags flags, DNSServiceErrorType errorCode, const char* name, const char* regtype, const char* domain, void* context)
+{
+}
+
 bool Ocp1LiteServiceRegister(const std::string& name, const std::string& registrationType,
                              UINT16 port, const std::vector<std::string>& txtRecordList, const std::string& domain)
 {
@@ -88,7 +95,7 @@ bool Ocp1LiteServiceRegister(const std::string& name, const std::string& registr
         {
             error = ::DNSServiceRegister(&m_dnsService, 0, 0, name.c_str(),
                 registrationType.c_str(), domain.c_str(), NULL, htons(port), static_cast<UINT16>(recordLength),
-                txtRecord, NULL, NULL);
+                txtRecord, &DNSServiceRegisterReply2, NULL);
         }
     }
     return (kDNSServiceErr_NoError == error) ? true : false;

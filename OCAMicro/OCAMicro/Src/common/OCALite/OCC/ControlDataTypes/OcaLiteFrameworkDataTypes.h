@@ -19,11 +19,6 @@
 
 // ---- Helper types and constants ----
 
-/**
- * @addtogroup FrameworkDataTypes
- * @{
- */
-
 /** Class version number, ascending from 1. */
 typedef ::OcaUint16     OcaClassVersionNumber;
 
@@ -75,8 +70,6 @@ typedef ::OcaUint16     OcaSessionID;
 
 /** The invalid session ID */
 #define OCA_INVALID_SESSIONID   static_cast< ::OcaSessionID>(0)
-
-/** @} */ /* end of adding to group OCA */
 
 // ---- Helper functions ----
 

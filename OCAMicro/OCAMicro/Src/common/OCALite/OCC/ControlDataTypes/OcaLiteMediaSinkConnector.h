@@ -19,6 +19,7 @@
 #include "OcaLiteMultiMap.h"
 #include "OcaLiteMediaCoding.h"
 #include "OcaLitePortID.h"
+#include "OcaLiteWorkerDataTypes.h"
 
 // ---- Referenced classes and types ----
 
@@ -43,14 +44,27 @@ public:
      *
      * @param[in] IDInternal     The ID Internal.
      * @param[in] IDExternal     Public name of connector.  May be published to the media transport network, depending on the type of network.
-     * @param[in] connection     Descriptor of the stream connection to this connector. If there is no stream connected to this controller, (i.e. property Connected = FALSE), the value of this property is undefined.
+     * @param[in] connection     Descriptor of the stream connection to this connector. If there is no stream connected to this controller, 
+     *                           (i.e. property Connected = FALSE), the value of this property is undefined.
      * @param[in] coding         Specification of coding used by this connector.
      * @param[in] pinCount       Number of pins in this connector.
-     * @param[in] channelPinMap  Map of stream pins (sink channels) to OCA ports (input ports) of the owning OcaMediaNetwork object. This defines what sink channels are sent to the network. A pin is identified by an OcaUint16 with value 1..MaxPinCount. Not having a certain pin identifier in this map means that the pin is empty (i.e. not carrying a sink channel).
+     * @param[in] channelPinMap  Map of stream pins (sink channels) to OCA ports (input ports) of the owning OcaMediaNetwork object. 
+     *                           This defines what sink channels are sent to the network. A pin is identified by an OcaUint16 with value 1..MaxPinCount. 
+     *                           Not having a certain pin identifier in this map means that the pin is empty (i.e. not carrying a sink channel).
+     * @param[in] alignmentLevel Alignment level of the interface. Note that the dBFS value is referenced to the
+     *                           interface's fullscale value, not to device's internal fullscale value. The value
+     *                           must be between the min and max values of the AlignmentLevel property of the network.
+     *                           A value of NaN will cause the current value of this network's AlignmentLevel property
+     *                           to be used.
+     * @param[in] alignmentGain  Alignment gain for the connector. This value will be applied to all signals
+     *                           incoming through all pins. The value must be between the min and max values
+     *                           of the AlignmentGain property of the network. A value of NaN will cause the
+     *                           current value of the network's AlignmentGain property to be used.
      */
-    OcaLiteMediaSinkConnector(::OcaLiteMediaConnectorID IDInternal, ::OcaLiteString IDExternal, ::OcaLiteMediaConnection connection,
-                              ::OcaLiteMediaCoding coding, ::OcaUint16 pinCount, 
-                              ::OcaLiteMultiMap< ::OcaUint16, ::OcaLitePortID> channelPinMap);
+    OcaLiteMediaSinkConnector(::OcaLiteMediaConnectorID IDInternal, ::OcaLiteString IDExternal, 
+                              ::OcaLiteMediaConnection connection, ::OcaLiteMediaCoding coding, ::OcaUint16 pinCount, 
+                              ::OcaLiteMultiMap< ::OcaUint16, ::OcaLitePortID> channelPinMap, ::OcaDBfs alignmentLevel, 
+                              ::OcaDB alignmentGain);
 
     /**
      * Copy constructor.
@@ -74,6 +88,11 @@ public:
         return m_IDInternal;
     }
 
+    /** 
+     * Set the ID internal
+     * 
+     * @param[in] idInternal    The ID internal
+     */
     void SetIDInternal(::OcaLiteMediaConnectorID idInternal)
     {
         m_IDInternal = idInternal;
@@ -89,6 +108,11 @@ public:
         return m_IDExternal;
     }
 
+    /**
+     * Set the public name of the connector.
+     *
+     * @param[in] idExternal    The public name of the connector
+     */
     void SetIDExternal(const ::OcaLiteString& idExternal)
     {
         m_IDExternal = idExternal;
@@ -104,6 +128,11 @@ public:
         return m_connection;
     }
 
+    /**
+     * Set the descriptor
+     *
+     * @param[in] connection    The connection
+     */
     void SetConnection(const ::OcaLiteMediaConnection& connection)
     {
         m_connection = connection;
@@ -120,6 +149,11 @@ public:
         return m_coding;
     }
 
+    /**
+     * Set the coding
+     *
+     * @param[in] coding    The media coding.
+     */
     void SetCoding(const ::OcaLiteMediaCoding& coding)
     {
         m_coding = coding;
@@ -135,6 +169,11 @@ public:
         return m_pinCount;
     }
 
+    /**
+     * Set the pin count
+     * 
+     * @param[in] pinCount  The new pin count.
+     */
     void SetPinCount(::OcaUint16 pinCount)
     {
         m_pinCount = pinCount;
@@ -149,10 +188,55 @@ public:
     {
         return m_channelPinMap;
     }
-
+    
+    /**
+     * Set the channel pin map.
+     *
+     * @param[in] channelPinMap The channel pin map.
+     */
     void SetChannelPinMap(const ::OcaLiteMultiMap< ::OcaUint16, ::OcaLitePortID>& channelPinMap)
     {
         m_channelPinMap = channelPinMap;
+    }
+
+    /**
+     * Get the alignment level
+     *
+     * @return the alignment level property
+     */
+    const ::OcaDBfs GetAlignmentLevel() const
+    {
+        return m_alignmentLevel;
+    }
+
+    /**
+     * Set the alignment level
+     *
+     * @param[in] alignmentLevel    The alignment level.
+     */
+    void SetAlignmentLevel(::OcaDBfs alignmentLevel)
+    {
+        m_alignmentLevel = alignmentLevel;
+    }
+    
+    /** 
+     * Get the alignment gain
+     *
+     * @return The alignment gain.
+     */
+    const ::OcaDB GetAlignmentGain() const
+    {
+        return m_alignmentGain;
+    }
+    
+    /**
+     * Set the alignment gain
+     *
+     * @param[in] alginmentGain     The alignment gain.
+     */
+    void SetAlginmentGain(::OcaDB alignmentGain)
+    {
+        alignmentGain = m_alignmentGain;
     }
 
     /**
@@ -201,5 +285,9 @@ protected:
     ::OcaUint16                                         m_pinCount;
     /** The channel pin map */
     ::OcaLiteMultiMap< ::OcaUint16, ::OcaLitePortID>    m_channelPinMap;
+    /** The alignment level */
+    ::OcaDBfs                                           m_alignmentLevel;
+    /** The alignment gain */
+    ::OcaDB                                             m_alignmentGain;
 };
 #endif //OCALITEMEDIASINKCONNECTOR_H

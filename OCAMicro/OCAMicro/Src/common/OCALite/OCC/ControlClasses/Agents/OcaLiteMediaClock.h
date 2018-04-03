@@ -45,13 +45,13 @@ enum OcaLiteMediaClockLockState     /* maps onto OcaUint8 */
 enum OcaLiteMediaClockType      /* maps onto OcaUint8 */
 {
     /** No network */
-    OCAMEDIACLOCKTYPE_NONE                  = 0,
+    OCAMEDIACLOCKTYPE_NONE      = 0,
     /** Internal media clock */
-    OCAMEDIACLOCKTYPE_INTERNAL              = 1,
+    OCAMEDIACLOCKTYPE_INTERNAL  = 1,
     /** Network media clock */
-    OCAMEDIACLOCKTYPE_NETWORK               = 2,
+    OCAMEDIACLOCKTYPE_NETWORK   = 2,
     /** External media clock */
-    OCAMEDIACLOCKTYPE_EXTERNAL              = 3,
+    OCAMEDIACLOCKTYPE_EXTERNAL  = 3,
     /** Maximum value used for range checking. */
     OCAMEDIACLOCKTYPE_MAXIMUM
 };
@@ -74,23 +74,23 @@ public:
     enum MethodIndex
     {
         /** GetType() */
-        GET_TYPE                    = 1,
+        GET_TYPE            = 1,
         /** SetType() */
-        SET_TYPE                    = 2,
+        SET_TYPE            = 2,
         /** GetDomainID() */
-        GET_DOMAIN_ID               = 3,
+        GET_DOMAIN_ID       = 3,
         /** SetDomainID() */
-        SET_DOMAIN_ID               = 4,
+        SET_DOMAIN_ID       = 4,
         /** GetRatesSupported() */
-        GET_RATES_SUPPORTED         = 5,
+        GET_RATES_SUPPORTED = 5,
         /** GetRate() */
-        GET_RATE                    = 6,
+        GET_RATE            = 6,
         /** SetRate() */
-        SET_RATE                    = 7,
+        SET_RATE            = 7,
         /** GetLockState() */
-        GET_LOCK_STATE              = 8,
+        GET_LOCK_STATE      = 8,
 		/** GetTypesSupported() */
-		GET_TYPES_SUPPORTED			= 9,
+		GET_TYPES_SUPPORTED = 9,
     };
 
     /** Property indexes for the supported properties. */
@@ -245,8 +245,6 @@ protected:
 
     /**
      * Gets the current media clock type.
-     * @note This method should not take the object's mutex itself.
-     *       The mutex is already taken before this method is called.
      *
      * @param[out] type  The media clock type.
      * @return Indicates whether the operation succeeded.
@@ -255,8 +253,6 @@ protected:
 
     /**
      * Sets the value of the Type property.
-     * @note This method should not take the object's mutex itself.
-     *       The mutex is already taken before this method is called.
      *
      * @param[in] type  The media clock type.
      * @return Indicates whether the operation succeeded.
@@ -265,8 +261,6 @@ protected:
 
     /**
      * Gets the current domain ID.
-     * @note This method should not take the object's mutex itself.
-     *       The mutex is already taken before this method is called.
      *
      * @param[out] id    The domain ID.
      * @return Indicates whether the operation succeeded.
@@ -275,8 +269,6 @@ protected:
 
     /**
      * Sets the value of the DomainID property.
-     * @note This method should not take the object's mutex itself.
-     *       The mutex is already taken before this method is called.
      *
      * @param[in] id    The domain ID.
      * @return Indicates whether the operation succeeded.
@@ -285,8 +277,6 @@ protected:
 
     /**
      * Gets the current sampling rate.
-     * @note This method should not take the object's mutex itself.
-     *       The mutex is already taken before this method is called.
      *
      * @param[out] rate The sampling rate.
      * @return Indicates whether the operation succeeded.
@@ -295,8 +285,6 @@ protected:
 
     /**
      * Sets the sampling rate
-     * @note This method should not take the object's mutex itself.
-     *       The mutex is already taken before this method is called.
      *
      * @param[in] rate  The sampling rate.
      * @return Indicates whether the operation succeeded.
@@ -305,8 +293,6 @@ protected:
 
     /**
      * Gets the current media clock lock state.
-     * @note This method should not take the object's mutex itself.
-     *       The mutex is already taken before this method is called.
      *
      * @param[out] state    The media clock lock state.
      * @return Indicates whether the operation succeeded.
@@ -315,8 +301,6 @@ protected:
 
     /**
      * Event that is emitted when the LockState property has changed.
-     * @note This method takes the object's mutex itself.
-     *       The mutex should not be taken before this method is called.
      *
      * @param[in] state      The value of lock state.
      */
@@ -324,8 +308,6 @@ protected:
 
     /**
      * Event that is emitted when the ClockType property has changed.
-     * @note This method takes the object's mutex itself.
-     *       The mutex should not be taken before this method is called.
      *
      * @param[in] type      The value of clock type.
      */

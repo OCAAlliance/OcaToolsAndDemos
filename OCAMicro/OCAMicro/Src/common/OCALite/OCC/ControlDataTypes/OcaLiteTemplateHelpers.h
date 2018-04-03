@@ -39,20 +39,6 @@ bool CompareValue(const DataType& lhs, const DataType& rhs)
 }
 
 /**
- * Returns the string representation of the given value.
- *
- * @param[in]   value       The value to get the string representation of.
- * @tparam      DataType    The data type to get the string representation of.
- * @return The string representation of the given value.
- */
-
-template <class DataType>
-::OcaLiteString ValueToString(const DataType& value)
-{
-    return value.ToString();
-}
-
-/**
  * Marshals the value data. Serializes the data of the value into the
  * passed byte array using the passed writer.
  *
@@ -203,38 +189,5 @@ template <>
 
 template <>
 ::OcaUint32 GetSizeValue< ::OcaFloat32>(const ::OcaFloat32& value, const ::IOcaLiteWriter& writer);
-
-template <>
-::OcaLiteString ValueToString< ::OcaBoolean>(const ::OcaBoolean& value);
-
-template <>
-::OcaLiteString ValueToString< ::OcaInt8>(const ::OcaInt8& value);
-
-template <>
-::OcaLiteString ValueToString< ::OcaInt16>(const ::OcaInt16& value);
-
-template <>
-::OcaLiteString ValueToString< ::OcaInt32>(const ::OcaInt32& value);
-
-template <>
-::OcaLiteString ValueToString< ::OcaInt64>(const ::OcaInt64& value);
-
-template <>
-::OcaLiteString ValueToString< ::OcaUint8>(const ::OcaUint8& value);
-
-template <>
-::OcaLiteString ValueToString< ::OcaUint16>(const ::OcaUint16& value);
-
-template <>
-::OcaLiteString ValueToString< ::OcaUint32>(const ::OcaUint32& value);
-
-template <>
-::OcaLiteString ValueToString< ::OcaUint64>(const ::OcaUint64& value);
-
-template <>
-::OcaLiteString ValueToString< ::OcaFloat32>(const ::OcaFloat32& value);
-
-template <>
-::OcaLiteString ValueToString< ::OcaLiteString>(const ::OcaLiteString& value);
 
 #endif // OCALITETEMPLATEHELPERS_H

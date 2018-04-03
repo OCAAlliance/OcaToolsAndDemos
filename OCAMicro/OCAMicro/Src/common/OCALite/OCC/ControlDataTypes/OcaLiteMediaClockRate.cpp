@@ -86,20 +86,6 @@ bool OcaLiteMediaClockRate::operator!=(const ::OcaLiteMediaClockRate& rhs) const
     return !(operator==(rhs));
 }
 
-::OcaLiteString OcaLiteMediaClockRate::ToString() const
-{
-    ::OcaLiteString result("nominalRate: ");
-    result += ValueToString< ::OcaFrequency>(m_nominalRate);
-    result += ::OcaLiteString(",pullRange: ");
-    result += ValueToString< ::OcaFrequency>(m_pullRange);
-    result += ::OcaLiteString(",accuracy: ");
-    result += ValueToString< ::OcaFloat32>(m_accuracy);
-    result += ::OcaLiteString(",jitterMax: ");
-    result += ValueToString< ::OcaFloat32>(m_jitterMax);
-
-    return result;
-}
-
 void OcaLiteMediaClockRate::Marshal(::OcaUint8** destination, const ::IOcaLiteWriter& writer) const
 {
     MarshalValue< ::OcaFrequency>(m_nominalRate, destination, writer);

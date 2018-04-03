@@ -35,7 +35,8 @@ OcaLiteMediaStreamParametersAes67::OcaLiteMediaStreamParametersAes67()
     m_mediaLabel(),
     m_packetTime(),
     m_offset(),
-    m_linkOffset()
+    m_linkOffset(),
+    m_payloadType()
 {
     UpdateBlob();
 }
@@ -51,7 +52,8 @@ OcaLiteMediaStreamParametersAes67::OcaLiteMediaStreamParametersAes67(::OcaUint16
                                                                      const ::OcaLiteString& mediaLabel,
                                                                      ::OcaTimeInterval packetTime,
                                                                      ::OcaUint32 offset,
-                                                                     ::OcaTimeInterval linkOffset)
+                                                                     ::OcaTimeInterval linkOffset,
+                                                                     ::OcaUint8 payloadType)
     : ::OcaLiteMediaStreamParameters(),
     m_sdpVersion(sdpVersion),
     m_userName(userName),
@@ -64,7 +66,8 @@ OcaLiteMediaStreamParametersAes67::OcaLiteMediaStreamParametersAes67(::OcaUint16
     m_mediaLabel(mediaLabel),
     m_packetTime(packetTime),
     m_offset(offset),
-    m_linkOffset(linkOffset)
+    m_linkOffset(linkOffset),
+    m_payloadType(payloadType)
 {
     UpdateBlob();
 }
@@ -82,7 +85,8 @@ OcaLiteMediaStreamParametersAes67::OcaLiteMediaStreamParametersAes67(const ::Oca
     m_mediaLabel(source.m_mediaLabel),
     m_packetTime(source.m_packetTime),
     m_offset(source.m_offset),
-    m_linkOffset(source.m_linkOffset)
+    m_linkOffset(source.m_linkOffset),
+    m_payloadType(source.m_payloadType)
 {
     UpdateBlob();
 }
@@ -108,6 +112,7 @@ OcaLiteMediaStreamParametersAes67::~OcaLiteMediaStreamParametersAes67()
         m_packetTime = source.m_packetTime;
         m_offset = source.m_offset;
         m_linkOffset = source.m_linkOffset;
+        m_payloadType = source.m_payloadType;
     }
 
     return *this;
@@ -128,10 +133,11 @@ OcaLiteMediaStreamParametersAes67::~OcaLiteMediaStreamParametersAes67()
     ::OcaTimeInterval packetTime;
     ::OcaUint32 offset;
     ::OcaTimeInterval linkOffset;
+    ::OcaUint8 payloadType;
 
-    if (GetValuesFromBase(baseClass, sdpVersion, userName, sessionID, sessionVersion, originAddress, sessionName, destinationAddress, timeToLive, mediaLabel, packetTime, offset, linkOffset))
+    if (GetValuesFromBase(baseClass, sdpVersion, userName, sessionID, sessionVersion, originAddress, sessionName, destinationAddress, timeToLive, mediaLabel, packetTime, offset, linkOffset, payloadType))
     {
-        result = new ::OcaLiteMediaStreamParametersAes67(sdpVersion, userName, sessionID, sessionVersion, originAddress, sessionName, destinationAddress, timeToLive, mediaLabel, packetTime, offset, linkOffset);
+        result = new ::OcaLiteMediaStreamParametersAes67(sdpVersion, userName, sessionID, sessionVersion, originAddress, sessionName, destinationAddress, timeToLive, mediaLabel, packetTime, offset, linkOffset, payloadType);
     }
     else
     {
@@ -144,11 +150,11 @@ OcaLiteMediaStreamParametersAes67::~OcaLiteMediaStreamParametersAes67()
 bool OcaLiteMediaStreamParametersAes67::Unmarshal(::OcaUint32& bytesLeft, const ::OcaUint8** source, const ::IOcaLiteReader& reader)
 {
     bool success(OcaLiteMediaStreamParameters::Unmarshal(bytesLeft, source, reader));
-    success = success && GetValuesFromBase(*this, m_sdpVersion, m_userName, m_sessionID, m_sessionVersion, m_originAddress, m_sessionName, m_destinationAddress, m_timeToLive, m_mediaLabel, m_packetTime, m_offset, m_linkOffset);
+    success = success && GetValuesFromBase(*this, m_sdpVersion, m_userName, m_sessionID, m_sessionVersion, m_originAddress, m_sessionName, m_destinationAddress, m_timeToLive, m_mediaLabel, m_packetTime, m_offset, m_linkOffset, m_payloadType);
     return success;
 }
 
-bool OcaLiteMediaStreamParametersAes67::GetValuesFromBase(const ::OcaLiteMediaStreamParameters& baseClass, ::OcaUint16& sdpVersion, ::OcaLiteString& userName, ::OcaUint64& sessionID, ::OcaUint64& sessionVersion, ::Ocp1LiteNetworkAddress& originAddress, ::OcaLiteString& sessionName, ::Ocp1LiteNetworkAddress& destinationAddress, ::OcaUint8& timeToLive, ::OcaLiteString& mediaLabel, ::OcaTimeInterval& packetTime, ::OcaUint32& offset, ::OcaTimeInterval& linkOffset)
+bool OcaLiteMediaStreamParametersAes67::GetValuesFromBase(const ::OcaLiteMediaStreamParameters& baseClass, ::OcaUint16& sdpVersion, ::OcaLiteString& userName, ::OcaUint64& sessionID, ::OcaUint64& sessionVersion, ::Ocp1LiteNetworkAddress& originAddress, ::OcaLiteString& sessionName, ::Ocp1LiteNetworkAddress& destinationAddress, ::OcaUint8& timeToLive, ::OcaLiteString& mediaLabel, ::OcaTimeInterval& packetTime, ::OcaUint32& offset, ::OcaTimeInterval& linkOffset, ::OcaUint8& payloadType)
 {
     bool success(true);
 
@@ -169,6 +175,7 @@ bool OcaLiteMediaStreamParametersAes67::GetValuesFromBase(const ::OcaLiteMediaSt
     success = success && reader.Read(bytesLeft, &buffer, packetTime);
     success = success && reader.Read(bytesLeft, &buffer, offset);
     success = success && reader.Read(bytesLeft, &buffer, linkOffset);
+    success = success && reader.Read(bytesLeft, &buffer, payloadType);
 
     return success;
 }
@@ -188,6 +195,7 @@ void OcaLiteMediaStreamParametersAes67::UpdateBlob()
     totSize += writer.GetSize(m_packetTime);
     totSize += writer.GetSize(m_offset);
     totSize += writer.GetSize(m_linkOffset);
+    totSize += writer.GetSize(m_payloadType);
 
     ::OcaUint8* buffer(new ::OcaUint8[static_cast<size_t>(totSize)]);
     ::OcaUint8* pBuffer(buffer);
@@ -205,6 +213,7 @@ void OcaLiteMediaStreamParametersAes67::UpdateBlob()
     writer.Write(m_packetTime, &pBuffer);
     writer.Write(m_offset, &pBuffer);
     writer.Write(m_linkOffset, &pBuffer);
+    writer.Write(m_payloadType, &pBuffer);
 
     ::OcaLiteBlob ocaBlob(static_cast< ::OcaUint16>(totSize), buffer);
     OcaLiteMediaStreamParameters::SetValue(ocaBlob);
