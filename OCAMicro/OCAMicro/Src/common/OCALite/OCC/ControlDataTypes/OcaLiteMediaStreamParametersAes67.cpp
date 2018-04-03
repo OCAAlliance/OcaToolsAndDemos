@@ -12,7 +12,7 @@
 // ---- FileInfo Macro ----
 
 // ---- Include local include files ----
-#include "OcaLiteMediaStreamParametersAES67.h"
+#include "OcaLiteMediaStreamParametersAes67.h"
 
 // ---- Helper types and constants ----
 
