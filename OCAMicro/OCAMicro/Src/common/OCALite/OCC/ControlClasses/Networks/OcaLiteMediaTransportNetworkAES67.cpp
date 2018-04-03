@@ -22,7 +22,7 @@
 // ---- FileInfo Macro ----
 
 // ---- Include local include files ----
-#include "OcaLiteMediaTransportNetworkAes67.h"
+#include "OcaLiteMediaTransportNetworkAES67.h"
 
 // ---- Helper types and constants ----
 
