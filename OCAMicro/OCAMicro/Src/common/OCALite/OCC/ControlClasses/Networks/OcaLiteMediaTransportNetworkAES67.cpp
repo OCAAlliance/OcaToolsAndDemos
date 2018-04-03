@@ -6,7 +6,9 @@
  */
 
 // ---- Include system wide include files ----
+#ifndef _CRT_SECURE_NO_WARNINGS
 #define _CRT_SECURE_NO_WARNINGS
+#endif
 #include <assert.h>
 #include <HostInterfaceLite/OCA/AES67/AES67LiteHostInterface.h>
 #include <OCC/ControlClasses/Agents/OcaLiteMediaClock3.h>

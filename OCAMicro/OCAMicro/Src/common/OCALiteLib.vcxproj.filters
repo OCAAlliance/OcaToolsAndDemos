@@ -486,6 +486,12 @@
     <ClCompile Include="OCALite\OCC\ControlClasses\Agents\OcaLiteMediaClock3.cpp">
       <Filter>Source Files\OCALite\OCC\ControlClasses\Agents</Filter>
     </ClCompile>
+    <ClCompile Include="OCALite\OCP.1\Ocp1LiteUdpNetwork.cpp">
+      <Filter>Source Files\OCALite\OCP.1</Filter>
+    </ClCompile>
+    <ClCompile Include="OCALite\OCP.1\Ocp1LiteUdpSocketConnection.cpp">
+      <Filter>Source Files\OCALite\OCP.1</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SharedLibraries\utf8\source\utf8\checked.h">
@@ -853,6 +859,12 @@
     </ClInclude>
     <ClInclude Include="OCALite\OCC\ControlClasses\Agents\OcaLiteMediaClock3.h">
       <Filter>Header Files\OCALite\OCC\ControlClasses\Agents</Filter>
+    </ClInclude>
+    <ClInclude Include="OCALite\OCP.1\Ocp1LiteUdpNetwork.h">
+      <Filter>Header Files\OCALite\OCP.1</Filter>
+    </ClInclude>
+    <ClInclude Include="OCALite\OCP.1\Ocp1LiteUdpSocketConnection.h">
+      <Filter>Header Files\OCALite\OCP.1</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

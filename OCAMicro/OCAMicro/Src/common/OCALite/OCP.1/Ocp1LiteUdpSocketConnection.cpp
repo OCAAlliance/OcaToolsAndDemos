@@ -1,0 +1,477 @@
+/*  By downloading or using this file, the user agrees to be bound by the terms of the license 
+ *  agreement located at http://ocaalliance.com/EULA as an original contracting party.
+ */
+
+/*
+ *  Description         : Ocp1LiteUdpSocketConnection
+ *
+ */
+
+// ---- Include system wide include files ----
+#include <HostInterfaceLite/OCA/OCP.1/Ocp1LiteHostInterface.h>
+#include <HostInterfaceLite/OCA/OCF/OcfLiteHostInterface.h>
+#include <HostInterfaceLite/OCA/OCF/Timer/IOcfLiteTimer.h>
+#include <HostInterfaceLite/OCA/OCP.1/Network/IOcp1LiteSocket.h>
+#include <OCF/OcaLiteCommandHandler.h>
+
+// ---- Include local include files ----
+#include "Ocp1LiteUdpNetwork.h"
+#include "Ocp1LiteUdpSocketConnection.h"
+
+#ifndef MAX_KEEPALIVE_MISSED
+#define MAX_KEEPALIVE_MISSED    3
+#endif
+
+// ---- Helper types and constants ----
+const ::OcaUint8 Ocp1LiteUdpSocketConnection::MESSAGESYNCVAL(static_cast< ::OcaUint8>(0x3B));
+
+// ---- Helper functions ----
+
+// ---- Local data ----
+
+// ---- Class Implementation ----
+
+Ocp1LiteUdpSocketConnection::Ocp1LiteUdpSocketConnection(::Ocp1LiteUdpNetwork& network,
+                                                         ::OcaUint32 bufferSize)
+    : m_parent(network),
+    m_sessionID(OCA_INVALID_SESSIONID),
+    m_socket(-1),
+    m_socketState(SOCKET_NOT_CONNECTED),
+    m_bKeepAliveReceived(false),
+    m_isKeepAliveInMilliseconds(false),
+    m_pMessageReceiveBuffer(NULL),
+    m_messageBufferSize(bufferSize),
+    m_lastMessageSentTime(static_cast< ::OcaUint32>(0)),
+    m_lastMessageReceivedTime(static_cast< ::OcaUint32>(0)),
+    m_totalLength(static_cast< ::OcaUint32>(0)),
+    m_keepAliveTimeOut(static_cast< ::OcaUint32>(0)),
+    m_messageState(OCA_MSG_STATE_SYNC_FIND),
+    m_pCurrentHeader(new ::Ocp1LiteMessageHeader),
+    m_pduBytesLeft(static_cast< ::OcaUint32>(0)),
+    m_pduMessagesLeft(static_cast< ::OcaUint16>(0)),
+    m_messageBytesLeft(static_cast< ::OcaUint32>(0)),
+    m_remoteIpAddress(),
+    m_remotePort(0)
+{
+    // A message header should be available for this connection
+    assert(NULL != m_pCurrentHeader);
+}
+
+Ocp1LiteUdpSocketConnection::~Ocp1LiteUdpSocketConnection()
+{
+    delete m_pCurrentHeader;
+    m_pCurrentHeader = NULL;
+}
+
+void Ocp1LiteUdpSocketConnection::Shutdown()
+{
+    // The message receive buffer was simply assigned, so set it to NULL only
+    m_pMessageReceiveBuffer = NULL;
+}
+
+void Ocp1LiteUdpSocketConnection::UpdateReceiveBuffer(OcaUint8* pMessageReceiveBuffer,
+    INT32 bytesReceived)
+{
+    assert(static_cast< ::OcaUint32>(0) == m_totalLength);
+    assert(static_cast< ::OcaUint32>(bytesReceived) <= m_messageBufferSize);
+
+    m_pMessageReceiveBuffer = pMessageReceiveBuffer; //lint !e423 The deletion of memory is the responsibility of caller
+    m_totalLength = static_cast< ::OcaUint32>(bytesReceived);
+}
+
+void Ocp1LiteUdpSocketConnection::InitializeSocket(int rSocket)
+{
+    m_socket = rSocket;
+}
+
+void Ocp1LiteUdpSocketConnection::SetRemoteAddressAndPort(const std::string& ipAddress, UINT16 port)
+{
+    static_cast<void>(m_remoteIpAddress.assign(ipAddress.data(), ipAddress.length())); // Make an explicit copy to work around GCC Copy-On-Write mechanism
+    m_remotePort = port;
+}
+
+
+Ocp1LiteUdpSocketConnection::OcaLiteSocketRetVal Ocp1LiteUdpSocketConnection::Run(::OcaBoolean dataAvailable, ::OcaUint32 messageSendBufferSize, ::OcaUint8* pMessageSendBuffer)
+{
+    OcaLiteSocketRetVal retval(CONNECTION_LOST);
+
+    if (SOCKET_CONNECTED == m_socketState)
+    {
+        retval = NO_MESSAGE_RECEIVED;
+        ReceiveFromSocket(dataAvailable);
+        if (m_socketState == SOCKET_NOT_CONNECTED)
+        {
+            retval = CONNECTION_LOST;
+        }
+        if ((m_totalLength >= m_messageBytesLeft) && (m_messageBytesLeft != static_cast< ::OcaUint32>(0)) &&
+            (m_messageState == ::Ocp1LiteUdpSocketConnection::OCA_MSG_STATE_MESSAGE_READ))
+        {
+            // Always return MESSAGE_RECEIVED when there are pending messages
+            retval = MESSAGE_RECEIVED;
+        }
+        if (!HandleKeepAlive(messageSendBufferSize, pMessageSendBuffer))
+        {
+            retval = CONNECTION_LOST;
+        }
+    }
+
+    // Corrupt socket overrides everything.
+    if (SOCKET_CORRUPT == m_socketState)
+    {
+        retval = CONNECTION_CORRUPT;
+    }
+
+    // Reset message state machine when not connected
+    if (SOCKET_CONNECTED != m_socketState)
+    {
+        m_messageState = OCA_MSG_STATE_SYNC_FIND;
+    }
+
+    return retval;
+}
+
+OcaLiteMessageGeneral* Ocp1LiteUdpSocketConnection::GetFirstPendingMessage(::OcaBoolean& moreComing)
+{
+    OcaLiteMessageGeneral* message(NULL);
+    moreComing = static_cast< ::OcaBoolean>(false);
+
+    if ((m_messageBytesLeft != static_cast< ::OcaUint32>(0)) &&
+        (m_messageState == ::Ocp1LiteUdpSocketConnection::OCA_MSG_STATE_MESSAGE_READ) &&
+        (m_totalLength >= m_messageBytesLeft))
+    {
+        message = m_parent.RetrieveMessage(m_pCurrentHeader->GetMessageType());
+        if ((NULL != message) && (NULL != m_pMessageReceiveBuffer))
+        {
+            const ::OcaUint8* pMessageData(m_pMessageReceiveBuffer + (m_totalLength - m_pduBytesLeft));
+            if (!message->Unmarshal(m_pduBytesLeft, &pMessageData, m_parent.GetReader()))
+            {
+                m_parent.ReturnMessage(message);
+                message = NULL;
+            }
+
+            m_lastMessageReceivedTime = static_cast< ::OcaUint32>(::OcfLiteTimerGetTimerTickCount());
+            m_pduMessagesLeft--;
+            if (m_pduMessagesLeft == static_cast< ::OcaUint16>(0))
+            {
+                assert(m_pduBytesLeft == static_cast< ::OcaUint32>(0));
+                // On to the next PDU
+                ResetMessageState();
+            }
+            else
+            {
+                // There are more than one messages in the PDU
+                ::memmove(m_pMessageReceiveBuffer, &m_pMessageReceiveBuffer[m_totalLength - m_pduBytesLeft], static_cast<size_t>(m_pduBytesLeft));
+                m_totalLength = m_pduBytesLeft;
+                // Update the m_messageBytesLeft variable with the size of the
+                // next message to be processed in the PDU
+                UpdateNextMessageSize();
+                moreComing = static_cast< ::OcaBoolean>(true);
+            }
+        }
+    }
+    return message;
+}
+
+bool Ocp1LiteUdpSocketConnection::HasPendingMessage() const
+{
+    // If we still have data left in our buffer, we could have a message pending
+    return (m_totalLength > static_cast< ::OcaUint32>(0));
+}
+
+::OcaLiteStatus Ocp1LiteUdpSocketConnection::SendOcaMessage(const ::OcaLiteMessageGeneral* msg, const ::IOcaLiteWriter& writer, 
+                                                            ::OcaUint32 messageSendBufferSize, ::OcaUint8* pMessageSendBuffer)
+{
+    ::OcaLiteStatus result(OCASTATUS_DEVICE_ERROR);
+
+    ::Ocp1LiteMessageHeader pHeader;
+
+    // Calculate message length
+    ::OcaUint32 msgLen(pHeader.GetSize(writer) + msg->GetSize(writer));
+    pHeader.WriteOcp1Parameters(msg->GetMessageType(),
+                                static_cast< ::OcaUint16>(1),
+                                msgLen);
+    if (SOCKET_CONNECTED == m_socketState)
+    {
+        if ((pHeader.GetMessageSize() <= messageSendBufferSize) && (NULL != pMessageSendBuffer))
+        {
+            ::OcaUint8* pB(pMessageSendBuffer);
+            m_parent.GetWriter().Write(MESSAGESYNCVAL, &pB);
+            pHeader.Marshal(&pB, writer);
+            msg->Marshal(&pB, writer);
+
+            INT32 size(static_cast<INT32>(sizeof(MESSAGESYNCVAL)) + static_cast<INT32>(pHeader.GetMessageSize()));
+
+            INT32 sendResult(Ocp1LiteSocketSendTo(m_socket, pMessageSendBuffer, size, m_remoteIpAddress, m_remotePort));
+            if (sendResult == size)
+            {
+                m_lastMessageSentTime = static_cast< ::OcaUint32>(OcfLiteTimerGetTimerTickCount());
+                result = OCASTATUS_OK;
+            }
+            else if (sendResult > 0)
+            {
+                OCA_LOG_ERROR("Failed to send complete message");
+                result = OCASTATUS_PARTIALLY_SUCCEEDED;
+            }
+            else if (0 == sendResult)
+            {
+                OCA_LOG_ERROR("Failed to send message due to overflow of socket");
+                result = OCASTATUS_BUFFER_OVERFLOW;
+            }
+            else
+            {
+                OCA_LOG_ERROR_PARAMS("Send returned negative value %d", sendResult);
+                result = OCASTATUS_PROCESSING_FAILED;
+            }
+        }
+        else
+        {
+            result = OCASTATUS_BUFFER_OVERFLOW;
+        }
+    }
+    else
+    {
+        result = OCASTATUS_PROCESSING_FAILED;
+    }
+    return result;
+}
+
+void Ocp1LiteUdpSocketConnection::SetSocketConnectionParameters(::OcaSessionID sessionID,
+                                                             ::OcaUint32 timeout, 
+                                                             bool keepAliveInMilliseconds)
+{
+    m_sessionID = sessionID;
+    m_keepAliveTimeOut = timeout;
+    m_isKeepAliveInMilliseconds = keepAliveInMilliseconds;
+
+    // Reset the connection handling members
+    m_socketState = SOCKET_CONNECTED;    
+    m_bKeepAliveReceived = false;
+    m_lastMessageReceivedTime = static_cast< ::OcaUint32>(0);
+    m_lastMessageSentTime = static_cast< ::OcaUint32>(0);
+    m_totalLength = static_cast< ::OcaUint32>(0);
+    m_messageState = OCA_MSG_STATE_SYNC_FIND;
+    m_pduBytesLeft = static_cast< ::OcaUint32>(0);
+    m_pduMessagesLeft = static_cast< ::OcaUint16>(0);
+    m_messageBytesLeft = static_cast< ::OcaUint32>(0);
+}
+
+::OcaLiteStatus Ocp1LiteUdpSocketConnection::SendKeepAlive(::OcaUint32 heartBeatTimeOut, ::OcaUint32 messageSendBufferSize, 
+                                                        ::OcaUint8* pMessageSendBuffer)
+{
+    ::OcaLiteStatus status(OCASTATUS_PROCESSING_FAILED);
+    if (SOCKET_CONNECTED == m_socketState)
+    {
+        ::OcaLiteMessageGeneral* pMsg(m_parent.RetrieveMessage(::OcaLiteHeader::OCA_MSG_KEEP_ALIVE));
+        if (NULL != pMsg)
+        {
+            ::Ocp1LiteMessageKeepAlive* pMsgKeepAlive(static_cast< ::Ocp1LiteMessageKeepAlive*>(pMsg));
+            if (m_isKeepAliveInMilliseconds)
+            {
+                pMsgKeepAlive->WriteParameters(heartBeatTimeOut);
+            }
+            else
+            {
+                pMsgKeepAlive->WriteParameters(static_cast< ::OcaUint16>(heartBeatTimeOut));
+            }
+            status = SendOcaMessage(pMsgKeepAlive, m_parent.GetWriter(), messageSendBufferSize, pMessageSendBuffer);
+
+            m_parent.ReturnMessage(pMsg);
+        }
+    }
+
+    return status;
+}
+
+bool Ocp1LiteUdpSocketConnection::HandleKeepAlive(::OcaUint32 messageSendBufferSize, 
+                                               ::OcaUint8* pMessageSendBuffer)
+{
+    bool connectionValid(true);
+    if (m_keepAliveTimeOut > static_cast< ::OcaUint32>(0))
+    {
+        if (static_cast< ::OcaUint32>(0) == m_lastMessageReceivedTime)
+        {
+            // First keep alive is sent, mark last receive time as current time.
+            m_lastMessageReceivedTime = static_cast< ::OcaUint32>(::OcfLiteTimerGetTimerTickCount());
+        }
+        UINT32 multiplier(1000);
+        if (m_isKeepAliveInMilliseconds)
+        {
+            multiplier = 1;
+        }
+        if ((OcfLiteTimerGetTimerTickCount() - static_cast<UINT32>(m_lastMessageReceivedTime)) >= static_cast<UINT32>(static_cast<UINT32>(m_keepAliveTimeOut) * multiplier * MAX_KEEPALIVE_MISSED))
+        {
+            OCA_LOG_WARNING_PARAMS("Not received any message for %i secs on session %u", static_cast<int>(m_keepAliveTimeOut) * MAX_KEEPALIVE_MISSED, m_sessionID);
+            connectionValid = false;
+            m_socketState = SOCKET_NOT_CONNECTED;
+        }
+        else if (OcfLiteTimerGetTimerTickCount() - static_cast<UINT32>(m_lastMessageSentTime) >= static_cast<UINT32>(m_keepAliveTimeOut) * multiplier)
+        {
+            // Send a keep alive message
+            if (OCASTATUS_PROCESSING_FAILED == SendKeepAlive(static_cast< ::OcaUint16>(m_keepAliveTimeOut), messageSendBufferSize, pMessageSendBuffer))
+            {
+                // Only if sending really fails the connection is lost, in other cases (e.g. buffer overflow) it is not lost yet
+                connectionValid = false;
+
+                // Socket is most likely closed by OS, mark as not connected.
+                m_socketState = SOCKET_NOT_CONNECTED;
+            }
+        }
+    }
+    return connectionValid;
+}
+
+void Ocp1LiteUdpSocketConnection::ReceiveFromSocket(::OcaBoolean dataAvailable)
+{
+    assert(NULL != m_pMessageReceiveBuffer);
+
+    // Ready to read data
+    if (SOCKET_CONNECTED == m_socketState)
+    {
+        m_pduBytesLeft = m_totalLength;
+        bool bContinue(true);
+        while (bContinue && (m_pduBytesLeft > static_cast< ::OcaUint32>(0)) && (SOCKET_CONNECTED == m_socketState))
+        {
+            switch (m_messageState)
+            {
+            case OCA_MSG_STATE_SYNC_FIND:
+                {
+                    // First bytes should be sync value in the packet 
+                    if (m_pMessageReceiveBuffer[0] == MESSAGESYNCVAL)
+                    {
+                        m_pduBytesLeft -= static_cast< ::OcaUint32>(1);
+                        m_messageState = OCA_MSG_STATE_HEADER_READ;
+                    }
+                    else
+                    {
+                        OCA_LOG_ERROR_PARAMS("Invalid datagram detected on session %u", m_sessionID);
+                        ResetMessageState();
+                    }
+                    break;
+                }
+            case OCA_MSG_STATE_HEADER_READ:
+                {
+                    // Enough data to read the header
+                    if (m_pduBytesLeft >= m_pCurrentHeader->GetSize(m_parent.GetWriter()))
+                    {
+                        const ::OcaUint8* pBuff(&m_pMessageReceiveBuffer[m_totalLength - m_pduBytesLeft]);
+                        if (m_pCurrentHeader->Unmarshal(m_pduBytesLeft, &pBuff, m_parent.GetReader()))
+                        {
+                            m_pduMessagesLeft = m_pCurrentHeader->GetMessageCount();
+                            m_messageState = OCA_MSG_STATE_MESSAGE_READ;
+                        }
+                        else
+                        {
+                            OCA_LOG_ERROR_PARAMS("Invalid header detected on session %u", m_sessionID);
+                            ResetMessageState();
+                        }
+                    }
+                    else
+                    {
+                        // UDP datagram does not have the complete header
+                        OCA_LOG_ERROR_PARAMS("Invalid message detected on session %u", m_sessionID);
+                        ResetMessageState();
+                    }
+                    break;
+                }
+            case OCA_MSG_STATE_MESSAGE_READ:
+                {
+                    if (::OcaLiteHeader::OCA_MSG_KEEP_ALIVE == m_pCurrentHeader->GetMessageType())
+                    {
+                        ::OcaUint32 keepAliveSize(m_pCurrentHeader->GetMessageSize() - m_pCurrentHeader->GetSize(m_parent.GetWriter()));
+                        if (m_pduBytesLeft >= keepAliveSize)
+                        {
+                            ::OcaLiteMessageGeneral* mess(m_parent.RetrieveMessage(::OcaLiteHeader::OCA_MSG_KEEP_ALIVE));
+                            if (NULL != mess)
+                            {
+                                const ::OcaUint8* pMessageData(m_pMessageReceiveBuffer + (m_totalLength - m_pduBytesLeft));
+                                // Keep alive heartbeat size to be passed for unmarshalling
+                                ::OcaUint32 keepAliveSizeCopy(keepAliveSize);
+                                if (mess->Unmarshal(keepAliveSizeCopy, &pMessageData, m_parent.GetReader()))
+                                {
+                                    if (static_cast< ::OcaUint32>(0) == m_keepAliveTimeOut)
+                                    {
+                                        ::OcaLiteMessageKeepAlive* keepAliveMessage(static_cast< ::OcaLiteMessageKeepAlive*>(mess));
+                                        if (keepAliveMessage->GetHeartBeatTimeInMilliseconds() != (static_cast< ::OcaUint32>(0)))
+                                        {
+                                            m_isKeepAliveInMilliseconds = true;
+                                            m_keepAliveTimeOut = keepAliveMessage->GetHeartBeatTimeInMilliseconds();
+                                        }
+                                        else if (keepAliveMessage->GetHeartBeatTime() != (static_cast< ::OcaUint16>(0)))
+                                        {
+                                            m_isKeepAliveInMilliseconds = false;
+                                            m_keepAliveTimeOut = static_cast< ::OcaUint32>(keepAliveMessage->GetHeartBeatTime());
+                                        }
+                                    }
+                                    // Indicate that a keep alive message is received
+                                    m_bKeepAliveReceived = true;
+                                }
+                                m_parent.ReturnMessage(mess);
+
+                                ResetMessageState();
+                                m_lastMessageReceivedTime = static_cast< ::OcaUint32>(::OcfLiteTimerGetTimerTickCount());
+                            }
+                        }
+                        else
+                        {
+                            OCA_LOG_ERROR_PARAMS("Invalid message detected on session %u", m_sessionID);
+                            ResetMessageState();
+                        }
+                    }
+                    else if (static_cast< ::OcaUint32>(0) == m_messageBytesLeft)
+                    {
+                        // Update the m_messageBytesLeft variable with the size of the
+                        // next message to be processed in the PDU
+                        UpdateNextMessageSize();
+                        bContinue = false;
+                    }
+                    else
+                    {
+                        // Message header is read, Complete data is not available 
+                        ResetMessageState();
+                    }
+                    break;
+                }
+            default:
+                break;
+            }
+        }
+    }
+}
+
+void Ocp1LiteUdpSocketConnection::ResetMessageState()
+{
+    m_messageState = OCA_MSG_STATE_SYNC_FIND;
+    m_totalLength = static_cast< ::OcaUint32>(0);
+    m_pduBytesLeft = static_cast< ::OcaUint32>(0);
+    m_messageBytesLeft = static_cast< ::OcaUint32>(0);
+    m_pduMessagesLeft = static_cast< ::OcaUint16>(0);
+}
+
+void Ocp1LiteUdpSocketConnection::UpdateNextMessageSize()
+{
+    assert(NULL != m_pMessageReceiveBuffer);
+
+    ::OcaUint32 messageSize(static_cast<::OcaUint32>(0));
+    const ::OcaUint8* pBuff(&m_pMessageReceiveBuffer[m_totalLength - m_pduBytesLeft]);
+    ::OcaUint32 tmpBytesLeft(m_pduBytesLeft);
+    if (m_parent.GetReader().Read(tmpBytesLeft, &pBuff, messageSize))
+    {
+        m_messageBytesLeft = messageSize;
+        if (m_pduBytesLeft < messageSize)
+        {
+            // Message size is more than the bytes left to process in the current PDU
+            ResetMessageState();
+        }
+#ifdef _DEBUG
+        else
+        {
+            assert(messageSize <= (m_messageBufferSize - (m_totalLength - m_pduBytesLeft)));
+        }
+#endif
+    }
+    else
+    {
+        // Not enough bytes to unmarshal size
+        ResetMessageState();
+    }
+}

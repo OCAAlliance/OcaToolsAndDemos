@@ -250,10 +250,12 @@ SRCS  = sys_arch.c \
 		OcaLiteMessageResponse.cpp \
 		\
 		Ocp1LiteNetwork.cpp \
+        Ocp1LiteUdpNetwork.cpp \
 		Ocp1LiteNetworkAddress.cpp \
 		Ocp1LiteNetworkSystemInterfaceID.cpp \
 		Ocp1LiteReader.cpp \
 		Ocp1LiteSocketConnection.cpp \
+        Ocp1LiteUdpSocketConnection.cpp \
 		Ocp1LiteWriter.cpp \
 		\
 		Ocp1LiteMessageCommand.cpp \

@@ -194,6 +194,8 @@
     <ClCompile Include="OCALite\OCP.1\Ocp1LiteNetworkSystemInterfaceID.cpp" />
     <ClCompile Include="OCALite\OCP.1\Ocp1LiteReader.cpp" />
     <ClCompile Include="OCALite\OCP.1\Ocp1LiteSocketConnection.cpp" />
+    <ClCompile Include="OCALite\OCP.1\Ocp1LiteUdpNetwork.cpp" />
+    <ClCompile Include="OCALite\OCP.1\Ocp1LiteUdpSocketConnection.cpp" />
     <ClCompile Include="OCALite\OCP.1\Ocp1LiteWriter.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -313,6 +315,8 @@
     <ClInclude Include="OCALite\OCP.1\Ocp1LiteNetworkSystemInterfaceID.h" />
     <ClInclude Include="OCALite\OCP.1\Ocp1LiteReader.h" />
     <ClInclude Include="OCALite\OCP.1\Ocp1LiteSocketConnection.h" />
+    <ClInclude Include="OCALite\OCP.1\Ocp1LiteUdpNetwork.h" />
+    <ClInclude Include="OCALite\OCP.1\Ocp1LiteUdpSocketConnection.h" />
     <ClInclude Include="OCALite\OCP.1\Ocp1LiteWriter.h" />
     <ClInclude Include="SharedLibraries\utf8\source\utf8.h" />
     <ClInclude Include="SharedLibraries\utf8\source\utf8\checked.h" />

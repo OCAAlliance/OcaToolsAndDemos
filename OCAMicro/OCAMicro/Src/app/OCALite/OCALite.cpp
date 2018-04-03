@@ -6,7 +6,6 @@
 // OCALite.cpp : Defines the entry point for the console application.
 //
 
-
 #include <HostInterfaceLite/OCA/OCF/OcfLiteHostInterface.h>
 #include <HostInterfaceLite/OCA/OCP.1/Ocp1LiteHostInterface.h>
 #include <OCC/ControlDataTypes/OcaLiteStringInABlob.h>
@@ -16,7 +15,11 @@
 #include <OCC/ControlClasses/Managers/OcaLiteSubscriptionManager.h>
 #include <OCC/ControlClasses/Managers/OcaLiteFirmwareManager.h>
 #include <OCF/OcaLiteCommandHandler.h>
+#ifndef UDP
 #include <OCP.1/Ocp1LiteNetwork.h>
+#else
+#include <OCP.1/Ocp1LiteUdpNetwork.h>
+#endif
 #include <OCP.1/Ocp1LiteNetworkSystemInterfaceID.h>
 #include <StandardLib/StandardLib.h>
 
@@ -29,10 +32,10 @@ extern int Ocp1LiteServiceGetSocket();
 
 int main(int argc, const char* argv[])
 {
-    UINT16 connectionPort = 65000;
+    unsigned int connectionPort = 65000;
     if (argc > 1)
     {
-        sscanf(argv[1], "%d", &connectionPort);
+        static_cast<void>(sscanf(argv[1], "%u", &connectionPort));
     }
     printf("Using connection port %d", connectionPort);
 
@@ -54,9 +57,15 @@ int main(int argc, const char* argv[])
         std::vector<std::string> txtRecords;
         txtRecords.push_back("modelGUID=DEADBEEFEATERS");
         ::OcaLiteString nodeId = ::OcaLiteString("OCALite@" + OcfLiteConfigureGetDeviceName());
+#ifndef UDP
         ::Ocp1LiteNetwork* ocp1Network = new ::Ocp1LiteNetwork(static_cast< ::OcaONo>(9000), static_cast< ::OcaBoolean>(true), 
                                                                ::OcaLiteString("Ocp1LiteNetwork"), ::Ocp1LiteNetworkNodeID(nodeId),
                                                                interfaceId, txtRecords, ::OcaLiteString("local"), (OcaUint16)connectionPort);
+#else
+        ::Ocp1LiteUdpNetwork* ocp1Network = new ::Ocp1LiteUdpNetwork(static_cast< ::OcaONo>(9000), static_cast< ::OcaBoolean>(true),
+                                                               ::OcaLiteString("Ocp1LiteUdpNetwork"), ::Ocp1LiteNetworkNodeID(nodeId),
+                                                               interfaceId, txtRecords, ::OcaLiteString("local"), (OcaUint16)connectionPort);
+#endif
         if (ocp1Network->Initialize())
         {
             if (::OcaLiteBlock::GetRootBlock().AddObject(*ocp1Network))
