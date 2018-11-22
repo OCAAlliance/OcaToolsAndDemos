@@ -221,7 +221,7 @@ void OcaLiteCommandHandler::HandleNetworks(::OcaUint32 timeout)
         }
         else
         {
-            OCA_LOG_ERROR_PARAMS("Select failed!");
+            OCA_LOG_ERROR("Select failed!");
         }
     }
 }

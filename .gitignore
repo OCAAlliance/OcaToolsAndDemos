@@ -1,6 +1,8 @@
 
 \.DS_Store
 
-OCAMicro/OCAMicro/\.vs/OCAMicro/v15/
+OCAMicro/OCAMicro/\.vs/
 
 *.user
+
+OCAMicro/OCAMicro/Obj
