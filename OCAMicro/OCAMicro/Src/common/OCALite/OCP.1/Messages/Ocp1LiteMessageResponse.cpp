@@ -50,6 +50,7 @@ bool Ocp1MessageResponse::Unmarshal(::OcaUint32& bytesLeft, const ::OcaUint8** s
 {
 #ifndef OCA_LITE_CONTROLLER
 	assert(false);
+    return false;
 #else
 	bool success(GetMessageType() == OcaLiteHeader::OCA_MSG_RSP);
 

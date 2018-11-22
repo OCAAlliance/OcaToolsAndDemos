@@ -131,7 +131,9 @@ Ocp1LiteUdpNetwork::~Ocp1LiteUdpNetwork()
         // Data buffer
         m_pDataBuffer = new ::OcaUint8[static_cast< size_t>(OCA_BUFFER_SIZE)];
         m_pMessageReceiveBuffer = new ::OcaUint8[static_cast< size_t>(OCA_BUFFER_SIZE)];
+#ifdef OCA_LITE_CONTROLLER
         m_pControllerMessageBuffer = new ::OcaUint8[static_cast<size_t>(OCA_BUFFER_SIZE)];
+#endif
 
         UINT32 interfaceIndex = static_cast< UINT32>(m_ocp1Interface.GetInterfaceIndex());
         UINT8 macAddressBuffer[MAC_ADDRESS_SIZE];
