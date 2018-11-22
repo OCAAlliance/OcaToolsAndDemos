@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<WixLocalization Culture="en-us" xmlns="http://schemas.microsoft.com/wix/2006/localization">
+    <String Id="WelcomeDlgDescription">The Setup Wizard will install Aes70 Compliancy Test Tool on your computer. Click Next to continue or Cancel to exit.
+    </String>
+</WixLocalization>

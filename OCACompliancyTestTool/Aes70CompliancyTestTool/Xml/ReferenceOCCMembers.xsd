@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema id="OcaDevice" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <!-- Define how the versions structure looks like -->
+  <xs:element name="Versions">
+    <xs:complexType>
+      <xs:sequence>
+        <!-- Define a single version -->
+        <xs:element name="Version" maxOccurs="unbounded" minOccurs="0">
+          <xs:complexType>
+            <xs:attribute name="OcaVersion" type="xs:string"/>
+            <xs:attribute name="ClassVersion" type="xs:string"/>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <!-- Mandatory map within the class -->
+  <xs:element name="MandatoryMap">
+    <xs:complexType>
+      <xs:sequence>
+        <!-- Single mandatory item -->
+        <xs:element name="Mandatory" minOccurs="0" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:attribute name="OcaVersion" type="xs:string"/>
+            <xs:attribute name="Mandatory" type="xs:string"/>
+			<xs:attribute name="DeviceType" type="xs:string"/>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <!-- Define how the methods structure looks like -->
+  <xs:element name="Methods">
+    <xs:complexType>
+      <xs:sequence>
+        <!-- Define how a single method looks like -->
+        <xs:element name="Method" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:sequence>
+              <!-- Mandatory map within the method -->
+              <xs:element name="MandatoryMap" minOccurs="0" maxOccurs="1">
+                <xs:complexType>
+                  <xs:sequence>
+                    <!-- Single mandatory item -->
+                    <xs:element name="Mandatory" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:attribute name="OcaVersion" type="xs:string"/>
+                        <xs:attribute name="Mandatory" type="xs:string"/>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute name="Name" type="xs:string"/>
+            <xs:attribute name="Index" type="xs:string"/>
+            <xs:attribute name="AvailableSince" type="xs:string"/>
+            <xs:attribute name="DeprecatedSince" type="xs:string"/>
+            <xs:attribute name="ConnectionType" type="xs:string"/>
+            <xs:attribute name="RequiredDeviceType" type="xs:string"/>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <!-- Define how the events structure looks like -->
+  <xs:element name="Events">
+    <xs:complexType>
+      <xs:sequence>
+        <!-- Define how a single events looks like  -->
+        <xs:element name="Event" minOccurs="0" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:sequence>
+              <!-- Mandatory map within the event -->
+              <xs:element name="MandatoryMap" minOccurs="0" maxOccurs="1">
+                <xs:complexType>
+                  <xs:sequence>
+                    <!-- Single mandatory item -->
+                    <xs:element name="Mandatory" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:attribute name="OcaVersion" type="xs:string"/>
+                        <xs:attribute name="Mandatory" type="xs:string"/>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute name="Name" type="xs:string"/>
+            <xs:attribute name="Index" type="xs:string"/>
+            <xs:attribute name="AvailableSince" type="xs:string"/>
+            <xs:attribute name="DeprecatedSince" type="xs:string"/>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <!-- Root structure -->
+  <xs:element name="OcaDevice" msdata:IsDataSet="true" msdata:Locale="en-US">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="Methods" />
+        <xs:element ref="Events" />
+        <xs:element ref="Versions" />
+        <xs:element ref="MandatoryMap" />
+        <!-- OcaRoot -->
+        <xs:element name="Root" maxOccurs="1" minOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element ref="Versions" minOccurs="0" maxOccurs="1" />
+              <xs:element ref="MandatoryMap" minOccurs="0" maxOccurs="1" />
+              <xs:element ref="Methods" minOccurs="0" maxOccurs="1" />
+              <xs:element ref="Events" minOccurs="0" maxOccurs="1" />
+            </xs:sequence>
+            <xs:attribute name="Label" type="xs:string"/>
+            <xs:attribute name="Name" type="xs:string"/>
+            <xs:attribute name="ClassID" type="xs:string"/>
+          </xs:complexType>
+        </xs:element>
+        <!-- OcaManager -->
+        <xs:element name="Managers">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Manager" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element ref="Versions" minOccurs="0" maxOccurs="1" />
+                    <xs:element ref="MandatoryMap" minOccurs="0" maxOccurs="1" />
+                    <xs:element ref="Methods" minOccurs="0" maxOccurs="1" />
+                    <xs:element ref="Events" minOccurs="0" maxOccurs="1" />
+                  </xs:sequence>
+                  <xs:attribute name="Name" type="xs:string"/>
+                  <xs:attribute name="ClassID" type="xs:string"/>
+                  <xs:attribute name="AvailableSince" type="xs:string"/>
+                  <xs:attribute name="DeprecatedSince" type="xs:string"/>
+                  <xs:attribute name="ObjNumber" type="xs:string"/>
+                  <xs:attribute name="RequiredDeviceType" type="xs:string"/>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute name="Label" type="xs:string"/>
+          </xs:complexType>
+        </xs:element>
+        <!-- OcaBlockMembers -->
+        <xs:element name="BlockMembers">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="BlockMember" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element ref="Versions" minOccurs="0" maxOccurs="1" />
+                    <xs:element ref="MandatoryMap" minOccurs="0" maxOccurs="1" />
+                    <xs:element ref="Methods" minOccurs="0" maxOccurs="1" />
+                    <xs:element ref="Events" minOccurs="0" maxOccurs="1" />
+                  </xs:sequence>
+                  <xs:attribute name="Name" type="xs:string"/>
+                  <xs:attribute name="ClassID" type="xs:string"/>
+                  <xs:attribute name="AvailableSince" type="xs:string"/>
+                  <xs:attribute name="DeprecatedSince" type="xs:string"/>
+                  <xs:attribute name="RequiredDeviceType" type="xs:string"/>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute name="Label" type="xs:string"/>
+            <xs:attribute name="ObjectNumberLowerLimit" type="xs:string"/>
+            <xs:attribute name="ObjectNumberUpperLimit" type="xs:string"/>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

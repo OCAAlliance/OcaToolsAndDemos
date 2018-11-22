@@ -6,3 +6,11 @@ OCAMicro/OCAMicro/\.vs/
 *.user
 
 OCAMicro/OCAMicro/Obj
+
+OCACompliancyTestTool/\.vs/
+
+OCACompliancyTestTool/Out/
+
+OCACompliancyTestTool/Installer/\.vs/
+
+OCACompliancyTestTool/Aes70CompliancyTestTool/\.vs/

@@ -1,0 +1,195 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\Xml">
+      <UniqueIdentifier>{d37d82e8-1b7f-4b3b-acec-51e22c522bbe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\HostInterface">
+      <UniqueIdentifier>{dfc43a15-41ac-46ef-9403-a1c239f66d62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\HostInterface\OCA">
+      <UniqueIdentifier>{0f0d90ff-aec8-40a2-ab59-6fc02b562eda}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\HostInterface\OCA\OCP.1">
+      <UniqueIdentifier>{26bb6cb9-9138-4ca9-b479-1d3878f8d500}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\HostInterface\OCA\OCF">
+      <UniqueIdentifier>{7f65a31f-d329-45ca-901d-d722412a2137}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\HostInterface\OCA\OCF\Configuration">
+      <UniqueIdentifier>{23c65df0-a671-4381-9182-f3b549f8db82}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\HostInterface\OCA\OCF\Logging">
+      <UniqueIdentifier>{8a410b37-7260-4e7f-9cb3-d0c381c51401}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\HostInterface\OCA\OCF\Timer">
+      <UniqueIdentifier>{72705b8e-3831-4554-8dcb-40b1e7b6de73}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\HostInterface\OCA\OCP.1\Network">
+      <UniqueIdentifier>{19b21dca-17f7-4dfb-8816-703c792ab8e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\HostInterface\OCA\OCP.1\ZeroConf">
+      <UniqueIdentifier>{50ac47ad-ced1-4834-aeae-c9c35c78d13e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\TestFramework">
+      <UniqueIdentifier>{9ee02103-38a5-4ce8-9cab-ffb99b0ba24c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\TestFramework">
+      <UniqueIdentifier>{3d6b4f57-f5d1-4372-80d2-6d0cc38d4469}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Tests">
+      <UniqueIdentifier>{0f4a7183-7a73-485f-a4a3-885a5c8f7a85}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Tests">
+      <UniqueIdentifier>{76e49112-9ae8-435a-8ffc-269eaa5634fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Tests\OCP.1">
+      <UniqueIdentifier>{7cbbca8f-1a4b-40e5-89d2-068bf2f0495b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Tests\MinimumObjectCompliancy">
+      <UniqueIdentifier>{a03f9889-6ca1-4d7c-8977-762fbbe61664}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Tests\OCC">
+      <UniqueIdentifier>{bf7d8ab1-7fbc-4dfb-acbe-f6802e4495de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Tests\MinimumObjectCompliancy">
+      <UniqueIdentifier>{1357af3d-973e-4982-b335-68908b1ca775}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Tests\OCC">
+      <UniqueIdentifier>{61660d8f-0394-480a-8863-7b96e3191e60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Tests\OCP.1">
+      <UniqueIdentifier>{eb99afe0-fdb2-46ae-99e4-99575d163408}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Documentation">
+      <UniqueIdentifier>{06f28af2-0b98-48aa-ab63-6df9eea8a9ad}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Aes70CompliancyTestTool.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HostInterface\OCA\OCF\Configuration\OcaLiteOcfConfiguration.cpp">
+      <Filter>Source Files\HostInterface\OCA\OCF\Configuration</Filter>
+    </ClCompile>
+    <ClCompile Include="HostInterface\OCA\OCF\Logging\OcaLiteOcfLogger.cpp">
+      <Filter>Source Files\HostInterface\OCA\OCF\Logging</Filter>
+    </ClCompile>
+    <ClCompile Include="HostInterface\OCA\OCF\Timer\OcaLiteOcfTimer.cpp">
+      <Filter>Source Files\HostInterface\OCA\OCF\Timer</Filter>
+    </ClCompile>
+    <ClCompile Include="HostInterface\OCA\OCP.1\Ocp1HostInterfaceOcaLite.cpp">
+      <Filter>Source Files\HostInterface\OCA\OCP.1</Filter>
+    </ClCompile>
+    <ClCompile Include="HostInterface\OCA\OCP.1\Network\OcaLiteOcp1Network.cpp">
+      <Filter>Source Files\HostInterface\OCA\OCP.1\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="HostInterface\OCA\OCP.1\Network\OcaLiteOcp1Socket.cpp">
+      <Filter>Source Files\HostInterface\OCA\OCP.1\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="HostInterface\OCA\OCP.1\ZeroConf\OcaLiteOcp1Service.cpp">
+      <Filter>Source Files\HostInterface\OCA\OCP.1\ZeroConf</Filter>
+    </ClCompile>
+    <ClCompile Include="TestFramework\BaseTestClass.cpp">
+      <Filter>Source Files\TestFramework</Filter>
+    </ClCompile>
+    <ClCompile Include="TestFramework\TestSuite.cpp">
+      <Filter>Source Files\TestFramework</Filter>
+    </ClCompile>
+    <ClCompile Include="Tests\OCP.1\KeepAliveTest.cpp">
+      <Filter>Source Files\Tests\OCP.1</Filter>
+    </ClCompile>
+    <ClCompile Include="TestFramework\TestContext.cpp">
+      <Filter>Source Files\TestFramework</Filter>
+    </ClCompile>
+    <ClCompile Include="Tests\OCP.1\DeviceServiceDiscoveryTest.cpp">
+      <Filter>Source Files\Tests\OCP.1</Filter>
+    </ClCompile>
+    <ClCompile Include="Tests\OCP.1\DeviceResetTest.cpp">
+      <Filter>Source Files\Tests\OCP.1</Filter>
+    </ClCompile>
+    <ClCompile Include="Tests\MinimumObjectCompliancyTest\MinimumObjectCompliancyTest.cpp">
+      <Filter>Source Files\Tests\MinimumObjectCompliancy</Filter>
+    </ClCompile>
+    <ClCompile Include="Tests\OCC\ObjectCompliancyTest.cpp">
+      <Filter>Source Files\Tests\OCC</Filter>
+    </ClCompile>
+    <ClCompile Include="TestFramework\TestLogger.cpp">
+      <Filter>Source Files\TestFramework</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="Xml\ReferenceOCCMembers.xml">
+      <Filter>Source Files\Xml</Filter>
+    </Xml>
+    <Xml Include="Xml\TestConfiguration.xml">
+      <Filter>Source Files\Xml</Filter>
+    </Xml>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TestFramework\BaseTestClass.h">
+      <Filter>Header Files\TestFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="TestFramework\TestSuite.h">
+      <Filter>Header Files\TestFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="Tests\DummyTest.h">
+      <Filter>Header Files\Tests</Filter>
+    </ClInclude>
+    <ClInclude Include="Tests\OCP.1\KeepAliveTest.h">
+      <Filter>Header Files\Tests\OCP.1</Filter>
+    </ClInclude>
+    <ClInclude Include="Tests\MinimumObjectCompliancyTest\MinimumObjectCompliancyTest.h">
+      <Filter>Header Files\Tests\MinimumObjectCompliancy</Filter>
+    </ClInclude>
+    <ClInclude Include="Tests\OCC\ObjectCompliancyTest.h">
+      <Filter>Header Files\Tests\OCC</Filter>
+    </ClInclude>
+    <ClInclude Include="Tests\OCP.1\DeviceServiceDiscoveryTest.h">
+      <Filter>Header Files\Tests\OCP.1</Filter>
+    </ClInclude>
+    <ClInclude Include="Tests\OCP.1\DeviceResetTest.h">
+      <Filter>Header Files\Tests\OCP.1</Filter>
+    </ClInclude>
+    <ClInclude Include="TestFramework\TestContext.h">
+      <Filter>Header Files\TestFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Aes70CompliancyTestToolConsoleDocumentation.h">
+      <Filter>Documentation</Filter>
+    </ClInclude>
+    <ClInclude Include="TestFramework\TestLogger.h">
+      <Filter>Header Files\TestFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="VersionDefs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Aes70CompliancyTestTool.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Aes70CompliancyTestToolConsoleDocumentation.doxygen">
+      <Filter>Documentation</Filter>
+    </None>
+    <None Include="..\build.cmd">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+</Project>

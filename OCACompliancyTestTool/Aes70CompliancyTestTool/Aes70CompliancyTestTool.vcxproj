@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>15.0</VCProjectVersion>
+    <ProjectGuid>{6F2BFC71-5071-4A57-861D-511495280737}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>Aes70CompliancyTestTool</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
+    <ProjectName>Aes70CompliancyTestTool</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>..\Out\$(Configuration)\</OutDir>
+    <IntDir>..\Out\$(Configuration)\intermediate\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>..\Out\$(Configuration)$(Platform)\</OutDir>
+    <IntDir>..\Out\$(Configuration)$(Platform)\intermediate\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>..\Out\$(Configuration)\</OutDir>
+    <IntDir>..\Out\$(Configuration)\intermediate\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>..\Out\$(Configuration)$(Platform)\</OutDir>
+    <IntDir>..\Out\$(Configuration)$(Platform)\intermediate\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>OCA_LITE_CONTROLLER;OCA_TRACK_KEEPALIVE_RECEIVED;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>..\DNSSDResolver;..\..\OCAMicro\OCAMicro\Src\inc;..\..\OCAMicro\OCAMicro\Src\common;..\..\OCAMicro\OCAMicro\Src\common\OCALite;..\3rd Party;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>WS2_32.lib;..\..\OCAMicro\OCAMicro\src/platform/common/OcaLite/BonjourSDK/x86/dnssd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <IgnoreSpecificDefaultLibraries>LIBCMT</IgnoreSpecificDefaultLibraries>
+    </Link>
+    <PostBuildEvent>
+      <Command>IF NOT EXIST $(OutDir)xml ( mkdir $(OutDir)\xml )
+xcopy xml\*.xml $(OutDir)xml /Y
+xcopy xml\*.xsd $(OutDir)xml /Y</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>OCA_LITE_CONTROLLER;OCA_TRACK_KEEPALIVE_RECEIVED;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>..\DNSSDResolver;..\..\OCAMicro\OCAMicro\Src\inc;..\..\OCAMicro\OCAMicro\Src\common;..\..\OCAMicro\OCAMicro\Src\common\OCALite;..\3rd Party;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>WS2_32.lib;..\..\OCAMicro\OCAMicro\src/platform/common/OcaLite/BonjourSDK/x64/dnssd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <IgnoreSpecificDefaultLibraries>LIBCMT</IgnoreSpecificDefaultLibraries>
+    </Link>
+    <PostBuildEvent>
+      <Command>IF NOT EXIST $(OutDir)xml ( mkdir $(OutDir)\xml )
+xcopy xml\*.xml $(OutDir)xml /Y
+xcopy xml\*.xsd $(OutDir)xml /Y</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>OCA_LITE_CONTROLLER;OCA_TRACK_KEEPALIVE_RECEIVED;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>..\DNSSDResolver;..\..\OCAMicro\OCAMicro\Src\inc;..\..\OCAMicro\OCAMicro\Src\common;..\..\OCAMicro\OCAMicro\Src\common\OCALite;..\3rd Party;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>WS2_32.lib;..\..\OCAMicro\OCAMicro\src/platform/common/OcaLite/BonjourSDK/x86/dnssd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <IgnoreSpecificDefaultLibraries>LIBCMT</IgnoreSpecificDefaultLibraries>
+    </Link>
+    <PostBuildEvent>
+      <Command>IF NOT EXIST $(OutDir)xml ( mkdir $(OutDir)\xml )
+xcopy xml\*.xml $(OutDir)xml /Y
+xcopy xml\*.xsd $(OutDir)xml /Y</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>OCA_LITE_CONTROLLER;OCA_TRACK_KEEPALIVE_RECEIVED;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>..\DNSSDResolver;..\..\OCAMicro\OCAMicro\Src\inc;..\..\OCAMicro\OCAMicro\Src\common;..\..\OCAMicro\OCAMicro\Src\common\OCALite;..\3rd Party;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>WS2_32.lib;..\..\OCAMicro\OCAMicro\src/platform/common/OcaLite/BonjourSDK/x64/dnssd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <IgnoreSpecificDefaultLibraries>LIBCMT</IgnoreSpecificDefaultLibraries>
+    </Link>
+    <PostBuildEvent>
+      <Command>IF NOT EXIST $(OutDir)xml ( mkdir $(OutDir)\xml )
+xcopy xml\*.xml $(OutDir)xml /Y
+xcopy xml\*.xsd $(OutDir)xml /Y</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="HostInterface\OCA\OCF\Configuration\OcaLiteOcfConfiguration.cpp" />
+    <ClCompile Include="HostInterface\OCA\OCF\Logging\OcaLiteOcfLogger.cpp" />
+    <ClCompile Include="HostInterface\OCA\OCF\Timer\OcaLiteOcfTimer.cpp" />
+    <ClCompile Include="HostInterface\OCA\OCP.1\Network\OcaLiteOcp1Network.cpp" />
+    <ClCompile Include="HostInterface\OCA\OCP.1\Network\OcaLiteOcp1Socket.cpp" />
+    <ClCompile Include="HostInterface\OCA\OCP.1\Ocp1HostInterfaceOcaLite.cpp" />
+    <ClCompile Include="HostInterface\OCA\OCP.1\ZeroConf\OcaLiteOcp1Service.cpp" />
+    <ClCompile Include="Aes70CompliancyTestTool.cpp" />
+    <ClCompile Include="TestFramework\BaseTestClass.cpp" />
+    <ClCompile Include="TestFramework\TestContext.cpp" />
+    <ClCompile Include="TestFramework\TestLogger.cpp" />
+    <ClCompile Include="TestFramework\TestSuite.cpp" />
+    <ClCompile Include="Tests\MinimumObjectCompliancyTest\MinimumObjectCompliancyTest.cpp" />
+    <ClCompile Include="Tests\OCC\ObjectCompliancyTest.cpp" />
+    <ClCompile Include="Tests\OCP.1\DeviceResetTest.cpp" />
+    <ClCompile Include="Tests\OCP.1\DeviceServiceDiscoveryTest.cpp" />
+    <ClCompile Include="Tests\OCP.1\KeepAliveTest.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="Xml\ReferenceOCCMembers.xml">
+      <SubType>Designer</SubType>
+    </Xml>
+    <Xml Include="Xml\TestConfiguration.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Aes70CompliancyTestToolConsoleDocumentation.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="TestFramework\BaseTestClass.h" />
+    <ClInclude Include="TestFramework\TestContext.h" />
+    <ClInclude Include="TestFramework\TestLogger.h" />
+    <ClInclude Include="TestFramework\TestSuite.h" />
+    <ClInclude Include="Tests\DummyTest.h" />
+    <ClInclude Include="Tests\MinimumObjectCompliancyTest\MinimumObjectCompliancyTest.h" />
+    <ClInclude Include="Tests\OCC\ObjectCompliancyTest.h" />
+    <ClInclude Include="Tests\OCP.1\DeviceServiceDiscoveryTest.h" />
+    <ClInclude Include="Tests\OCP.1\DeviceResetTest.h" />
+    <ClInclude Include="Tests\OCP.1\KeepAliveTest.h" />
+    <ClInclude Include="VersionDefs.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Aes70CompliancyTestTool.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\OCAMicro\OCAMicro\Src\common\OCALiteControllerLib.vcxproj">
+      <Project>{2aa3e22f-7335-43d4-b13e-21f05127c9d2}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\DNSSDResolver\DNSSDResolver.vcxproj">
+      <Project>{c112c7f0-9449-4c0a-bc35-a059f0ac9f6a}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\build.cmd" />
+    <None Include="..\Aes70CompliancyTestToolConsoleDocumentation.doxygen" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -1,0 +1,1651 @@
+<?xml version="1.0" encoding="utf-8"?>
+<OcaDevice xmlns:occmembers="http://www.w3.org/2001/XMLSchema-instance" occmembers:noNamespaceSchemaLocation="ReferenceOCCMembers.xsd">
+    <!-- Root segment[1]:
+            Anything specific to both Managers and RootBlocks can be added here-->
+    <Root Label="Root" Name="OcaRoot" ClassID="1">
+        <Versions>
+            <Version OcaVersion="AES70-2015" ClassVersion="1"/>
+            <Version OcaVersion="AES70-2018" ClassVersion="2"/>
+        </Versions>
+        <Methods>
+            <Method Name="GetClassIdentification" Index="1">
+                <MandatoryMap>
+                    <!-- Mandatory from OCA version AES70-2015 -->
+                    <Mandatory OcaVersion="AES70-2015" Mandatory="true"/>
+                </MandatoryMap>
+            </Method>
+            <Method Name="GetLockable" Index="2">
+                <MandatoryMap>
+                    <!-- Mandatory from OCA version AES70-2015 -->
+                    <Mandatory OcaVersion="AES70-2015" Mandatory="true"/>
+                </MandatoryMap>
+            </Method>
+            <Method Name="Lock" Index="3">
+                <MandatoryMap>
+                    <!-- Mandatory from OCA version AES70-2015, only if lockable -->
+                    <Mandatory OcaVersion="AES70-2015" Mandatory="true"/>
+                </MandatoryMap>
+            </Method>
+            <Method Name="Unlock" Index="4">
+                <MandatoryMap>
+                    <!-- Mandatory from OCA version AES70-2015, only if lockable -->
+                    <Mandatory OcaVersion="AES70-2015" Mandatory="true"/>
+                </MandatoryMap>
+            </Method>
+            <Method Name="GetRole" Index="5"  />
+            <Method Name="LockReadOnly" Index="6" AvailableSince="AES70-2018" />
+        </Methods>
+        <Events>
+            <Event Name="PropertyChanged" Index="1">
+                <MandatoryMap>
+                    <!-- Mandatory from OCA version AES70-2015 -->
+                    <Mandatory OcaVersion="AES70-2015" Mandatory="true"/>
+                </MandatoryMap>
+            </Event>
+        </Events>
+    </Root>
+    <!-- Managers segment[2]:
+            Anything specific to managers can be added here as an attribute -->
+    <Managers Label="Managers">
+        <!-- OcaManager doesn't contain any method -->
+        <!-- OcaRoot.OcaManager -->
+        <Manager Name="OcaManager" ClassID="1.3">
+        </Manager>
+        <!-- OcaRoot.OcaManager.OcaDeviceManager -->
+        <Manager Name="OcaDeviceManager" ClassID="1.3.1" ObjNumber="1">
+            <MandatoryMap>
+                <!-- Mandatory from OCA version AES70-2015 -->
+                <Mandatory OcaVersion="AES70-2015" Mandatory="true"/>
+            </MandatoryMap>
+            <Methods>
+                <Method Name="GetOcaVersion" Index="1">
+                    <MandatoryMap>
+                        <!-- Mandatory from OCA version AES70-2015 -->
+                        <Mandatory OcaVersion="AES70-2015" Mandatory="true"/>
+                    </MandatoryMap>
+                </Method>
+                <Method Name="GetModelGUID" Index="2">
+                    <MandatoryMap>
+                        <!-- Mandatory from OCA version AES70-2015 -->
+                        <Mandatory OcaVersion="AES70-2015" Mandatory="true"/>
+                    </MandatoryMap>
+                </Method>
+                <Method Name="GetSerialNumber" Index="3">
+                    <MandatoryMap>
+                        <!-- Mandatory from OCA version AES70-2015 -->
+                        <Mandatory OcaVersion="AES70-2015" Mandatory="true"/>
+                    </MandatoryMap>
+                </Method>
+                <Method Name="GetDeviceName" Index="4">
+                    <MandatoryMap>
+                        <!-- Mandatory from OCA version AES70-2015 -->
+                        <Mandatory OcaVersion="AES70-2015" Mandatory="true"/>
+                    </MandatoryMap>
+                </Method>
+                <Method Name="GetModelDescription" Index="6">
+                    <MandatoryMap>
+                        <!-- Mandatory from OCA version AES70-2015 -->
+                        <Mandatory OcaVersion="AES70-2015" Mandatory="true"/>
+                    </MandatoryMap>
+                </Method>
+                <Method Name="GetEnabled" Index="11">
+                    <MandatoryMap>
+                        <!-- Mandatory from OCA version AES70-2015 -->
+                        <Mandatory OcaVersion="AES70-2015" Mandatory="true"/>
+                    </MandatoryMap>
+                </Method>
+                <Method Name="SetEnabled" Index="12">
+                    <MandatoryMap>
+                        <Mandatory OcaVersion="AES70-2015" Mandatory="true"/>
+                    </MandatoryMap>
+                </Method>
+                <Method Name="GetState" Index="13">
+                    <MandatoryMap>
+                        <!-- Mandatory from OCA version AES70-2015 -->
+                        <Mandatory OcaVersion="AES70-2015" Mandatory="true"/>
+                    </MandatoryMap>
+                </Method>
+                <Method Name="GetManagers" Index="19">
+                    <MandatoryMap>
+                        <!-- Mandatory from OCA version AES70-2015 -->
+                        <Mandatory OcaVersion="AES70-2015" Mandatory="true"/>
+                    </MandatoryMap>
+                </Method>
+                <Method Name="GetDeviceRevisionID" Index="20" AvailableSince="AES70-2018">
+                    <MandatoryMap>
+                        <!-- Mandatory from OCA version AES70-2018 -->
+                        <Mandatory OcaVersion="AES70-2018" Mandatory="true"/>
+                    </MandatoryMap>
+                </Method>
+                <!-- Optional members -->
+                <Method Name="SetDeviceName" Index="5" />
+                <Method Name="GetDeviceRole" Index="7" />
+                <Method Name="SetDeviceRole" Index="8" />
+                <Method Name="GetUserInventoryCode" Index="9" />
+                <Method Name="SetUserInventoryCode" Index="10" />
+                <Method Name="SetResetKey" Index="14" />
+                <Method Name="GetResetCause" Index="15" />
+                <Method Name="ClearResetCase" Index="16" />
+                <Method Name="GetMessage" Index="17" />
+                <Method Name="SetMessage" Index="18" />
+            </Methods>
+        </Manager>
+        <!-- OcaRoot.OcaManager.OcaSecurityManager -->
+        <Manager Name="OcaSecurityManager" ClassID="1.3.2" ObjNumber="2">
+            <MandatoryMap>
+                <!-- Not mandatory from OCA version AES70-2015 -->
+                <Mandatory OcaVersion="AES70-2015" Mandatory="true" DeviceType="Secure"/>
+            </MandatoryMap>
+            <Methods>
+                <Method Name="EnableControlSecurity" Index="1" ConnectionType="Secure">
+                    <MandatoryMap>
+                        <!-- Mandatory from OCA version AES70-2015 -->
+                        <Mandatory OcaVersion="AES70-2015" Mandatory="true"/>
+                    </MandatoryMap>
+                </Method>
+                <Method Name="DisableControlSecurity" Index="2" ConnectionType="Secure">
+                    <MandatoryMap>
+                        <!-- Mandatory from OCA version AES70-2015 -->
+                        <Mandatory OcaVersion="AES70-2015" Mandatory="true"/>
+                    </MandatoryMap>
+                </Method>
+                <Method Name="ChangePreSharedKey" Index="3" ConnectionType="Secure">
+                    <MandatoryMap>
+                        <!-- Mandatory from OCA version AES70-2015 -->
+                        <Mandatory OcaVersion="AES70-2015" Mandatory="true"/>
+                    </MandatoryMap>
+                </Method>
+                <Method Name="AddPreSharedKey" Index="4" ConnectionType="Secure">
+                    <MandatoryMap>
+                        <!-- Mandatory from OCA version AES70-2015 -->
+                        <Mandatory OcaVersion="AES70-2015" Mandatory="true"/>
+                    </MandatoryMap>
+                </Method>
+                <Method Name="DeletePreSharedKey" Index="5" ConnectionType="Secure">
+                    <MandatoryMap>
+                        <!-- Mandatory from OCA version AES70-2015 -->
+                        <Mandatory OcaVersion="AES70-2015" Mandatory="true"/>
+                    </MandatoryMap>
+                </Method>
+            </Methods>
+        </Manager>
+        <!-- OcaRoot.OcaManager.OcaFirmwareManager -->
+        <Manager Name="OcaFirmwareManager" ClassID="1.3.3" ObjNumber="3">
+            <MandatoryMap>
+                <!-- Mandatory from OCA version AES70-2015 -->
+                <Mandatory OcaVersion="AES70-2015" Mandatory="true"/>
+                 <!-- No longer mandatory from OCA version AES70-2018 -->
+                <Mandatory OcaVersion="AES70-2018" Mandatory="false"/>
+            </MandatoryMap>
+            <Methods>
+                <Method Name="GetComponentVersions" Index="1">
+                    <MandatoryMap>
+                        <!-- Mandatory from OCA version AES70-2015 -->
+                        <Mandatory OcaVersion="AES70-2015" Mandatory="true"/>
+                    </MandatoryMap>
+                </Method>
+            </Methods>
+        </Manager>
+        <!-- OcaRoot.OcaManager.OcaSubscriptionManager -->
+        <Manager Name="OcaSubscriptionManager" ClassID="1.3.4" ObjNumber="4">
+            <MandatoryMap>
+                <!-- Mandatory from OCA version AES70-2015 -->
+                <Mandatory OcaVersion="AES70-2015" Mandatory="true"/>
+                <!-- No longer mandatory from OCA version AES70-2018-->
+                <Mandatory OcaVersion="AES70-2018" Mandatory="false"/>
+            </MandatoryMap>
+            <Methods>
+                <Method Name="AddSubscription" Index="1">
+                    <MandatoryMap>
+                        <!-- Mandatory from OCA version AES70-2015 -->
+                        <Mandatory OcaVersion="AES70-2015" Mandatory="true"/>
+                    </MandatoryMap>
+                </Method>
+                <Method Name="RemoveSubscription" Index="2">
+                    <MandatoryMap>
+                        <!-- Mandatory from OCA version AES70-2015 -->
+                        <Mandatory OcaVersion="AES70-2015" Mandatory="true"/>
+                    </MandatoryMap>
+                </Method>
+                <Method Name="AddPropertyChangeSubscription" Index="5" AvailableSince="AES70-2018">
+                    <MandatoryMap>
+                        <!-- Mandatory from OCA version AES70-2018 -->
+                        <Mandatory OcaVersion="AES70-2018" Mandatory="true"/>
+                    </MandatoryMap>
+                </Method>
+                <Method Name="RemovePropertyChangeSubscription" Index="6" AvailableSince="AES70-2018">
+                    <MandatoryMap>
+                        <!-- Mandatory from OCA version AES70-2018 -->
+                        <Mandatory OcaVersion="AES70-2018" Mandatory="true" />
+                    </MandatoryMap>
+                </Method>
+                <!-- Optional methods -->
+                <Method Name="DisableNotifications" Index="3" AvailableSince="AES70-2018"/>
+                <Method Name="ReEnableNotifications" Index="4" AvailableSince="AES70-2018"/>
+                <Method Name="GetMaximumSubscriberContextLength" Index="7" AvailableSince="AES70-2018"/>
+            </Methods>
+            <Events>
+                <Event Name="NotificationDisabled" Index="1" AvailableSince="AES70-2018">
+                    <MandatoryMap>
+                        <!-- Mandatory from OCA version AES70-2018 -->
+                        <Mandatory OcaVersion="AES70-2018" Mandatory="true"/>
+                    </MandatoryMap>
+                </Event>
+                <Event Name="SynchronizeState" Index="2" AvailableSince="AES70-2018">
+                    <MandatoryMap>
+                        <!-- Mandatory from OCA version AES70-2018 -->
+                        <Mandatory OcaVersion="AES70-2018" Mandatory="true"/>
+                    </MandatoryMap>
+                </Event>
+            </Events>
+        </Manager>
+        <!-- OcaRoot.OcaManager.OcaPowerManager -->
+        <Manager Name="OcaPowerManager" ClassID="1.3.5" ObjNumber="5">
+            <Methods>
+                <Method Name="GetState" Index="1" />
+                <Method Name="SetState" Index="2" />
+                <Method Name="GetPowerSupplies" Index="3" />
+                <Method Name="GetActivePowerSupplies" Index="4" />
+                <Method Name="ExchangePowerSupply" Index="5" />
+                <Method Name="GetAutoState" Index="6" />
+            </Methods>
+        </Manager>
+        <!-- OcaRoot.OcaManager.OcaNetworkManager -->
+        <Manager Name="OcaNetworkManager" ClassID="1.3.6" ObjNumber="6">
+            <MandatoryMap>
+                <!-- Mandatory from OCA version AES70-2015 -->
+                <Mandatory OcaVersion="AES70-2015" Mandatory="true"/>
+                <!-- Not mandatory from OCA version AES70-2018 (only mandatory with multiple networks) -->
+                <Mandatory OcaVersion="AES70-2018" Mandatory="false"/>
+            </MandatoryMap>
+            <Methods>
+                <Method Name="GetNetworks" Index="1">
+                    <MandatoryMap>
+                        <!-- Mandatory from OCA version AES70-2015 -->
+                        <Mandatory OcaVersion="AES70-2015" Mandatory="true"/>
+                    </MandatoryMap>
+                </Method>
+                <Method Name="GetStreamNetworks" Index="2">
+                    <MandatoryMap>
+                        <!-- Mandatory from OCA version AES70-2015 -->
+                        <Mandatory OcaVersion="AES70-2015" Mandatory="true"/>
+                    </MandatoryMap>
+                </Method>
+                <Method Name="GetControlNetworks" Index="3">
+                    <MandatoryMap>
+                        <!-- Mandatory from OCA version AES70-2015 -->
+                        <Mandatory OcaVersion="AES70-2015" Mandatory="true"/>
+                    </MandatoryMap>
+                </Method>
+                <Method Name="GetMediaTransportNetworks" Index="4">
+                    <MandatoryMap>
+                        <!-- Mandatory from OCA version AES70-2015 -->
+                        <Mandatory OcaVersion="AES70-2015" Mandatory="true"/>
+                    </MandatoryMap>
+                </Method>
+            </Methods>
+        </Manager>
+        <!-- OcaRoot.OcaManager.OcaMediaClockManager -->
+        <Manager Name="OcaMediaClockManager" ClassID="1.3.7" ObjNumber="7">
+            <!-- Only mandatory with multiple clocks -->
+            <MandatoryMap>
+                <!-- Mandatory from OCA version AES70-2015 -->
+                <Mandatory OcaVersion="AES70-2015" Mandatory="true" DeviceType="Streaming"/>
+            </MandatoryMap>
+            <Methods>
+                <Method Name="GetClocks" Index="1">
+                    <MandatoryMap>
+                        <!-- Mandatory from OCA version AES70-2018 -->
+                        <Mandatory OcaVersion="AES70-2018" Mandatory="true"/>
+                    </MandatoryMap>
+                </Method>
+                <Method Name="GetMediaClockTypesSupported" Index="2">
+                    <MandatoryMap>
+                        <!-- Mandatory from OCA version AES70-2018 -->
+                        <Mandatory OcaVersion="AES70-2018" Mandatory="true"/>
+                    </MandatoryMap>
+                </Method>
+                <Method Name="GetClock3s" Index="3" AvailableSince="AES70-2018">
+                    <MandatoryMap>
+                        <!-- Mandatory from OCA version AES70-2018 -->
+                        <Mandatory OcaVersion="AES70-2018" Mandatory="true"/>
+                    </MandatoryMap>
+                </Method>
+            </Methods>
+        </Manager>
+        <!-- OcaRoot.OcaManager.OcaLibraryManager -->
+        <Manager Name="OcaLibraryManager" ClassID="1.3.8" ObjNumber="8">
+            <Methods>
+                <Method Name="AddLibrary" Index="1"/>
+                <Method Name="DeleteLibrary" Index="2"/>
+                <Method Name="GetLibraryCount" Index="3"/>
+                <Method Name="GetLibraryList" Index="4"/>
+                <Method Name="GetCurrentPatch" Index="5"/>
+                <Method Name="ApplyPatch" Index="6"/>
+            </Methods>
+        </Manager>
+        <!-- OcaRoot.OcaManager.OcaAudioProcessingManager does not contain any method-->
+        <Manager Name="OcaAudioProcessingManager" ClassID="1.3.9" ObjNumber="9"/>
+        <!-- OcaRoot.OcaManager.OcaDeviceTimeManager -->
+        <Manager Name="OcaDeviceTimeManager" ClassID="1.3.10" ObjNumber="10">
+            <!-- Only mandatory with multiple timesource objects -->
+            <MandatoryMap>
+                <!-- Not mandatory from OCA version AES70-2018 -->
+                <Mandatory OcaVersion="AES70-2018" Mandatory="false"/>
+            </MandatoryMap>
+            <Methods>
+                <Method Name="GetDeviceTimeNTP" Index="1">
+                    <MandatoryMap>
+                        <!-- Mandatory from OCA version AES70-2018 (object itself is not mandatory) -->
+                        <Mandatory OcaVersion="AES70-2018" Mandatory="true"/>
+                    </MandatoryMap>
+                </Method>
+                <Method Name="SetDeviceTimeNTP" Index="2"/>       
+                <Method Name="GetTimeSources" Index="3">
+                    <MandatoryMap>
+                        <!-- Mandatory from OCA version AES70-2018 (object itself is not mandatory) -->
+                        <Mandatory OcaVersion="AES70-2018" Mandatory="true"/>
+                    </MandatoryMap>
+                </Method>
+                <Method Name="GetCurrentDeviceTimeSource" Index="4">
+                    <MandatoryMap>
+                        <!-- Mandatory from OCA version AES70-2018 (object itself is not mandatory) -->
+                        <Mandatory OcaVersion="AES70-2018" Mandatory="true"/>
+                    </MandatoryMap>
+                </Method>
+                <Method Name="SetCurrentDeviceTimeSource" Index="5">
+                    <MandatoryMap>
+                        <!-- Mandatory from OCA version AES70-2018 (object itself is not mandatory) -->
+                        <Mandatory OcaVersion="AES70-2018" Mandatory="true"/>
+                    </MandatoryMap>
+                </Method>
+                <Method Name="GetDeviceTimePTP" Index="6">
+                    <MandatoryMap>
+                        <!-- Mandatory from OCA version AES70-2018 (object itself is not mandatory) -->
+                        <Mandatory OcaVersion="AES70-2018" Mandatory="true"/>
+                    </MandatoryMap>
+                </Method>
+                <Method Name="SetDeviceTimePTP" Index="7"/>
+            </Methods>
+        </Manager>
+        <!-- OcaRoot.OcaManager.OcaTaskManager -->
+        <Manager Name="OcaTaskManager" ClassID="1.3.11" ObjNumber="11" AvailableSince="AES70-2018">
+            <Methods>
+                <Method Name="ControlTask" Index="1"/>
+                <Method Name="ControlTaskGroup" Index="2"/>
+                <Method Name="DeleteTask" Index="3"/>
+                <Method Name="Enable" Index="4"/>
+                <Method Name="ControlAllTasks" Index="5"/>
+                <Method Name="GetTask" Index="6"/>
+                <Method Name="GetTasks" Index="7"/>
+                <Method Name="GetTaskStatus" Index="8"/>
+                <Method Name="GetTaskStatuses" Index="9"/>
+                <Method Name="SetTask" Index="10"/>
+                <Method Name="GetState" Index="11"/>
+                <Method Name="AddTask" Index="12"/>
+            </Methods>
+            <Events>
+                <Event Name="TaskStateChanged" Index="1"/>
+            </Events>
+        </Manager>
+        <!-- OcaRoot.OcaManager.OcaCodingManager -->
+        <Manager Name="OcaCodingManager" ClassID="1.3.12" ObjNumber="12" AvailableSince="AES70-2018">
+            <!-- Mandatory when multiple coding schemes -->
+            <MandatoryMap>
+                <!-- Not mandatory from OCA version AES70-2018 -->
+                <Mandatory OcaVersion="AES70-2018" Mandatory="false"/>
+            </MandatoryMap>
+            <Methods>
+                <Method Name="GetAvailableEncodingSchemes" Index="1">
+                    <MandatoryMap>
+                        <!-- Mandatory from OCA version AES70-2018 (object itself is not mandatory) -->
+                        <Mandatory OcaVersion="AES70-2018" Mandatory="true"/>
+                    </MandatoryMap>
+                </Method>
+                <Method Name="GetAvailableDecodingSchemes" Index="2">
+                    <MandatoryMap>
+                        <!-- Mandatory from OCA version AES70-2018 (object itself is not mandatory) -->
+                        <Mandatory OcaVersion="AES70-2018" Mandatory="true"/>
+                    </MandatoryMap>
+                </Method>
+            </Methods>
+        </Manager>
+        <!-- OcaRoot.OcaManager.OcaDiagnosticsManager -->
+        <Manager Name="OcaDiagnosticsManager" ClassID="1.3.13" ObjNumber="13" AvailableSince="AES70-2018">
+            <Methods>
+                <Method Name="GetLockStatus" Index="1"/>
+            </Methods>
+        </Manager>
+    </Managers>
+
+    <!-- BlockMembers segment[3]:
+            Anything specific to all block members can be added here as
+            attribute like ObjectNumberLowerLimit(minimum object number),
+            ObjectNumberUpperLimit(maximum object number) if no
+            object number is specified. If any object number is specified then these
+            two value will be same as that of ObjectNumber.
+            e.g.
+                RootBlock is of type OcaBlock whose object number is fixed that is 100 -->
+
+    <BlockMembers Label="BlockMembers" ObjectNumberLowerLimit="4096" ObjectNumberUpperLimit="4294967295">
+
+        <!--  <ROOT.WORKER(1.1)> -->
+
+        <BlockMember Name="OcaWorker" ClassID="1.1">
+            <Methods>
+                <!-- Mandatory methods -->
+                <Method Name="GetEnabled" Index="1">
+                    <MandatoryMap>
+                        <!-- Mandatory from OCA version AES70-2015 -->
+                        <Mandatory OcaVersion="AES70-2015" Mandatory="true"/>
+                    </MandatoryMap>
+                </Method>
+                <Method Name="SetEnabled" Index="2">
+                    <MandatoryMap>
+                        <!-- Mandatory from OCA version AES70-2015 -->
+                        <Mandatory OcaVersion="AES70-2015" Mandatory="true"/>
+                    </MandatoryMap>
+                </Method>
+                <Method Name="GetPorts" Index="5">
+                    <MandatoryMap>
+                        <!-- Mandatory from OCA version AES70-2015 -->
+                        <Mandatory OcaVersion="AES70-2015" Mandatory="true"/>
+                    </MandatoryMap>
+                </Method>
+
+                <!-- Optional methods -->
+                <Method Name="AddPort" Index="3" />
+                <Method Name="DeletePort" Index="4" />
+                <Method Name="GetPortName" Index="6" />
+                <Method Name="SetPortName" Index="7" />
+                <Method Name="GetLabel" Index="8" />
+                <Method Name="SetLabel" Index="9" />
+                <Method Name="GetOwner" Index="10" />
+                <Method Name="GetLatency" Index="11" />
+                <Method Name="SetLatency" Index="12" />
+            </Methods>
+        </BlockMember>
+
+        <!--  </ROOT.WORKER(1.1)> -->
+
+        <!--  <ROOT.WORKER.ACTUATOR(1.1.1)> -->
+
+        <!-- OcaRoot.OcaWorker.OcaActuator doesn't contain any method -->
+        <BlockMember Name="OcaActuator" ClassID="1.1.1"/>
+        <!-- OcaRoot.OcaWorker.OcaActuator.OcaBasicActuator doesn't contain any method -->
+        <BlockMember Name="OcaBasicActuator" ClassID="1.1.1.1"/>
+
+        <!-- OcaRoot.OcaWorker.OcaActuator.OcaMute -->
+        <BlockMember Name="OcaMute" ClassID="1.1.1.2">
+            <Methods>
+                <Method Name="GetState" Index="1"/>
+                <Method Name="SetState" Index="2"/>
+            </Methods>
+        </BlockMember>
+        <!-- OcaRoot.OcaWorker.OcaActuator.OcaPolarity -->
+        <BlockMember Name="OcaPolarity" ClassID="1.1.1.3">
+            <Methods>
+                <Method Name="GetState" Index="1"/>
+                <Method Name="SetState" Index="2"/>
+            </Methods>
+        </BlockMember>
+        <!-- OcaRoot.OcaWorker.OcaActuator.OcaSwitch -->
+        <BlockMember Name="OcaSwitch" ClassID="1.1.1.4">
+            <Methods>
+                <Method Name="GetPosition" Index="1"/>
+                <Method Name="SetPosition" Index="2"/>
+                <Method Name="GetPositionName" Index="3"/>
+                <Method Name="SetPositionName" Index="4"/>
+                <Method Name="GetPositionNames" Index="5"/>
+                <Method Name="SetPositionNames" Index="6"/>
+                <Method Name="GetPositionEnabled" Index="7"/>
+                <Method Name="SetPositionEnabled" Index="8"/>
+                <Method Name="GetPositionEnableds" Index="9"/>
+                <Method Name="SetPositionEnableds" Index="10"/>
+            </Methods>
+        </BlockMember>
+        <!-- OcaRoot.OcaWorker.OcaActuator.OcaGain -->
+        <BlockMember Name="OcaGain" ClassID="1.1.1.5">
+            <Methods>
+                <Method Name="GetGain" Index="1"/>
+                <Method Name="SetGain" Index="2"/>
+            </Methods>
+        </BlockMember>
+        <!-- OcaRoot.OcaWorker.OcaActuator.OcaPanBalance -->
+        <BlockMember Name="OcaPanBalance" ClassID="1.1.1.6">
+            <Methods>
+                <Method Name="GetPosition" Index="1"/>
+                <Method Name="SetPosition" Index="2"/>
+                <Method Name="GetMidpointGain" Index="3"/>
+                <Method Name="SetMidpointGain" Index="4"/>
+            </Methods>
+        </BlockMember>
+        <!-- OcaRoot.OcaWorker.OcaActuator.OcaDelay -->
+        <BlockMember Name="OcaDelay" ClassID="1.1.1.7">
+            <Methods>
+                <Method Name="GetDelayTime" Index="1"/>
+                <Method Name="SetDelayTime" Index="2"/>
+            </Methods>
+        </BlockMember>
+        <!-- OcaRoot.OcaWorker.OcaActuator.OcaDelayExtended -->
+        <BlockMember Name="OcaDelayExtended" ClassID="1.1.1.7.1">
+            <Methods>
+                <Method Name="GetDelayValue" Index="1"/>
+                <Method Name="SetDelayValue" Index="2"/>
+                <Method Name="GetDelayValueConverted" Index="3"/>
+            </Methods>
+        </BlockMember>
+        <!-- OcaRoot.OcaWorker.OcaActuator.OcaFrequencyActuator -->
+        <BlockMember Name="OcaFrequencyActuator" ClassID="1.1.1.8">
+            <Methods>
+                <Method Name="GetFrequency" Index="1"/>
+                <Method Name="SetFrequency" Index="2"/>
+            </Methods>
+        </BlockMember>
+        <!-- OcaRoot.OcaWorker.OcaActuator.OcaFilterClassical -->
+        <BlockMember Name="OcaFilterClassical" ClassID="1.1.1.9">
+            <Methods>
+                <Method Name="GetFrequency" Index="1"/>
+                <Method Name="SetFrequency" Index="2"/>
+                <Method Name="GetPassband" Index="3"/>
+                <Method Name="SetPassband" Index="4"/>
+                <Method Name="GetShape" Index="5"/>
+                <Method Name="SetShape" Index="6"/>
+                <Method Name="GetOrder" Index="7"/>
+                <Method Name="SetOrder" Index="8"/>
+                <Method Name="GetParameter" Index="9"/>
+                <Method Name="SetParameter" Index="10"/>
+                <Method Name="SetMultiple" Index="11" AvailableSince="AES70-2018" />
+            </Methods>
+        </BlockMember>
+        <!-- OcaRoot.OcaWorker.OcaActuator.OcaFilterParametric -->
+        <BlockMember Name="OcaFilterParametric" ClassID="1.1.1.10">
+            <Methods>
+                <Method Name="GetFrequency" Index="1"/>
+                <Method Name="SetFrequency" Index="2"/>
+                <Method Name="GetShape" Index="3"/>
+                <Method Name="SetShape" Index="4"/>
+                <Method Name="GetQ" Index="5"/>
+                <Method Name="SetQ" Index="6"/>
+                <Method Name="GetPassbandGain" Index="7"/>
+                <Method Name="SetPassbandGain" Index="8"/>
+                <Method Name="GetShapeParameter" Index="9" AvailableSince="AES70-2018" />
+                <Method Name="SetShapeParameter" Index="10" AvailableSince="AES70-2018" />
+                <Method Name="SetMultiple" Index="11" AvailableSince="AES70-2018" />
+            </Methods>
+        </BlockMember>
+        <!-- OcaRoot.OcaWorker.OcaActuator.OcaFilterPolynomial -->
+        <BlockMember Name="OcaFilterPolynomial" ClassID="1.1.1.11">
+            <Methods>
+                <Method Name="GetCoefficients" Index="1"/>
+                <Method Name="SetCoefficients" Index="2"/>
+                <Method Name="GetSampleRate" Index="3"/>
+                <Method Name="SetSampleRate" Index="4"/>
+                <Method Name="GetMaxOrder" Index="5"/>
+            </Methods>
+        </BlockMember>
+        <!-- OcaRoot.OcaWorker.OcaActuator.OcaFilterFIR -->
+        <BlockMember Name="OcaFilterFIR" ClassID="1.1.1.12">
+            <Methods>
+                <Method Name="GetLength" Index="1"/>
+                <Method Name="GetCoefficients" Index="2"/>
+                <Method Name="SetCoefficients" Index="3"/>
+                <Method Name="GetSampleRate" Index="4"/>
+                <Method Name="SetSampleRate" Index="5"/>
+            </Methods>
+        </BlockMember>
+        <!-- OcaRoot.OcaWorker.OcaActuator.OcaFilterArbitraryCurve -->
+        <BlockMember Name="OcaFilterArbitraryCurve" ClassID="1.1.1.13">
+            <Methods>
+                <Method Name="GetTransferFunction" Index="1"/>
+                <Method Name="SetTransferFunction" Index="2"/>
+                <Method Name="GetSampleRate" Index="3"/>
+                <Method Name="SetSampleRate" Index="4"/>
+                <Method Name="GetTFMinLength" Index="5" AvailableSince="AES70-2018"/>
+                <Method Name="GetTFMaxLength" Index="6" AvailableSince="AES70-2018"/>
+            </Methods>
+        </BlockMember>
+        <!-- OcaRoot.OcaWorker.OcaActuator.OcaDynamics -->
+        <BlockMember Name="OcaDynamics" ClassID="1.1.1.14">
+            <Methods>
+                <Method Name="GetTriggered" Index="1"/>
+                <Method Name="GetDynamicGain" Index="2"/>
+                <Method Name="GetFunction" Index="3"/>
+                <Method Name="SetFunction" Index="4"/>
+                <Method Name="GetRatio" Index="5"/>
+                <Method Name="SetRatio" Index="6"/>
+                <Method Name="GetThreshold" Index="7"/>
+                <Method Name="SetThreshold" Index="8"/>
+                <Method Name="GetThresholdPresentationUnits" Index="9"/>
+                <Method Name="SetThresholdPresentationUnits" Index="10"/>
+                <Method Name="GetDetectionLaw" Index="11"/>
+                <Method Name="SetDetectionLaw" Index="12"/>
+                <Method Name="GetAttackTime" Index="13"/>
+                <Method Name="SetAttackTime" Index="14"/>
+                <Method Name="GetReleaseTime" Index="15"/>
+                <Method Name="SetReleaseTime" Index="16"/>
+                <Method Name="GetHoldTime" Index="17"/>
+                <Method Name="SetHoldTime" Index="18"/>
+                <Method Name="GetDynamicGainFloor" Index="19"/>
+                <Method Name="SetDynamicGainFloor" Index="20"/>
+                <Method Name="GetDynamicGainCeiling" Index="21"/>
+                <Method Name="SetDynamicGainCeiling" Index="22"/>
+                <Method Name="GetKneeParameter" Index="23"/>
+                <Method Name="SetKneeParameter" Index="24"/>
+                <Method Name="GetSlope" Index="25" AvailableSince="AES70-2018"/>
+                <Method Name="SetSlope" Index="26" AvailableSince="AES70-2018"/>
+                <Method Name="SetMultiple" Index="27" AvailableSince="AES70-2018"/>
+            </Methods>
+        </BlockMember>
+        <!-- OcaRoot.OcaWorker.OcaActuator.OcaDynamicsDetector -->
+        <BlockMember Name="OcaDynamicsDetector" ClassID="1.1.1.15">
+            <Methods>
+                <Method Name="GetLaw" Index="1"/>
+                <Method Name="SetLaw" Index="2"/>
+                <Method Name="GetAttackTime" Index="3"/>
+                <Method Name="SetAttackTime" Index="4"/>
+                <Method Name="GetReleaseTime" Index="5"/>
+                <Method Name="SetReleaseTime" Index="6"/>
+                <Method Name="GetHoldTime" Index="7"/>
+                <Method Name="SetHoldTime" Index="8"/>
+                <Method Name="SetMultiple" Index="9" AvailableSince="AES70-2018"/>
+            </Methods>
+        </BlockMember>
+        <!-- OcaRoot.OcaWorker.OcaActuator.OcaDynamicsCurve -->
+        <BlockMember Name="OcaDynamicsCurve" ClassID="1.1.1.16">
+            <Methods>
+                <Method Name="GetNSegments" Index="1"/>
+                <Method Name="SetNSegments" Index="2"/>
+                <Method Name="GetThreshold" Index="3"/>
+                <Method Name="SetThreshold" Index="4"/>
+                <Method Name="GetSlope" Index="5"/>
+                <Method Name="SetSlope" Index="6"/>
+                <Method Name="GetKneeParameter" Index="7"/>
+                <Method Name="SetKneeParameter" Index="8"/>
+                <Method Name="GetDynamicGainCeiling" Index="9"/>
+                <Method Name="SetDynamicGainCeiling" Index="10"/>
+                <Method Name="GetDynamicGainFloor" Index="11"/>
+                <Method Name="SetDynamicGainFloor" Index="12"/>
+                <Method Name="SetMultiple" Index="13" AvailableSince="AES70-2018"/>
+            </Methods>
+        </BlockMember>
+        <!-- OcaRoot.OcaWorker.OcaActuator.OcaSignalGenerator -->
+        <BlockMember Name="OcaSignalGenerator" ClassID="1.1.1.17">
+            <Methods>
+                <Method Name="GetFrequency1" Index="1"/>
+                <Method Name="SetFrequency2" Index="2"/>
+                <Method Name="GetFrequency2" Index="3"/>
+                <Method Name="SetFrequency2" Index="4"/>
+                <Method Name="GetLevel" Index="5"/>
+                <Method Name="SetLevel" Index="6"/>
+                <Method Name="GetWaveform" Index="7"/>
+                <Method Name="SetWaveform" Index="8"/>
+                <Method Name="GetSweepType" Index="9"/>
+                <Method Name="SetSweepType" Index="10"/>
+                <Method Name="GetSweepTime" Index="11"/>
+                <Method Name="SetSweepTime" Index="12"/>
+                <Method Name="GetSweepRepeat" Index="13"/>
+                <Method Name="SetSweepRepeat" Index="14"/>
+                <Method Name="GetGenerating" Index="15"/>
+                <Method Name="Start" Index="16"/>
+                <Method Name="Stop" Index="17"/>
+                <Method Name="SetMultiple" Index="18" AvailableSince="AES70-2018"/>
+            </Methods>
+        </BlockMember>
+        <!-- OcaRoot.OcaWorker.OcaActuator.OcaSignalInput-->
+        <!-- OcaSignalInput doesn't contain any methods -->
+        <BlockMember Name="OcaSignalInput" ClassID="1.1.1.18"/>
+        <!-- OcaRoot.OcaWorker.OcaActuator.OcaSignalOutput-->
+        <!-- OcaSignalOutput doesn't contain any methods -->
+        <BlockMember Name="OcaSignalOutput" ClassID="1.1.1.19"/>
+        <!-- OcaRoot.OcaWorker.OcaActuator.OcaTemperatureActuator -->
+        <BlockMember Name="OcaTemperatureActuator" ClassID="1.1.1.20">
+            <Methods>
+                <Method Name="GetTemperature" Index="1"/>
+                <Method Name="SetTemperature" Index="2"/>
+            </Methods>
+        </BlockMember>
+        <!-- OcaRoot.OcaWorker.OcaActuator.OcaIdentificationActuator -->
+        <BlockMember Name="OcaIdentificationActuator" ClassID="1.1.1.21">
+            <Methods>
+                <Method Name="GetActive" Index="1"/>
+                <Method Name="SetActive" Index="2"/>
+            </Methods>
+        </BlockMember>
+        <!-- OcaRoot.OcaWorker.OcaActuator.OcaSummingPoint-->
+        <!-- OcaSummingPoint doesn't contain any methods -->
+        <BlockMember Name="OcaSummingPoint" ClassID="1.1.1.22" AvailableSince="AES70-2018">
+            <Versions>
+                <Version OcaVersion="AES70-2018" ClassVersion="1"/>
+            </Versions>
+        </BlockMember>
+
+
+        <!-- OcaRoot.OcaWorker.OcaActuator.OcaBasicActuator -->
+        <BlockMember Name="OcaBasicActuator" ClassID="1.1.1.1"/>
+        <!-- OcaRoot.OcaWorker.OcaActuator.OcaBasicActuator.OcaBooleanActuator -->
+        <BlockMember Name="OcaBooleanActuator" ClassID="1.1.1.1.1">
+            <Methods>
+                <Method Name="GetSetting" Index="1"/>
+                <Method Name="SetSetting" Index="2"/>
+            </Methods>
+        </BlockMember>
+        <!-- OcaRoot.OcaWorker.OcaActuator.OcaBasicActuator.OcaInt8Actuator -->
+        <BlockMember Name="OcaInt8Actuator" ClassID="1.1.1.1.2">
+            <Methods>
+                <Method Name="GetSetting" Index="1"/>
+                <Method Name="SetSetting" Index="2"/>
+            </Methods>
+        </BlockMember>
+        <!-- OcaRoot.OcaWorker.OcaActuator.OcaBasicActuator.OcaInt16Actuator -->
+        <BlockMember Name="OcaInt16Actuator" ClassID="1.1.1.1.3">
+            <Methods>
+                <Method Name="GetSetting" Index="1"/>
+                <Method Name="SetSetting" Index="2"/>
+            </Methods>
+        </BlockMember>
+        <!-- OcaRoot.OcaWorker.OcaActuator.OcaBasicActuator.OcaInt32Actuator -->
+        <BlockMember Name="OcaInt32Actuator" ClassID="1.1.1.1.4">
+            <Methods>
+                <Method Name="GetSetting" Index="1"/>
+                <Method Name="SetSetting" Index="2"/>
+            </Methods>
+        </BlockMember>
+        <!-- OcaRoot.OcaWorker.OcaActuator.OcaBasicActuator.OcaInt64Actuator -->
+        <BlockMember Name="OcaInt64Actuator" ClassID="1.1.1.1.5">
+            <Methods>
+                <Method Name="GetSetting" Index="1"/>
+                <Method Name="SetSetting" Index="2"/>
+            </Methods>
+        </BlockMember>
+        <!-- OcaRoot.OcaWorker.OcaActuator.OcaBasicActuator.OcaUint8Actuator -->
+        <BlockMember Name="OcaUint8Actuator" ClassID="1.1.1.1.6">
+            <Methods>
+                <Method Name="GetSetting" Index="1"/>
+                <Method Name="SetSetting" Index="2"/>
+            </Methods>
+        </BlockMember>
+        <!-- OcaRoot.OcaWorker.OcaActuator.OcaBasicActuator.OcaUint16Actuator -->
+        <BlockMember Name="OcaUint16Actuator" ClassID="1.1.1.1.7">
+            <Methods>
+                <Method Name="GetSetting" Index="1"/>
+                <Method Name="SetSetting" Index="2"/>
+            </Methods>
+        </BlockMember>
+        <!-- OcaRoot.OcaWorker.OcaActuator.OcaBasicActuator.OcaUint32Actuator -->
+        <BlockMember Name="OcaUint32Actuator" ClassID="1.1.1.1.8">
+            <Methods>
+                <Method Name="GetSetting" Index="1"/>
+                <Method Name="SetSetting" Index="2"/>
+            </Methods>
+        </BlockMember>
+        <!-- OcaRoot.OcaWorker.OcaActuator.OcaBasicActuator.OcaUint64Actuator -->
+        <BlockMember Name="OcaUint64Actuator" ClassID="1.1.1.1.9">
+            <Methods>
+                <Method Name="GetSetting" Index="1"/>
+                <Method Name="SetSetting" Index="2"/>
+            </Methods>
+        </BlockMember>
+        <!-- OcaRoot.OcaWorker.OcaActuator.OcaBasicActuator.OcaFloat32Actuator -->
+        <BlockMember Name="OcaFloat32Actuator" ClassID="1.1.1.1.10">
+            <Methods>
+                <Method Name="GetSetting" Index="1"/>
+                <Method Name="SetSetting" Index="2"/>
+            </Methods>
+        </BlockMember>
+        <!-- OcaRoot.OcaWorker.OcaActuator.OcaBasicActuator.OcaFloat64Actuator -->
+        <BlockMember Name="OcaFloat64Actuator" ClassID="1.1.1.1.11">
+            <Methods>
+                <Method Name="GetSetting" Index="1"/>
+                <Method Name="SetSetting" Index="2"/>
+            </Methods>
+        </BlockMember>
+        <!-- OcaRoot.OcaWorker.OcaActuator.OcaBasicActuator.OcaStringActuator -->
+        <BlockMember Name="OcaStringActuator" ClassID="1.1.1.1.12">
+            <Methods>
+                <Method Name="GetSetting" Index="1"/>
+                <Method Name="SetSetting" Index="2"/>
+                <Method Name="GetMaxLen" Index="3"/>
+            </Methods>
+        </BlockMember>
+        <!-- OcaRoot.OcaWorker.OcaActuator.OcaBasicActuator.OcaBitstringActuator-->
+        <BlockMember Name="OcaBitstringActuator" ClassID="1.1.1.1.13">
+            <Methods>
+                <Method Name="GetNrBits" Index="1"/>
+                <Method Name="GetBit" Index="2"/>
+                <Method Name="SetBit" Index="3"/>
+                <Method Name="GetBitstring" Index="4"/>
+                <Method Name="SetBitstring" Index="5"/>
+            </Methods>
+        </BlockMember>
+
+        <!-- </ROOT.WORKER.ACTUATOR(1.1.1)> -->
+
+
+        <!-- <ROOT.WORKER.SENSOR(1.1.2)> -->
+
+        <BlockMember Name="OcaSensor" ClassID="1.1.2">
+            <Methods>
+                <Method Name="GetReadingState" Index="1"/>
+            </Methods>
+        </BlockMember>
+        <!-- OcaRoot.OcaWorker.OcaSensor.OcaBasicSensor -->
+        <BlockMember Name="OcaBasicSensor" ClassID="1.1.2.1">
+        </BlockMember>
+        <!-- OcaRoot.OcaWorker.OcaSensor.OcaBasicSensor.OcaBooleanSensor -->
+        <BlockMember Name="OcaBooleanSensor" ClassID="1.1.2.1.1">
+            <Methods>
+                <Method Name="GetReading" Index="1"/>
+            </Methods>
+        </BlockMember>
+        <!-- OcaRoot.OcaWorker.OcaSensor.OcaBasicSensor.OcaInt8Sensor -->
+        <BlockMember Name="OcaInt8Sensor" ClassID="1.1.2.1.2">
+            <Methods>
+                <Method Name="GetReading" Index="1"/>
+            </Methods>
+        </BlockMember>
+        <!-- OcaRoot.OcaWorker.OcaSensor.OcaBasicSensor.OcaInt16Sensor -->
+        <BlockMember Name="OcaInt16Sensor" ClassID="1.1.2.1.3">
+            <Methods>
+                <Method Name="GetReading" Index="1"/>
+            </Methods>
+        </BlockMember>
+        <!-- OcaRoot.OcaWorker.OcaSensor.OcaBasicSensor.OcaInt32Sensor -->
+        <BlockMember Name="OcaInt32Sensor" ClassID="1.1.2.1.4">
+            <Methods>
+                <Method Name="GetReading" Index="1"/>
+            </Methods>
+        </BlockMember>
+        <!-- OcaRoot.OcaWorker.OcaSensor.OcaBasicSensor.OcaInt64Sensor -->
+        <BlockMember Name="OcaInt64Sensor" ClassID="1.1.2.1.5">
+            <Methods>
+                <Method Name="GetReading" Index="1"/>
+            </Methods>
+        </BlockMember>
+        <!-- OcaRoot.OcaWorker.OcaSensor.OcaBasicSensor.OcaUint8Sensor -->
+        <BlockMember Name="OcaUint8Sensor" ClassID="1.1.2.1.6">
+            <Methods>
+                <Method Name="GetReading" Index="1"/>
+            </Methods>
+        </BlockMember>
+        <!-- OcaRoot.OcaWorker.OcaSensor.OcaBasicSensor.OcaUint16Sensor -->
+        <BlockMember Name="OcaUint16Sensor" ClassID="1.1.2.1.7">
+            <Methods>
+                <Method Name="GetReading" Index="1"/>
+            </Methods>
+        </BlockMember>
+        <!-- OcaRoot.OcaWorker.OcaSensor.OcaBasicSensor.OcaUint32Sensor -->
+        <BlockMember Name="OcaUint32Sensor" ClassID="1.1.2.1.8">
+            <Methods>
+                <Method Name="GetReading" Index="1"/>
+            </Methods>
+        </BlockMember>
+        <!-- OcaRoot.OcaWorker.OcaSensor.OcaBasicSensor.OcaUint64Sensor -->
+        <BlockMember Name="OcaUint64Sensor" ClassID="1.1.2.1.9">
+            <Methods>
+                <Method Name="GetReading" Index="1"/>
+            </Methods>
+        </BlockMember>
+        <!-- OcaRoot.OcaWorker.OcaSensor.OcaBasicSensor.OcaFloat32Sensor -->
+        <BlockMember Name="OcaFloat32Sensor" ClassID="1.1.2.1.10">
+            <Methods>
+                <Method Name="GetReading" Index="1"/>
+            </Methods>
+        </BlockMember>
+        <!-- OcaRoot.OcaWorker.OcaSensor.OcaBasicSensor.OcaFloat64Sensor -->
+        <BlockMember Name="OcaFloat64Sensor" ClassID="1.1.2.1.11">
+            <Methods>
+                <Method Name="GetReading" Index="1"/>
+            </Methods>
+        </BlockMember>
+        <!-- OcaRoot.OcaWorker.OcaSensor.OcaBasicSensor.OcaStringSensor -->
+        <BlockMember Name="OcaStringSensor" ClassID="1.1.2.1.12">
+            <Methods>
+                <Method Name="GetString" Index="1"/>
+                <Method Name="GetMaxLen" Index="2"/>
+                <Method Name="SetMaxLen" Index="3"/>
+            </Methods>
+        </BlockMember>
+        <!-- OcaRoot.OcaWorker.OcaSensor.OcaBasicSensor.OcaBitstringSensor -->
+        <BlockMember Name="OcaBitstringSensor" ClassID="1.1.2.1.13">
+            <Methods>
+                <Method Name="GetNrBits" Index="1"/>
+                <Method Name="GetBit" Index="2"/>
+                <Method Name="GetBitstring" Index="3"/>
+            </Methods>
+        </BlockMember>
+        <!-- OcaRoot.OcaWorker.OcaSensor.OcaLevelSensor -->
+        <BlockMember Name="OcaLevelSensor" ClassID="1.1.2.2">
+            <Methods>
+                <Method Name="GetReading" Index="1"/>
+            </Methods>
+        </BlockMember>
+        <!-- OcaRoot.OcaWorker.OcaSensor.OcaLevelSensor.OcaAudioLevelSensor -->
+        <BlockMember Name="OcaAudioLevelSensor" ClassID="1.1.2.2.1">
+            <Methods>
+                <Method Name="GetLaw" Index="1"/>
+                <Method Name="SetLaw" Index="2"/>
+            </Methods>
+        </BlockMember>
+        <!-- OcaRoot.OcaWorker.OcaSensor.OcaTimeIntervalSensor -->
+        <BlockMember Name="OcaTimeIntervalSensor" ClassID="1.1.2.3">
+            <Methods>
+                <Method Name="GetReading" Index="1"/>
+            </Methods>
+        </BlockMember>
+        <!-- OcaRoot.OcaWorker.OcaSensor.OcaFrequencySensor -->
+        <BlockMember Name="OcaFrequencySensor" ClassID="1.1.2.4">
+            <Methods>
+                <Method Name="GetReading" Index="1"/>
+            </Methods>
+        </BlockMember>
+        <!-- OcaRoot.OcaWorker.OcaSensor.OcaTemperatureSensor -->
+        <BlockMember Name="OcaTemperatureSensor" ClassID="1.1.2.5">
+            <Methods>
+                <Method Name="GetReading" Index="1"/>
+            </Methods>
+        </BlockMember>
+        <!-- OcaRoot.OcaWorker.OcaSensor.OcaIdentificationSensor -->
+        <BlockMember Name="OcaIdentificationSensor" ClassID="1.1.2.6" AvailableSince="AES70-2018">
+            <Versions>
+                <Version OcaVersion="AES70-2018" ClassVersion="1"/>
+            </Versions>
+        </BlockMember>
+        <!-- OcaRoot.OcaWorker.OcaSensor.OcaVoltageSensor -->
+        <BlockMember Name="OcaVoltageSensor" ClassID="1.1.2.7" AvailableSince="AES70-2018">
+            <Versions>
+                <Version OcaVersion="AES70-2018" ClassVersion="1"/>
+            </Versions>
+            <Methods>
+                <Method Name="GetReading" Index="1"/>
+            </Methods>
+        </BlockMember>
+        <!-- OcaRoot.OcaWorker.OcaSensor.OcaCurrentSensor -->
+        <BlockMember Name="OcaCurrentSensor" ClassID="1.1.2.8" AvailableSince="AES70-2018">
+            <Versions>
+                <Version OcaVersion="AES70-2018" ClassVersion="1"/>
+            </Versions>
+            <Methods>
+                <Method Name="GetReading" Index="1"/>
+            </Methods>
+        </BlockMember>
+        <!-- OcaRoot.OcaWorker.OcaSensor.OcaImpedanceSensor -->
+        <BlockMember Name="OcaImpedanceSensor" ClassID="1.1.2.9" AvailableSince="AES70-2018">
+            <Versions>
+                <Version OcaVersion="AES70-2018" ClassVersion="1"/>
+            </Versions>
+            <Methods>
+                <Method Name="GetReading" Index="1"/>
+            </Methods>
+        </BlockMember>
+
+        <!-- </ROOT.WORKER.SENSOR(1.1.2)> -->
+
+
+        <!-- <ROOT.WORKER.BLOCKS(1.1.3/6)> -->
+
+        <!-- OcaRoot.OcaWorker.OcaBlock. It is the container for block members including itself! -->
+        <BlockMember Name="OcaBlock" ClassID="1.1.3">
+            <MandatoryMap>
+                <!-- Mandatory from OCA version AES70-2015 -->
+                <Mandatory OcaVersion="AES70-2015" Mandatory="true"/>
+            </MandatoryMap>
+            <Methods>
+                <!-- Mandatory Methods -->
+                <Method Name="GetMembers" Index="5">
+                    <MandatoryMap>
+                        <!-- Mandatory from OCA version AES70-2015 -->
+                        <Mandatory OcaVersion="AES70-2015" Mandatory="true"/>
+                    </MandatoryMap>
+                </Method>
+                <!-- Optional Methods -->
+                <Method Name="GetMembersRecursive" Index="6">
+                    <MandatoryMap>
+                        <!-- Mandatory from OCA version AES70-2015 -->
+                        <Mandatory OcaVersion="AES70-2015" Mandatory="true"/>
+                         <!-- No longer mandatory in  OCA version AES70-2018 -->
+                        <Mandatory OcaVersion="AES70-2018" Mandatory="false"/>                       
+                    </MandatoryMap>
+                </Method>
+                <Method Name="GetSignalPaths" Index="9">
+                    <MandatoryMap>
+                        <!-- Mandatory from OCA version AES70-2015 -->
+                        <Mandatory OcaVersion="AES70-2015" Mandatory="true"/>
+                        <!-- No longer mandatory in  OCA version AES70-2018 -->
+                        <Mandatory OcaVersion="AES70-2018" Mandatory="false"/>  
+                    </MandatoryMap>
+                </Method>
+                <Method Name="GetSignalPathsRecursive" Index="10">
+                    <MandatoryMap>
+                        <!-- Mandatory from OCA version AES70-2015 -->
+                        <Mandatory OcaVersion="AES70-2015" Mandatory="true"/>
+                        <!-- No longer mandatory in  OCA version AES70-2018 -->
+                        <Mandatory OcaVersion="AES70-2018" Mandatory="false"/>  
+                    </MandatoryMap>
+                </Method>
+                <Method Name="GetType" Index="1" />
+                <Method Name="ConstructMember" Index="2" />
+                <Method Name="ConstructMemberUsingFactory" Index="3" />
+                <Method Name="DeleteMember" Index="4" />
+                <Method Name="AddSignalPath" Index="7" />
+                <Method Name="DeleteSignalPath" Index="8" />
+                <Method Name="GetMostRecentParamSetIdentifier" Index="11" />
+                <Method Name="ApplyParamSet" Index="12" />
+                <Method Name="GetCurrentParamSetData" Index="13" />
+                <Method Name="StoreCurrentParamSetData" Index="14" />
+                <Method Name="GetGlobalType" Index="15" />
+                <Method Name="GetONoMap" Index="16" />
+            </Methods>
+        </BlockMember>
+        <!-- OcaRoot.OcaWorker.OcaBlockFactory -->
+        <BlockMember Name="OcaBlockFactory" ClassID="1.1.4">
+            <Methods>
+                <Method Name="DefineProtoPort" Index="1"/>
+                <Method Name="UndefineProtoPort" Index="2"/>
+                <Method Name="GetProtoPorts" Index="3"/>
+                <Method Name="DefineProtoMember" Index="4"/>
+                <Method Name="DefineProtoMemberUsingFactory" Index="5"/>
+                <Method Name="UndefineProtoMember" Index="6"/>
+                <Method Name="GetProtoMembers" Index="7"/>
+                <Method Name="DefineProtoSignalPath" Index="8"/>
+                <Method Name="UndefineProtoSignalPath" Index="9"/>
+                <Method Name="GetProtoSignalPaths" Index="10"/>
+                <Method Name="GetGlobalType" Index="11" />
+                <Method Name="SetGlobalType" Index="12" />
+            </Methods>
+        </BlockMember>
+        <!-- OcaRoot.OcaWorker.OcaMatrixMemberProxy -->
+        <BlockMember Name="OcaMatrixMemberProxy" ClassID="1.1.5">
+            <Methods>
+                <Method Name="GetCurrentXY" Index="1"/>
+                <Method Name="SetCurrentXY" Index="2"/>
+                <Method Name="GetSize" Index="3"/>
+                <Method Name="SetSize" Index="4"/>
+                <Method Name="GetMembers" Index="5"/>
+                <Method Name="SetMembers" Index="6"/>
+                <Method Name="GetMember" Index="7"/>
+                <Method Name="SetMember" Index="8"/>
+                <Method Name="GetProxy" Index="9"/>
+                <Method Name="SetProxy" Index="10"/>
+                <Method Name="GetPortsPerRow" Index="11"/>
+                <Method Name="SetPortsPerRow" Index="12"/>
+                <Method Name="GetPortsPerColumn" Index="13"/>
+                <Method Name="SetPortsPerColumn" Index="14"/>
+            </Methods>
+        </BlockMember>
+
+        <!-- </ROOT.WORKER.BLOCKS(1.1.3/6)> -->
+
+        <!-- <ROOT.AGENT(1.2)> -->
+
+        <!-- OcaRoot.OcaAgent -->
+        <BlockMember Name="OcaAgent" ClassID="1.2">
+            <Methods>
+                <Method Name="GetLabel" Index="1"/>
+                <Method Name="SetLabel" Index="2"/>
+                <Method Name="GetOwner" Index="3"/>
+                <Method Name="GetPath" Index="4" AvailableSince="AES70-2018"/>
+            </Methods>
+        </BlockMember>
+        <!-- OcaRoot.OcaAgent.OcaNetwork -->
+        <BlockMember Name="OcaNetwork" ClassID="1.2.1" DeprecatedSince="AES70-2018">
+            <MandatoryMap>
+                <!-- Mandatory from OCA version AES70-2015 -->
+                <Mandatory OcaVersion="AES70-2015" Mandatory="true"/>
+            </MandatoryMap>
+            <Methods>
+                <!-- Startup() and Shutdown() Methods are not added deliberately
+                     because they may influence the network state and disrupt the test -->
+                <Method Name="GetLinkType" Index="1">
+                    <MandatoryMap>
+                        <!-- Mandatory from OCA version AES70-2015 -->
+                        <Mandatory OcaVersion="AES70-2015" Mandatory="true"/>
+                    </MandatoryMap>
+                </Method>
+                <Method Name="GetIDAdvertised" Index="2">
+                    <MandatoryMap>
+                        <!-- Mandatory from OCA version AES70-2015 -->
+                        <Mandatory OcaVersion="AES70-2015" Mandatory="true"/>
+                    </MandatoryMap>
+                </Method>
+                <Method Name="SetIDAdvertised" Index="3">
+                    <MandatoryMap>
+                        <!-- Mandatory from OCA version AES70-2015 -->
+                        <Mandatory OcaVersion="AES70-2015" Mandatory="true"/>
+                        <!-- No longer mandatory from OCA version AES70-2018 -->
+                        <Mandatory OcaVersion="AES70-2018" Mandatory="false"/>
+                    </MandatoryMap>
+                </Method>
+                <Method Name="GetControlProtocol" Index="4">
+                    <MandatoryMap>
+                        <!-- Mandatory from OCA version AES70-2015 -->
+                        <Mandatory OcaVersion="AES70-2015" Mandatory="true"/>
+                    </MandatoryMap>
+                </Method>
+                <Method Name="GetMediaProtocol" Index="5">
+                    <MandatoryMap>
+                        <!-- Mandatory from OCA version AES70-2015 -->
+                        <Mandatory OcaVersion="AES70-2015" Mandatory="true"/>
+                    </MandatoryMap>
+                </Method>
+                <Method Name="GetStatus" Index="6">
+                    <MandatoryMap>
+                        <!-- Mandatory from OCA version AES70-2015 -->
+                        <Mandatory OcaVersion="AES70-2015" Mandatory="true"/>
+                        <!-- No longer mandatory from OCA version AES70-2018 -->
+                        <Mandatory OcaVersion="AES70-2018" Mandatory="false"/>
+                    </MandatoryMap>
+                </Method>
+                <Method Name="GetStatistics" Index="7">
+                    <MandatoryMap>
+                        <!-- Mandatory from OCA version AES70-2015 -->
+                        <Mandatory OcaVersion="AES70-2015" Mandatory="true"/>
+                        <!-- No longer mandatory from OCA version AES70-2018 -->
+                        <Mandatory OcaVersion="AES70-2018" Mandatory="false"/>
+                    </MandatoryMap>
+                </Method>
+                <Method Name="ResetStatistics" Index="8">
+                    <MandatoryMap>
+                        <!-- Mandatory from OCA version AES70-2015 -->
+                        <Mandatory OcaVersion="AES70-2015" Mandatory="true"/>
+                        <!-- No longer mandatory from OCA version AES70-2018 -->
+                        <Mandatory OcaVersion="AES70-2018" Mandatory="false"/>
+                    </MandatoryMap>
+                </Method>
+                <Method Name="GetSystemInterfaces" Index="9">
+                    <MandatoryMap>
+                        <!-- Mandatory from OCA version AES70-2015 -->
+                        <Mandatory OcaVersion="AES70-2015" Mandatory="true"/>
+                    </MandatoryMap>
+                </Method>
+                <Method Name="SetSystemInterfaces" Index="10">
+                    <MandatoryMap>
+                        <!-- Mandatory from OCA version AES70-2015 -->
+                        <Mandatory OcaVersion="AES70-2015" Mandatory="true"/>
+                        <!-- No longer mandatory from OCA version AES70-2018 -->
+                        <Mandatory OcaVersion="AES70-2018" Mandatory="false"/>
+                    </MandatoryMap>
+                </Method>
+                <Method Name="GetMediaPorts" Index="11">
+                    <MandatoryMap>
+                        <!-- Mandatory from OCA version AES70-2015 -->
+                        <Mandatory OcaVersion="AES70-2015" Mandatory="true"/>
+                        <!-- No longer mandatory from OCA version AES70-2018 -->
+                        <Mandatory OcaVersion="AES70-2018" Mandatory="false"/>
+                    </MandatoryMap>
+                </Method>
+                <Method Name="Startup" Index="12">
+                    <MandatoryMap>
+                        <!-- Mandatory from OCA version AES70-2015 -->
+                        <Mandatory OcaVersion="AES70-2015" Mandatory="true"/>
+                        <!-- No longer mandatory from OCA version AES70-2018 -->
+                        <Mandatory OcaVersion="AES70-2018" Mandatory="false"/>
+                    </MandatoryMap>
+                </Method>
+                <Method Name="Shutdown" Index="13">
+                    <MandatoryMap>
+                        <!-- Mandatory from OCA version AES70-2015 -->
+                        <Mandatory OcaVersion="AES70-2015" Mandatory="true"/>
+                    </MandatoryMap>
+                </Method>
+            </Methods>
+        </BlockMember>
+        <!-- OcaRoot.OcaAgent.OcaGrouper-->
+        <BlockMember Name="OcaGrouper" ClassID="1.2.2">
+            <Methods>
+                <Method Name="AddGroup" Index="1"/>
+                <Method Name="DeleteGroup" Index="2"/>
+                <Method Name="GetGroupCount" Index="3"/>
+                <Method Name="GetGroupList" Index="4"/>
+                <Method Name="AddCitizen" Index="5"/>
+                <Method Name="DeleteCitizen" Index="6"/>
+                <Method Name="GetCitizenCount" Index="7"/>
+                <Method Name="GetCitizenList" Index="8"/>
+                <Method Name="GetEnrollment" Index="9"/>
+                <Method Name="SetEnrollment" Index="10"/>
+                <Method Name="GetGroupMemberList" Index="11"/>
+                <Method Name="GetActuatorOrSensor" Index="12" AvailableSince="AES70-2018" />
+                <Method Name="SetActuatorOrSensor" Index="13" AvailableSince="AES70-2018" />
+                <Method Name="GetMode" Index="14" AvailableSince="AES70-2018"/>
+                <Method Name="SetMode" Index="15" AvailableSince="AES70-2018"/>
+            </Methods>
+        </BlockMember>
+        <!-- OcaRoot.OcaAgent.OcaRamper -->
+        <BlockMember Name="OcaRamper" ClassID="1.2.3">
+            <Methods>
+                <Method Name="Control" Index="1"/>
+                <Method Name="GetState" Index="2"/>
+                <Method Name="GetRampedProperty" Index="3"/>
+                <Method Name="SetRampedProperty" Index="4"/>
+                <Method Name="GetTimeMode" Index="5"/>
+                <Method Name="SetTimeMode" Index="6"/>
+                <Method Name="GetStartTime" Index="7"/>
+                <Method Name="SetStartTime" Index="8"/>
+                <Method Name="GetDuration" Index="9"/>
+                <Method Name="SetDuration" Index="10"/>
+                <Method Name="GetInterpolationLaw" Index="11"/>
+                <Method Name="SetInterpolationLaw" Index="12"/>
+                <Method Name="GetGoal" Index="13"/>
+                <Method Name="SetGoal" Index="14"/>
+            </Methods>
+        </BlockMember>
+        <!-- OcaRoot.OcaAgent.OcaNumericObserver -->
+        <BlockMember Name="OcaNumericObserver" ClassID="1.2.4">
+            <Methods>
+                <Method Name="GetLastObservation" Index="1"/>
+                <Method Name="GetState" Index="2"/>
+                <Method Name="GetObservedProperty" Index="3"/>
+                <Method Name="SetObservedProperty" Index="4"/>
+                <Method Name="GetThreshold" Index="5"/>
+                <Method Name="SetThreshold" Index="6"/>
+                <Method Name="GetOperator" Index="7"/>
+                <Method Name="SetOperator" Index="8"/>
+                <Method Name="GetTwoWay" Index="9"/>
+                <Method Name="SetTwoWay" Index="10"/>
+                <Method Name="GetHysteresis" Index="11"/>
+                <Method Name="SetHysteresis" Index="12"/>
+                <Method Name="GetPeriod" Index="13"/>
+                <Method Name="SetPeriod" Index="14"/>
+                <Method Name="SetMultiple" Index="15" AvailableSince="AES70-2018"/>
+            </Methods>
+            <Events>
+                <Event Name="Observation" Index="1">
+                    <MandatoryMap>
+                        <!-- Mandatory from OCA version AES70-2015 -->
+                        <Mandatory OcaVersion="AES70-2015" Mandatory="true"/>
+                    </MandatoryMap>
+                </Event>
+            </Events>
+        </BlockMember>
+        <!-- OcaRoot.OcaAgent.OcaLibrary -->
+        <BlockMember Name="OcaLibrary" ClassID="1.2.5">
+            <Methods>
+                <Method Name="GetDataType" Index="1"/>
+                <Method Name="AddVolume" Index="2"/>
+                <Method Name="ReplaceVolume" Index="3"/>
+                <Method Name="DeleteVolume" Index="4"/>
+                <Method Name="GetVolume" Index="5"/>
+                <Method Name="GetVolumeCount" Index="6"/>
+                <Method Name="GetVolumes" Index="7"/>
+                <Method Name="GetAccess" Index="8"/>
+                <Method Name="SetAccess" Index="9"/>
+            </Methods>
+        </BlockMember>
+        <!-- OcaRoot.OcaAgent.OcaMediaClock -->
+        <BlockMember Name="OcaMediaClock" ClassID="1.2.6" DeprecatedSince="AES70-2018">
+            <MandatoryMap>
+                <!-- Mandatory from OCA version AES70-2015 for streaming devices -->
+                <Mandatory OcaVersion="AES70-2015" Mandatory="true" DeviceType="Streaming"/>
+                <Mandatory OcaVersion="AES70-2018" Mandatory="false" DeviceType="Streaming"/>
+            </MandatoryMap>
+            <Methods>
+                <Method Name="GetType" Index="1">                 
+                    <MandatoryMap>
+                        <!-- Mandatory from OCA version AES70-2018 -->
+                        <Mandatory OcaVersion="AES70-2018" Mandatory="true"/>
+                    </MandatoryMap>
+                </Method>  
+                <Method Name="SetType" Index="2"/>
+                <Method Name="GetDomainID" Index="3"/>
+                <Method Name="SetDomainID" Index="4"/>
+                <Method Name="GetSupportedRates" Index="5">                 
+                    <MandatoryMap>
+                        <!-- Mandatory from OCA version AES70-2018 -->
+                        <Mandatory OcaVersion="AES70-2018" Mandatory="true"/>
+                    </MandatoryMap>
+                </Method>  
+                <Method Name="GetRate" Index="6">                 
+                    <MandatoryMap>
+                        <!-- Mandatory from OCA version AES70-2018 -->
+                        <Mandatory OcaVersion="AES70-2018" Mandatory="true"/>
+                    </MandatoryMap>
+                </Method>  
+                <Method Name="SetRate" Index="7"/>
+                <Method Name="GetLockState" Index="8">                 
+                    <MandatoryMap>
+                        <!-- Mandatory from OCA version AES70-2018 -->
+                        <Mandatory OcaVersion="AES70-2018" Mandatory="true"/>
+                    </MandatoryMap>
+                </Method>  
+            </Methods>
+        </BlockMember>
+        <!-- OcaRoot.OcaAgent.OcaPowerSupply -->
+        <BlockMember Name="OcaPowerSupply" ClassID="1.2.7">
+            <Methods>
+                <Method Name="GetType" Index="1"/>
+                <Method Name="GetModelInfo" Index="2"/>
+                <Method Name="GetState" Index="3"/>
+                <Method Name="SetState" Index="4"/>
+                <Method Name="GetCharging" Index="5"/>
+                <Method Name="GetLoadFractionAvailable" Index="6"/>
+                <Method Name="GetStorageFactionAvailable" Index="7"/>
+                <Method Name="GetLocation" Index="8"/>
+            </Methods>
+        </BlockMember>
+        <!-- OcaRoot.OcaAgent.OcaEventHandler -->
+        <BlockMember Name="OcaEventHandler" ClassID="1.2.8">
+            <Methods>
+                <Method Name="OnEvent" Index="1"/>
+            </Methods>
+        </BlockMember>
+        <!-- OcaRoot.OcaAgent.OcaNumericObserverList -->
+        <BlockMember Name="OcaNumbericObserverList" ClassID="1.2.9">
+            <Methods>
+                <Method Name="GetLastObservation" Index="1"/>
+                <Method Name="GetState" Index="2"/>
+                <Method Name="GetObservedProperties" Index="3"/>
+                <Method Name="SetObservedProperties" Index="4"/>
+                <Method Name="GetThreshold" Index="5"/>
+                <Method Name="SetThreshold" Index="6"/>
+                <Method Name="GetOperator" Index="7"/>
+                <Method Name="SetOperator" Index="8"/>
+                <Method Name="GetTwoWay" Index="9"/>
+                <Method Name="SetTwoWay" Index="10"/>
+                <Method Name="GetHysteresis" Index="11"/>
+                <Method Name="SetHysteresis" Index="12"/>
+                <Method Name="GetPeriod" Index="13"/>
+                <Method Name="SetPeriod" Index="14"/>
+                <Method Name="SetMultiple" Index="15" AvailableSince="AES70-2018"/>
+            </Methods>
+        </BlockMember>
+        <!-- OcaRoot.OcaAgent.OcaStreamNetwork -->
+        <BlockMember Name="OcaStreamNetwork" ClassID="1.2.10" DeprecatedSince="AES70-2018">
+            <Methods>
+                <Method Name="GetLinkType" Index="1">
+                    <MandatoryMap>
+                        <!-- Mandatory from OCA version AES70-2015 -->
+                        <Mandatory OcaVersion="AES70-2015" Mandatory="true"/>
+                    </MandatoryMap>
+                </Method>
+                <Method Name="GetIDAdvertised" Index="2">
+                    <MandatoryMap>
+                        <!-- Mandatory from OCA version AES70-2015 -->
+                        <Mandatory OcaVersion="AES70-2015" Mandatory="true"/>
+                    </MandatoryMap>
+                </Method>
+                <Method Name="SetIDAdvertised" Index="3"/>
+                <Method Name="GetControlProtocol" Index="4">
+                    <MandatoryMap>
+                        <!-- Mandatory from OCA version AES70-2015 -->
+                        <Mandatory OcaVersion="AES70-2015" Mandatory="true"/>
+                    </MandatoryMap>
+                </Method>
+                <Method Name="GetMediaProtocol" Index="5">
+                    <MandatoryMap>
+                        <!-- Mandatory from OCA version AES70-2015 -->
+                        <Mandatory OcaVersion="AES70-2015" Mandatory="true"/>
+                    </MandatoryMap>
+                </Method>
+                <Method Name="GetStatus" Index="6"/>
+                <Method Name="GetStatistics" Index="7"/>
+                <Method Name="ResetStatistics" Index="8"/>
+                <Method Name="GetSystemInterfaces" Index="9">
+                    <MandatoryMap>
+                        <!-- Mandatory from OCA version AES70-2015 -->
+                        <Mandatory OcaVersion="AES70-2015" Mandatory="true"/>
+                    </MandatoryMap>
+                </Method>
+                <Method Name="SetSystemInterfaces" Index="10"/>
+                <Method Name="GetStreamConnectorsSource" Index="11"/>
+                <Method Name="SetStreamConnectorsSource" Index="12"/>
+                <Method Name="GetStreamConnectorsSink" Index="13"/>
+                <Method Name="SetStreamConnectorsSink" Index="14"/>
+                <Method Name="GetSignalChannelsSource" Index="15"/>
+                <Method Name="SetSignalChannelsSource" Index="16"/>
+                <Method Name="GetSignalChannelsSink" Index="17"/>
+                <Method Name="SetSignalChannelsSink" Index="18"/>
+            </Methods>
+        </BlockMember>
+        <!-- OcaRoot.OcaAgent.OcaStreamConnector -->
+        <BlockMember Name="OcaStreamConnector" ClassID="1.2.11" DeprecatedSince="AES70-2018">
+            <Methods>
+                <Method Name="GetOwnerNetwork" Index="1"/>
+                <Method Name="SetOwnerNetwork" Index="2"/>
+                <Method Name="GetIDAdvertised" Index="3"/>
+                <Method Name="SetIDAdvertised" Index="4"/>
+                <Method Name="GetSourceOrSink" Index="5"/>
+                <Method Name="SetSourceOrSink" Index="6"/>
+                <Method Name="ConnectStream" Index="7"/>
+                <Method Name="DisconnectStream" Index="8"/>
+                <Method Name="GetStreams" Index="9"/>
+                <Method Name="GetPins" Index="10"/>
+                <Method Name="GetStatus" Index="11"/>
+            </Methods>
+        </BlockMember>
+        <!-- OcaRoot.OcaAgent.OcaMediaClock3 -->
+        <BlockMember Name="OcaMediaClock3" ClassID="1.2.15" AvailableSince="AES70-2018">
+            <Versions>
+                <Version OcaVersion="AES70-2018" ClassVersion="1"/>
+            </Versions>
+            <MandatoryMap>
+                <!-- Mandatory from OCA version AES70-2018 for streaming devices -->
+                <Mandatory OcaVersion="AES70-2018" Mandatory="true" DeviceType="Streaming"/>
+            </MandatoryMap>
+            <Methods>
+                <Method Name="GetAvailability" Index="1">                 
+                    <MandatoryMap>
+                        <!-- Mandatory from OCA version AES70-2018 -->
+                        <Mandatory OcaVersion="AES70-2018" Mandatory="true"/>
+                    </MandatoryMap>
+                </Method>  
+                <Method Name="SetAvailability" Index="2"/>
+                <Method Name="GetCurrentRate" Index="3">                 
+                    <MandatoryMap>
+                        <!-- Mandatory from OCA version AES70-2018 -->
+                        <Mandatory OcaVersion="AES70-2018" Mandatory="true"/>
+                    </MandatoryMap>
+                </Method>  
+                <Method Name="SetCurrentRate" Index="4"/>
+                <Method Name="GetOffset" Index="5">                 
+                    <MandatoryMap>
+                        <!-- Mandatory from OCA version AES70-2018 -->
+                        <Mandatory OcaVersion="AES70-2018" Mandatory="true"/>
+                    </MandatoryMap>
+                </Method>  
+                <Method Name="SetOffset" Index="6"/>
+                <Method Name="GetSupportedRates" Index="7">                 
+                    <MandatoryMap>
+                        <!-- Mandatory from OCA version AES70-2018 -->
+                        <Mandatory OcaVersion="AES70-2018" Mandatory="true"/>
+                    </MandatoryMap>
+                </Method>  
+            </Methods>
+        </BlockMember>
+        <!-- OcaRoot.OcaAgent.OcaTimeSource -->
+        <BlockMember Name="OcaTimeSource" ClassID="1.2.16" AvailableSince="AES70-2018">
+            <Versions>
+                <Version OcaVersion="AES70-2018" ClassVersion="1"/>
+            </Versions>
+            <MandatoryMap>
+                <!-- Mandatory from OCA version AES70-2018 for streaming devices -->
+                <Mandatory OcaVersion="AES70-2018" Mandatory="true" DeviceType="Streaming"/>
+            </MandatoryMap>
+            <Methods>
+                <Method Name="GetAvailability" Index="1">                 
+                    <MandatoryMap>
+                        <!-- Mandatory from OCA version AES70-2018 -->
+                        <Mandatory OcaVersion="AES70-2018" Mandatory="true"/>
+                    </MandatoryMap>
+                </Method>  
+                <Method Name="GetProtocol" Index="2">                 
+                    <MandatoryMap>
+                        <!-- Mandatory from OCA version AES70-2018 -->
+                        <Mandatory OcaVersion="AES70-2018" Mandatory="true"/>
+                    </MandatoryMap>
+                </Method>  
+                <Method Name="SetProtocol" Index="3"/>
+                <Method Name="GetParameters" Index="4">                 
+                    <MandatoryMap>
+                        <!-- Mandatory from OCA version AES70-2018 -->
+                        <Mandatory OcaVersion="AES70-2018" Mandatory="true"/>
+                    </MandatoryMap>
+                </Method>  
+                <Method Name="SetParameters" Index="5"/>
+                <Method Name="GetReferenceType" Index="6">                 
+                    <MandatoryMap>
+                        <!-- Mandatory from OCA version AES70-2018 -->
+                        <Mandatory OcaVersion="AES70-2018" Mandatory="true"/>
+                    </MandatoryMap>
+                </Method>  
+                <Method Name="SetReferenceType" Index="7"/>
+                <Method Name="GetReferenceID" Index="8">                 
+                    <MandatoryMap>
+                        <!-- Mandatory from OCA version AES70-2018 -->
+                        <Mandatory OcaVersion="AES70-2018" Mandatory="true"/>
+                    </MandatoryMap>
+                </Method>  
+                <Method Name="SetReferenceID" Index="9"/>
+                <Method Name="GetSyncStatus" Index="10">                 
+                    <MandatoryMap>
+                        <!-- Mandatory from OCA version AES70-2018 -->
+                        <Mandatory OcaVersion="AES70-2018" Mandatory="true"/>
+                    </MandatoryMap>
+                </Method>  
+                <Method Name="Reset" Index="11"/>
+            </Methods>
+        </BlockMember>
+        <!-- OcaRoot.OcaAgent.OcaPhysicalPosition -->
+        <BlockMember Name="OcaPhysicalPosition" ClassID="1.2.17" AvailableSince="AES70-2018">
+            <Versions>
+                <Version OcaVersion="AES70-2018" ClassVersion="1"/>
+            </Versions>
+            <Methods>
+                <Method Name="GetCoordinateSystem" Index="1"/>
+                <Method Name="GetPositionDescriptorFieldFlags" Index="2"/>
+                <Method Name="GetPositionDescriptor" Index="3"/>
+                <Method Name="SetPositionDescriptor" Index="4"/>
+            </Methods>
+        </BlockMember>
+        <!--  </ROOT.AGENT(1.2)> -->
+        
+        <!-- OcaRoot.OcaApplicationNetwork -->
+        <BlockMember Name="OcaApplicationNetwork" ClassID="1.4" AvailableSince="AES70-2018">
+            <Versions>
+                <Version OcaVersion="AES70-2018" ClassVersion="1"/>
+            </Versions>
+            <Methods>
+                <Method Name="GetLabel" Index="1"/>
+                <Method Name="SetLabel" Index="2"/>
+                <Method Name="GetOwner" Index="3"/>
+                <Method Name="GetServiceID" Index="4">                 
+                    <MandatoryMap>
+                        <!-- Mandatory from OCA version AES70-2018 -->
+                        <Mandatory OcaVersion="AES70-2018" Mandatory="true"/>
+                    </MandatoryMap>
+                </Method>  
+                <Method Name="SetServiceID" Index="5"/>
+                <Method Name="GetSystemInterfaces" Index="6">                 
+                    <MandatoryMap>
+                        <!-- Mandatory from OCA version AES70-2018 -->
+                        <Mandatory OcaVersion="AES70-2018" Mandatory="true"/>
+                    </MandatoryMap>
+                </Method>  
+                <Method Name="SetSystemInterfaces" Index="7"/>
+                <Method Name="GetState" Index="8"/>
+                <Method Name="GetErrorCode" Index="9"/>
+                <Method Name="Control" Index="10"/>
+                <Method Name="GetPath" Index="11"/>
+            </Methods>
+        </BlockMember>
+        <BlockMember Name="OcaControlNetwork" ClassID="1.4.1" AvailableSince="AES70-2018">
+            <MandatoryMap>
+                <!-- Mandatory from OCA version AES70-2018 -->
+                <Mandatory OcaVersion="AES70-2018" Mandatory="true"/>
+            </MandatoryMap>
+            <Methods>
+                <Method Name="GetControlProtocol" Index="1">                 
+                    <MandatoryMap>
+                        <!-- Mandatory from OCA version AES70-2018 -->
+                        <Mandatory OcaVersion="AES70-2018" Mandatory="true"/>
+                    </MandatoryMap>
+                </Method>
+            </Methods>
+        </BlockMember>
+        <BlockMember Name="OcaMediaTransportNetwork" ClassID="1.4.2" AvailableSince="AES70-2018">
+            <MandatoryMap>
+                <!-- Mandatory from OCA version AES70-2018 for streaming devices -->
+                <Mandatory OcaVersion="AES70-2018" Mandatory="true" DeviceType="Streaming"/>
+            </MandatoryMap>
+            <Methods>
+                <Method Name="GetMediaProtocol" Index="1">                 
+                    <MandatoryMap>
+                        <!-- Mandatory from OCA version AES70-2018 -->
+                        <Mandatory OcaVersion="AES70-2018" Mandatory="true"/>
+                    </MandatoryMap>
+                </Method>
+                <Method Name="GetPorts" Index="2">                 
+                    <MandatoryMap>
+                        <!-- Mandatory from OCA version AES70-2018 -->
+                        <Mandatory OcaVersion="AES70-2018" Mandatory="true"/>
+                    </MandatoryMap>
+                </Method>
+                <Method Name="GetPortName" Index="3"/>
+                <Method Name="SetPortName" Index="4"/>
+                <Method Name="GetMaxSourceConnectors" Index="5">                 
+                    <MandatoryMap>
+                        <!-- Mandatory from OCA version AES70-2018 -->
+                        <Mandatory OcaVersion="AES70-2018" Mandatory="true"/>
+                    </MandatoryMap>
+                </Method>
+                <Method Name="GetMaxSinkConnectors" Index="6">                 
+                    <MandatoryMap>
+                        <!-- Mandatory from OCA version AES70-2018 -->
+                        <Mandatory OcaVersion="AES70-2018" Mandatory="true"/>
+                    </MandatoryMap>
+                </Method>
+                <Method Name="GetMaxPinsPerConnector" Index="7">                 
+                    <MandatoryMap>
+                        <!-- Mandatory from OCA version AES70-2018 -->
+                        <Mandatory OcaVersion="AES70-2018" Mandatory="true"/>
+                    </MandatoryMap>
+                </Method>
+                <Method Name="GetMaxPortsPerPin" Index="8">                 
+                    <MandatoryMap>
+                        <!-- Mandatory from OCA version AES70-2018 -->
+                        <Mandatory OcaVersion="AES70-2018" Mandatory="true"/>
+                    </MandatoryMap>
+                </Method>
+                <Method Name="GetSourceConnectors" Index="9"/>
+                <Method Name="GetSourceConnector" Index="10"/>
+                <Method Name="GetSinkConnectors" Index="11"/>
+                <Method Name="GetSinkConnector" Index="12"/>
+                <Method Name="GetConnectorsStatuses" Index="13">                 
+                    <MandatoryMap>
+                        <!-- Mandatory from OCA version AES70-2018 -->
+                        <Mandatory OcaVersion="AES70-2018" Mandatory="true"/>
+                    </MandatoryMap>
+                </Method>
+                <Method Name="GetConnectorStatus" Index="14">                 
+                    <MandatoryMap>
+                        <!-- Mandatory from OCA version AES70-2018 -->
+                        <Mandatory OcaVersion="AES70-2018" Mandatory="true"/>
+                    </MandatoryMap>
+                </Method>
+                <Method Name="AddSourceConnector" Index="15"/>
+                <Method Name="AddSinkConnector" Index="16"/>
+                <Method Name="ControlConnector" Index="17"/>
+                <Method Name="SetSourceConnectorsPinMap" Index="18"/>
+                <Method Name="SetSinkConnectorPinMap" Index="19"/>
+                <Method Name="SetConnectorConnection" Index="20"/>
+                <Method Name="SetConnectorCoding" Index="21"/>
+                <Method Name="SetConnectorAlignmentLevel" Index="22"/>
+                <Method Name="SetConnectorAlignmentGain" Index="23"/>
+                <Method Name="DeleteConnector" Index="24">                 
+                    <MandatoryMap>
+                        <!-- Mandatory from OCA version AES70-2018 -->
+                        <Mandatory OcaVersion="AES70-2018" Mandatory="true"/>
+                    </MandatoryMap>
+                </Method>
+                <Method Name="GetAlignmentLevel" Index="25"/>
+                <Method Name="GetAlignmentGain" Index="26"/>     
+            </Methods>
+            <Events>
+                <Event Name="SourceConnectorChanged" Index="1"/>
+                <Event Name="SinkConnectorChanged" Index="2"/>
+                <Event Name="ConnectorStatusChanged" Index="3"/>
+            </Events>
+        </BlockMember>
+        <!--  </ROOT.APPLICATIONNETWORK(1.4)> -->
+    </BlockMembers>
+
+</OcaDevice>

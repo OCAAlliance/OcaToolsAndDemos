@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension" xmlns:fire="http://schemas.microsoft.com/wix/FirewallExtension">
+    <Product Id="*" Name="Aes70 Compliancy Test Tool Console V$(var.ProductVersion)" Language="1033" Version="$(var.ProductVersion)" Manufacturer="OCA Alliance" UpgradeCode="{F2BFD0B4-1178-4735-AF5D-1015A4E7CC7F}">
+        <Package Description="OCACOMPLIANCYTESTTOOL" Comments="Aes70 Compliancy Test Tool Console 64-bit V$(var.ProductVersion)" InstallPrivileges="elevated" InstallScope="perMachine" InstallerVersion="405" Compressed="yes" />
+        <MajorUpgrade AllowDowngrades="yes" />
+        <Media Id="1" Cabinet="compliancy.cab" EmbedCab="yes" />
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <Directory Id="ProgramFiles64Folder" Name="ProgramFiles64Folder">
+                <Directory Id="ProgramFilesProductFolder" Name="Aes70 Compliancy Test Tool Console">
+                    <!-- Aes70 Compliancy Test Tool Console files -->
+                    <Component Id="Aes70CompliancyTestTool.exe" DiskId="1" Guid="{03E19725-A87B-4A2F-A904-683146A9D338}">
+                        <File Id="Aes70CompliancyTestTool.exe" Name="Aes70CompliancyTestToolConsole.exe" Source="..\..\Out\Releasex64\Aes70CompliancyTestTool.exe" KeyPath="yes"/>
+                    </Component>
+                    <Directory Id="XmlFolder" Name="xml">
+                        <Component Id="ReferenceOCCMembers.xml" DiskId="1" Guid="{93F38057-EFF3-465A-B6BD-880F7B5D71CC}">
+                            <File Id="ReferenceOCCMembers.xml" Name="ReferenceOCCMembers.xml" Source="..\..\Out\Releasex64\xml\ReferenceOCCMembers.xml" />
+                        </Component>
+                        <Component Id="ReferenceOCCMembers.xsd" DiskId="1" Guid="{391DDE83-FEF0-456D-BEBB-B9366EE19AB0}">
+                            <File Id="ReferenceOCCMembers.xsd" Name="ReferenceOCCMembers.xsd" Source="..\..\Out\Releasex64\xml\ReferenceOCCMembers.xsd" />
+                        </Component>
+                        <Component Id="TestConfiguration.xml" DiskId="1" Guid="{392DDE83-FEF0-456D-BEBB-B9366EE19AB0}">
+                            <File Id="TestConfiguration.xml" Name="TestConfiguration.xml" Source="..\..\Out\Releasex64\xml\TestConfiguration.xml" />
+                        </Component>
+                    </Directory>
+                    <!-- Compliancy documentation files -->
+                    <Component Id="Aes70CompliancyTestTool.chm" DiskId="1" Guid="{134C6443-6393-45A4-84A0-0B655528F0B2}">
+                        <File Id="Aes70CompliancyTestTool.chm" Name="Aes70CompliancyTestToolConsole.chm" Source="..\..\Out\Aes70CompliancyTestToolDocumentation\html\index.chm" KeyPath="yes" />
+                    </Component>
+                </Directory>
+            </Directory>
+            <Directory Id="ProgramMenuFolder">
+                <Directory Id="ProgramMenuProgramFolder" Name="Aes70 Compliancy Test Tool Console">
+                    <Component Id="ProgramMenuProgramFolder" Guid="{E323B29B-8A33-4094-8DC4-052B97C95879}">
+                        <RemoveFolder Id="ProgramMenuProgramFolder" On="uninstall" />
+                        <RegistryValue Root="HKCU" Key="Software\[Manufacturer]\[ProductName]" Type="string" Value="" />
+                        <Shortcut Id="ProgramMenuProductFolderConsole" Directory="ProgramMenuProgramFolder" Name="Aes70 Compliancy Test Tool Console" Description="Opens a console to run the application" Target="[SystemFolder]cmd.exe" Arguments="/K &quot;[ProgramFilesProductFolder]Aes70CompliancyTestToolConsole.exe&quot;" WorkingDirectory="ProgramFilesProductFolder" />
+                        <Shortcut Id="HelpShortcut" Directory="ProgramMenuProgramFolder" Name="Aes70 Compliancy Test Tool Console Documentation" Target="[ProgramFilesProductFolder]Aes70CompliancyTestToolConsole.chm" WorkingDirectory="ProgramFilesProductFolder" />
+                    </Component>
+                </Directory>
+            </Directory>
+        </Directory>
+
+
+        <!-- Installable features -->
+        <Feature Id="OCACOMPLIANCYTESTTOOL" Title="Aes70 Compliancy Test Tool Console" Level="1">
+            <ComponentRef Id="Aes70CompliancyTestTool.exe" />
+            <ComponentRef Id="ReferenceOCCMembers.xsd" />
+            <ComponentRef Id="ReferenceOCCMembers.xml" />
+            <ComponentRef Id="TestConfiguration.xml" />
+            <ComponentRef Id="ProgramMenuProgramFolder" />
+            <ComponentRef Id="Aes70CompliancyTestTool.chm" />
+        </Feature>
+
+        <!-- Install conditions -->
+        <PropertyRef Id="WIX_IS_NETFRAMEWORK_462_OR_LATER_INSTALLED" />
+        <Condition Message="This installation is only supported on Windows 7 or higher.">Installed OR VersionNT >= 601</Condition>
+        <Condition Message="This installation requires administrator privileges.">Privileged</Condition>
+
+        <!-- Custom actions -->
+        <Binary Id="CommonChecks.dll" SourceFile="..\..\Out\Releasex64\CommonChecks.CA.dll" SuppressModularization="yes"/>
+        <CustomAction Id="CheckBonjour" BinaryKey="CommonChecks.dll" DllEntry="CheckBonjour" Execute="deferred" Impersonate="no" Return="check"/>
+
+        <!-- Wix variables -->
+        <Property Id="ARPNOMODIFY"><![CDATA[1]]></Property>
+        <Property Id="ARPNOREPAIR"><![CDATA[1]]></Property>
+
+        <!-- Custom actions included in the installer sequence -->
+        <InstallExecuteSequence>
+            <!-- Aes70 Compliancy Test Tool Console specific actions -->
+            <Custom Action="CheckBonjour" Before="InstallFiles"><![CDATA[(NOT Installed) AND (NOT PATCH)]]></Custom>
+        </InstallExecuteSequence>
+
+        <!-- Apply custom user interface -->
+        <UI>
+            <UIRef Id="WixUI_MondoOca" />
+        </UI>
+
+        <!--WixVariable Id="WixUIBannerBmp" Overridable="yes" Value="..\..\..\Src\Installation\Common\Bitmaps\bannrbmp.bmp" /!-->
+        <!--WixVariable Id="WixUIDialogBmp" Overridable="yes" Value="..\..\..\Src\Installation\Common\Bitmaps\dlgbmp.bmp" /!-->
+
+        <WixVariable Id="WixUILicenseRtf" Value="..\Common\LicenseAgreements\OCA Member-Use EULA.rtf" />
+
+    </Product>
+
+    <!-- Wix fragment containing the custom user interface -->
+    <Fragment>
+        <UI Id="WixUI_MondoOca">
+            <TextStyle Id="WixUI_Font_Normal" FaceName="Tahoma" Size="8" />
+            <TextStyle Id="WixUI_Font_Bigger" FaceName="Tahoma" Size="12" />
+            <TextStyle Id="WixUI_Font_Title" FaceName="Tahoma" Size="9" Bold="yes" />
+
+            <Property Id="DefaultUIFont" Value="WixUI_Font_Normal" />
+            <Property Id="WixUI_Mode" Value="Mondo" />
+
+            <DialogRef Id="LicenseAgreementDlg" />
+            <DialogRef Id="ErrorDlg" />
+            <DialogRef Id="FatalError" />
+            <DialogRef Id="FilesInUse" />
+            <DialogRef Id="MsiRMFilesInUse" />
+            <DialogRef Id="PrepareDlg" />
+            <DialogRef Id="ProgressDlg" />
+            <DialogRef Id="ResumeDlg" />
+            <DialogRef Id="UserExit" />
+
+            <Publish Dialog="ExitDialog"   Control="Finish"         Event="EndDialog" Value="Return" Order="999">1</Publish>
+            <Publish Dialog="WelcomeDlg"   Control="Next"           Event="NewDialog" Value="LicenseAgreementDlg"><![CDATA[(NOT WIX_UPGRADE_DETECTED)]]></Publish>
+            <Publish Dialog="WelcomeDlg"   Control="Next"           Event="NewDialog" Value="UpgradeDlg"><![CDATA[(WIX_UPGRADE_DETECTED)]]></Publish>
+
+            <Publish Dialog="UpgradeDlg" Control="Back" Event="NewDialog"         Value="WelcomeDlg">1</Publish>
+            <Publish Dialog="UpgradeDlg" Control="Next" Event="NewDialog"         Value="LicenseAgreementDlg">1</Publish>
+
+            <Publish Dialog="LicenseAgreementDlg" Control="Back" Event="NewDialog" Value="UpgradeDlg" Order="1"><![CDATA[(WIX_UPGRADE_DETECTED)]]></Publish>
+            <Publish Dialog="LicenseAgreementDlg" Control="Back" Event="NewDialog" Value="WelcomeDlg" Order="2"><![CDATA[(NOT WIX_UPGRADE_DETECTED)]]></Publish>
+            <Publish Dialog="LicenseAgreementDlg" Control="Next" Event="NewDialog" Value="VerifyReadyDlg">1</Publish>
+
+            <Publish Dialog="VerifyReadyDlg" Control="Back" Event="NewDialog" Value="LicenseAgreementDlg" Order="1">1</Publish>
+
+            <Dialog Id="UpgradeDlg" Width="370" Height="270" Title="[ProductName] Setup">
+                <Control Id="Title" Type="Text" X="15" Y="6" Width="200" Height="15" Transparent="yes" NoPrefix="yes" Text="{\WixUI_Font_Title}Warning" />
+                <Control Id="Description" Type="Text" X="25" Y="23" Width="280" Height="15" Transparent="yes" NoPrefix="yes" Text="Another version of Aes70 Compliancy Test Tool Console has been installed." />
+                <Control Id="BannerBitmap" Type="Bitmap" X="0" Y="0" Width="370" Height="44" TabSkip="no" Text="!(loc.InstallDirDlgBannerBitmap)" />
+                <Control Id="BannerLine" Type="Line" X="0" Y="44" Width="370" Height="0" />
+                <Control Id="TextLabel1" Type="Text" NoWrap="no" X="20" Y="50" Width="290" Height="40" Text="This installation will replace the existing Aes70 Compliancy Test Tool Console version. Click 'Cancel' if you wish to keep the existing version." />
+                <Control Id="BottomLine" Type="Line" X="0" Y="234" Width="370" Height="0" />
+                <Control Id="Next" Type="PushButton" X="236" Y="243" Width="56" Height="17" Default="yes" Text="Next" />
+                <Control Id="Back" Type="PushButton" X="180" Y="243" Width="56" Height="17" Text="Back" />
+                <Control Id="Cancel" Type="PushButton" X="304" Y="243" Width="56" Height="17" Cancel="yes" Text="Cancel">
+                    <Publish Event="SpawnDialog" Value="CancelDlg">1</Publish>
+                </Control>
+            </Dialog>
+        </UI>
+        <UIRef Id="WixUI_Common" />
+    </Fragment>
+</Wix>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension" xmlns:bal="http://schemas.microsoft.com/wix/BalExtension">
+    <Bundle Manufacturer="OCA Alliance"
+            Name="Aes70 Compliancy Test Tool Console V$(var.ProductVersion)"
+            UpgradeCode="{9C363E5E-19DE-4BAC-A376-A44C04ED8210}"
+            Version="$(var.ProductVersion)">
+        <BootstrapperApplicationRef Id="WixStandardBootstrapperApplication.HyperlinkLicense">
+            <bal:WixStandardBootstrapperApplication LicenseUrl=""
+                                                    LocalizationFile="Aes70 Compliancy Test Tool Console Bundle.wxl"
+                                                    SuppressOptionsUI="yes"
+                                                    ThemeFile="Aes70 Compliancy Test Tool Console Bundle.xml" />
+        </BootstrapperApplicationRef>
+        <Chain>
+            <!-- Application -->
+            <MsiPackage DisplayInternalUI="yes"
+                        Id="CompliancyTool"
+                        InstallCondition="NOT VersionNT64"
+                        SourceFile="..\..\Out\Installer\Aes70 Compliancy Test Tool Console Installer\en-us\SetupAes70CompliancyTestToolConsole.msi"
+                        Visible="no" />
+
+            <!-- Visual Studio 2015 redistributable -->
+            <ExePackage Id="VCRedist"
+                        InstallCommand="/install /quiet /norestart"
+                        InstallCondition="NOT VersionNT64"
+                        SourceFile="$(env.VCINSTALLDIR)Redist\MSVC\14.14.26405\vc_redist.x86.exe"
+                        Vital="yes">
+                <ExitCode Value="1638" Behavior="success" /> <!-- Newer version is already installed -->
+            </ExePackage>
+        </Chain>
+        <bal:Condition Message="You are attempting to run the 32-bit installer on a 64-bit version of Windows."><![CDATA[NOT VersionNT64]]></bal:Condition>
+    </Bundle>
+</Wix>

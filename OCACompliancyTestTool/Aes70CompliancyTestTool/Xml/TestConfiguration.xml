@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TestConfiguration>
+    <DeviceResetTest>
+        <!-- OPTIONALLY: Override the default device reset address used in the test. -->
+        <!--UnicastAddress Host="0.0.0.0" Port="55655" /-->
+        <!--MulticastAddress Host="239.0.0.1" Port="55655" /-->
+        <!-- OPTIONALLY: Override the time to wait in MS after a device reset  (default 20000ms)-->
+        <!--WaitAfterReset>10000</WaitAfterReset-->
+    </DeviceResetTest>
+</TestConfiguration>

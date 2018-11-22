@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Release</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x64</Platform>
+    <ProductVersion>5.10.4500</ProductVersion>
+    <ProjectGuid>{164e6f4a-eddd-4751-9d56-e6b99e05042b}</ProjectGuid>
+    <SchemaVersion>2.0</SchemaVersion>
+    <OutputName>SetupAes70CompliancyTestToolConsole64</OutputName>
+    <OutputType>Package</OutputType>
+    <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' AND '$(MSBuildExtensionsPath32)' != '' ">$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets</WixTargetsPath>
+    <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' ">$(MSBuildExtensionsPath)\Microsoft\WiX\v3.x\Wix.targets</WixTargetsPath>
+    <Name>Aes70 Compliancy Test Tool</Name>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
+    <OutputPath>..\..\Out\Installer\Aes70 Compliancy Test Tool Console Installer64\</OutputPath>
+    <IntermediateOutputPath>..\..\Out\Installer\Aes70 Compliancy Test Tool Console Installer64\Intermediate\</IntermediateOutputPath>
+    <DefineConstants>ProductVersion=$(ProductVersion)</DefineConstants>
+    <SuppressIces>ICE61;ICE82</SuppressIces>
+    <SuppressValidation>True</SuppressValidation>
+  </PropertyGroup>
+  <ItemGroup>
+    <WixExtension Include="WixUtilExtension">
+      <HintPath>$(WixExtDir)\WixUtilExtension.dll</HintPath>
+      <Name>WixUtilExtension</Name>
+    </WixExtension>
+    <WixExtension Include="WixUIExtension">
+      <HintPath>$(WixExtDir)\WixUIExtension.dll</HintPath>
+      <Name>WixUIExtension</Name>
+    </WixExtension>
+    <WixExtension Include="WixNetFxExtension">
+      <HintPath>$(WixExtDir)\WixNetFxExtension.dll</HintPath>
+      <Name>WixNetFxExtension</Name>
+    </WixExtension>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Aes70 Compliancy Test Tool Console64.wxl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Aes70 Compliancy Test Tool Console64.wxs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CommonChecks\CommonChecks.csproj">
+      <Name>CommonChecks</Name>
+      <Project>{f3c3d0ef-89f9-4618-a3dd-4cecd6cc7bbc}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(WixTargetsPath)" />
+  <PropertyGroup>
+    <PreBuildEvent />
+  </PropertyGroup>
+  <PropertyGroup>
+    <PostBuildEvent>"%25WIX%25bin\smoke.exe" -sice:ICE61 -sice:ICE82 -sice:ICE03 "!(TargetPath)"</PostBuildEvent>
+  </PropertyGroup>
+  <!--
+	To modify your build process, add your task inside one of the targets below and uncomment it.
+	Other similar extension points exist, see Wix.targets.
+	<Target Name="BeforeBuild">
+	</Target>
+	<Target Name="AfterBuild">
+	</Target>
+	-->
+</Project>

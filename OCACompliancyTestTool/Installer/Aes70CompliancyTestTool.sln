@@ -1,0 +1,54 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonChecks", "CommonChecks\CommonChecks.csproj", "{F3C3D0EF-89F9-4618-A3DD-4CECD6CC7BBC}"
+EndProject
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Aes70 Compliancy Test Tool Console", "Aes70 Compliancy Test Tool Console Installer\Aes70 Compliancy Test Tool Console.wixproj", "{5F7CBA0B-6507-4298-8794-37FDFBFE7C66}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F3C3D0EF-89F9-4618-A3DD-4CECD6CC7BBC} = {F3C3D0EF-89F9-4618-A3DD-4CECD6CC7BBC}
+	EndProjectSection
+EndProject
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Aes70 Compliancy Test Tool Console64", "Aes70 Compliancy Test Tool Console Installer64\Aes70 Compliancy Test Tool Console64.wixproj", "{164E6F4A-EDDD-4751-9D56-E6B99E05042B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F3C3D0EF-89F9-4618-A3DD-4CECD6CC7BBC} = {F3C3D0EF-89F9-4618-A3DD-4CECD6CC7BBC}
+	EndProjectSection
+EndProject
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Aes70 Compliancy Test Tool Console Bundle", "Aes70 Compliancy Test Tool Console Bundle Installer\Aes70 Compliancy Test Tool Console Bundle.wixproj", "{9538893A-B851-4813-AA0E-D5158FF5B72C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{5F7CBA0B-6507-4298-8794-37FDFBFE7C66} = {5F7CBA0B-6507-4298-8794-37FDFBFE7C66}
+	EndProjectSection
+EndProject
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Aes70 Compliancy Test Tool Console Bundle64", "Aes70 Compliancy Test Tool Console Bundle Installer64\Aes70 Compliancy Test Tool Console Bundle64.wixproj", "{A988278D-6AB5-40F6-97DE-BB608CC30201}"
+	ProjectSection(ProjectDependencies) = postProject
+		{164E6F4A-EDDD-4751-9D56-E6B99E05042B} = {164E6F4A-EDDD-4751-9D56-E6B99E05042B}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F3C3D0EF-89F9-4618-A3DD-4CECD6CC7BBC}.Release|x64.ActiveCfg = Release|x64
+		{F3C3D0EF-89F9-4618-A3DD-4CECD6CC7BBC}.Release|x64.Build.0 = Release|x64
+		{F3C3D0EF-89F9-4618-A3DD-4CECD6CC7BBC}.Release|x86.ActiveCfg = Release|x86
+		{F3C3D0EF-89F9-4618-A3DD-4CECD6CC7BBC}.Release|x86.Build.0 = Release|x86
+		{5F7CBA0B-6507-4298-8794-37FDFBFE7C66}.Release|x64.ActiveCfg = Release|x86
+		{5F7CBA0B-6507-4298-8794-37FDFBFE7C66}.Release|x86.ActiveCfg = Release|x86
+		{5F7CBA0B-6507-4298-8794-37FDFBFE7C66}.Release|x86.Build.0 = Release|x86
+		{164E6F4A-EDDD-4751-9D56-E6B99E05042B}.Release|x64.ActiveCfg = Release|x64
+		{164E6F4A-EDDD-4751-9D56-E6B99E05042B}.Release|x64.Build.0 = Release|x64
+		{164E6F4A-EDDD-4751-9D56-E6B99E05042B}.Release|x86.ActiveCfg = Release|x64
+		{9538893A-B851-4813-AA0E-D5158FF5B72C}.Release|x64.ActiveCfg = Release|x86
+		{9538893A-B851-4813-AA0E-D5158FF5B72C}.Release|x86.ActiveCfg = Release|x86
+		{9538893A-B851-4813-AA0E-D5158FF5B72C}.Release|x86.Build.0 = Release|x86
+		{A988278D-6AB5-40F6-97DE-BB608CC30201}.Release|x64.ActiveCfg = Release|x64
+		{A988278D-6AB5-40F6-97DE-BB608CC30201}.Release|x64.Build.0 = Release|x64
+		{A988278D-6AB5-40F6-97DE-BB608CC30201}.Release|x86.ActiveCfg = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
