@@ -55,6 +55,7 @@ OcaLiteClassID::OcaLiteClassID(const ::OcaLiteClassID& source)
     ::memcpy(m_fields, source.m_fields, static_cast<size_t>(m_fieldCount) * sizeof(::OcaUint16));
 }
 
+#ifdef _WIN32
 OcaLiteClassID::OcaLiteClassID(const std::string& source)
 {
     ::memset(m_fields, 0, sizeof(m_fields));
@@ -73,6 +74,7 @@ OcaLiteClassID::OcaLiteClassID(const std::string& source)
         str++;
     }
 }
+#endif
 
 OcaLiteClassID::~OcaLiteClassID()
 {

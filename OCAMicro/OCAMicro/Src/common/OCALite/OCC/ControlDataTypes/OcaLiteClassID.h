@@ -73,12 +73,14 @@ public:
      */
     OcaLiteClassID(const ::OcaLiteClassID& source);
 
+#ifdef _WIN32
     /**
      * Constructor, create a class id from a string
      *
      * @param[in] source    The string to create the classId from.
      */
     OcaLiteClassID(const ::std::string& source);
+#endif
 
     /**
      * Destructor.
