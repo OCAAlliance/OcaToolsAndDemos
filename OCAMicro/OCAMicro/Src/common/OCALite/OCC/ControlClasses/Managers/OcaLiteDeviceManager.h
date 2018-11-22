@@ -48,6 +48,21 @@ enum OcaLiteDeviceState    /* maps onto OcaUint16 */
 };
 
 /**
+ * Enumeration of reasons for device reset.
+ */
+enum OcaLiteResetCause    /* maps onto OcaUint16 */
+{
+    /** Reset due to powering up. */
+    OCARESETCAUSE_POWER_ON          = 0,
+    /** Reset due to internal error. */
+    OCARESETCAUSE_INTERNAL_ERROR    = 1,
+    /** Reset following upgrade of firmware. */
+    OCARESETCAUSE_UPGRADE           = 2,
+    /** Reset due to an external request */
+    OCARESETCAUSE_EXTERNAL_REQUEST  = 3
+};
+
+/**
  * The classID used for initialization.
  */
 #define OCA_DEVICEMANAGER_CLASSID      OCA_MANAGER_CLASSID,static_cast< ::OcaUint16>(1)
@@ -395,5 +410,15 @@ bool UnmarshalValue< ::OcaLiteDeviceState>(::OcaLiteDeviceState& value, ::OcaUin
 
 template <>
 ::OcaUint32 GetSizeValue< ::OcaLiteDeviceState>(const ::OcaLiteDeviceState& value, const ::IOcaLiteWriter& writer);
+
+template <>
+void MarshalValue< ::OcaLiteResetCause>(const ::OcaLiteResetCause& value, ::OcaUint8** destination, const ::IOcaLiteWriter& writer);
+
+template <>
+bool UnmarshalValue< ::OcaLiteResetCause>(::OcaLiteResetCause& value, ::OcaUint32& bytesLeft, const ::OcaUint8** source, const ::IOcaLiteReader& reader);
+
+template <>
+::OcaUint32 GetSizeValue< ::OcaLiteResetCause>(const ::OcaLiteResetCause& value, const ::IOcaLiteWriter& writer);
+
 
 #endif // OCALITEDEVICEMANAGER_H

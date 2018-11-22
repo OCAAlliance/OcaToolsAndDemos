@@ -3,7 +3,6 @@
  *  agreement located at http://ocaalliance.com/EULA as an original contracting party.
  *
  *  Description         : The OcaLiteCommandHandler class.
- *
  */
 
 #ifndef OCALITECOMMANDHANDLER_H
@@ -144,7 +143,7 @@ private:
  * network sessions that are active. If a network connection is lost it automatically
  * informs all OCA objects of this connection loss.
  */
-class  OcaLiteCommandHandler
+class OcaLiteCommandHandler
 {
 public:
 
@@ -185,6 +184,27 @@ public:
          */
         virtual void OnConnectionLost(::OcaSessionID sessionID) = 0;
     };
+
+#ifdef OCA_TRACK_KEEPALIVE_RECEIVED
+    /**
+     * Class definition used for KeepAliveReceived events
+     */
+    class IKeepAliveReceivedDelegate
+    {
+    public:
+        /**
+         * Destructor
+         */
+        virtual ~IKeepAliveReceivedDelegate() {}
+
+        /**
+         * Called when keep alive is received
+         *
+         * @param[in] sessionID     The ID of the session on which a keep alive is received
+         */
+        virtual void OnKeepAliveReceived(::OcaSessionID sessionID) = 0;
+    };
+#endif //OCA_TRACK_KEEPALIVE_RECEIVED
 
    /**
      * Getter for the OcaLiteCommandHandler singleton.
@@ -307,6 +327,24 @@ public:
      */
     bool UnregisterConnectionLostEventHandler(const IConnectionLostDelegate* connLostDelegate);
 
+#ifdef OCA_TRACK_KEEPALIVE_RECEIVED
+    /**
+     * Add keepAliveReceived delegate
+     *
+     * @param[in] keepAliveDelegate            The delegate that will be added
+     * @return  false when already registered
+     */
+    bool RegisterKeepAliveReceivedEventHandler(IKeepAliveReceivedDelegate* keepAliveDelegate);
+
+    /**
+     * Remove keepAliveReceived delegate
+     *
+     * @param[in] keepAliveDelegate            The delegate that will be removed
+     * @return  false when given delegate was not registered, true otherwise
+     */
+    bool UnregisterKeepAliveReceivedEventHandler(const IKeepAliveReceivedDelegate* keepAliveDelegate);
+#endif //OCA_TRACK_KEEPALIVE_RECEIVED
+
     /**
      * Get a buffer to use with response data.
      * This buffer needs to be filled with the parameter data of the response
@@ -335,6 +373,15 @@ protected:
      *  @param[in] timeout   Timeout
      */
     virtual void HandleNetworks(::OcaUint32 timeout);
+	
+    /**
+     * Handle the response received
+     *
+     * @param[in] response  The response received.
+     */
+	virtual void HandleResponse(const ::OcaLiteMessageResponse& response)
+	{
+	}
 
     /**
      * Retrieves a pointer to the device object with the given object number.
@@ -372,6 +419,16 @@ private:
      */
     void ConnectionLost(::OcaSessionID sessionID);
 
+#ifdef OCA_TRACK_KEEPALIVE_RECEIVED
+    /**
+     * Keep alive received  event that is raised when a keep alive is received.
+     * The sessionID of the device to which the connection was made is
+     * passed as event argument.
+     *
+     * @param[in] sessionID   The sessionID of the device on for which a keepalive is received.
+     */
+    void KeepAliveReceived(::OcaSessionID sessionID);
+#endif //OCA_TRACK_KEEPALIVE_RECEIVED
     /**
      * Handle messages
      */
@@ -391,6 +448,11 @@ private:
 
     /** Listener to ConnectionLost events */
     IConnectionLostDelegate*        m_pConnectionLostDelegate;
+
+#ifdef OCA_TRACK_KEEPALIVE_RECEIVED
+    /** Listeren to keep alive received events */
+    IKeepAliveReceivedDelegate*     m_pKeepAliveReceivedDelegate;
+#endif //OCA_TRACK_KEEPALIVE_RECEIVED
 
     /** Session list */
     ::OcaSessionList                m_sessionList;

@@ -74,6 +74,13 @@ public:
     OcaLiteClassID(const ::OcaLiteClassID& source);
 
     /**
+     * Constructor, create a class id from a string
+     *
+     * @param[in] source    The string to create the classId from.
+     */
+    OcaLiteClassID(const ::std::string& source);
+
+    /**
      * Destructor.
      */
     virtual ~OcaLiteClassID();

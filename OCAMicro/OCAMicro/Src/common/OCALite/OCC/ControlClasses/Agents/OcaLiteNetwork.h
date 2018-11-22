@@ -16,6 +16,7 @@
 #include <OCC/ControlDataTypes/OcaLiteNetworkDataTypes.h>
 #include <OCC/ControlDataTypes/OcaLiteBlobDataType.h>
 #include <OCC/ControlDataTypes/OcaLiteNetworkSystemInterfaceID.h>
+#include <OCC/ControlDataTypes/OcaLiteConnectParameters.h>
 #include <OCF/Messages/OcaLiteHeader.h>
 #include <OCF/Messages/OcaLiteMessageNotification.h>
 #include <HostInterfaceLite/OCA/OCF/Selection/OcfLiteSelectableSet.h>
@@ -241,12 +242,14 @@ public:
      */
     virtual void GetConnectionsLost(::OcaSessionList& sessions) = 0;
 
+#ifdef OCA_TRACK_KEEPALIVE_RECEIVED
     /**
-     * Gets list of sessions that received a keep alive message
+     * Get list of connections on which a keep alive is received
      *
-     * @param[out]  sessions    List of sessionIDs of sessions that received a keep alive message
+     * @param[out] sessions     List of sessionIDs of connection on which a keepalive is received
      */
-//    virtual void GetSessionsWithKeepAliveReceived(::OcaSessionList& sessions) = 0;
+    virtual void GetReceivedKeepAlives(::OcaSessionList& sessions) = 0;
+#endif //OCA_TRACK_KEEPALIVE_RECEIVED
 
     /**
      * Get the writer for this network.
@@ -271,13 +274,25 @@ public:
      *                                      the notification should be sent.
      * @param[in]   networkAddress          The network destination for the notification.
      * @param[in]   message                 The notification message to send.
-     * @return Indicates whether the operation succeeded
+     * @return Indicates whether the operation succeeded.
      */
     virtual ::OcaLiteStatus SendNotification(::OcaLiteNotificationDeliveryMode deliveryMode,
                                               ::OcaSessionID sessionID,
                                               const ::OcaLiteNetworkAddress& networkAddress,
                                               const ::OcaLiteMessageNotification* message) = 0;
 
+#ifdef OCA_LITE_CONTROLLER
+    /** 
+     * Send a device reset message to the provided network address.
+     *
+     * @param[in] resetKey          The reset key.
+     * @param[in] networkAddress    The address.
+     *
+     * @return Indicates whether the operation succeeded.
+     */
+    virtual ::OcaLiteStatus SendResetMessage(::OcaLiteBlobFixedLen<static_cast< ::OcaUint16>(16)> resetKey,
+                                             const ::OcaLiteNetworkAddress networkAddress) = 0;
+#endif //OCA_LITE_CONTROLLER
     /**
      * Retrieves a message object
      *
@@ -292,6 +307,32 @@ public:
      * @param[in]   msg         The message to return
      */
     virtual void ReturnMessage(::OcaLiteMessageGeneral* msg) = 0;
+
+#ifdef OCA_LITE_CONTROLLER
+	/** 
+	 * Connect to a remote device.
+	 *
+	 * @param[in] connectParameters Information about the connection
+	 *
+	 * @return The sessionId, OCA_INVALID_SESSIONID if not session could be established.
+	 */
+	virtual OcaSessionID Connect(const ::OcaLiteConnectParameters& connectParameters)
+	{
+		return OCA_INVALID_SESSIONID;
+	}
+
+	/** 
+	 * Disconnect the session.
+	 *
+	 * @param[in] sessionId	The session ID to disconnect.
+	 *
+	 * @return True iff successfull.
+	 */
+	virtual bool Disconnect(::OcaSessionID sessionId)
+	{
+		return false;
+	}
+#endif
 
 protected:
     /**

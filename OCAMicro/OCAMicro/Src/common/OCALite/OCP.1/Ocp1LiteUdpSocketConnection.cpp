@@ -1,8 +1,6 @@
 /*  By downloading or using this file, the user agrees to be bound by the terms of the license 
  *  agreement located at http://ocaalliance.com/EULA as an original contracting party.
- */
-
-/*
+ *
  *  Description         : Ocp1LiteUdpSocketConnection
  *
  */
@@ -65,12 +63,13 @@ Ocp1LiteUdpSocketConnection::~Ocp1LiteUdpSocketConnection()
 
 void Ocp1LiteUdpSocketConnection::Shutdown()
 {
+    m_socketState = SOCKET_NOT_CONNECTED;
     // The message receive buffer was simply assigned, so set it to NULL only
     m_pMessageReceiveBuffer = NULL;
 }
 
 void Ocp1LiteUdpSocketConnection::UpdateReceiveBuffer(OcaUint8* pMessageReceiveBuffer,
-    INT32 bytesReceived)
+                                                      INT32 bytesReceived)
 {
     assert(static_cast< ::OcaUint32>(0) == m_totalLength);
     assert(static_cast< ::OcaUint32>(bytesReceived) <= m_messageBufferSize);
@@ -91,14 +90,14 @@ void Ocp1LiteUdpSocketConnection::SetRemoteAddressAndPort(const std::string& ipA
 }
 
 
-Ocp1LiteUdpSocketConnection::OcaLiteSocketRetVal Ocp1LiteUdpSocketConnection::Run(::OcaBoolean dataAvailable, ::OcaUint32 messageSendBufferSize, ::OcaUint8* pMessageSendBuffer)
+Ocp1LiteUdpSocketConnection::OcaLiteSocketRetVal Ocp1LiteUdpSocketConnection::Run(::OcaBoolean dataAvailable, ::OcaUint32 messageSendBufferSize, ::OcaUint8* pMessageSendBuffer, ::OcaBoolean& bKeepAliveReceived)
 {
     OcaLiteSocketRetVal retval(CONNECTION_LOST);
 
     if (SOCKET_CONNECTED == m_socketState)
     {
         retval = NO_MESSAGE_RECEIVED;
-        ReceiveFromSocket(dataAvailable);
+        ReceiveFromSocket(dataAvailable, bKeepAliveReceived);
         if (m_socketState == SOCKET_NOT_CONNECTED)
         {
             retval = CONNECTION_LOST;
@@ -154,6 +153,7 @@ OcaLiteMessageGeneral* Ocp1LiteUdpSocketConnection::GetFirstPendingMessage(::Oca
             if (m_pduMessagesLeft == static_cast< ::OcaUint16>(0))
             {
                 assert(m_pduBytesLeft == static_cast< ::OcaUint32>(0));
+
                 // On to the next PDU
                 ResetMessageState();
             }
@@ -320,9 +320,10 @@ bool Ocp1LiteUdpSocketConnection::HandleKeepAlive(::OcaUint32 messageSendBufferS
     return connectionValid;
 }
 
-void Ocp1LiteUdpSocketConnection::ReceiveFromSocket(::OcaBoolean dataAvailable)
+void Ocp1LiteUdpSocketConnection::ReceiveFromSocket(::OcaBoolean dataAvailable, ::OcaBoolean& bReceivedKeepalive)
 {
-    assert(NULL != m_pMessageReceiveBuffer);
+    assert(NULL != m_pMessageReceiveBuffer || m_totalLength == 0);
+    bReceivedKeepalive = static_cast< ::OcaBoolean>(false);
 
     // Ready to read data
     if (SOCKET_CONNECTED == m_socketState)
@@ -404,6 +405,7 @@ void Ocp1LiteUdpSocketConnection::ReceiveFromSocket(::OcaBoolean dataAvailable)
                                     }
                                     // Indicate that a keep alive message is received
                                     m_bKeepAliveReceived = true;
+                                    bReceivedKeepalive = static_cast< ::OcaBoolean>(true);
                                 }
                                 m_parent.ReturnMessage(mess);
 
@@ -451,7 +453,7 @@ void Ocp1LiteUdpSocketConnection::UpdateNextMessageSize()
 {
     assert(NULL != m_pMessageReceiveBuffer);
 
-    ::OcaUint32 messageSize(static_cast<::OcaUint32>(0));
+    ::OcaUint32 messageSize(static_cast< ::OcaUint32>(0));
     const ::OcaUint8* pBuff(&m_pMessageReceiveBuffer[m_totalLength - m_pduBytesLeft]);
     ::OcaUint32 tmpBytesLeft(m_pduBytesLeft);
     if (m_parent.GetReader().Read(tmpBytesLeft, &pBuff, messageSize))

@@ -48,7 +48,33 @@ void Ocp1MessageResponse::Marshal(::OcaUint8** destination, const ::IOcaLiteWrit
 
 bool Ocp1MessageResponse::Unmarshal(::OcaUint32& bytesLeft, const ::OcaUint8** source, const ::IOcaLiteReader& reader)
 {
-    return false; // Don't need to unmarshal responses
+#ifndef OCA_LITE_CONTROLLER
+	assert(false);
+#else
+	bool success(GetMessageType() == OcaLiteHeader::OCA_MSG_RSP);
+
+	::OcaUint32 originalBytesLeft(bytesLeft);
+
+	::OcaUint32 commandSize(static_cast< ::OcaUint32>(0));
+	success = success && reader.Read(bytesLeft, source, commandSize);
+
+	::OcaUint32 handle(static_cast< ::OcaUint32>(0));
+	success = success && reader.Read(bytesLeft, source, handle);
+
+	::OcaLiteStatus status(OCASTATUS_PROCESSING_FAILED);
+	success = success && UnmarshalValue< ::OcaLiteStatus>(status, bytesLeft, source, reader);
+
+	::OcaUint32 parametersSize(commandSize - (originalBytesLeft - bytesLeft));
+	::OcaUint32 parameterBytesLeft(parametersSize);
+	if (success)
+	{
+		WriteParameters(handle, const_cast< ::OcaUint8*>(*source), parametersSize, status);
+		source += parametersSize;
+	}
+	bytesLeft -= parametersSize;
+
+	return success;
+#endif
 }
 
 ::OcaUint32 Ocp1MessageResponse::GetSize(const ::IOcaLiteWriter& writer) const

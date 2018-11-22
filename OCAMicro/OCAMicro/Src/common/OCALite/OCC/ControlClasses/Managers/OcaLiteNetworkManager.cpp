@@ -38,7 +38,7 @@ const ::OcaONo OcaLiteNetworkManager::OBJECT_NUMBER(static_cast< ::OcaONo>(6));
 
 OcaLiteNetworkManager::OcaLiteNetworkManager()
   : ::OcaLiteManager(OBJECT_NUMBER, ::OcaLiteString("NetworkManager"), ::OcaLiteString("NetworkManager")),
-     m_network(OCA_INVALID_ONO),
+     m_networks(),
      m_streamNetwork(OCA_INVALID_ONO),
      m_mediaTransportNetwork(OCA_INVALID_ONO)
 {
@@ -69,11 +69,7 @@ void OcaLiteNetworkManager::FreeInstance()
 
 ::OcaLiteStatus OcaLiteNetworkManager::GetNetworks(::OcaLiteList< ::OcaONo>& networks) const
 {
-    networks.Clear();
-    if (OCA_INVALID_ONO != m_network)
-    {
-        networks.Add(m_network);
-    }
+    networks = m_networks;
     return OCASTATUS_OK;
 }
 
@@ -97,13 +93,13 @@ void OcaLiteNetworkManager::FreeInstance()
     return OCASTATUS_OK;
 }
 
-::OcaLiteNetwork* OcaLiteNetworkManager::GetNetwork() const
+::OcaLiteNetwork* OcaLiteNetworkManager::GetNetwork(::OcaONo networkONo) const
 {
     ::OcaLiteNetwork* pOcaLiteNetwork(NULL);
 
-    if (OCA_INVALID_ONO != m_network)
+    if (OCA_INVALID_ONO != networkONo)
     {
-        ::OcaLiteRoot* pOcaRoot(OcaLiteBlock::GetRootBlock().GetObject(m_network));
+        ::OcaLiteRoot* pOcaRoot(OcaLiteBlock::GetRootBlock().GetObject(networkONo));
         if (NULL != pOcaRoot)
         {
             pOcaLiteNetwork = static_cast< ::OcaLiteNetwork*>(pOcaRoot);
@@ -117,11 +113,10 @@ void OcaLiteNetworkManager::FreeInstance()
 {
     ::OcaBoolean bSuccess(static_cast< ::OcaBoolean>(false));
 
-    if (OCA_INVALID_ONO == m_network)
+    if (!m_networks.Contains(network.GetObjectNumber()))
     {
-        m_network = network.GetObjectNumber();
+        m_networks.Add(network.GetObjectNumber());
         bSuccess = static_cast< ::OcaBoolean>(true);
-
         // Don't send a property changed event. We assume this never happens in an online device.
     }
 
@@ -130,9 +125,9 @@ void OcaLiteNetworkManager::FreeInstance()
 
 void OcaLiteNetworkManager::RemoveNetwork(const ::OcaLiteAgent& network)
 {
-    if (m_network == network.GetObjectNumber())
+    if (m_networks.Contains(network.GetObjectNumber()))
     {
-        m_network = OCA_INVALID_ONO;
+        m_networks.RemoveElement(network.GetObjectNumber());
 
         // Don't send a property changed event. We assume this never happens in an online device.
     }

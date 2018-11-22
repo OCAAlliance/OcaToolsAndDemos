@@ -122,7 +122,7 @@ public:
      *
      * @return A valid pointer when the network is found, otherwise NULL.
      */
-    ::OcaLiteNetwork* GetNetwork() const;
+    ::OcaLiteNetwork* GetNetwork(::OcaONo networkONo) const;
 
     /**
      * Adds a network to the network object list.
@@ -206,8 +206,8 @@ protected:
 private:
     /** Singleton instance of the server */
     static ::OcaLiteNetworkManager*             m_pSingleton;
-    /** Object number of the one and only network */
-    ::OcaONo                                    m_network;
+    /** Object numbers of the networks */
+    ::OcaLiteList< ::OcaONo>                    m_networks;
     /** Object number of the one and only stream network */
     ::OcaONo                                    m_streamNetwork;
     /** Object number of the one and only media transport network */

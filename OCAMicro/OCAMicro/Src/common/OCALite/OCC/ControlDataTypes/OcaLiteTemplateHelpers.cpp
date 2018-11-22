@@ -1,14 +1,13 @@
 /*  By downloading or using this file, the user agrees to be bound by the terms of the license 
  *  agreement located at http://ocaalliance.com/EULA as an original contracting party.
- */
-
-/*
- *  Description         : Helper template functions for template data types
  *
+ *  Description         : Helper template functions for template data types
  */
 
 // ---- Include system wide include files ----
+#ifndef _CRT_SECURE_NO_WARNINGS
 #define _CRT_SECURE_NO_WARNINGS
+#endif
 #include <math.h>
 #include <string>
 

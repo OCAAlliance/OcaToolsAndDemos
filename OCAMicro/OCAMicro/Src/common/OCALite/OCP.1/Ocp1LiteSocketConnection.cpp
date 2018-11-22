@@ -72,14 +72,14 @@ void Ocp1LiteSocketConnection::Shutdown()
     m_socketState = SOCKET_NOT_CONNECTED;
 }
 
-Ocp1LiteSocketConnection::OcaLiteSocketRetVal Ocp1LiteSocketConnection::Run(::OcaBoolean dataAvailable, ::OcaUint32 messageSendBufferSize, ::OcaUint8* pMessageSendBuffer)
+Ocp1LiteSocketConnection::OcaLiteSocketRetVal Ocp1LiteSocketConnection::Run(::OcaBoolean dataAvailable, ::OcaUint32 messageSendBufferSize, ::OcaUint8* pMessageSendBuffer, ::OcaBoolean& bKeepAliveReceived)
 {
     OcaLiteSocketRetVal retval(CONNECTION_LOST);
 
     if (SOCKET_CONNECTED == m_socketState)
     {
         retval = NO_MESSAGE_RECEIVED;
-        ReceiveFromSocket(dataAvailable);
+        ReceiveFromSocket(dataAvailable, bKeepAliveReceived);
         if (m_socketState == SOCKET_NOT_CONNECTED)
         {
             retval = CONNECTION_LOST;
@@ -281,7 +281,7 @@ bool Ocp1LiteSocketConnection::HandleKeepAlive(::OcaUint32 messageSendBufferSize
         }
         if ((OcfLiteTimerGetTimerTickCount() - static_cast<UINT32>(m_lastMessageReceivedTime)) >= static_cast<UINT32>(static_cast<UINT32>(m_keepAliveTimeOut) * multiplier * MAX_KEEPALIVE_MISSED))
         {
-            OCA_LOG_WARNING_PARAMS("Not received any message for %i secs on session %u", static_cast<int>(m_keepAliveTimeOut) * MAX_KEEPALIVE_MISSED, m_sessionID);
+            OCA_LOG_ERROR_PARAMS("Not received any message for %i secs on session %u", static_cast<int>(m_keepAliveTimeOut) * MAX_KEEPALIVE_MISSED, m_sessionID);
             connectionValid = false;
             m_socketState = SOCKET_NOT_CONNECTED;
         }
@@ -298,9 +298,10 @@ bool Ocp1LiteSocketConnection::HandleKeepAlive(::OcaUint32 messageSendBufferSize
     return connectionValid;
 }
 
-void Ocp1LiteSocketConnection::ReceiveFromSocket(::OcaBoolean dataAvailable)
+void Ocp1LiteSocketConnection::ReceiveFromSocket(::OcaBoolean dataAvailable, ::OcaBoolean& bKeepAliveReceived)
 {
     assert(NULL != m_pMessageReceiveBuffer);
+    bKeepAliveReceived = static_cast< ::OcaBoolean>(false);
 
     // Ready to read data
     if (SOCKET_CONNECTED == m_socketState)
@@ -317,7 +318,7 @@ void Ocp1LiteSocketConnection::ReceiveFromSocket(::OcaBoolean dataAvailable)
             else
             {
                 m_socketState = SOCKET_NOT_CONNECTED;
-                OCA_LOG_INFO_PARAMS("Lost connection to session %u (received bytes %d)", m_sessionID, bytesReceived);
+                OCA_LOG_WARNING_PARAMS("Lost connection to session %u (received bytes %d)", m_sessionID, bytesReceived);
             }
         }
 
@@ -414,8 +415,10 @@ void Ocp1LiteSocketConnection::ReceiveFromSocket(::OcaBoolean dataAvailable)
                                         {
                                             m_isKeepAliveInMilliseconds = false;
                                             m_keepAliveTimeOut = static_cast< ::OcaUint32>(keepAliveMessage->GetHeartBeatTime());
-                                        }
+                                        }                                   
                                     }
+
+                                    bKeepAliveReceived = static_cast< ::OcaBoolean>(true);
                                 }
                                 m_parent.ReturnMessage(mess);
 

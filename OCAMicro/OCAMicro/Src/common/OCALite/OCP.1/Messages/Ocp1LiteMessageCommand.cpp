@@ -33,7 +33,16 @@ Ocp1LiteMessageCommand::~Ocp1LiteMessageCommand()
 
 void Ocp1LiteMessageCommand::Marshal(::OcaUint8** destination, const ::IOcaLiteWriter& writer) const
 {
+#ifndef OCA_LITE_CONTROLLER
     assert(false); // Don't need to marshal commands
+#else
+	const ::OcaLiteMethodID& methodId(GetMethodID());
+	writer.Write(static_cast<UINT32>(GetSize(writer)), destination);//CommandSize
+	writer.Write(GetHandle(), destination);
+	MarshalValue< ::OcaONo>(GetTargetONo(), destination, writer);
+	methodId.Marshal(destination, writer);
+	writer.Write(GetParameters(), GetParametersSize(), destination);
+#endif
 }
 
 bool Ocp1LiteMessageCommand::Unmarshal(::OcaUint32& bytesLeft, const ::OcaUint8** source, const ::IOcaLiteReader& reader)

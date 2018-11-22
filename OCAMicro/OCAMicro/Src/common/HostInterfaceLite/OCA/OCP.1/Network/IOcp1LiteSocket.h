@@ -69,6 +69,11 @@ bool Ocp1LiteSocketListen(INT32 socket, UINT8 backlog);
  */
 bool Ocp1LiteSocketAccept(INT32 socket, INT32& newSocket);
 
+#ifdef OCA_LITE_CONTROLLER
+
+bool Ocp1LiteSocketConnect(const char* hostOrIp, UINT16 port, INT32& newSocket);
+#endif
+
 /**
  * Rejects a connection requist on the listening socket. If an error occurs false is returned.
  *

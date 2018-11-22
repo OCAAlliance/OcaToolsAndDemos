@@ -1,3 +1,4 @@
+
 /*
  *  By downloading or using this file, the user agrees to be bound by the terms of the license 
  *  agreement located at http://ocaalliance.com/EULA as an original contracting party.
@@ -113,10 +114,19 @@ public:
 
     virtual void GetConnectionsLost(::OcaSessionList& sessions);
 
+#ifdef OCA_TRACK_KEEPALIVE_RECEIVED
+    virtual void GetReceivedKeepAlives(::OcaSessionList& sessions);
+#endif //OCA_TRACK_KEEPALIVE_RECEIVED
+
     virtual ::OcaLiteStatus SendNotification(::OcaLiteNotificationDeliveryMode deliveryMode,
                                              ::OcaSessionID sessionID,
                                              const ::OcaLiteNetworkAddress& networkAddress,
                                              const ::OcaLiteMessageNotification* messages);
+
+#ifdef OCA_LITE_CONTROLLER
+    virtual ::OcaLiteStatus SendResetMessage(::OcaLiteBlobFixedLen<static_cast< ::OcaUint16>(16)> resetKey,
+                                             const ::OcaLiteNetworkAddress networkAddress);
+#endif //OCA_LITE_CONTROLLER
 
     virtual const ::IOcaLiteWriter& GetWriter() const
     {
@@ -131,6 +141,12 @@ public:
     virtual ::OcaLiteMessageGeneral* RetrieveMessage(::OcaLiteHeader::OcaLiteMessageType msgType);
 
     virtual void ReturnMessage(::OcaLiteMessageGeneral* msg);
+
+#ifdef OCA_LITE_CONTROLLER
+	virtual OcaSessionID Connect(const ::OcaLiteConnectParameters& connectParameters);
+
+	virtual bool Disconnect(::OcaSessionID sessionId);
+#endif //OCA_LITE_CONTROLLER
 
 protected:
 
@@ -164,6 +180,14 @@ private:
      */
     void HandleControllers(OcaSocketList& controllerList, const OcfLiteSelectableSet& readSet);
 
+	/**
+	 * Do a run on the devices in indicated list
+     *
+     * @param[in] deviceList        List with deivces to handle.
+     * @param[in] readSet           The read set with the selected objects.
+     */
+	void HandleDevices(OcaSocketList& deviceList, const OcfLiteSelectableSet& readSet);
+
     /**
      * Find socket connection by socket id
      *
@@ -192,6 +216,11 @@ private:
     /** The map of controller sockets connected via insecure links */
     OcaSocketList                       m_ocaSocketList;
 
+#ifdef OCA_LITE_CONTROLLER
+	/** The map of device sockets connected via insecure links */
+	OcaSocketList                       m_ocaDeviceSocketList;
+#endif
+
     /** List of new connections */
     ::OcaSessionList                    m_newConnections;
 
@@ -203,6 +232,11 @@ private:
 
     /** List of notified lost connections */
     ::OcaSessionList                    m_notifiedLostConnections;
+
+#ifdef OCA_TRACK_KEEPALIVE_RECEIVED
+    /** List of connections with keepalive received */
+    ::OcaSessionList                    m_receivedKeepalives;
+#endif //OCA_TRACK_KEEPALIVE_RECEIVED
 
     /** Operational status of the network. */
     ::OcaLiteNetworkStatus              m_status;

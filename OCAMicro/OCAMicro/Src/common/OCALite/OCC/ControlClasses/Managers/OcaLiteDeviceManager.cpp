@@ -800,3 +800,29 @@ template <>
 {
     return GetSizeValue< ::OcaUint16>(static_cast< ::OcaUint16>(value), writer);
 }
+
+template <>
+void MarshalValue< ::OcaLiteResetCause>(const ::OcaLiteResetCause& value, ::OcaUint8** destination, const ::IOcaLiteWriter& writer)
+{
+    MarshalValue< ::OcaUint16>(static_cast< ::OcaUint16>(value), destination, writer);
+}
+
+template <>
+bool UnmarshalValue< ::OcaLiteResetCause>(::OcaLiteResetCause& value, ::OcaUint32& bytesLeft, const ::OcaUint8** source, const ::IOcaLiteReader& reader)
+{
+    ::OcaUint16 resetCause(static_cast< ::OcaUint16>(0));
+    bool result(reader.Read(bytesLeft, source, resetCause));
+    if (result)
+    {
+        value = static_cast< ::OcaLiteResetCause>(resetCause);
+    }
+
+    return result;
+}
+
+template <>
+::OcaUint32 GetSizeValue< ::OcaLiteResetCause>(const ::OcaLiteResetCause& value, const ::IOcaLiteWriter& writer)
+{
+    return GetSizeValue< ::OcaUint16>(static_cast< ::OcaUint16>(value), writer);
+}
+

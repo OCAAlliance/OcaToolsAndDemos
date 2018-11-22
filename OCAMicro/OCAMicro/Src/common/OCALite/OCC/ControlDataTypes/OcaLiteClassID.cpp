@@ -55,6 +55,25 @@ OcaLiteClassID::OcaLiteClassID(const ::OcaLiteClassID& source)
     ::memcpy(m_fields, source.m_fields, static_cast<size_t>(m_fieldCount) * sizeof(::OcaUint16));
 }
 
+OcaLiteClassID::OcaLiteClassID(const std::string& source)
+{
+    ::memset(m_fields, 0, sizeof(m_fields));
+    m_fieldCount = static_cast<int>(std::count(source.begin(), source.end(), '.') + 1);
+
+    size_t index = 0;
+    const char* str(source.c_str());
+    while (*str) {
+        if (isdigit((unsigned char)*str)) {
+            m_fields[index] *= 10;
+            m_fields[index] += *str - '0';
+        }
+        else {
+            index++;
+        }
+        str++;
+    }
+}
+
 OcaLiteClassID::~OcaLiteClassID()
 {
 }

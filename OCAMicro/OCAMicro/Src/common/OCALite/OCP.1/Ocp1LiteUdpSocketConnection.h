@@ -89,12 +89,16 @@ public:
     /**
      * Function to be called on a regular base.
      *
-     * @param[in]   dataAvailable       Indicates that there is data available in the socket.
-     * @param[in]   messageSendBufferSize   Size of the message send buffer
-     * @param[in]   pMessageSendBuffer      Arbitrary buffer which can be used marshal data to
+     * @param[in]  dataAvailable            Indicates that there is data available in the socket.
+     * @param[in]  messageSendBufferSize    Size of the message send buffer
+     * @param[in]  pMessageSendBuffer       Arbitrary buffer which can be used marshal data to
+     * @param[out] bKeepAliveReceived       True if an keepalive is received, false if not.
      * @return  OcaLiteSocketRetVal to indicate action the caller should take
      */
-    OcaLiteSocketRetVal Run(::OcaBoolean dataAvailable, ::OcaUint32 messageSendBufferSize, ::OcaUint8* pMessageSendBuffer);
+    OcaLiteSocketRetVal Run(::OcaBoolean dataAvailable, 
+                            ::OcaUint32 messageSendBufferSize, 
+                            ::OcaUint8* pMessageSendBuffer, 
+                            ::OcaBoolean& bKeepAliveReceived);
 
     /**
      * Gets the first pending message. Method can be called until NULL is returned.
@@ -239,9 +243,10 @@ private:
 
     /**
      * Receive message from socket and translate to complete message(s)
-     * @param[in]   dataAvailable       Indicates that there is data available in the socket.
+     * @param[in]  dataAvailable       Indicates that there is data available in the socket.
+     * @param[out] bKeepAliveReceived   True if a keepalive is received, false if not.
      */
-    void ReceiveFromSocket(::OcaBoolean dataAvailable);
+    void ReceiveFromSocket(::OcaBoolean dataAvailable, ::OcaBoolean& bKeepAliveReceived);
 
 
     /**
