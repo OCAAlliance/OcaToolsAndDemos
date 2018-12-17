@@ -20,22 +20,22 @@
  * The following command line options are available:
  *
  * Option                               | Description
- * -------------------------------------|--------------------------------------------------------
+ * -------------------------------------|-------------
  * -d &lt;device name&gt;               | Mandatory parameter that specifies the name of the device on which the AES70 Compliancy Test Tool will run the compliancy test.
- * -s &lt;supported services&gt;        | Mandatory parameter that specifies the services which are expected to be supported by the device. Optionas are tcp, tcp-sec, udp. Multiple can be appended with | as seperator.
- * -s &lt;aes70 version&gt;             | Mandatory parameter that specifies the Aes70 specification version to be tested for.
+ * -s &lt;supported services&gt;        | Mandatory parameter that specifies the services which are expected to be supported by the device. Options are tcp, tcp-sec, udp. Multiple can be appended with \| as seperator.
+ * -v &lt;aes70 version&gt;             | Mandatory parameter that specifies the Aes70 specification version to be tested for.
  * -l &lt;loglevel&gt;                  | Optional parameter that can be used to indicate the loglevel. Supported are: INFO, WARNING and ERROR.
- * -t &lt;device type&gt;               | Optional parameter that can be used to specify the device type. By default it uses the basic type, SECURE, STREAM can added. Multiple can be appended with | as seperator.
+ * -t &lt;device type&gt;               | Optional parameter that can be used to specify the device type. By default it uses the basic type, SECURE, STREAM can added. Multiple can be appended with \| as seperator.
  *
  * Examples of valid commands are:<br />
  * <code>Aes70CompliancyTestTool.exe -t MyFirstOCADevice -s UDP|TCP -s AES70-2018</code><br />
  * <code>Aes70CompliancyTestTool.exe -t MyFirstOCADevice -s UDP|TCP -s AES70-2018 -l INFO -t SECURE|STREAMING </code><br />
- * <code>Aes70CompliancyTestTool.exe -t MyFirstOCADevice -s TCP-SEC|TCP -s AES70-2015  -t SECURE"</code>
+ * <code>Aes70CompliancyTestTool.exe -t MyFirstOCADevice -s TCP-SEC|TCP -s AES70-2015  -t SECURE</code>
  */
 
 /**
  * @page octtcompatibility Compatibility
- * The AES70 Compliancy Test Tool is both backward and forward compatible.
+ * The AES70 Compliancy Test Tool is both backward and forward compatible.<br /><br />
  * <b>Backward compatibility:</b> By definition AES70 will remain backward compatible due to the rules that have been set inside the specification 
  *                        all classes are versioned, properties methods and events of approved versions may never be removed and the class
  *                        version is raised if something is added. The AES70 Compliancy Test Tool will use a specific attribute in the XML file containing the
