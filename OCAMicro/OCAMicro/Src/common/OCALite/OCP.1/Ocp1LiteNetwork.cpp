@@ -418,7 +418,7 @@ void Ocp1LiteNetwork::HandleSelectables(const OcfLiteSelectableSet& readSet,
         // the keep alive timeout.
         ::OcaSessionID newSessionID(::OcaLiteCommandHandler::GetInstance().CreateSessionID());
         ::Ocp1LiteSocketConnection* sConnection(new ::Ocp1LiteSocketConnection(*this, static_cast< ::OcaUint32>(OCA_BUFFER_SIZE)));
-        if ((OCA_INVALID_SESSIONID != newSessionID) && (m_ocaSocketList.size() <= OCP1_MAX_NR_CONNECTIONS))
+        if ((OCA_INVALID_SESSIONID != newSessionID) && (m_ocaSocketList.size() < OCP1_MAX_NR_CONNECTIONS))
         {
             sConnection->SetSocketConnectionParameters(newSessionID, static_cast< ::OcaUint16>(0));
 
