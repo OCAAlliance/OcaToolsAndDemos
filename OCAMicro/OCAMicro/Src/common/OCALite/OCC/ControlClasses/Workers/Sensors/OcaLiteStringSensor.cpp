@@ -45,51 +45,51 @@ OcaLiteStringSensor::OcaLiteStringSensor(::OcaONo objectNumber,
 ::OcaLiteStatus OcaLiteStringSensor::GetString(::OcaLiteString& stringData) const
 {
     ::OcaLiteString tempString;
-	::OcaLiteStatus rc(GetStringValue(tempString));
+    ::OcaLiteStatus rc(GetStringValue(tempString));
 
-	//Trim the string in case it exceeds the limit
-	if(OCASTATUS_OK == rc && tempString.GetLength() > m_maxLen)
-	{
-		std::string adjustedStringData(tempString.GetString().substr(0, static_cast<UINT16>(m_maxLen)));
-		stringData = ::OcaLiteString(adjustedStringData.c_str());
-	}
-	else
-	{
-		stringData = tempString;
-	}
+    //Trim the string in case it exceeds the limit
+    if(OCASTATUS_OK == rc && tempString.GetLength() > m_maxLen)
+    {
+        std::string adjustedStringData(tempString.GetString().substr(0, static_cast<UINT16>(m_maxLen)));
+        stringData = ::OcaLiteString(adjustedStringData.c_str());
+    }
+    else
+    {
+        stringData = tempString;
+    }
 
     return rc;
 }
 ::OcaLiteStatus OcaLiteStringSensor::GetMaxLen(::OcaUint16& maxLength) const
 {
-	maxLength = m_maxLen;
-	return OCASTATUS_OK;
+    maxLength = m_maxLen;
+    return OCASTATUS_OK;
 }
 
 ::OcaLiteStatus OcaLiteStringSensor::SetMaxLen(::OcaUint16 maxLength)
 {
-	::OcaUint16 oldMaxLen;
-	::OcaLiteStatus rc(GetMaxLengthValue(oldMaxLen));
-	if((OCASTATUS_OK == rc) && (oldMaxLen != maxLength))
-	{
-		rc = SetMaxLengthValue(maxLength);
-		if(OCASTATUS_OK == rc)
-		{
-			m_maxLen = maxLength;
-			::OcaUint16 actualLength;
-			rc = GetMaxLengthValue(actualLength);
-			if(OCASTATUS_OK == rc)
-			{
-				::OcaLitePropertyID propertyID(CLASS_ID.GetFieldCount(), static_cast< ::OcaUint16>(OCA_PROP_MAX_LEN));
-				::OcaLitePropertyChangedEventData< ::OcaUint16> eventData(GetObjectNumber(),
-																			propertyID,
-																			actualLength,
-																			OCAPROPERTYCHANGETYPE_CURRENT_CHANGED);
-				PropertyChanged(eventData);
-			}
-		}
-	}
-	return OCASTATUS_OK;
+    ::OcaUint16 oldMaxLen;
+    ::OcaLiteStatus rc(GetMaxLengthValue(oldMaxLen));
+    if((OCASTATUS_OK == rc) && (oldMaxLen != maxLength))
+    {
+        rc = SetMaxLengthValue(maxLength);
+        if(OCASTATUS_OK == rc)
+        {
+            m_maxLen = maxLength;
+            ::OcaUint16 actualLength;
+            rc = GetMaxLengthValue(actualLength);
+            if(OCASTATUS_OK == rc)
+            {
+                ::OcaLitePropertyID propertyID(CLASS_ID.GetFieldCount(), static_cast< ::OcaUint16>(OCA_PROP_MAX_LEN));
+                ::OcaLitePropertyChangedEventData< ::OcaUint16> eventData(GetObjectNumber(),
+                                                                            propertyID,
+                                                                            actualLength,
+                                                                            OCAPROPERTYCHANGETYPE_CURRENT_CHANGED);
+                PropertyChanged(eventData);
+            }
+        }
+    }
+    return OCASTATUS_OK;
 }
 
 
@@ -111,63 +111,63 @@ OcaLiteStringSensor::OcaLiteStringSensor(::OcaONo objectNumber,
             {
             case GET_STRING:
                 {
-                	//ToDo: klären, wie das mit den parametersIn.ReadParameters(tInput, reader)) aus der Boschimplementierung aussieht
-                	::OcaLiteString stringData;
-                	rc = GetString(stringData);
-                	if ((OCASTATUS_OK == rc) && (NULL != response))
-                	{
-                		   ::OcaUint32 responseSize(::GetSizeValue< ::OcaUint8>(static_cast< ::OcaUint8>(1), writer) +
-                		                                                     ::GetSizeValue< ::OcaLiteString>(stringData, writer));
-                		                            responseBuffer = ::OcaLiteCommandHandler::GetInstance().GetResponseBuffer(responseSize);
-                		                            if (NULL != responseBuffer)
-                		                            {
-                									    ::OcaUint8* pResponse(responseBuffer);
-                		                                writer.Write(static_cast< ::OcaUint8>(1/*NrParameters*/), &pResponse);
-                										::MarshalValue< ::OcaLiteString>(stringData, &pResponse, writer);
-                		                                *response = responseBuffer;
-                									}
-                									else
-                		                            {
-                		                                rc = OCASTATUS_BUFFER_OVERFLOW;
-                		                            }
+                    //ToDo: klï¿½ren, wie das mit den parametersIn.ReadParameters(tInput, reader)) aus der Boschimplementierung aussieht
+                    ::OcaLiteString stringData;
+                    rc = GetString(stringData);
+                    if ((OCASTATUS_OK == rc) && (NULL != response))
+                    {
+                           ::OcaUint32 responseSize(::GetSizeValue< ::OcaUint8>(static_cast< ::OcaUint8>(1), writer) +
+                                                                             ::GetSizeValue< ::OcaLiteString>(stringData, writer));
+                                                    responseBuffer = ::OcaLiteCommandHandler::GetInstance().GetResponseBuffer(responseSize);
+                                                    if (NULL != responseBuffer)
+                                                    {
+                                                        ::OcaUint8* pResponse(responseBuffer);
+                                                        writer.Write(static_cast< ::OcaUint8>(1/*NrParameters*/), &pResponse);
+                                                        ::MarshalValue< ::OcaLiteString>(stringData, &pResponse, writer);
+                                                        *response = responseBuffer;
+                                                    }
+                                                    else
+                                                    {
+                                                        rc = OCASTATUS_BUFFER_OVERFLOW;
+                                                    }
 
 
 
-                	}
-                	break;
+                    }
+                    break;
                 }
             case GET_MAX_LEN:
-            	{
-					::OcaUint8 numberOfParameters(0);
-					if (reader.Read(bytesLeft, &pCmdParameters, numberOfParameters) &&
-						(0 == numberOfParameters))
-					{
-						::OcaUint16 maxLen;
-						rc = GetMaxLen(maxLen);
-						if (OCASTATUS_OK == rc)
-						{
-							::OcaUint32 responseSize(::GetSizeValue< ::OcaUint8>(static_cast< ::OcaUint8>(1), writer) +
-													 ::GetSizeValue< ::OcaUint16>(maxLen, writer));
-							responseBuffer = ::OcaLiteCommandHandler::GetInstance().GetResponseBuffer(responseSize);
-							if (NULL != responseBuffer)
-							{
-								::OcaUint8* pResponse(responseBuffer);
-								writer.Write(static_cast< ::OcaUint8>(1/*NrParameters*/), &pResponse);
-								::MarshalValue< ::OcaUint16>(maxLen, &pResponse, writer);
+                {
+                    ::OcaUint8 numberOfParameters(0);
+                    if (reader.Read(bytesLeft, &pCmdParameters, numberOfParameters) &&
+                        (0 == numberOfParameters))
+                    {
+                        ::OcaUint16 maxLen;
+                        rc = GetMaxLen(maxLen);
+                        if (OCASTATUS_OK == rc)
+                        {
+                            ::OcaUint32 responseSize(::GetSizeValue< ::OcaUint8>(static_cast< ::OcaUint8>(1), writer) +
+                                                     ::GetSizeValue< ::OcaUint16>(maxLen, writer));
+                            responseBuffer = ::OcaLiteCommandHandler::GetInstance().GetResponseBuffer(responseSize);
+                            if (NULL != responseBuffer)
+                            {
+                                ::OcaUint8* pResponse(responseBuffer);
+                                writer.Write(static_cast< ::OcaUint8>(1/*NrParameters*/), &pResponse);
+                                ::MarshalValue< ::OcaUint16>(maxLen, &pResponse, writer);
 
-								*response = responseBuffer;
-							}
-							else
-							{
-								rc = OCASTATUS_BUFFER_OVERFLOW;
-							}
-						}
-					}
-			}
-            	break;
+                                *response = responseBuffer;
+                            }
+                            else
+                            {
+                                rc = OCASTATUS_BUFFER_OVERFLOW;
+                            }
+                        }
+                    }
+            }
+                break;
             case SET_MAX_LEN:
-					rc = OCASTATUS_NOT_IMPLEMENTED;	
-            	break;
+                    rc = OCASTATUS_NOT_IMPLEMENTED;    
+                break;
             default:
                 rc = OCASTATUS_BAD_METHOD;
                 break;

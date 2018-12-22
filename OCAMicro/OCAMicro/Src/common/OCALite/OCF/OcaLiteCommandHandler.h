@@ -373,15 +373,15 @@ protected:
      *  @param[in] timeout   Timeout
      */
     virtual void HandleNetworks(::OcaUint32 timeout);
-	
+    
     /**
      * Handle the response received
      *
      * @param[in] response  The response received.
      */
-	virtual void HandleResponse(const ::OcaLiteMessageResponse& response)
-	{
-	}
+    virtual void HandleResponse(const ::OcaLiteMessageResponse& response)
+    {
+    }
 
     /**
      * Retrieves a pointer to the device object with the given object number.

@@ -40,13 +40,13 @@ OcaLiteMediaClock::OcaLiteMediaClock(::OcaONo objectNumber,
       m_clockType(type),
       m_domainID(domainID),
       m_ratesSupported(ratesSupported),
-	  m_typesSupported()
+      m_typesSupported()
 {
-	// Add all clock types if none provided
-	m_typesSupported.Add(OCAMEDIACLOCKTYPE_INTERNAL);
-	m_typesSupported.Add(OCAMEDIACLOCKTYPE_EXTERNAL);
-	m_typesSupported.Add(OCAMEDIACLOCKTYPE_NETWORK);
-	m_typesSupported.Add(OCAMEDIACLOCKTYPE_NONE);
+    // Add all clock types if none provided
+    m_typesSupported.Add(OCAMEDIACLOCKTYPE_INTERNAL);
+    m_typesSupported.Add(OCAMEDIACLOCKTYPE_EXTERNAL);
+    m_typesSupported.Add(OCAMEDIACLOCKTYPE_NETWORK);
+    m_typesSupported.Add(OCAMEDIACLOCKTYPE_NONE);
 
     ::OcaBoolean result(::OcaLiteMediaClockManager::GetInstance().AddMediaClock(*this));
     if (!result)
@@ -59,14 +59,14 @@ OcaLiteMediaClock::OcaLiteMediaClock(::OcaONo objectNumber,
                              ::OcaBoolean lockable,
                              const ::OcaLiteString& role,
                              ::OcaLiteMediaClockType type,
-							 const ::OcaLiteList< ::OcaLiteMediaClockType> typesSupported,
+                             const ::OcaLiteList< ::OcaLiteMediaClockType> typesSupported,
                              ::OcaUint16 domainID,
                              const ::OcaLiteList< ::OcaLiteMediaClockRate>& ratesSupported)
     : ::OcaLiteAgent(objectNumber, lockable, role),
       m_clockType(type),
       m_domainID(domainID),
       m_ratesSupported(ratesSupported),
-	  m_typesSupported(typesSupported)
+      m_typesSupported(typesSupported)
 {
     ::OcaBoolean result(::OcaLiteMediaClockManager::GetInstance().AddMediaClock(*this));
     if (!result)

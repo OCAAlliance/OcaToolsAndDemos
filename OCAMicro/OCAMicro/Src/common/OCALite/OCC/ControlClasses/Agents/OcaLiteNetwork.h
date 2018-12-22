@@ -309,29 +309,29 @@ public:
     virtual void ReturnMessage(::OcaLiteMessageGeneral* msg) = 0;
 
 #ifdef OCA_LITE_CONTROLLER
-	/** 
-	 * Connect to a remote device.
-	 *
-	 * @param[in] connectParameters Information about the connection
-	 *
-	 * @return The sessionId, OCA_INVALID_SESSIONID if not session could be established.
-	 */
-	virtual OcaSessionID Connect(const ::OcaLiteConnectParameters& connectParameters)
-	{
-		return OCA_INVALID_SESSIONID;
-	}
+    /** 
+     * Connect to a remote device.
+     *
+     * @param[in] connectParameters Information about the connection
+     *
+     * @return The sessionId, OCA_INVALID_SESSIONID if not session could be established.
+     */
+    virtual OcaSessionID Connect(const ::OcaLiteConnectParameters& connectParameters)
+    {
+        return OCA_INVALID_SESSIONID;
+    }
 
-	/** 
-	 * Disconnect the session.
-	 *
-	 * @param[in] sessionId	The session ID to disconnect.
-	 *
-	 * @return True iff successfull.
-	 */
-	virtual bool Disconnect(::OcaSessionID sessionId)
-	{
-		return false;
-	}
+    /** 
+     * Disconnect the session.
+     *
+     * @param[in] sessionId    The session ID to disconnect.
+     *
+     * @return True iff successfull.
+     */
+    virtual bool Disconnect(::OcaSessionID sessionId)
+    {
+        return false;
+    }
 #endif
 
 protected:

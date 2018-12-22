@@ -96,8 +96,8 @@ public:
      */
     ::OcaLiteStatus SetMaxLen(::OcaUint16 maxLength);
 
-	virtual ::OcaLiteStatus Execute(const ::IOcaLiteReader& reader, const ::IOcaLiteWriter& writer, ::OcaSessionID sessionID, const ::OcaLiteMethodID& methodID,
-									 ::OcaUint32 parametersSize, const ::OcaUint8* parameters, ::OcaUint8** response);
+    virtual ::OcaLiteStatus Execute(const ::IOcaLiteReader& reader, const ::IOcaLiteWriter& writer, ::OcaSessionID sessionID, const ::OcaLiteMethodID& methodID,
+                                     ::OcaUint32 parametersSize, const ::OcaUint8* parameters, ::OcaUint8** response);
 
 
 protected:

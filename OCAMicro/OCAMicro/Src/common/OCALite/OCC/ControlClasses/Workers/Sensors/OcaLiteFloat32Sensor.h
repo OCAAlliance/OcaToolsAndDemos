@@ -45,7 +45,7 @@ public:
         OCA_PROP_READING    = 1
     };
 
-	/**
+    /**
      * Destructor.
      */
     virtual ~OcaLiteFloat32Sensor() {}
@@ -92,7 +92,7 @@ protected:
 
     virtual ::OcaClassVersionNumber GetClassVersion() const;
 
-	/**
+    /**
      * Gets the value of the reading property. Must be implemented by derived classes
      * that actually implement the OcaInt8Sensor.
      *
@@ -102,7 +102,7 @@ protected:
     virtual ::OcaLiteStatus GetReadingValue(::OcaFloat32& reading) const = 0;
 
 
-	/**
+    /**
      * Gets the value of the limit properties.
      *
      * @param[out]   minReading          Lower limit of the sensor
@@ -119,7 +119,7 @@ protected:
     void ReadingChanged(::OcaFloat32 reading);
 
 private:
-	/** Lower limit of the reading property */
+    /** Lower limit of the reading property */
     ::OcaFloat32                               m_minReading;
     /** Upper limit of the reading property */
     ::OcaFloat32                               m_maxReading;

@@ -44,7 +44,7 @@ OcaLiteMediaClock3::OcaLiteMediaClock3(::OcaONo objectNumber,
     m_offset(offset),
     m_ratesSupported(ratesSupported)
 {
-	::OcaBoolean result(::OcaLiteMediaClockManager::GetInstance().AddMediaClock3(*this));
+    ::OcaBoolean result(::OcaLiteMediaClockManager::GetInstance().AddMediaClock3(*this));
     if (!result)
     {
         OCA_LOG_ERROR_PARAMS("Unable to add media clock %u to media clock manager", objectNumber);

@@ -33,10 +33,10 @@ const ::OcaLiteClassID              OcaLiteStringActuator::CLASS_ID(static_cast<
 // ---- Class Implementation ----
 
 OcaLiteStringActuator::OcaLiteStringActuator(::OcaONo objectNumber, 
-										::OcaBoolean lockable, 
-										const ::OcaLiteString& role, 
-										const ::OcaLiteList< ::OcaLitePort>& ports, 
-										::OcaUint16 maxlen)
+                                        ::OcaBoolean lockable, 
+                                        const ::OcaLiteString& role, 
+                                        const ::OcaLiteList< ::OcaLitePort>& ports, 
+                                        ::OcaUint16 maxlen)
     : ::OcaLiteBasicActuator(objectNumber, lockable, role, ports),
       m_setting(),
       m_maxLen(maxlen)
@@ -99,96 +99,96 @@ OcaLiteStringActuator::OcaLiteStringActuator(::OcaONo objectNumber,
     {
         if (methodID.GetDefLevel() == CLASS_ID.GetFieldCount())
         {
-			::OcaUint8* responseBuffer(NULL);
-			const ::OcaUint8* pCmdParameters(parameters);
-			::OcaUint32 bytesLeft(parametersSize);
+            ::OcaUint8* responseBuffer(NULL);
+            const ::OcaUint8* pCmdParameters(parameters);
+            ::OcaUint32 bytesLeft(parametersSize);
 
             switch (methodID.GetMethodIndex())
             {
             case GET_SETTING: 
                 {
-					::OcaUint8 numberOfParameters(0);
+                    ::OcaUint8 numberOfParameters(0);
                     if (reader.Read(bytesLeft, &pCmdParameters, numberOfParameters) && 
-						(0 == numberOfParameters))
+                        (0 == numberOfParameters))
                     {
                         ::OcaLiteString setting;
                         rc = GetSetting(setting);
                         if (OCASTATUS_OK == rc) 
                         {
-							::OcaUint32 responseSize(::GetSizeValue< ::OcaUint8>(static_cast< ::OcaUint8>(1), writer) +
-													 ::GetSizeValue< ::OcaLiteString>(setting, writer));//+ setting.GetSize(writer));
-							responseBuffer = ::OcaLiteCommandHandler::GetInstance().GetResponseBuffer(responseSize);
+                            ::OcaUint32 responseSize(::GetSizeValue< ::OcaUint8>(static_cast< ::OcaUint8>(1), writer) +
+                                                     ::GetSizeValue< ::OcaLiteString>(setting, writer));//+ setting.GetSize(writer));
+                            responseBuffer = ::OcaLiteCommandHandler::GetInstance().GetResponseBuffer(responseSize);
                             if (NULL != responseBuffer)
                             {
-								::OcaUint8* pResponse(responseBuffer);
-								writer.Write(static_cast< ::OcaUint8>(1/*NrParameters*/), &pResponse);
-								::MarshalValue< ::OcaLiteString>(setting, &pResponse, writer);
+                                ::OcaUint8* pResponse(responseBuffer);
+                                writer.Write(static_cast< ::OcaUint8>(1/*NrParameters*/), &pResponse);
+                                ::MarshalValue< ::OcaLiteString>(setting, &pResponse, writer);
 
-								*response = responseBuffer;
+                                *response = responseBuffer;
                             }
-							else
-							{
-								rc = OCASTATUS_BUFFER_OVERFLOW;
-							}
+                            else
+                            {
+                                rc = OCASTATUS_BUFFER_OVERFLOW;
+                            }
                         }
                     }
                 }
                 break;
             case SET_SETTING: 
                 {
-					::OcaUint8 numberOfParameters(0);
-					::OcaLiteString setting;
-					if (reader.Read(bytesLeft, &pCmdParameters, numberOfParameters) &&
-						(1 == numberOfParameters) &&
-						(setting.Unmarshal(bytesLeft, &pCmdParameters, reader)))
-					{
-						rc = SetSetting(setting);
-						if (OCASTATUS_OK == rc)
-						{
-							::OcaUint32 responseSize(::GetSizeValue< ::OcaUint8>(static_cast< ::OcaUint8>(0), writer));
-							responseBuffer = ::OcaLiteCommandHandler::GetInstance().GetResponseBuffer(responseSize);
-							if (NULL != responseBuffer)
-							{
-								::OcaUint8* pResponse(responseBuffer);
-								writer.Write(static_cast< ::OcaUint8>(0/*NrParameters*/), &pResponse);
+                    ::OcaUint8 numberOfParameters(0);
+                    ::OcaLiteString setting;
+                    if (reader.Read(bytesLeft, &pCmdParameters, numberOfParameters) &&
+                        (1 == numberOfParameters) &&
+                        (setting.Unmarshal(bytesLeft, &pCmdParameters, reader)))
+                    {
+                        rc = SetSetting(setting);
+                        if (OCASTATUS_OK == rc)
+                        {
+                            ::OcaUint32 responseSize(::GetSizeValue< ::OcaUint8>(static_cast< ::OcaUint8>(0), writer));
+                            responseBuffer = ::OcaLiteCommandHandler::GetInstance().GetResponseBuffer(responseSize);
+                            if (NULL != responseBuffer)
+                            {
+                                ::OcaUint8* pResponse(responseBuffer);
+                                writer.Write(static_cast< ::OcaUint8>(0/*NrParameters*/), &pResponse);
 
-								*response = responseBuffer;
-							}
-							else
-							{
-								rc = OCASTATUS_BUFFER_OVERFLOW;
-							}
-						}
-					}
+                                *response = responseBuffer;
+                            }
+                            else
+                            {
+                                rc = OCASTATUS_BUFFER_OVERFLOW;
+                            }
+                        }
+                    }
                 }
                 break;
             case GET_MAX_LEN:
                 {
-					::OcaUint8 numberOfParameters(0);
-					if (reader.Read(bytesLeft, &pCmdParameters, numberOfParameters) &&
-						(0 == numberOfParameters))
-					{
-						::OcaUint16 maxLen;
-						rc = GetMaxLen(maxLen);
-						if (OCASTATUS_OK == rc)
-						{
-							::OcaUint32 responseSize(::GetSizeValue< ::OcaUint8>(static_cast< ::OcaUint8>(1), writer) +
-													 ::GetSizeValue< ::OcaUint16>(maxLen, writer));
-							responseBuffer = ::OcaLiteCommandHandler::GetInstance().GetResponseBuffer(responseSize);
-							if (NULL != responseBuffer)
-							{
-								::OcaUint8* pResponse(responseBuffer);
-								writer.Write(static_cast< ::OcaUint8>(1/*NrParameters*/), &pResponse);
-								::MarshalValue< ::OcaUint16>(maxLen, &pResponse, writer);
+                    ::OcaUint8 numberOfParameters(0);
+                    if (reader.Read(bytesLeft, &pCmdParameters, numberOfParameters) &&
+                        (0 == numberOfParameters))
+                    {
+                        ::OcaUint16 maxLen;
+                        rc = GetMaxLen(maxLen);
+                        if (OCASTATUS_OK == rc)
+                        {
+                            ::OcaUint32 responseSize(::GetSizeValue< ::OcaUint8>(static_cast< ::OcaUint8>(1), writer) +
+                                                     ::GetSizeValue< ::OcaUint16>(maxLen, writer));
+                            responseBuffer = ::OcaLiteCommandHandler::GetInstance().GetResponseBuffer(responseSize);
+                            if (NULL != responseBuffer)
+                            {
+                                ::OcaUint8* pResponse(responseBuffer);
+                                writer.Write(static_cast< ::OcaUint8>(1/*NrParameters*/), &pResponse);
+                                ::MarshalValue< ::OcaUint16>(maxLen, &pResponse, writer);
 
-								*response = responseBuffer;
-							}
-							else
-							{
-								rc = OCASTATUS_BUFFER_OVERFLOW;
-							}
-						}
-					}
+                                *response = responseBuffer;
+                            }
+                            else
+                            {
+                                rc = OCASTATUS_BUFFER_OVERFLOW;
+                            }
+                        }
+                    }
                 }
                 break;
             default:
@@ -199,7 +199,7 @@ OcaLiteStringActuator::OcaLiteStringActuator(::OcaONo objectNumber,
         else
         {
             // Should be executed on higher level
-			rc = OcaLiteBasicActuator::Execute(reader, writer, sessionID, methodID, parametersSize, parameters, response);
+            rc = OcaLiteBasicActuator::Execute(reader, writer, sessionID, methodID, parametersSize, parameters, response);
         }
     }
     else

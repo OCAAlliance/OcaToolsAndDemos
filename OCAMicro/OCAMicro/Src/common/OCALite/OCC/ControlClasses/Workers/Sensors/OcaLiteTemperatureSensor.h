@@ -67,10 +67,10 @@ public:
      * @param[out] maxReading   Maximum reading value
      * @return Indicates whether the data was successfully retrieved.
      */
-	::OcaLiteStatus GetReading(::OcaTemperature& reading, ::OcaTemperature& minReading, ::OcaTemperature& maxReading) const;
+    ::OcaLiteStatus GetReading(::OcaTemperature& reading, ::OcaTemperature& minReading, ::OcaTemperature& maxReading) const;
 
     virtual ::OcaLiteStatus Execute(const ::IOcaLiteReader& reader, const ::IOcaLiteWriter& writer, ::OcaSessionID sessionID, const ::OcaLiteMethodID& methodID,
-								    ::OcaUint32 parametersSize, const ::OcaUint8* parameters, ::OcaUint8** response);
+                                    ::OcaUint32 parametersSize, const ::OcaUint8* parameters, ::OcaUint8** response);
 
 protected:
     /**

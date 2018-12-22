@@ -114,7 +114,7 @@ protected:
     /**
      * Gets the value of the setting property. Can be overridden by derived classes
      * that actually implement this class.
-	 *
+     *
      * @param[out] setting  The value of the setting property
      * @return Indicates whether the operation succeeded.
      */

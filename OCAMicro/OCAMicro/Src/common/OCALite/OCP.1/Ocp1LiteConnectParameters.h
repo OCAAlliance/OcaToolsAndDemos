@@ -52,9 +52,9 @@ public:
 protected:
 private:
     /** The host or IP to connect to */
-	std::string m_hostOrIp;
+    std::string m_hostOrIp;
     /** The port to connect to */
-	UINT16		m_port;
+    UINT16        m_port;
 
 };
 

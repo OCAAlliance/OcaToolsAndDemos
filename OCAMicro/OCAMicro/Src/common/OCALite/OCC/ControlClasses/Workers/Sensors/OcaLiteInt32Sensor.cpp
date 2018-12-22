@@ -38,12 +38,12 @@ OcaLiteInt32Sensor::OcaLiteInt32Sensor(::OcaONo objectNumber,
                                            const ::OcaLiteString& role,
                                            const ::OcaLiteList< ::OcaLitePort>& ports,
                                            ::OcaInt32 minReading,
-										   ::OcaInt32 maxReading)
+                                           ::OcaInt32 maxReading)
     : ::OcaLiteBasicSensor(objectNumber, lockable, role, ports),
       m_minReading(minReading),
       m_maxReading(maxReading)
 {
-	assert(minReading <= maxReading);
+    assert(minReading <= maxReading);
 }
 
 ::OcaLiteStatus OcaLiteInt32Sensor::GetReading(::OcaInt32& reading, ::OcaInt32& minReading, ::OcaInt32& maxReading) const
@@ -55,7 +55,7 @@ OcaLiteInt32Sensor::OcaLiteInt32Sensor(::OcaONo objectNumber,
     return rc;
 }
 
-	/**
+    /**
      * Gets the value of the limit properties.
      *
      * @param[out]   minReading          Lower limit of the sensor
@@ -100,20 +100,20 @@ OcaLiteInt32Sensor::OcaLiteInt32Sensor(::OcaONo objectNumber,
                         {
                             ::OcaUint32 responseSize(::GetSizeValue< ::OcaUint8>(static_cast< ::OcaUint8>(3), writer) +
                                                      ::GetSizeValue< ::OcaInt32>(reading, writer) +
-													 ::GetSizeValue< ::OcaInt32>(minReading, writer) +
-													 ::GetSizeValue< ::OcaInt32>(maxReading, writer));
+                                                     ::GetSizeValue< ::OcaInt32>(minReading, writer) +
+                                                     ::GetSizeValue< ::OcaInt32>(maxReading, writer));
                             responseBuffer = ::OcaLiteCommandHandler::GetInstance().GetResponseBuffer(responseSize);
                             if (NULL != responseBuffer)
                             {
-							    ::OcaUint8* pResponse(responseBuffer);
+                                ::OcaUint8* pResponse(responseBuffer);
                                 writer.Write(static_cast< ::OcaUint8>(3/*NrParameters*/), &pResponse);
                                 ::MarshalValue< ::OcaInt32>(reading, &pResponse, writer);
-								::MarshalValue< ::OcaInt32>(minReading, &pResponse, writer);
-								::MarshalValue< ::OcaInt32>(maxReading, &pResponse, writer);
+                                ::MarshalValue< ::OcaInt32>(minReading, &pResponse, writer);
+                                ::MarshalValue< ::OcaInt32>(maxReading, &pResponse, writer);
 
                                 *response = responseBuffer;
-							}
-							else
+                            }
+                            else
                             {
                                 rc = OCASTATUS_BUFFER_OVERFLOW;
                             }

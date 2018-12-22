@@ -44,7 +44,7 @@ public:
         OCA_PROP_READING    = 1
     };
 
-	/**
+    /**
      * Destructor.
      */
     virtual ~OcaLiteBooleanSensor() {}
@@ -87,7 +87,7 @@ protected:
 
     virtual ::OcaClassVersionNumber GetClassVersion() const;
 
-	/**
+    /**
      * Gets the value of the reading property. Must be implemented by derived classes
      * that actually implement the OcaInt8Sensor.
      *

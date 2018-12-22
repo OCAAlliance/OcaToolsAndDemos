@@ -38,12 +38,12 @@ OcaLiteFloat32Sensor::OcaLiteFloat32Sensor(::OcaONo objectNumber,
                                            const ::OcaLiteString& role,
                                            const ::OcaLiteList< ::OcaLitePort>& ports,
                                            ::OcaFloat32 minReading,
-										   ::OcaFloat32 maxReading)
+                                           ::OcaFloat32 maxReading)
     : ::OcaLiteBasicSensor(objectNumber, lockable, role, ports),
       m_minReading(minReading),
       m_maxReading(maxReading)
 {
-	assert(minReading <= maxReading);
+    assert(minReading <= maxReading);
 }
 
 ::OcaLiteStatus OcaLiteFloat32Sensor::GetReading(::OcaFloat32& reading, ::OcaFloat32& minReading, ::OcaFloat32& maxReading) const
@@ -55,7 +55,7 @@ OcaLiteFloat32Sensor::OcaLiteFloat32Sensor(::OcaONo objectNumber,
     return rc;
 }
 
-	/**
+    /**
      * Gets the value of the limit properties.
      *
      * @param[out]   minReading          Lower limit of the sensor
@@ -100,20 +100,20 @@ OcaLiteFloat32Sensor::OcaLiteFloat32Sensor(::OcaONo objectNumber,
                         {
                             ::OcaUint32 responseSize(::GetSizeValue< ::OcaUint8>(static_cast< ::OcaUint8>(3), writer) +
                                                      ::GetSizeValue< ::OcaFloat32>(reading, writer) +
-													 ::GetSizeValue< ::OcaFloat32>(minReading, writer) +
-													 ::GetSizeValue< ::OcaFloat32>(maxReading, writer));
+                                                     ::GetSizeValue< ::OcaFloat32>(minReading, writer) +
+                                                     ::GetSizeValue< ::OcaFloat32>(maxReading, writer));
                             responseBuffer = ::OcaLiteCommandHandler::GetInstance().GetResponseBuffer(responseSize);
                             if (NULL != responseBuffer)
                             {
-							    ::OcaUint8* pResponse(responseBuffer);
+                                ::OcaUint8* pResponse(responseBuffer);
                                 writer.Write(static_cast< ::OcaUint8>(3/*NrParameters*/), &pResponse);
                                 ::MarshalValue< ::OcaFloat32>(reading, &pResponse, writer);
-								::MarshalValue< ::OcaFloat32>(minReading, &pResponse, writer);
-								::MarshalValue< ::OcaFloat32>(maxReading, &pResponse, writer);
+                                ::MarshalValue< ::OcaFloat32>(minReading, &pResponse, writer);
+                                ::MarshalValue< ::OcaFloat32>(maxReading, &pResponse, writer);
 
                                 *response = responseBuffer;
-							}
-							else
+                            }
+                            else
                             {
                                 rc = OCASTATUS_BUFFER_OVERFLOW;
                             }
@@ -129,7 +129,7 @@ OcaLiteFloat32Sensor::OcaLiteFloat32Sensor(::OcaONo objectNumber,
         else
         {
             // Should be executed on higher level
-        	rc = OcaLiteBasicSensor::Execute(reader, writer, sessionID, methodID, parametersSize, parameters, response);
+            rc = OcaLiteBasicSensor::Execute(reader, writer, sessionID, methodID, parametersSize, parameters, response);
         }
     }
     else

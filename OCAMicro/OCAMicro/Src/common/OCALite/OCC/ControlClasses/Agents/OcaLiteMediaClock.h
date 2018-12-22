@@ -89,8 +89,8 @@ public:
         SET_RATE            = 7,
         /** GetLockState() */
         GET_LOCK_STATE      = 8,
-		/** GetTypesSupported() */
-		GET_TYPES_SUPPORTED = 9,
+        /** GetTypesSupported() */
+        GET_TYPES_SUPPORTED = 9,
     };
 
     /** Property indexes for the supported properties. */
@@ -154,7 +154,7 @@ public:
      */
     ::OcaLiteStatus SetDomainID(::OcaUint16 id);
 
-	/**
+    /**
      * Gets the list of supported clock types.
      *
      * @param[out] types The supported clock types.
@@ -224,7 +224,7 @@ protected:
      *                                      is lockable.
      * @param[in]   role                    The role of this instance.
      * @param[in]   type                    The clock type.
-	 * @param[in]   typesSupported			List with the supported clock types of this instance.
+     * @param[in]   typesSupported            List with the supported clock types of this instance.
      * @param[in]   domainID                The domain ID value.
      * @param[in]   ratesSupported          List with the supported rates of this instance.
      */
@@ -232,7 +232,7 @@ protected:
                   ::OcaBoolean lockable,
                   const ::OcaLiteString& role,
                   ::OcaLiteMediaClockType type,
-				  const ::OcaLiteList< ::OcaLiteMediaClockType> typesSupported,
+                  const ::OcaLiteList< ::OcaLiteMediaClockType> typesSupported,
                   ::OcaUint16 domainID,
                   const ::OcaLiteList< ::OcaLiteMediaClockRate>& ratesSupported);
 
@@ -323,8 +323,8 @@ private:
     /** The supported sampling rates */
     ::OcaLiteList< ::OcaLiteMediaClockRate> m_ratesSupported;
 
-	/** The supported clock types */
-	::OcaLiteList< ::OcaLiteMediaClockType> m_typesSupported;
+    /** The supported clock types */
+    ::OcaLiteList< ::OcaLiteMediaClockType> m_typesSupported;
 
     /** private copy constructor, no copying of object allowed */
     OcaLiteMediaClock(const ::OcaLiteMediaClock&);

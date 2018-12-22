@@ -143,9 +143,9 @@ public:
     virtual void ReturnMessage(::OcaLiteMessageGeneral* msg);
 
 #ifdef OCA_LITE_CONTROLLER
-	virtual OcaSessionID Connect(const ::OcaLiteConnectParameters& connectParameters);
+    virtual OcaSessionID Connect(const ::OcaLiteConnectParameters& connectParameters);
 
-	virtual bool Disconnect(::OcaSessionID sessionId);
+    virtual bool Disconnect(::OcaSessionID sessionId);
 #endif //OCA_LITE_CONTROLLER
 
 protected:
@@ -180,13 +180,13 @@ private:
      */
     void HandleControllers(OcaSocketList& controllerList, const OcfLiteSelectableSet& readSet);
 
-	/**
-	 * Do a run on the devices in indicated list
+    /**
+     * Do a run on the devices in indicated list
      *
      * @param[in] deviceList        List with deivces to handle.
      * @param[in] readSet           The read set with the selected objects.
      */
-	void HandleDevices(OcaSocketList& deviceList, const OcfLiteSelectableSet& readSet);
+    void HandleDevices(OcaSocketList& deviceList, const OcfLiteSelectableSet& readSet);
 
     /**
      * Find socket connection by socket id
@@ -217,8 +217,8 @@ private:
     OcaSocketList                       m_ocaSocketList;
 
 #ifdef OCA_LITE_CONTROLLER
-	/** The map of device sockets connected via insecure links */
-	OcaSocketList                       m_ocaDeviceSocketList;
+    /** The map of device sockets connected via insecure links */
+    OcaSocketList                       m_ocaDeviceSocketList;
 #endif
 
     /** List of new connections */

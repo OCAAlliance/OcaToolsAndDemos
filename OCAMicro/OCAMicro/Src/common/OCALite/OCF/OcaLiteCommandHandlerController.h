@@ -29,23 +29,23 @@
 class OcaLiteCommandHandlerController : public ::OcaLiteCommandHandler
 {
 public:
-	/**
+    /**
      * Establish a connection to a remove device.
-	 *
-	 * @param[in] connectParameters		Information about the device to connect to.
-	 * @param[in] networkONo			The object number of the network to be used to connect to.
-	 *
-	 * @return The session ID of the established connection.
-	 */
-	::OcaSessionID Connect(const OcaLiteConnectParameters& connectParameters, ::OcaONo networkONo);
-	
-	/**
-	 * Esecute a disconnect. The actual disconnect will only happen in the next run.
-	 *
-	 * @param[in] sessionId		The session ID of the session to disconnect.
-	 * @param[in] networkONo	The network object number.
-	 */
-	bool Disconnect(::OcaSessionID sessionId, ::OcaONo networkONo);
+     *
+     * @param[in] connectParameters        Information about the device to connect to.
+     * @param[in] networkONo            The object number of the network to be used to connect to.
+     *
+     * @return The session ID of the established connection.
+     */
+    ::OcaSessionID Connect(const OcaLiteConnectParameters& connectParameters, ::OcaONo networkONo);
+    
+    /**
+     * Esecute a disconnect. The actual disconnect will only happen in the next run.
+     *
+     * @param[in] sessionId        The session ID of the session to disconnect.
+     * @param[in] networkONo    The network object number.
+     */
+    bool Disconnect(::OcaSessionID sessionId, ::OcaONo networkONo);
 
     /**
      * Send a command and wait for the response. Only a single command can be send at any give time.
@@ -61,14 +61,14 @@ public:
      *
      * @return The result of the operation.
      */
-	::OcaLiteStatus SendCommandWithResponse(::OcaSessionID sessionId,
-											::OcaONo networkObjectNumber,
-											::OcaONo targetObjectNumber,
-											::OcaLiteMethodID methodId,
-											::OcaUint32 parametersSize,
-											::OcaUint8* parameters,
-											::OcaUint32& responseSize,
-											::OcaUint8** response);
+    ::OcaLiteStatus SendCommandWithResponse(::OcaSessionID sessionId,
+                                            ::OcaONo networkObjectNumber,
+                                            ::OcaONo targetObjectNumber,
+                                            ::OcaLiteMethodID methodId,
+                                            ::OcaUint32 parametersSize,
+                                            ::OcaUint8* parameters,
+                                            ::OcaUint32& responseSize,
+                                            ::OcaUint8** response);
 
     /**
      * Send a command WITHOUT response.
@@ -89,53 +89,53 @@ public:
                                 ::OcaUint32 parametersSize,
                                 ::OcaUint8* parameters);
 
-	virtual ::OcaBoolean Initialize();
+    virtual ::OcaBoolean Initialize();
 
-	virtual void Shutdown();
+    virtual void Shutdown();
 
-	/**
-	 * Get the singleton instance.
-	 *
-	 * @return a reference to the singleton instance.
-	 */
-	static ::OcaLiteCommandHandlerController& GetInstance();
+    /**
+     * Get the singleton instance.
+     *
+     * @return a reference to the singleton instance.
+     */
+    static ::OcaLiteCommandHandlerController& GetInstance();
 
 protected:
 
-	/** Constructor */
-	::OcaLiteCommandHandlerController();
+    /** Constructor */
+    ::OcaLiteCommandHandlerController();
 
     /** Destructor */
     ~OcaLiteCommandHandlerController();
 
-	virtual void HandleResponse(const ::OcaLiteMessageResponse& response);
+    virtual void HandleResponse(const ::OcaLiteMessageResponse& response);
 
     /**
      * Generate a new handle to use.
      * 
      * @return A new handle
      */
-	::OcaUint32 GenerateNewHandle();
+    ::OcaUint32 GenerateNewHandle();
 
 private:
 
-	/** Singleton */
-	static ::OcaLiteCommandHandlerController* m_pSingleton;
-	/* Parameter to track the last handle send so we can increment the value for uniqueness */
-	::OcaUint32 m_handle;
-	/** None zero if we are waiting for a response */
-	::OcaUint32 m_waitingForHandle;
-	/** Members to hold the response data. */
-	::OcaUint32 m_responseSize;
-	::OcaUint8* m_pResponseData;
+    /** Singleton */
+    static ::OcaLiteCommandHandlerController* m_pSingleton;
+    /* Parameter to track the last handle send so we can increment the value for uniqueness */
+    ::OcaUint32 m_handle;
+    /** None zero if we are waiting for a response */
+    ::OcaUint32 m_waitingForHandle;
+    /** Members to hold the response data. */
+    ::OcaUint32 m_responseSize;
+    ::OcaUint8* m_pResponseData;
     ::OcaLiteStatus m_reponseStatus;
-	/** Boolen to indicate whether we received the response */
-	bool m_bReceivedMessage;
+    /** Boolen to indicate whether we received the response */
+    bool m_bReceivedMessage;
 
-	/** private copy constructor, no copying of object allowed */
-	OcaLiteCommandHandlerController(const ::OcaLiteCommandHandlerController&);
-	/** private assignment operator, no assignment of object allowed */
-	::OcaLiteCommandHandlerController& operator=(const ::OcaLiteCommandHandlerController&);
+    /** private copy constructor, no copying of object allowed */
+    OcaLiteCommandHandlerController(const ::OcaLiteCommandHandlerController&);
+    /** private assignment operator, no assignment of object allowed */
+    ::OcaLiteCommandHandlerController& operator=(const ::OcaLiteCommandHandlerController&);
 
 };
 

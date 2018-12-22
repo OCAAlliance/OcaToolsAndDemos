@@ -39,11 +39,11 @@ const ::OcaLiteClassID              OcaLiteTemperatureSensor::CLASS_ID(static_ca
 // ---- Class Implementation ----
 
 OcaLiteTemperatureSensor::OcaLiteTemperatureSensor(::OcaONo objectNumber, 
-												   ::OcaBoolean lockable, 
-												   const ::OcaLiteString& role, 
-												   const ::OcaLiteList< ::OcaLitePort>& ports, 
-												   ::OcaTemperature minReading, 
-												   ::OcaTemperature maxReading)
+                                                   ::OcaBoolean lockable, 
+                                                   const ::OcaLiteString& role, 
+                                                   const ::OcaLiteList< ::OcaLitePort>& ports, 
+                                                   ::OcaTemperature minReading, 
+                                                   ::OcaTemperature maxReading)
     : ::OcaLiteSensor(objectNumber, lockable, role, ports),
       m_minReading(minReading),
       m_maxReading(maxReading)
@@ -61,24 +61,24 @@ OcaLiteTemperatureSensor::OcaLiteTemperatureSensor(::OcaONo objectNumber,
 }
 
 ::OcaLiteStatus OcaLiteTemperatureSensor::Execute(const ::IOcaLiteReader& reader, const ::IOcaLiteWriter& writer, ::OcaSessionID sessionID, const ::OcaLiteMethodID& methodID,
-													::OcaUint32 parametersSize, const ::OcaUint8* parameters, ::OcaUint8** response)
+                                                    ::OcaUint32 parametersSize, const ::OcaUint8* parameters, ::OcaUint8** response)
 {
     ::OcaLiteStatus rc(OCASTATUS_PARAMETER_ERROR);
     if (!IsLocked(sessionID))
     {
         if (methodID.GetDefLevel() == CLASS_ID.GetFieldCount())
         {
-			::OcaUint8* responseBuffer(NULL);
-			const ::OcaUint8* pCmdParameters(parameters);
-			::OcaUint32 bytesLeft(parametersSize);
+            ::OcaUint8* responseBuffer(NULL);
+            const ::OcaUint8* pCmdParameters(parameters);
+            ::OcaUint32 bytesLeft(parametersSize);
 
             switch (methodID.GetMethodIndex())
             {
             case GET_READING:
                 {
-					::OcaUint8 numberOfParameters(0);
+                    ::OcaUint8 numberOfParameters(0);
                     if (reader.Read(bytesLeft, &pCmdParameters, numberOfParameters) && 
-						(0 == numberOfParameters))
+                        (0 == numberOfParameters))
                     {
                         ::OcaTemperature reading;
                         ::OcaTemperature minReading;
@@ -86,22 +86,22 @@ OcaLiteTemperatureSensor::OcaLiteTemperatureSensor(::OcaONo objectNumber,
                         rc = GetReading(reading, minReading, maxReading);
                         if (OCASTATUS_OK == rc) 
                         {
-							::OcaUint32 responseSize(::GetSizeValue< ::OcaUint8>(static_cast< ::OcaUint8>(3), writer) +
-								::GetSizeValue< ::OcaTemperature>(reading, writer) +
-								::GetSizeValue< ::OcaTemperature>(minReading, writer) +
-								::GetSizeValue< ::OcaTemperature>(maxReading, writer));
-							responseBuffer = ::OcaLiteCommandHandler::GetInstance().GetResponseBuffer(responseSize);
-							if (NULL != responseBuffer)
-							{
-								::OcaUint8* pResponse(responseBuffer);
-								writer.Write(static_cast< ::OcaUint8>(3/*NrParameters*/), &pResponse);
-								::MarshalValue< ::OcaTemperature>(reading, &pResponse, writer);
-								::MarshalValue< ::OcaTemperature>(minReading, &pResponse, writer);
-								::MarshalValue< ::OcaTemperature>(maxReading, &pResponse, writer);
+                            ::OcaUint32 responseSize(::GetSizeValue< ::OcaUint8>(static_cast< ::OcaUint8>(3), writer) +
+                                ::GetSizeValue< ::OcaTemperature>(reading, writer) +
+                                ::GetSizeValue< ::OcaTemperature>(minReading, writer) +
+                                ::GetSizeValue< ::OcaTemperature>(maxReading, writer));
+                            responseBuffer = ::OcaLiteCommandHandler::GetInstance().GetResponseBuffer(responseSize);
+                            if (NULL != responseBuffer)
+                            {
+                                ::OcaUint8* pResponse(responseBuffer);
+                                writer.Write(static_cast< ::OcaUint8>(3/*NrParameters*/), &pResponse);
+                                ::MarshalValue< ::OcaTemperature>(reading, &pResponse, writer);
+                                ::MarshalValue< ::OcaTemperature>(minReading, &pResponse, writer);
+                                ::MarshalValue< ::OcaTemperature>(maxReading, &pResponse, writer);
 
-								*response = responseBuffer;
-							}
-							else
+                                *response = responseBuffer;
+                            }
+                            else
                             {
                                 rc = OCASTATUS_BUFFER_OVERFLOW;
                             }

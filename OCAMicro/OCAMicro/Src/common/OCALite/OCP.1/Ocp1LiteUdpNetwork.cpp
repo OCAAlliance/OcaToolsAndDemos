@@ -203,12 +203,12 @@ void Ocp1LiteUdpNetwork::Teardown()
         m_ocaSocketList.clear();
 
 #ifdef OCA_LITE_CONTROLLER
-		for (OcaSocketList::iterator sIter(m_ocaDeviceSocketList.begin()); sIter != m_ocaDeviceSocketList.end(); ++sIter)
-		{
-			sIter->second->Shutdown();
-			delete sIter->second;
-		}
-		m_ocaDeviceSocketList.clear();
+        for (OcaSocketList::iterator sIter(m_ocaDeviceSocketList.begin()); sIter != m_ocaDeviceSocketList.end(); ++sIter)
+        {
+            sIter->second->Shutdown();
+            delete sIter->second;
+        }
+        m_ocaDeviceSocketList.clear();
 #endif
 
         if (NULL != m_pDataBuffer)
@@ -333,10 +333,10 @@ void Ocp1LiteUdpNetwork::Teardown()
         }
 
 #ifdef OCA_LITE_CONTROLLER
-		for (OcaSocketList::iterator sIter(m_ocaDeviceSocketList.begin()); sIter != m_ocaDeviceSocketList.end(); ++sIter)
-		{
-			sIter->second->Shutdown();
-		}
+        for (OcaSocketList::iterator sIter(m_ocaDeviceSocketList.begin()); sIter != m_ocaDeviceSocketList.end(); ++sIter)
+        {
+            sIter->second->Shutdown();
+        }
 #endif
 
         m_status = OCANETWORKSTATUS_STOPPED;
@@ -366,22 +366,22 @@ void Ocp1LiteUdpNetwork::AddSelectables(INT32& highest,
 
 #ifdef OCA_LITE_CONTROLLER
     OcaSocketList::iterator cIter(m_ocaDeviceSocketList.begin());
-	while (cIter != m_ocaDeviceSocketList.end())
-	{
-		if (cIter->second->IsConnected())
-		{
-			INT32 controllerSocket(*cIter->second->GetSocket());
-			if (-1 != controllerSocket)
-			{
-				FD_SET(controllerSocket, &readSet);
-				if (highest < controllerSocket)
-				{
-					highest = controllerSocket;
-				}
-			}
-		}
-		++cIter;
-	}
+    while (cIter != m_ocaDeviceSocketList.end())
+    {
+        if (cIter->second->IsConnected())
+        {
+            INT32 controllerSocket(*cIter->second->GetSocket());
+            if (-1 != controllerSocket)
+            {
+                FD_SET(controllerSocket, &readSet);
+                if (highest < controllerSocket)
+                {
+                    highest = controllerSocket;
+                }
+            }
+        }
+        ++cIter;
+    }
 #endif
 
 }
@@ -436,7 +436,7 @@ void Ocp1LiteUdpNetwork::HandleSelectables(const OcfLiteSelectableSet& readSet,
     
     HandleControllers(m_ocaSocketList, readSet);
 #ifdef OCA_LITE_CONTROLLER
-	HandleDevices(m_ocaDeviceSocketList, readSet);
+    HandleDevices(m_ocaDeviceSocketList, readSet);
 #endif
 }
 
@@ -756,14 +756,14 @@ void Ocp1LiteUdpNetwork::ReturnMessage(::OcaLiteMessageGeneral* msg)
 #ifdef OCA_LITE_CONTROLLER
 OcaSessionID Ocp1LiteUdpNetwork::Connect(const ::OcaLiteConnectParameters& connectParameters)
 {
-	::OcaSessionID sessionId(OCA_INVALID_SESSIONID);
+    ::OcaSessionID sessionId(OCA_INVALID_SESSIONID);
 
-	const ::Ocp1LiteConnectParameters* ocp1ConnectParameters(static_cast<const ::Ocp1LiteConnectParameters*>(&connectParameters));
-	if (NULL != ocp1ConnectParameters)
-	{
-		::OcaSessionID newSessionID(::OcaLiteCommandHandler::GetInstance().CreateSessionID());
-		::Ocp1LiteUdpSocketConnection* sConnection(new ::Ocp1LiteUdpSocketConnection(*this, static_cast< ::OcaUint32>(OCA_BUFFER_SIZE)));
-		sConnection->SetSocketConnectionParameters(newSessionID, 
+    const ::Ocp1LiteConnectParameters* ocp1ConnectParameters(static_cast<const ::Ocp1LiteConnectParameters*>(&connectParameters));
+    if (NULL != ocp1ConnectParameters)
+    {
+        ::OcaSessionID newSessionID(::OcaLiteCommandHandler::GetInstance().CreateSessionID());
+        ::Ocp1LiteUdpSocketConnection* sConnection(new ::Ocp1LiteUdpSocketConnection(*this, static_cast< ::OcaUint32>(OCA_BUFFER_SIZE)));
+        sConnection->SetSocketConnectionParameters(newSessionID, 
                                                    ocp1ConnectParameters->GetKeepAliveTimeout(), 
                                                    ocp1ConnectParameters->GetbKeepAliveTimeoutInMs());
 
@@ -790,37 +790,37 @@ OcaSessionID Ocp1LiteUdpNetwork::Connect(const ::OcaLiteConnectParameters& conne
 
                 OCA_LOG_WARNING("Opening socket failed");
             }
-		}
-		else
-		{
-			// Retreiving socket failed, so delete the socket connection.
-			delete sConnection;
+        }
+        else
+        {
+            // Retreiving socket failed, so delete the socket connection.
+            delete sConnection;
 
-			OCA_LOG_WARNING("Retrieving socket failed");
-		}
-	}
+            OCA_LOG_WARNING("Retrieving socket failed");
+        }
+    }
 
-	return sessionId;
+    return sessionId;
 }
 
 bool Ocp1LiteUdpNetwork::Disconnect(::OcaSessionID sessionID)
 {
-	bool bResult(false);
+    bool bResult(false);
 
-	OcaSocketList::iterator cIter(m_ocaDeviceSocketList.find(sessionID));
-	if (cIter != m_ocaDeviceSocketList.end())
-	{
+    OcaSocketList::iterator cIter(m_ocaDeviceSocketList.find(sessionID));
+    if (cIter != m_ocaDeviceSocketList.end())
+    {
         static_cast<void>(Ocp1LiteSocketClose(*cIter->second->GetSocket()));
 
-		cIter->second->Shutdown();
-		static_cast<void>(m_ocaDeviceSocketList.erase(cIter));
+        cIter->second->Shutdown();
+        static_cast<void>(m_ocaDeviceSocketList.erase(cIter));
 
-		m_lostConnections.push_back(sessionID);
+        m_lostConnections.push_back(sessionID);
 
-		bResult = true;
-	}
+        bResult = true;
+    }
 
-	return bResult;
+    return bResult;
 }
 #endif
 
@@ -847,14 +847,14 @@ bool Ocp1LiteUdpNetwork::Disconnect(::OcaSessionID sessionID)
         socketConnection = cIter->second;
     }
 #ifdef OCA_LITE_CONTROLLER
-	else
-	{
-		cIter = m_ocaDeviceSocketList.find(sessionID);
-		if (cIter != m_ocaDeviceSocketList.end())
-		{
-			socketConnection = cIter->second;
-		}
-	}
+    else
+    {
+        cIter = m_ocaDeviceSocketList.find(sessionID);
+        if (cIter != m_ocaDeviceSocketList.end())
+        {
+            socketConnection = cIter->second;
+        }
+    }
 #endif
 
     return socketConnection;
@@ -958,14 +958,14 @@ void Ocp1LiteUdpNetwork::HandleControllers(OcaSocketList& controllerList, const 
 #ifdef OCA_LITE_CONTROLLER
 void Ocp1LiteUdpNetwork::HandleDevices(OcaSocketList& deviceList, const OcfLiteSelectableSet& readSet)
 {
-	OcaSocketList::iterator cIter(deviceList.begin());
-	while (cIter != deviceList.end())
-	{
-		::OcaSessionID sessionID(cIter->first);
-		::Ocp1LiteUdpSocketConnection* pSocketConnection(cIter->second);
-		::OcaBoolean dataAvailable(static_cast< ::OcaBoolean>((FD_ISSET(*(pSocketConnection->GetSocket()), &readSet)) != 0) ? true : false);
-		if (pSocketConnection->IsConnected())
-		{
+    OcaSocketList::iterator cIter(deviceList.begin());
+    while (cIter != deviceList.end())
+    {
+        ::OcaSessionID sessionID(cIter->first);
+        ::Ocp1LiteUdpSocketConnection* pSocketConnection(cIter->second);
+        ::OcaBoolean dataAvailable(static_cast< ::OcaBoolean>((FD_ISSET(*(pSocketConnection->GetSocket()), &readSet)) != 0) ? true : false);
+        if (pSocketConnection->IsConnected())
+        {
             if (dataAvailable)
             {
                 INT32 bytesReceived(Ocp1LiteSocketReceive(*pSocketConnection->GetSocket(), m_pControllerMessageBuffer, static_cast<INT32>(OCA_BUFFER_SIZE)));
@@ -975,42 +975,42 @@ void Ocp1LiteUdpNetwork::HandleDevices(OcaSocketList& deviceList, const OcfLiteS
                 }
             }
             ::OcaBoolean bReceivedKeepAlive;
-			switch (pSocketConnection->Run(dataAvailable, static_cast< ::OcaUint32>(OCA_BUFFER_SIZE), m_pDataBuffer, bReceivedKeepAlive))
-			{
-			case ::Ocp1LiteUdpSocketConnection::NO_MESSAGE_RECEIVED:
-				++cIter;
-				break;
-			case ::Ocp1LiteUdpSocketConnection::MESSAGE_RECEIVED:
-			{
-				// One or more messages were received, will be read-out later
-				m_messageAvailableConnections.push_back(sessionID);
-				++cIter;
-			}
-			break;
-			case ::Ocp1LiteUdpSocketConnection::CONNECTION_CORRUPT:
-			case ::Ocp1LiteUdpSocketConnection::CONNECTION_LOST:
-			{
-				// Add session id to list of lost connections
-				if (m_notifiedLostConnections.end() == std::find(m_notifiedLostConnections.begin(), m_notifiedLostConnections.end(), sessionID))
-				{
-					assert(m_lostConnections.end() == std::find(m_lostConnections.begin(), m_lostConnections.end(), sessionID));
-					m_lostConnections.push_back(sessionID);
-				}
+            switch (pSocketConnection->Run(dataAvailable, static_cast< ::OcaUint32>(OCA_BUFFER_SIZE), m_pDataBuffer, bReceivedKeepAlive))
+            {
+            case ::Ocp1LiteUdpSocketConnection::NO_MESSAGE_RECEIVED:
+                ++cIter;
+                break;
+            case ::Ocp1LiteUdpSocketConnection::MESSAGE_RECEIVED:
+            {
+                // One or more messages were received, will be read-out later
+                m_messageAvailableConnections.push_back(sessionID);
+                ++cIter;
+            }
+            break;
+            case ::Ocp1LiteUdpSocketConnection::CONNECTION_CORRUPT:
+            case ::Ocp1LiteUdpSocketConnection::CONNECTION_LOST:
+            {
+                // Add session id to list of lost connections
+                if (m_notifiedLostConnections.end() == std::find(m_notifiedLostConnections.begin(), m_notifiedLostConnections.end(), sessionID))
+                {
+                    assert(m_lostConnections.end() == std::find(m_lostConnections.begin(), m_lostConnections.end(), sessionID));
+                    m_lostConnections.push_back(sessionID);
+                }
 
-				// Shutdown the socket connection
-				pSocketConnection->Shutdown();
+                // Shutdown the socket connection
+                pSocketConnection->Shutdown();
 
-				delete pSocketConnection;
-				OcaSocketList::iterator iterCopy(cIter);
-				++cIter;
-				static_cast<void>(deviceList.erase(iterCopy));
-			}
-			break;
-			default:
-				OCA_LOG_ERROR_PARAMS("Unknown return from Ocp1LiteUdpSocketConnection::Run for controller %i", sessionID);
-				assert(false);
-				break;
-			}
+                delete pSocketConnection;
+                OcaSocketList::iterator iterCopy(cIter);
+                ++cIter;
+                static_cast<void>(deviceList.erase(iterCopy));
+            }
+            break;
+            default:
+                OCA_LOG_ERROR_PARAMS("Unknown return from Ocp1LiteUdpSocketConnection::Run for controller %i", sessionID);
+                assert(false);
+                break;
+            }
 #ifdef OCA_TRACK_KEEPALIVE_RECEIVED
             if (bReceivedKeepAlive)
             {
@@ -1021,25 +1021,25 @@ void Ocp1LiteUdpNetwork::HandleDevices(OcaSocketList& deviceList, const OcfLiteS
                 }
             }
 #endif //OCA_TRACK_KEEPALIVE_RECEIVED
-		}
-		else
-		{
-			// Add session id to list of lost connections
-			if (m_notifiedLostConnections.end() == std::find(m_notifiedLostConnections.begin(), m_notifiedLostConnections.end(), sessionID))
-			{
-				assert(m_lostConnections.end() == std::find(m_lostConnections.begin(), m_lostConnections.end(), sessionID));
-				m_lostConnections.push_back(sessionID);
-			}
+        }
+        else
+        {
+            // Add session id to list of lost connections
+            if (m_notifiedLostConnections.end() == std::find(m_notifiedLostConnections.begin(), m_notifiedLostConnections.end(), sessionID))
+            {
+                assert(m_lostConnections.end() == std::find(m_lostConnections.begin(), m_lostConnections.end(), sessionID));
+                m_lostConnections.push_back(sessionID);
+            }
 
-			// Shutdown the socket connection
-			pSocketConnection->Shutdown();
+            // Shutdown the socket connection
+            pSocketConnection->Shutdown();
 
-			delete pSocketConnection;
-			OcaSocketList::iterator iterCopy(cIter);
-			++cIter;
-			static_cast<void>(deviceList.erase(iterCopy));
-		}
-	}
+            delete pSocketConnection;
+            OcaSocketList::iterator iterCopy(cIter);
+            ++cIter;
+            static_cast<void>(deviceList.erase(iterCopy));
+        }
+    }
 }
 #endif
 

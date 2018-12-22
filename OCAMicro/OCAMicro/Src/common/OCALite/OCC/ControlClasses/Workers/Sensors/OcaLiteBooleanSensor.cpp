@@ -76,12 +76,12 @@ OcaLiteBooleanSensor::OcaLiteBooleanSensor(::OcaONo objectNumber,
                             responseBuffer = ::OcaLiteCommandHandler::GetInstance().GetResponseBuffer(responseSize);
                             if (NULL != responseBuffer)
                             {
-							    ::OcaUint8* pResponse(responseBuffer);
+                                ::OcaUint8* pResponse(responseBuffer);
                                 writer.Write(static_cast< ::OcaUint8>(1/*NrParameters*/), &pResponse);
                                 ::MarshalValue< ::OcaUint8>(reading, &pResponse, writer);
                                 *response = responseBuffer;
-							}
-							else
+                            }
+                            else
                             {
                                 rc = OCASTATUS_BUFFER_OVERFLOW;
                             }
