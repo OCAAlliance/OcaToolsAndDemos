@@ -20,4 +20,4 @@ This project does contain other open source software. Thanks for all the great w
 
 # Tavis-CI
 
-The project (OCAMicro for Stm32) is automatically build in travis-ci: [![Build Status](https://secure.travis-ci.org/OCAAlliance/OCAMicro.svg?branch=master)](http://travis-ci.org/OCAAlliance/OCAMicro)
+The project (OCAMicro for Stm32) is automatically build in travis-ci: [![Build Status](https://secure.travis-ci.org/OCAAlliance/OcaToolsAndDemos.svg?branch=master)](http://travis-ci.org/OCAAlliance/OcaToolsAndDemos)
