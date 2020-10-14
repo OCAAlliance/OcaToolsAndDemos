@@ -32,6 +32,13 @@ const ::OcaLiteClassID          OcaLiteDeviceManager::CLASS_ID(static_cast< ::Oc
 /** Defines the version increment of this class compared to its base class. */
 #define CLASS_VERSION_INCREMENT     0
 
+#ifndef DEVICE_REVISION_ID
+#ifdef _DEBUG
+#define DEVICE_REVISION_ID "Compiled @ " __TIME__" " __DATE__
+#else
+#define DEVICE_REVISION_ID "Unknown revision"
+#endif
+#endif
 // ---- Helper functions ----
 
 // ---- Local data ----
@@ -622,14 +629,13 @@ void OcaLiteDeviceManager::SessionLost(::OcaSessionID sessionID)
                     }
                 }
                 break;
-#ifdef _DEBUG
             case GET_DEVICE_REVISION_ID:
                 {
                     ::OcaUint8 numberOfParameters(0);
                     if (reader.Read(bytesLeft, &pCmdParameters, numberOfParameters) &&
                         (0 == numberOfParameters))
                     {
-                        ::OcaLiteString deviceRevision("Compiled @ " __TIME__" " __DATE__);
+                        ::OcaLiteString deviceRevision(DEVICE_REVISION_ID;
                         ::OcaUint32 responseSize(::GetSizeValue< ::OcaUint8>(static_cast< ::OcaUint8>(1), writer) +
                             deviceRevision.GetSize(writer));
                         responseBuffer = ::OcaLiteCommandHandler::GetInstance().GetResponseBuffer(responseSize);
@@ -650,11 +656,6 @@ void OcaLiteDeviceManager::SessionLost(::OcaSessionID sessionID)
                     }
                 }
                 break;
-#else
-            case GET_DEVICE_REVISION_ID:
-                rc = OCASTATUS_NOT_IMPLEMENTED;
-                break;
-#endif
             case SET_DEVICE_NAME:
             case GET_DEVICE_ROLE:
             case SET_DEVICE_ROLE:
