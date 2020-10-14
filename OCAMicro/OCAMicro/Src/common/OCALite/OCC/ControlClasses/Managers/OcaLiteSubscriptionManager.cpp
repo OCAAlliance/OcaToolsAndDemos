@@ -270,7 +270,7 @@ void OcaLiteSubscriptionManager::FreeInstance()
             case DISABLE_NOTIFICATIONS:
             case RE_ENABLE_NOTIFICATIONS:
             case ADD_PROPERTY_CHANGE_SUBSCRIPTION:
-            case REMOVE_PROPERTY_CHANGE_SUBSCRIPTION:   
+            case REMOVE_PROPERTY_CHANGE_SUBSCRIPTION:
                 rc = OCASTATUS_NOT_IMPLEMENTED;
                 break;
             default:
@@ -290,6 +290,59 @@ void OcaLiteSubscriptionManager::FreeInstance()
 
     return rc;
 }
+
+::OcaBoolean OcaLiteSubscriptionManager::AddEventSubscription(const ::OcaLiteEventID& eventID,
+                                                                IEventDelegate& eventDelegate)
+{
+    bool bSuccess(false);
+
+    if (eventID.GetDefLevel() == CLASS_ID.GetFieldCount())
+    {
+        switch (eventID.GetEventIndex())
+        {
+        case OCA_EVENT_EVENTS_DISABLED:
+            // DisableEvents method is not implemented, nothing to do.
+            bSuccess = true;
+            break;
+        case OCA_EVENT_SYNCHRONIZE_STATE:
+            // ReEnableNotifications method is not implemented, nothing to do.
+            bSuccess = true;
+            break;
+        default:
+            break;
+        }   
+    }
+    else
+    {
+        bSuccess = static_cast<bool>(OcaLiteManager::AddEventSubscription(eventID, eventDelegate));
+    }
+
+    return static_cast< ::OcaBoolean>(bSuccess);
+}
+
+void OcaLiteSubscriptionManager::RemoveEventSubscription(const ::OcaLiteEventID& eventID)
+{
+    if (eventID.GetDefLevel() == CLASS_ID.GetFieldCount())
+    {
+        switch (eventID.GetEventIndex())
+        {
+        case OCA_EVENT_EVENTS_DISABLED:
+            // DisableEvents method is not implemented, nothing to do.
+            break;
+        case OCA_EVENT_SYNCHRONIZE_STATE:
+            // ReEnableNotifications method is not implemented, nothing to do.
+            break;
+        default:
+            OCA_LOG_WARNING("Invalid event id");
+            break;
+        }
+    }
+    else
+    {
+        OcaLiteManager::RemoveEventSubscription(eventID);
+    }
+}
+
 
 void OcaLiteSubscriptionManager::SessionLost(::OcaSessionID sessionID)
 {
