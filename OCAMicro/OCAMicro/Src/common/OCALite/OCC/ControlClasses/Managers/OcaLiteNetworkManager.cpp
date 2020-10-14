@@ -287,7 +287,32 @@ void OcaLiteNetworkManager::RemoveMediaTransportNetwork(const ::OcaLiteMediaTran
                 }
                 break;
             case GET_CONTROL_NETWORKS:
-                rc = OCASTATUS_NOT_IMPLEMENTED;
+                {
+                    ::OcaUint8 numberOfParameters(0);
+                    if (reader.Read(bytesLeft, &pCmdParameters, numberOfParameters) &&
+                        (0 == numberOfParameters))
+                    {
+                        // Always return an empty list, OCALite has no awareness of control networks at this time.
+                        ::OcaLiteList< ::OcaONo> networks;
+                        rc = OCASTATUS_OK;
+ 
+                        ::OcaUint32 responseSize(::GetSizeValue< ::OcaUint8>(static_cast< ::OcaUint8>(1), writer) +
+                            networks.GetSize(writer));
+                        responseBuffer = ::OcaLiteCommandHandler::GetInstance().GetResponseBuffer(responseSize);
+                        if (NULL != responseBuffer)
+                        {
+                            ::OcaUint8* pResponse(responseBuffer);
+                            writer.Write(static_cast< ::OcaUint8>(1/*NrParameters*/), &pResponse);
+                            networks.Marshal(&pResponse, writer);
+
+                            *response = responseBuffer;
+                        }
+                        else
+                        {
+                            rc = OCASTATUS_BUFFER_OVERFLOW;
+                        }
+                    }
+                }
                 break;
             default:
                 rc = OCASTATUS_BAD_METHOD;
