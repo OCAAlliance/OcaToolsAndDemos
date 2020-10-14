@@ -157,6 +157,10 @@ public:
     virtual ::OcaLiteStatus Execute(const ::IOcaLiteReader& reader, const ::IOcaLiteWriter& writer, ::OcaSessionID sessionID, const ::OcaLiteMethodID& methodID,
                                     ::OcaUint32 parametersSize, const ::OcaUint8* parameters, ::OcaUint8** response);
 
+    virtual ::OcaBoolean AddEventSubscription(const ::OcaLiteEventID& eventID, IEventDelegate& eventDelegate);
+
+    virtual void RemoveEventSubscription(const ::OcaLiteEventID& eventID);
+
     virtual void SessionLost(::OcaSessionID sessionID);
 
     /**

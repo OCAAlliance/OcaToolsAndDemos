@@ -635,7 +635,7 @@ void OcaLiteDeviceManager::SessionLost(::OcaSessionID sessionID)
                     if (reader.Read(bytesLeft, &pCmdParameters, numberOfParameters) &&
                         (0 == numberOfParameters))
                     {
-                        ::OcaLiteString deviceRevision(DEVICE_REVISION_ID;
+                        ::OcaLiteString deviceRevision(DEVICE_REVISION_ID);
                         ::OcaUint32 responseSize(::GetSizeValue< ::OcaUint8>(static_cast< ::OcaUint8>(1), writer) +
                             deviceRevision.GetSize(writer));
                         responseBuffer = ::OcaLiteCommandHandler::GetInstance().GetResponseBuffer(responseSize);
