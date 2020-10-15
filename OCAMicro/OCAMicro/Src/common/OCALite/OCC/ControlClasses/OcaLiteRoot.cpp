@@ -346,7 +346,7 @@ void OcaLiteRoot::SessionLost(::OcaSessionID sessionID)
 }
 
 ::OcaBoolean OcaLiteRoot::AddEventSubscription(const ::OcaLiteEventID& eventID,
-                                           IEventDelegate& eventDelegate)
+                                               IEventDelegate& eventDelegate)
 {
     bool bSuccess(false);
 

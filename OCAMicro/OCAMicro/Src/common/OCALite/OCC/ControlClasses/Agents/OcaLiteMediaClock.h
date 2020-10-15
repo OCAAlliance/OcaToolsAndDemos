@@ -210,11 +210,11 @@ protected:
      * @param[in]   ratesSupported          List with the supported rates of this instance.
      */
     OcaLiteMediaClock(::OcaONo objectNumber,
-                  ::OcaBoolean lockable,
-                  const ::OcaLiteString& role,
-                  ::OcaLiteMediaClockType type,
-                  ::OcaUint16 domainID,
-                  const ::OcaLiteList< ::OcaLiteMediaClockRate>& ratesSupported);
+                      ::OcaBoolean lockable,
+                      const ::OcaLiteString& role,
+                      ::OcaLiteMediaClockType type,
+                      ::OcaUint16 domainID,
+                      const ::OcaLiteList< ::OcaLiteMediaClockRate>& ratesSupported);
 
     /**
      * Constructor
@@ -229,12 +229,12 @@ protected:
      * @param[in]   ratesSupported          List with the supported rates of this instance.
      */
     OcaLiteMediaClock(::OcaONo objectNumber,
-                  ::OcaBoolean lockable,
-                  const ::OcaLiteString& role,
-                  ::OcaLiteMediaClockType type,
-                  const ::OcaLiteList< ::OcaLiteMediaClockType> typesSupported,
-                  ::OcaUint16 domainID,
-                  const ::OcaLiteList< ::OcaLiteMediaClockRate>& ratesSupported);
+                     ::OcaBoolean lockable,
+                     const ::OcaLiteString& role,
+                     ::OcaLiteMediaClockType type,
+                     const ::OcaLiteList< ::OcaLiteMediaClockType> typesSupported,
+                     ::OcaUint16 domainID,
+                     const ::OcaLiteList< ::OcaLiteMediaClockRate>& ratesSupported);
 
     virtual const ::OcaLiteClassID& GetClassID() const
     {

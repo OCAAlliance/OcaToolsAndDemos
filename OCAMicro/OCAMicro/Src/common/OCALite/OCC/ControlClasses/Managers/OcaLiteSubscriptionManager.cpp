@@ -158,6 +158,25 @@ void OcaLiteSubscriptionManager::FreeInstance()
     return rc;
 }
 
+::OcaLiteStatus OcaLiteSubscriptionManager::AddPropertyChangeSubscription(::OcaSessionID sessionID,
+                                                                          ::OcaONo emitter,
+                                                                          const ::OcaLitePropertyID& property,
+                                                                          const ::OcaLiteMethod& subscriber,
+                                                                          const ::OcaLiteBlob& context,
+                                                                          ::OcaLiteNotificationDeliveryMode deliveryMode,
+                                                                          const ::OcaLiteNetworkAddress& destInfo) 
+{
+    return OCASTATUS_NOT_IMPLEMENTED;
+}
+
+::OcaLiteStatus OcaLiteSubscriptionManager::RemovePropertyChangeSubscription(::OcaSessionID sessionID,
+                                                                             ::OcaONo emitter,
+                                                                             const ::OcaLitePropertyID& property,
+                                                                             const ::OcaLiteMethod& subscriber)
+{
+    return OCASTATUS_NOT_IMPLEMENTED;
+}
+
 ::OcaLiteStatus OcaLiteSubscriptionManager::Execute(const ::IOcaLiteReader& reader, const ::IOcaLiteWriter& writer, ::OcaSessionID sessionID, const ::OcaLiteMethodID& methodID,
                                                     ::OcaUint32 parametersSize, const ::OcaUint8* parameters, ::OcaUint8** response)
 {
@@ -267,10 +286,78 @@ void OcaLiteSubscriptionManager::FreeInstance()
                     }
                 }
                 break;
+            case ADD_PROPERTY_CHANGE_SUBSCRIPTION:
+                {
+                    ::OcaONo emitter;
+                    ::OcaLitePropertyID property;
+                    ::OcaLiteMethod subscriber;
+                    ::OcaLiteBlob context;
+                    ::OcaLiteNotificationDeliveryMode deliveryMode; 
+                    ::OcaLiteNetworkAddress destInfo;
+                    ::OcaUint8 numberOfParameters(0);
+                    if (reader.Read(bytesLeft, &pCmdParameters, numberOfParameters) &&
+                        (6 == numberOfParameters) &&
+                        (UnmarshalValue< ::OcaONo>(emitter, bytesLeft, &pCmdParameters, reader)) &&
+                        (property.Unmarshal(bytesLeft, &pCmdParameters, reader)) &&
+                        (subscriber.Unmarshal(bytesLeft, &pCmdParameters, reader)) &&
+                        (context.Unmarshal(bytesLeft, &pCmdParameters, reader)) &&
+                        (::UnmarshalValue< ::OcaLiteNotificationDeliveryMode>(deliveryMode, bytesLeft, &pCmdParameters, reader)) &&
+                        (destInfo.Unmarshal(bytesLeft, &pCmdParameters, reader)))
+                    {
+                        rc = AddPropertyChangeSubscription(sessionID, emitter, property, subscriber, context, deliveryMode, destInfo);
+                        if (OCASTATUS_OK == rc)
+                        {
+                            ::OcaUint32 responseSize(::GetSizeValue< ::OcaUint8>(static_cast< ::OcaUint8>(0), writer));
+                            responseBuffer = ::OcaLiteCommandHandler::GetInstance().GetResponseBuffer(responseSize);
+                            if (NULL != responseBuffer)
+                            {
+                                ::OcaUint8* pResponse(responseBuffer);
+                                writer.Write(static_cast< ::OcaUint8>(0/*NrParameters*/), &pResponse);
+
+                                *response = responseBuffer;
+                            }
+                            else
+                            {
+                                rc = OCASTATUS_BUFFER_OVERFLOW;
+                            }
+                        }
+                    }
+                }
+                break;
+            case REMOVE_PROPERTY_CHANGE_SUBSCRIPTION:
+                {
+                    ::OcaONo emitter;
+                    ::OcaLitePropertyID property;
+                    ::OcaLiteMethod subscriber;
+                    ::OcaUint8 numberOfParameters(0);
+                    if (reader.Read(bytesLeft, &pCmdParameters, numberOfParameters) &&
+                        (3 == numberOfParameters) &&
+                        (UnmarshalValue< ::OcaONo>(emitter, bytesLeft, &pCmdParameters, reader)) &&
+                        (property.Unmarshal(bytesLeft, &pCmdParameters, reader)) &&
+                        (subscriber.Unmarshal(bytesLeft, &pCmdParameters, reader)))
+                    {
+                        rc = RemovePropertyChangeSubscription(sessionID, emitter, property, subscriber);
+                        if (OCASTATUS_OK == rc)
+                        {
+                            ::OcaUint32 responseSize(::GetSizeValue< ::OcaUint8>(static_cast< ::OcaUint8>(0), writer));
+                            responseBuffer = ::OcaLiteCommandHandler::GetInstance().GetResponseBuffer(responseSize);
+                            if (NULL != responseBuffer)
+                            {
+                                ::OcaUint8* pResponse(responseBuffer);
+                                writer.Write(static_cast< ::OcaUint8>(0/*NrParameters*/), &pResponse);
+
+                                *response = responseBuffer;
+                            }
+                            else
+                            {
+                                rc = OCASTATUS_BUFFER_OVERFLOW;
+                            }
+                        }
+                    }
+                }
+                break;
             case DISABLE_NOTIFICATIONS:
             case RE_ENABLE_NOTIFICATIONS:
-            case ADD_PROPERTY_CHANGE_SUBSCRIPTION:
-            case REMOVE_PROPERTY_CHANGE_SUBSCRIPTION:
                 rc = OCASTATUS_NOT_IMPLEMENTED;
                 break;
             default:
