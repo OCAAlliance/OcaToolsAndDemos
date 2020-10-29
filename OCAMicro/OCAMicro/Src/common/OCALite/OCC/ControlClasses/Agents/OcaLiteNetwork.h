@@ -308,7 +308,6 @@ public:
      */
     virtual void ReturnMessage(::OcaLiteMessageGeneral* msg) = 0;
 
-#ifdef OCA_LITE_CONTROLLER
     /** 
      * Connect to a remote device.
      *
@@ -332,7 +331,6 @@ public:
     {
         return false;
     }
-#endif
 
 protected:
     /**

@@ -18,19 +18,15 @@
 #ifdef _WIN32
 #include <Ws2tcpip.h>
 #else
-#include <errno.h>
-#include <fcntl.h>
-#include <linux/tcp.h>
-#include <libgen.h>
-#include <linux/xspi_ioctl.h>
 #include <netdb.h>
-#include <netinet/in.h>
 #include <unistd.h>
 #include <stdio.h>
 #include <stdint.h>
-#include <sys/ioctl.h>
-#include <sys/socket.h>
+#include <errno.h>
 #include <sys/types.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <netinet/tcp.h>
 #endif
 
 // ---- FileInfo Macro ----
@@ -129,7 +125,12 @@ bool Ocp1LiteSocketBind(INT32 socket, UINT16 port)
     sin.sin_port = htons(port);
     sin.sin_addr.s_addr = INADDR_ANY;
 
+#ifndef __APPLE__
     return (bind(socket, (struct sockaddr *)&sin, sizeof(sin)) == 0);
+#else
+    bind(socket, (struct sockaddr *)&sin, sizeof(sin));
+    return true;
+#endif
 }
 
 bool Ocp1LiteSocketListen(INT32 socket, UINT8 backlog)
@@ -143,7 +144,7 @@ bool Ocp1LiteSocketAccept(INT32 socket, INT32& newsocket)
 {
     int result;
 	int optionOn(1);
-#ifdef WIN32
+#ifdef _WIN32
     SOCKADDR_INET newSocketAddress;
 
     PSOCKADDR pNewSocketAddress(PSOCKADDR(&newSocketAddress.Ipv4));
@@ -205,7 +206,7 @@ bool Ocp1LiteSocketReject(INT32 socket)
 
     if ((newSocket > SOCKET_ERROR) && (sinLen == sizeof(struct sockaddr_in)))
     {
-#ifdef WIN32
+#ifdef _WIN32
         return (closesocket(newSocket) == 0);
 #else
         return (close(newSocket) == 0);

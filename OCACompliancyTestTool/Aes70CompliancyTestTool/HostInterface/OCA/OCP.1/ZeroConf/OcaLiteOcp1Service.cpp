@@ -8,7 +8,7 @@
 // ---- Include system wide include files ----
 #include <HostInterfaceLite/OCA/OCP.1/ZeroConf/IOcp1LiteService.h>
 #include <HostInterfaceLite/OCA/OCF/OcfLiteHostInterface.h>
-#include <../../platform/common/OcaLite/BonjourSDK/dns_sd.h>
+#include <../../platform/common/BonjourSDK/dns_sd.h>
 
 // ---- FileInfo Macro ----
 

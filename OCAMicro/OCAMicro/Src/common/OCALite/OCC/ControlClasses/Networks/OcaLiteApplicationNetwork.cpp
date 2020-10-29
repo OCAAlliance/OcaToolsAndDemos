@@ -221,7 +221,7 @@ void OcaLiteApplicationNetwork::SystemInterfaceIDsChanged(const ::OcaLiteList< :
                                                                                                              propertyID,
                                                                                                              interfaces,
                                                                                                              OCAPROPERTYCHANGETYPE_CURRENT_CHANGED);
-    PropertyChanged(eventData);
+    PropertyChanged(eventData, propertyID);
 }
 
 void OcaLiteApplicationNetwork::ServiceIDChanged(const ::OcaLiteApplicationNetworkServiceID& serviceId)
@@ -234,5 +234,5 @@ void OcaLiteApplicationNetwork::ServiceIDChanged(const ::OcaLiteApplicationNetwo
                                                                                        propertyID,
                                                                                        m_serviceId,
                                                                                        OCAPROPERTYCHANGETYPE_CURRENT_CHANGED);
-    PropertyChanged(eventData);
+    PropertyChanged(eventData, propertyID);
 }

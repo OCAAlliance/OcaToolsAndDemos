@@ -21,6 +21,7 @@ class IOcaLiteReader;
 class IOcaLiteWriter;
 class OcaLiteClassIdentification;
 class OcaLiteEventData;
+class OcaLitePropertyID;
 class OcaLiteMessageResponse;
 class OcaLiteMethodID;
 
@@ -54,13 +55,23 @@ public:
         virtual ~IEventDelegate() {}
 
         // ---- Interface methods ----
+                /**
+         * Internal event handler. This method notifies a generated message
+         * to the delegate.
+         *
+         * @param[in] eventData         The event data that belongs to the event.
+         * @param[in] propertyID        The property ID
+         */
+        virtual void OnEvent(const ::OcaLiteEventData& eventData) {}
+
         /**
          * Internal event handler. This method notifies a generated message
          * to the delegate.
          *
          * @param[in] eventData         The event data that belongs to the event.
+         * @param[in] propertyID        The property ID
          */
-        virtual void OnEvent(const ::OcaLiteEventData& eventData) = 0;
+        virtual void OnEvent(const ::OcaLiteEventData& eventData, const ::OcaLitePropertyID& propertyID) {}
     };
 
     /** Method indexes for the supported methods. */
@@ -258,8 +269,9 @@ protected:
      * property change it must define its own event.
      *
      * @param[in]   eventData           The event data of the event.
+     * @param[in]   propertyID          The property ID of the property changed event.
      */
-    void PropertyChanged(const ::OcaLiteEventData& eventData);
+    void PropertyChanged(const ::OcaLiteEventData& eventData, const ::OcaLitePropertyID& propertyID);
 
     /**
      * Retrieves the class ID of the class.

@@ -10,8 +10,6 @@
 
 // ---- FileInfo Macro ----
 
-
-
 // ---- Include local include files ----
 #include "OcaLiteCommandHandlerController.h"
 #include "OCF/Messages/OcaLiteHeader.h"
@@ -38,9 +36,10 @@
    m_handle(static_cast< ::OcaUint32>(::OcfLiteTimerGetTimerTickCount())),
 #endif
    m_waitingForHandle(0),
-   m_bReceivedMessage(false),
    m_responseSize(static_cast< ::OcaUint32>(0)),
-   m_pResponseData(NULL)
+   m_pResponseData(NULL),
+   m_reponseStatus(OCASTATUS_INVALID_REQUEST),
+   m_bReceivedMessage(false)
 {
 }
 
@@ -182,8 +181,6 @@ bool OcaLiteCommandHandlerController::Disconnect(::OcaSessionID sessionId, ::Oca
         if ((NULL != pNetwork) &&
             (pNetwork->GetObjectNumber() == networkObjectNumber))
         {
-            UINT32 beginTime(::OcfLiteTimerGetTimerTickCount());
-
             // Send the message
             status = pNetwork->SendOcaMessage(sessionId, msg);
 

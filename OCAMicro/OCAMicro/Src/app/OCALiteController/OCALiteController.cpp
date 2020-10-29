@@ -16,7 +16,6 @@
 #include <OCC/ControlClasses/Managers/OcaLiteFirmwareManager.h>
 #include <OCF/OcaLiteCommandHandler.h>
 #include <OCP.1/Ocp1LiteNetwork.h>
-#include <OCP.1/Ocp1LiteNetworkNodeID.h>
 #include <OCP.1/Ocp1LiteNetworkSystemInterfaceID.h>
 #include <StandardLib/StandardLib.h>
 

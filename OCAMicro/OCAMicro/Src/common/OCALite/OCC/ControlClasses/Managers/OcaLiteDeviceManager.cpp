@@ -155,22 +155,22 @@ void OcaLiteDeviceManager::FreeInstance()
     {
         if (::OcfLiteConfigureSetEnabled(bEnabled))
         {
-            ::OcaLitePropertyID propertyId(CLASS_ID.GetFieldCount(), static_cast< ::OcaUint16>(OCA_PROP_ENABLED));
+            ::OcaLitePropertyID propertyID(CLASS_ID.GetFieldCount(), static_cast< ::OcaUint16>(OCA_PROP_ENABLED));
             ::OcaLitePropertyChangedEventData< ::OcaBoolean> eventData(OBJECT_NUMBER,
-                                                                       propertyId,
+                                                                       propertyID,
                                                                        static_cast< ::OcaBoolean>(::OcfLiteConfigureGetEnabled()),
                                                                        OCAPROPERTYCHANGETYPE_CURRENT_CHANGED);
-            PropertyChanged(eventData);
+            PropertyChanged(eventData, propertyID);
 
             ::OcaLiteDeviceState state;
             if (OCASTATUS_OK == GetState(state))
             {
-                OcaLitePropertyID propertyIdState(CLASS_ID.GetFieldCount(), static_cast< ::OcaUint16>(OCA_PROP_STATE));
+                OcaLitePropertyID propertyID(CLASS_ID.GetFieldCount(), static_cast< ::OcaUint16>(OCA_PROP_STATE));
                 ::OcaLitePropertyChangedEventData< ::OcaLiteDeviceState> eventDataState(OBJECT_NUMBER,
-                                                                                        propertyIdState,
+                                                                                        propertyID,
                                                                                         state,
                                                                                         OCAPROPERTYCHANGETYPE_CURRENT_CHANGED);
-                PropertyChanged(eventDataState);
+                PropertyChanged(eventDataState, propertyID);
             }
         }
         else
@@ -239,12 +239,12 @@ void OcaLiteDeviceManager::SetErrorState(::OcaBoolean error)
         ::OcaLiteDeviceState state;
         if (OCASTATUS_OK == GetState(state))
         {
-            ::OcaLitePropertyID propertyIdState(CLASS_ID.GetFieldCount(), static_cast< ::OcaUint16>(OCA_PROP_STATE));
+            ::OcaLitePropertyID propertyID(CLASS_ID.GetFieldCount(), static_cast< ::OcaUint16>(OCA_PROP_STATE));
             ::OcaLitePropertyChangedEventData< ::OcaLiteDeviceState> eventDataState(OBJECT_NUMBER,
-                                                                                     propertyIdState,
+                                                                                     propertyID,
                                                                                      state,
                                                                                      OCAPROPERTYCHANGETYPE_CURRENT_CHANGED);
-            PropertyChanged(eventDataState);
+            PropertyChanged(eventDataState, propertyID);
         }
     }
 }
@@ -263,12 +263,12 @@ void OcaLiteDeviceManager::SetOperationalState(OperationalState state)
         ::OcaLiteDeviceState getState;
         if (OCASTATUS_OK == GetState(getState))
         {
-            ::OcaLitePropertyID propertyIdState(CLASS_ID.GetFieldCount(), static_cast< ::OcaUint16>(OCA_PROP_STATE));
+            ::OcaLitePropertyID propertyID(CLASS_ID.GetFieldCount(), static_cast< ::OcaUint16>(OCA_PROP_STATE));
             ::OcaLitePropertyChangedEventData< ::OcaLiteDeviceState> eventDataState(OBJECT_NUMBER,
-                                                                                     propertyIdState,
+                                                                                     propertyID,
                                                                                      getState,
                                                                                      OCAPROPERTYCHANGETYPE_CURRENT_CHANGED);
-            PropertyChanged(eventDataState);
+            PropertyChanged(eventDataState, propertyID);
         }
     }
 }
@@ -285,12 +285,12 @@ void OcaLiteDeviceManager::SetErrorAndOperationalState(::OcaBoolean error, Opera
         ::OcaLiteDeviceState getState;
         if (OCASTATUS_OK == GetState(getState))
         {
-            ::OcaLitePropertyID propertyIdState(CLASS_ID.GetFieldCount(), static_cast< ::OcaUint16>(OCA_PROP_STATE));
+            ::OcaLitePropertyID propertyID(CLASS_ID.GetFieldCount(), static_cast< ::OcaUint16>(OCA_PROP_STATE));
             ::OcaLitePropertyChangedEventData< ::OcaLiteDeviceState> eventDataState(OBJECT_NUMBER,
-                                                                                     propertyIdState,
+                                                                                     propertyID,
                                                                                      getState,
                                                                                      OCAPROPERTYCHANGETYPE_CURRENT_CHANGED);
-            PropertyChanged(eventDataState);
+            PropertyChanged(eventDataState, propertyID);
         }
     }
 }

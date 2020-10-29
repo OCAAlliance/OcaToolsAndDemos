@@ -228,9 +228,6 @@
     <ClCompile Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteNetworkDataTypes.cpp">
       <Filter>OCALite\OCC\ControlDataTypes</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteNetworkNodeID.cpp">
-      <Filter>OCALite\OCC\ControlDataTypes</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteNetworkSignalChannelDanteID.cpp">
       <Filter>OCALite\OCC\ControlDataTypes</Filter>
     </ClCompile>
@@ -536,9 +533,6 @@
       <Filter>OCALite\OCC\ControlDataTypes</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteNetworkDataTypes.h">
-      <Filter>OCALite\OCC\ControlDataTypes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteNetworkNodeID.h">
       <Filter>OCALite\OCC\ControlDataTypes</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteNetworkSignalChannelDanteID.h">

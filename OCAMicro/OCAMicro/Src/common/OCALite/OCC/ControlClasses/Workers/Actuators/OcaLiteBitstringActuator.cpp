@@ -133,7 +133,7 @@ OcaLiteBitstringActuator::OcaLiteBitstringActuator(::OcaONo objectNumber,
                                                                              actualBitstring,
                                                                              OCAPROPERTYCHANGETYPE_CURRENT_CHANGED);
                     
-                    PropertyChanged(eventData);
+                    PropertyChanged(eventData, propertyID);
                 }
             }
         }

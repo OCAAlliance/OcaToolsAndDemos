@@ -85,7 +85,7 @@ OcaLiteStringSensor::OcaLiteStringSensor(::OcaONo objectNumber,
                                                                             propertyID,
                                                                             actualLength,
                                                                             OCAPROPERTYCHANGETYPE_CURRENT_CHANGED);
-                PropertyChanged(eventData);
+                PropertyChanged(eventData, propertyID);
             }
         }
     }
@@ -206,6 +206,6 @@ void OcaLiteStringSensor::StringChanged(::OcaLiteString string)
                                                           propertyID,
                                                           string,
                                                           OCAPROPERTYCHANGETYPE_CURRENT_CHANGED);
-    PropertyChanged(eventData);
+    PropertyChanged(eventData, propertyID);
 }
 

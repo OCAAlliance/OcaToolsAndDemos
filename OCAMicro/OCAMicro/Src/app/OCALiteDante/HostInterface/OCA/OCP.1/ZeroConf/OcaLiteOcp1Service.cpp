@@ -78,7 +78,7 @@ bool Ocp1LiteServiceRegister(const std::string& name, const std::string& registr
             error = ::DNSServiceRegister(&m_dnsService, 0, 0, name.c_str(),
                 registrationType.c_str(), domain.c_str(), NULL, ConvertFromHostByteOrderToNetworkOrder(port), static_cast<UINT16>(recordLength),
                 txtRecord, NULL, NULL);
-                OCA_LOG_ERROR_PARAMS("DNSServiceRegister result = %d", error);
+            OCA_LOG_TRACE_PARAMS("DNSServiceRegister result = %d", error);
         }
     }
     return (kDNSServiceErr_NoError == error) ? true : false;

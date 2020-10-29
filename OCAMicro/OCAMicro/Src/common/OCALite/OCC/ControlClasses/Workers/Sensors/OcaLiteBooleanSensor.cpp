@@ -108,7 +108,6 @@ OcaLiteBooleanSensor::OcaLiteBooleanSensor(::OcaONo objectNumber,
     return rc;
 }
 
-//lint -e{835} A zero has been given as right argument to operator '+'
 ::OcaClassVersionNumber OcaLiteBooleanSensor::GetClassVersion() const
 {
     return static_cast< ::OcaClassVersionNumber>(static_cast<int>(OcaLiteBasicSensor::GetClassVersion()) + CLASS_VERSION_INCREMENT);
@@ -121,5 +120,5 @@ void OcaLiteBooleanSensor::ReadingChanged(::OcaBoolean reading)
                                                         propertyID,
                                                         reading,
                                                         OCAPROPERTYCHANGETYPE_CURRENT_CHANGED);
-    PropertyChanged(eventData);
+    PropertyChanged(eventData, propertyID);
 }

@@ -70,9 +70,9 @@ public:
      * @param[in]   changeType      Type of change.
      */
     OcaLitePropertyChangedEventData(::OcaONo emitterONo,
-                                const ::OcaLitePropertyID& propertyID,
-                                const DataType& propertyValue,
-                                ::OcaLitePropertyChangeType changeType)
+                                    const ::OcaLitePropertyID& propertyID,
+                                    const DataType& propertyValue,
+                                    ::OcaLitePropertyChangeType changeType)
         : ::OcaLiteEventData(::OcaLiteEvent(emitterONo, ::OcaLiteEventID(static_cast< ::OcaUint16>(1)/*OcaRoot is always level 1*/, 
                                                              static_cast< ::OcaUint16>(::OcaLiteRoot::OCA_EVENT_PROPERTY_CHANGED)))),
           m_propertyID(propertyID),

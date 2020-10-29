@@ -9,7 +9,13 @@
  */
 
 // ---- Include system wide include files ----
+#ifdef _WIN32
 #include <Windows.h>
+#else
+#include <sys/time.h>
+#include <stdio.h>
+#include <unistd.h>
+#endif
 
 // ---- FileInfo Macro ----
 
@@ -21,5 +27,11 @@
 // Platform-specific implementation of static method 'GetTimerTickCount' of base class
 UINT32 OcfLiteTimerGetTimerTickCount(void)
 {
+#ifdef _WIN32
     return ::GetTickCount();
+#else
+    struct timeval start;
+    gettimeofday(&start, NULL);
+    return (UINT32)((start.tv_sec) * 1000 + start.tv_usec/1000.0);
+#endif
 }

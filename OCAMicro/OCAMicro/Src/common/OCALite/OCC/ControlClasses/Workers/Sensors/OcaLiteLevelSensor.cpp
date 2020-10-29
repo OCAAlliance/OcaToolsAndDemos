@@ -129,5 +129,5 @@ void OcaLiteLevelSensor::ReadingChanged(::OcaDB reading)
                                                       propertyID,
                                                       reading,
                                                       OCAPROPERTYCHANGETYPE_CURRENT_CHANGED);
-    PropertyChanged(eventData);
+    PropertyChanged(eventData, propertyID);
 }

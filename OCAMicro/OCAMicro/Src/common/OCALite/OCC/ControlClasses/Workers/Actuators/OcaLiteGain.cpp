@@ -77,7 +77,7 @@ OcaLiteGain::OcaLiteGain(::OcaONo objectNumber, ::OcaBoolean lockable, const ::O
                                                                           propertyID,
                                                                           actualGain,
                                                                           OCAPROPERTYCHANGETYPE_CURRENT_CHANGED);
-                        PropertyChanged(eventData);
+                        PropertyChanged(eventData, propertyID);
                     }
                 }
             }

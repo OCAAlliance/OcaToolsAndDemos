@@ -25,7 +25,7 @@ ifeq ($(IGNORE_MAKE_ERRORS),Y)
   PREFIX := -@
 else
   ifneq ($(DISPLAY_MAKE_CMDS),Y)
-	PREFIX := @
+    PREFIX := @
   endif
 endif
 #
@@ -83,7 +83,7 @@ ifneq ($(PLATFORM),)
         SE := sed
         RM := rm -f
         MD := mkdir -p
-        RN := mv _PATH__OLDNAME_ _NEWNAME_
+        RN := mv _PATH__OLDNAME_ _PATH__NEWNAME_
         RD := rm -rf
         RC :=
     endif
@@ -104,6 +104,118 @@ ifneq ($(PLATFORM),)
     else
         PATH_SEP := $(subst \\,/,/)
     endif
+
+    ifeq ($(PLATFORM),macosApp)
+
+### macosRelease ##################################################################
+
+      ifeq ($(RELEASE),Release)
+
+        # Determine the extensions for the target platform
+        OBJ_EXT := o
+        DEP_EXT := dep
+        EXE_EXT :=
+        LIB_EXT := a
+        DLL_EXT := so
+
+        # Lists
+        OBJS := $(patsubst %.cpp,%.$(OBJ_EXT),$(SRCS))
+        OBJS := $(patsubst %.c,%.$(OBJ_EXT),$(OBJS))
+        DEPS := $(patsubst %.$(OBJ_EXT),%.$(DEP_EXT),$(OBJS))
+        LIBS := $(LIBS) $(FWLIBS)
+        LIBS := $(addsuffix .$(LIB_EXT), $(LIBS))
+        BSP := $(addsuffix .$(LIB_EXT), $(BSP))
+
+        SDFLAGS := -g -c \
+                   -Wall -x none -I"$(subst ;," -I",$(INCDIRS))" \
+                   -D"NDEBUG" -DTARGET_APPLE \
+                   $(foreach USRDEF,$(USRDEFS),-D"$(USRDEF)") \
+                   $(foreach USRUNDEF,$(USRUNDEFS),-U"$(USRUNDEF)")
+        ifeq ($(OS),Windows_NT)
+            CCFLAGS = $(SDFLAGS) -o $(INTDIR)\$@
+        else
+            CCFLAGS = $(SDFLAGS) -o $(INTDIR)/$@
+        endif
+        CXXFLAGS := -std=gnu++0x
+        ifeq ($(TYPE),DLL)
+          OUT_EXT := $(EXE_EXT)
+          BIN_EXT := bin
+          LDFLAGS = -g -Os -Xlinker -Map=$@.map --stats -Wl,--gc-sections -fno-keep-static-consts -T $(BSPLD) -o$@
+        endif
+        ifeq ($(TYPE),EXE)
+          LD := g++
+          OUT_EXT := $(EXE_EXT)
+          LDFLAGS = -o $@
+        endif
+        ifeq ($(TYPE),LIB)
+          LD := ar
+          OUT_EXT := $(LIB_EXT)
+          ifeq ($(OS),Windows_NT)
+              ASFLAGS = -g -x assembler-with-cpp -c $(foreach USRDEF,$(USRDEFS),-D"$(USRDEF)") \
+					 $(foreach USRUNDEF,$(USRUN DEFS),-U"$(USRUNDEF)") -o $(INTDIR)\$@
+          else
+              ASFLAGS = -g -x assembler-with-cpp -c $(foreach USRDEF,$(USRDEFS),-D"$(USRDEF)") \
+					 $(foreach USRUNDEF,$(USRUNDEFS),-U"$(USRUNDEF)") -o $(INTDIR)/$@
+          endif
+          LDFLAGS = crus $@
+        endif
+      endif
+
+      ifeq ($(RELEASE),Debug)
+
+        # Tools
+
+        # Determine the extensions for the target platform
+        OBJ_EXT := o
+        DEP_EXT := dep
+        EXE_EXT :=
+        LIB_EXT := a
+        DLL_EXT := so
+
+        # Lists
+        OBJS := $(patsubst %.cpp,%.$(OBJ_EXT),$(SRCS) $(STM32SRCS))
+        OBJS := $(patsubst %.c,%.$(OBJ_EXT),$(OBJS))
+        DEPS := $(patsubst %.$(OBJ_EXT),%.$(DEP_EXT),$(OBJS))
+        LIBS := $(LIBS) $(FWLIBS)
+        LIBS := $(addsuffix .$(LIB_EXT), $(LIBS))
+        BSP := $(addsuffix .$(LIB_EXT), $(BSP))
+
+        SDFLAGS := -g -c \
+                   -Wall -x none -I"$(subst ;," -I",$(INCDIRS))" \
+                   -D"NDEBUG" -DTARGET_APPLE \
+                   $(foreach USRDEF,$(USRDEFS),-D"$(USRDEF)") \
+                   $(foreach USRUNDEF,$(USRUNDEFS),-U"$(USRUNDEF)")
+        ifeq ($(OS),Windows_NT)
+            CCFLAGS = $(SDFLAGS) -o $(INTDIR)\$@
+        else
+            CCFLAGS = $(SDFLAGS) -o $(INTDIR)/$@
+        endif
+        CXXFLAGS := -std=gnu++0x
+        ifeq ($(TYPE),DLL)
+          OUT_EXT := $(EXE_EXT)
+          BIN_EXT := bin
+          LDFLAGS = -g -O0 -Xlinker -Map=$@.map --stats -Wl,--gc-sections -fno-keep-static-consts -T $(BSPLD) -o$@
+        endif
+        ifeq ($(TYPE),EXE)
+          LD := clang++
+          OUT_EXT := $(EXE_EXT)
+          LDFLAGS = -print-search-dirs -L $(OUTDIR) -o $@
+        endif
+        ifeq ($(TYPE),LIB)
+          LD := ar
+          OUT_EXT := $(LIB_EXT)
+          ifeq ($(OS),Windows_NT)
+              ASFLAGS = -g -x assembler-with-cpp -c $(foreach USRDEF,$(USRDEFS),-D"$(USRDEF)") \
+					 $(foreach USRUNDEF,$(USRUNDEFS),-U"$(USRUNDEF)") -o $(INTDIR)\$@
+          else
+              ASFLAGS = -g -x assembler-with-cpp -c $(foreach USRDEF,$(USRDEFS),-D"$(USRDEF)") \
+					 $(foreach USRUNDEF,$(USRUNDEFS),-U"$(USRUNDEF)") -o $(INTDIR)/$@
+          endif
+          LDFLAGS = crus $@
+        endif
+      endif
+
+    endif #ifeq ($(PLATFORM),macosApp)
 
     ifeq ($(PLATFORM),stm32App)
 
@@ -131,7 +243,7 @@ ifneq ($(PLATFORM),)
         DEPS := $(patsubst %.$(OBJ_EXT),%.$(DEP_EXT),$(OBJS))
         LIBS := $(LIBS) $(FWLIBS)
         LIBS := $(addsuffix .$(LIB_EXT), $(LIBS))
-		BSP := $(addsuffix .$(LIB_EXT), $(BSP))
+        BSP := $(addsuffix .$(LIB_EXT), $(BSP))
 
         SDFLAGS := -g -Os -nostdlib -fno-strict-aliasing -fno-exceptions -ffunction-sections -fdata-sections -c \
                    -Wall -x none -I"$(subst ;," -I",$(INCDIRS))" \
@@ -150,7 +262,7 @@ ifneq ($(PLATFORM),)
           BIN_EXT := bin
           LDFLAGS = -g -Os -Xlinker -Map=$@.map -mcpu=cortex-m3 -mthumb --stats \
 					 -Wl,--gc-sections -fno-keep-static-consts -T $(BSPLD) -o$@
-		  B2BFLAGS = -O binary
+          B2BFLAGS = -O binary
         endif
         ifeq ($(TYPE),EXE)
           LD := arm-none-eabi-g++
@@ -158,7 +270,7 @@ ifneq ($(PLATFORM),)
           BIN_EXT := bin
           LDFLAGS = -g -Xlinker -Map=$@.map -mcpu=cortex-m3 -mthumb --stats \
 					 -Wl,--gc-sections -fno-keep-static-consts -T $(BSPLD) -o$@
-		  B2BFLAGS = -O binary
+          B2BFLAGS = -O binary
         endif
         ifeq ($(TYPE),LIB)
           LD := arm-none-eabi-ar
@@ -196,7 +308,7 @@ ifneq ($(PLATFORM),)
         DEPS := $(patsubst %.$(OBJ_EXT),%.$(DEP_EXT),$(OBJS))
         LIBS := $(LIBS) $(FWLIBS)
         LIBS := $(addsuffix .$(LIB_EXT), $(LIBS))
-		BSP := $(addsuffix .$(LIB_EXT), $(BSP))
+        BSP := $(addsuffix .$(LIB_EXT), $(BSP))
 
         SDFLAGS := -g -O0 -nostdlib -fno-strict-aliasing -fno-exceptions -ffunction-sections -fdata-sections -c \
                    -Wall -x none -I"$(subst ;," -I",$(INCDIRS))" \
@@ -215,7 +327,7 @@ ifneq ($(PLATFORM),)
           BIN_EXT := bin
           LDFLAGS = -g -O0 -Xlinker -Map=$@.map -mcpu=cortex-m3 -mthumb --stats \
 					 -Wl,--gc-sections -fno-keep-static-consts -T $(BSPLD) -o$@
-		  B2BFLAGS = -O binary
+          B2BFLAGS = -O binary
         endif
         ifeq ($(TYPE),EXE)
           LD := arm-none-eabi-g++
@@ -223,7 +335,7 @@ ifneq ($(PLATFORM),)
           BIN_EXT := bin
           LDFLAGS = -Xlinker -Map=$@.map -mcpu=cortex-m3 -mthumb --stats \
 					 -Wl,--gc-sections -fno-keep-static-consts -T $(BSPLD) -o$@
-		  B2BFLAGS = -O binary
+          B2BFLAGS = -O binary
         endif
         ifeq ($(TYPE),LIB)
           LD := arm-none-eabi-ar
@@ -243,27 +355,17 @@ ifneq ($(PLATFORM),)
 
     ifeq ($(PLATFORM),uBlazeApp)
 
-      ifneq ($(RELEASE),Lint)
-        RM := rm -f
-        MD := mkdir -p
-        RN := mv _PATH__OLDNAME_ _PATH__NEWNAME_
-        RD := rm -rf
-        IFEXIST    := if [ -e "_FILE_" ]; then _COMMAND_; fi
-        IFNOTEXIST := if [ ! -e "_FILE_" ]; then _COMMAND_; fi
-        PATH_SEP := /
-      endif
-
 ### uBlaze #################################################################
 
       ifeq ($(RELEASE),Release)
 
-		PATH_SEP := $(subst \\,/,/)
-		LSTFILE := $(subst \,/,$(INTDIR)/obj-list.lst)
-		
+        PATH_SEP := $(subst \\,/,/)
+        LSTFILE := $(subst \,/,$(INTDIR)/obj-list.lst)
+
         # Tools
-		AS := /opt/microblaze-uclinux-tools/bin/microblaze-uclinux-gcc
+        AS := /opt/microblaze-uclinux-tools/bin/microblaze-uclinux-gcc
         CC := /opt/microblaze-uclinux-tools/bin/microblaze-uclinux-g++
-		SD := /opt/microblaze-uclinux-tools/bin/microblaze-uclinux-gcc -M
+        SD := /opt/microblaze-uclinux-tools/bin/microblaze-uclinux-gcc -M
 
         # Determine the extensions for the target platform
         OBJ_EXT := o
@@ -353,17 +455,19 @@ endif #ifneq ($(PLATFORM),)
 # Phony target specification
 ################################################################################
 .PHONY: goal all clean phonyclean $(NAME)\
-        stm32Release \
-        stm32ReleaseClean
+        stm32Release stm32ReleaseClean \
+        stm32Debug stm32DebugClean \
+        macosRelease macosReleaseClean \
+        macosDebug macosDebugClean
 
 ################################################################################
 # Targets
 ################################################################################
-goal: stm32Release
+goal: stm32Release stm32Debug macosRelease macosDebug
 
-all: stm32Release
+all: stm32Release stm32Debug macosRelease macosDebug
 
-clean: stm32ReleaseClean
+clean: stm32ReleaseClean macosReleaseClean
 
 stm32Release:
   ifneq (,$(findstring stm32,$(TARGETS)))
@@ -372,6 +476,12 @@ stm32Release:
 	$(PREFIX)echo $@ not configured for $(NAME)
   endif
 
+macosRelease:
+  ifneq (,$(findstring macos,$(TARGETS)))
+	$(PREFIX)$(MAKE) -f $(NAME_MKE) $(NAME) --no-print-directory PLATFORM=macosApp RELEASE=Release
+  else
+	$(PREFIX)echo $@ not configured for $(NAME)
+  endif
 
 uBlazeRelease:
   ifneq (,$(findstring uBlaze,$(TARGETS)))
@@ -379,11 +489,19 @@ uBlazeRelease:
   else
 	$(PREFIX)echo $@ not configured for $(NAME)
   endif
+
 stm32ReleaseClean:
   ifneq (,$(findstring stm32,$(TARGETS)))
 	$(PREFIX)$(MAKE) -f $(NAME_MKE) phonyclean --no-print-directory PLATFORM=stm32App RELEASE=Release CLEAN=Yes
   else
 	$(PREFIX)echo stm32Release not configured for $(NAME)
+  endif
+
+macosReleaseClean:
+  ifneq (,$(findstring macos,$(TARGETS)))
+	$(PREFIX)$(MAKE) -f $(NAME_MKE) phonyclean --no-print-directory PLATFORM=macosApp RELEASE=Release CLEAN=Yes
+  else
+	$(PREFIX)echo macosRelease not configured for $(NAME)
   endif
 
 uBlazeReleaseClean:
@@ -392,7 +510,6 @@ uBlazeReleaseClean:
   else
 	$(PREFIX)echo uBlazeRelease not configured for $(NAME)
   endif
-
 
 stm32Debug:
   ifneq (,$(findstring stm32,$(TARGETS)))
@@ -406,6 +523,20 @@ stm32DebugClean:
 	$(PREFIX)$(MAKE) -f $(NAME_MKE) phonyclean --no-print-directory PLATFORM=stm32App RELEASE=Debug CLEAN=Yes
   else
 	$(PREFIX)echo stm32Release not configured for $(NAME)
+  endif
+
+macosDebug:
+  ifneq (,$(findstring macos,$(TARGETS)))
+	$(PREFIX)$(MAKE) -f $(NAME_MKE) $(NAME) --no-print-directory PLATFORM=macosApp RELEASE=Debug
+  else
+	$(PREFIX)echo $@ not configured for $(NAME)
+  endif
+
+macosDebugClean:
+  ifneq (,$(findstring macos,$(TARGETS)))
+	$(PREFIX)$(MAKE) -f $(NAME_MKE) phonyclean --no-print-directory PLATFORM=macosApp RELEASE=Debug CLEAN=Yes
+  else
+	$(PREFIX)echo macosDebug not configured for $(NAME)
   endif
 
 ### Dependency files ###########################################################
@@ -487,7 +618,11 @@ $(OUTFILE): $(INTDIR)/$(NAME).x $(OBJS) $(LIBS) $(NAME_MKE)
     ifeq ($(PLATFORM),uBlazeApp)
 	$(PREFIX)$(subst \,/,$(LD)) $(subst \,/,$(LDFLAGS)) $(foreach obj,$(OBJS),$(INTDIR)/$(obj)) $(LIBS) $(UBLAZESYSTEMLIBS)
     else
+      ifeq ($(PLATFORM),macosApp)
+	$(PREFIX)$(subst \,/,$(LD)) $(subst \,/,$(LDFLAGS)) $(foreach obj,$(OBJS),$(INTDIR)/$(obj)) $(foreach obj,$(LIBS),$(OUTDIR)/$(obj))  
+      else
 	$(PREFIX)$(subst \,/,$(LD)) $(subst \,/,$(LDFLAGS)) @$(LSTFILE)
+      endif
     endif
 	$(PREFIX)$(subst _FILE_,$(LSTFILE),$(subst _COMMAND_,$(RM) $(LSTFILE),$(IFEXIST)))
 

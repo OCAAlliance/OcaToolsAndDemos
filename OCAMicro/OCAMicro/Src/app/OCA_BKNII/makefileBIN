@@ -12,12 +12,12 @@ TYPE = EXE
 NAME = OCALiteBKNII
 
 USRINC = $(OCA_HOME)/../Application/inc; \
-		 $(OCA_HOME)/Src; \
-		 $(OCA_HOME)/Src/common; \
-		 $(OCA_HOME)/Src/inc; \
-		 $(OCA_HOME)/Src/common/OCALite; \
-		 $(OCA_HOME)/Src/platform; \
-		 $(OCA_HOME)/Src/app/OCALiteDante; \
+         $(OCA_HOME)/Src; \
+         $(OCA_HOME)/Src/common; \
+         $(OCA_HOME)/Src/inc; \
+         $(OCA_HOME)/Src/common/OCALite; \
+         $(OCA_HOME)/Src/platform; \
+         $(OCA_HOME)/Src/app/OCALiteDante; \
 
 
 USRDEFS = __LINUX__ HAVE_CONFIG_H _LINUX_ DANTE_CM_METERING_SUBSCRIPTIONS BKN_1
@@ -29,31 +29,31 @@ UBLAZESYSTEMLIBS = dapi dns_sd
 LIBS = OCALiteBKNLIB
 
 SRC_INC = $(OCA_HOME)/../Application/src \
-		  $(OCA_HOME)/Src/app/OCA_PI \
-		  $(OCA_HOME)/Src/app/Stm32CortexM3/OCALitePrototype \
-		  ./HostInterface/OCA/OCF/Configuration \
-		  ./HostInterface/OCA/OCF/Logging \
-		  ./HostInterface/OCA/OCF/Timer \
-		  ./HostInterface/OCA/OCF \
-		  ./HostInterface/OCA/OCP.1/Network \
-		  ./HostInterface/OCA/OCP.1/ZeroConf \
-		  ./HostInterface/OCA/OCP.1 \
-		  $(OCA_HOME)/Src/app/OCALiteDante \
+          $(OCA_HOME)/Src/app/OCA_PI \
+          $(OCA_HOME)/Src/app/Stm32CortexM3/OCALitePrototype \
+          ./HostInterface/OCA/OCF/Configuration \
+          ./HostInterface/OCA/OCF/Logging \
+          ./HostInterface/OCA/OCF/Timer \
+          ./HostInterface/OCA/OCF \
+          ./HostInterface/OCA/OCP.1/Network \
+          ./HostInterface/OCA/OCP.1/ZeroConf \
+          ./HostInterface/OCA/OCP.1 \
+          $(OCA_HOME)/Src/app/OCALiteDante \
 
 SRCS  = OCALiteDante.cpp \
-		OCALiteOCCFactory.cpp \
-		Ocp1HostInterfaceOcaLite.cpp \
-		OcaLiteOcp1Network.cpp \
-		OcaLiteOcp1Socket.cpp \
-		OcaLiteOcp1Service.cpp \
-		OcaLiteOcfConfiguration.cpp \
-		OcaLiteOcfLogger.cpp \
-		OcaLiteOcfTimer.cpp \
-		OcaLiteStreamNetworkDante.cpp \
-		OcaLiteNetworkSignalChannelDante.cpp \
-		OcaLiteDanteLvlSensor.cpp \
-		DanteLiteHostInterface.cpp \
-		OcaLiteDanteMediaClock.cpp \
-		DanteLiteConMon.cpp
+        OCALiteOCCFactory.cpp \
+        Ocp1HostInterfaceOcaLite.cpp \
+        OcaLiteOcp1Network.cpp \
+        OcaLiteOcp1Socket.cpp \
+        OcaLiteOcp1Service.cpp \
+        OcaLiteOcfConfiguration.cpp \
+        OcaLiteOcfLogger.cpp \
+        OcaLiteOcfTimer.cpp \
+        OcaLiteStreamNetworkDante.cpp \
+        OcaLiteNetworkSignalChannelDante.cpp \
+        OcaLiteDanteLvlSensor.cpp \
+        DanteLiteHostInterface.cpp \
+        OcaLiteDanteMediaClock.cpp \
+        DanteLiteConMon.cpp
 
 include $(OCA_HOME)/Src/makeCpp.inc

@@ -37,9 +37,12 @@
 #define ntohll htonll
 #else
 #include <netinet/in.h>
-
+#ifndef htonll
 #define htonll(A)(A)
+#endif
+#ifndef ntohll
 #define ntohll htonll
+#endif
 #endif
 
 // ---- Helper functions ----

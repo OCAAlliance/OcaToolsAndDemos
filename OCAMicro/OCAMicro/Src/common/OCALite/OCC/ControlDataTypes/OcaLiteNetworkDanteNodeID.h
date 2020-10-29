@@ -10,7 +10,6 @@
 #define OCALITENETWORKDANTENODEID_H
 
 // ---- Include system wide include files ----
-#include <OCC/ControlDataTypes/OcaLiteNetworkNodeID.h>
 
 // ---- Include local include files ----
 

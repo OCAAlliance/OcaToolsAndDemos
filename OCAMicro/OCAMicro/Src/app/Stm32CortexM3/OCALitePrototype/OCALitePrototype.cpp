@@ -32,12 +32,12 @@
 #include "PISwitchLedBitStringActuator.h"
 
 // platform
-#include <common/OcaLite/LogicalDevices/ClockGenerator/ClockGenerator.h>
-#include <common/OcaLite/LogicalDevices/Switch/Switch.h>
-#include <common/OcaLite/HostInterface/OCA/OCP.1/LwIPAdapterOcaLite.h>
-#include <Stm32CortexM3/lib/UtilLib/Rs232Debug.h>
-#include <Stm32CortexM3/lib/UtilLib/Watchdog.h>
-#include <common/OcaLite/tinymdns/tinymDNSWrapper.h>
+#include <Stm32/LogicalDevices/ClockGenerator/ClockGenerator.h>
+#include <Stm32/LogicalDevices/Switch/Switch.h>
+#include <Stm32/HostInterface/OCA/OCP.1/LwIPAdapterOcaLite.h>
+#include <Stm32/lib/UtilLib/Rs232Debug.h>
+#include <Stm32/lib/UtilLib/Watchdog.h>
+#include <common/tinymdns/tinymDNSWrapper.h>
 #include "stm32f2xx.h"
 
 

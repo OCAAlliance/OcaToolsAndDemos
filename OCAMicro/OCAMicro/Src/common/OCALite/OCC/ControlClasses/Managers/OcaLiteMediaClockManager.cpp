@@ -251,12 +251,12 @@ void OcaLiteMediaClockManager::FreeInstance()
             rc = GetClocks(clockList);
             if (OCASTATUS_OK == rc)
             {
-                ::OcaLitePropertyID propertyId(CLASS_ID.GetFieldCount(), static_cast< ::OcaUint16>(OCA_PROP_CLOCKS));
+                ::OcaLitePropertyID propertyID(CLASS_ID.GetFieldCount(), static_cast< ::OcaUint16>(OCA_PROP_CLOCKS));
                 ::OcaLitePropertyChangedEventData< ::OcaLiteList< ::OcaONo> > eventDataState(OBJECT_NUMBER,
-                                                                                     propertyId,
+                                                                                     propertyID,
                                                                                      clockList,
                                                                                      OCAPROPERTYCHANGETYPE_ITEM_ADDED);
-                PropertyChanged(eventDataState);
+                PropertyChanged(eventDataState, propertyID);
 
                 result = static_cast< ::OcaBoolean>(true);
             }
@@ -296,12 +296,12 @@ void OcaLiteMediaClockManager::RemoveMediaClock(const OcaLiteMediaClock& clock)
         ::OcaLiteList< ::OcaONo> clockList;
         if (OCASTATUS_OK == GetClocks(clockList))
         {
-            ::OcaLitePropertyID propertyId(CLASS_ID.GetFieldCount(), static_cast< ::OcaUint16>(OCA_PROP_CLOCKS));
+            ::OcaLitePropertyID propertyID(CLASS_ID.GetFieldCount(), static_cast< ::OcaUint16>(OCA_PROP_CLOCKS));
             ::OcaLitePropertyChangedEventData< ::OcaLiteList< ::OcaONo> > eventDataState(OBJECT_NUMBER,
-                                                                                 propertyId,
+                                                                                 propertyID,
                                                                                  clockList,
                                                                                  OCAPROPERTYCHANGETYPE_ITEM_DELETED);
-            PropertyChanged(eventDataState);
+            PropertyChanged(eventDataState, propertyID);
         }
         else
         {
@@ -328,12 +328,12 @@ void OcaLiteMediaClockManager::RemoveMediaClock(const OcaLiteMediaClock& clock)
 
         if (OCASTATUS_OK == rc)
         {
-            ::OcaLitePropertyID propertyId(CLASS_ID.GetFieldCount(), static_cast< ::OcaUint16>(OCA_PROP_CLOCK3S));
+            ::OcaLitePropertyID propertyID(CLASS_ID.GetFieldCount(), static_cast< ::OcaUint16>(OCA_PROP_CLOCK3S));
             ::OcaLitePropertyChangedEventData< ::OcaLiteList< ::OcaONo> > eventDataState(OBJECT_NUMBER,
-                                                                                         propertyId,
+                                                                                         propertyID,
                                                                                          clockList,
                                                                                          OCAPROPERTYCHANGETYPE_ITEM_ADDED);
-            PropertyChanged(eventDataState);
+            PropertyChanged(eventDataState, propertyID);
 
             result = static_cast< ::OcaBoolean>(true);
         }
@@ -356,12 +356,12 @@ void OcaLiteMediaClockManager::RemoveMediaClock3(const OcaLiteMediaClock3& clock
         ::OcaLiteList< ::OcaONo> clockList;
         if (OCASTATUS_OK == GetClock3s(clockList))
         {
-            ::OcaLitePropertyID propertyId(CLASS_ID.GetFieldCount(), static_cast< ::OcaUint16>(OCA_PROP_CLOCK3S));
+            ::OcaLitePropertyID propertyID(CLASS_ID.GetFieldCount(), static_cast< ::OcaUint16>(OCA_PROP_CLOCK3S));
             ::OcaLitePropertyChangedEventData< ::OcaLiteList< ::OcaONo> > eventDataState(OBJECT_NUMBER,
-                                                                                         propertyId,
+                                                                                         propertyID,
                                                                                          clockList,
                                                                                          OCAPROPERTYCHANGETYPE_ITEM_DELETED);
-            PropertyChanged(eventDataState);
+            PropertyChanged(eventDataState, propertyID);
         }
         else
         {
@@ -385,10 +385,10 @@ void OcaLiteMediaClockManager::NotifySupportedClockTypesChanged(::OcaLitePropert
         }
     }
 
-    ::OcaLitePropertyID propertyId(CLASS_ID.GetFieldCount(), static_cast< ::OcaUint16>(OCA_PROP_CLOCK_SOURCE_TYPES_SUPPORTED));
+    ::OcaLitePropertyID propertyID(CLASS_ID.GetFieldCount(), static_cast< ::OcaUint16>(OCA_PROP_CLOCK_SOURCE_TYPES_SUPPORTED));
     ::OcaLitePropertyChangedEventData< ::OcaLiteList< ::OcaLiteMediaClockType> > eventDataState(OBJECT_NUMBER,
-                                                                                    propertyId,
+                                                                                    propertyID,
                                                                                     clockTypes,
                                                                                     changeType);
-    PropertyChanged(eventDataState);
+    PropertyChanged(eventDataState, propertyID);
 }

@@ -213,5 +213,5 @@ void OcaLiteBitstringSensor::BitstringChanged(const ::OcaLiteBitstring& bitStrin
                                                                      propertyID,
                                                                      bitString,
                                                                      OCAPROPERTYCHANGETYPE_CURRENT_CHANGED);
-    PropertyChanged(eventData);
+    PropertyChanged(eventData, propertyID);
 }

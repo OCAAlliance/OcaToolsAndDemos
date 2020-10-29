@@ -70,7 +70,6 @@ typedef float               FLOAT;
 /* Use the compiler to make sure the basic data types are of the correct size */
 struct CAP_TypeSizeChecks
 {
-    /*lint --e{506} Constant value boolean */
     char assert00[(sizeof(UINT8)  == 1) ? 1 : -1];
     char assert01[(sizeof(INT8)   == 1) ? 1 : -1];
     char assert02[(sizeof(UINT16) == 2) ? 1 : -1];

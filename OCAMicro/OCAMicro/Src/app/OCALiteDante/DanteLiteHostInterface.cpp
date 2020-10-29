@@ -818,7 +818,7 @@ void DanteLiteHandleClockStatus(const conmon_message_body_t *aud_msg)
     DanteCMhadClockStat = 1;
     // If we're running on Windows with DVS we'll only get this clock call-back
     // On a Brooklyn module we'll get this and DanteLiteHandleSampleRateStatus()
-#ifdef WIN32
+#ifdef _WIN32
     // only need to do this if we're not remotely connected to a Brooklyn module
     if (gs_runningLocal == AUD_TRUE)
         DanteCMhadSampleRateStat = 1;

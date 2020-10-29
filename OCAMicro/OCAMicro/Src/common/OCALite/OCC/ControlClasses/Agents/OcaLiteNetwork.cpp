@@ -304,5 +304,5 @@ void OcaLiteNetwork::SystemInterfaceIDsChanged(const ::OcaLiteList< ::OcaLiteNet
                                                                                                      propertyID,
                                                                                                      interfaces,
                                                                                                      OCAPROPERTYCHANGETYPE_CURRENT_CHANGED);
-    PropertyChanged(eventData);
+    PropertyChanged(eventData, propertyID);
 }

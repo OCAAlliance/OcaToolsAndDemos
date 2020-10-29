@@ -26,7 +26,6 @@
 /**
  * Enumeration of Host Interface reset causes.
  */
-//lint -strong(AJX, ResetCause)
 enum ResetCause
 {
     /** Reset due to powering up. */

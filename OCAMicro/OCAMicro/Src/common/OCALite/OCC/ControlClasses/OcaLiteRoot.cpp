@@ -390,11 +390,11 @@ void OcaLiteRoot::RemoveEventSubscription(const ::OcaLiteEventID& eventID)
     }
 }
 
-void OcaLiteRoot::PropertyChanged(const ::OcaLiteEventData& eventData)
+void OcaLiteRoot::PropertyChanged(const ::OcaLiteEventData& eventData, const ::OcaLitePropertyID& propertyID)
 {
     if (NULL != m_pPropertyChangedEventDelegate)
     {
-        m_pPropertyChangedEventDelegate->OnEvent(eventData);
+        m_pPropertyChangedEventDelegate->OnEvent(eventData, propertyID);
     }
 }
 
