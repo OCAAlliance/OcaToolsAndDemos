@@ -6,16 +6,16 @@
  */
 
 // ---- Include system wide include files ----
-#include <OCALite/OCC/ControlClasses/Managers/OcaLiteDeviceManager.h>
-#include <OCALite/OCC/ControlClasses/Managers/OcaLiteNetworkManager.h>
-#include <OCALite/OCC/ControlClasses/Managers/OcaLiteSubscriptionManager.h>
-#include <OCALite/OCC/ControlClasses/Workers/BlocksAndMatrices/OcaLiteBlock.h>
-#include <OCALite/OCC/ControlDataTypes/OcaLiteBlockMember.h>
-#include <OCALite/OCC/ControlDataTypes/OcaLiteEvent.h>
-#include <OCALite/OCC/ControlDataTypes/OcaLiteManagerDescriptor.h>
-#include <OCALite/OCC/ControlDataTypes/OcaLiteMethod.h>
-#include <OCALite/OCC/ControlDataTypes/OcaLiteNetworkAddress.h>
-#include <OCALite/OCF/OcaLiteCommandHandlerController.h>
+#include <OCC/ControlClasses/Managers/OcaLiteDeviceManager.h>
+#include <OCC/ControlClasses/Managers/OcaLiteNetworkManager.h>
+#include <OCC/ControlClasses/Managers/OcaLiteSubscriptionManager.h>
+#include <OCC/ControlClasses/Workers/BlocksAndMatrices/OcaLiteBlock.h>
+#include <OCC/ControlDataTypes/OcaLiteBlockMember.h>
+#include <OCC/ControlDataTypes/OcaLiteEvent.h>
+#include <OCC/ControlDataTypes/OcaLiteManagerDescriptor.h>
+#include <OCC/ControlDataTypes/OcaLiteMethod.h>
+#include <OCC/ControlDataTypes/OcaLiteNetworkAddress.h>
+#include <OCF/OcaLiteCommandHandlerController.h>
 
 // ---- FileInfo Macro ----
 

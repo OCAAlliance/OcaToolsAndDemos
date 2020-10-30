@@ -9,10 +9,10 @@
 #include <fstream>
 #include <vector>
 #include <HostInterfaceLite/OCA/OCF/Timer/IOcfLiteTimer.h>
-#include <OCALite/Proxy/GeneralProxy.h>
-#include <OCALite/OCC/ControlClasses/Managers/OcaLiteNetworkManager.h>
-#include <OCALite/OCP.1/Ocp1LiteNetworkAddress.h>
-#include <OCALite/OCP.1/Ocp1LiteNetwork.h>
+#include <Proxy/GeneralProxy.h>
+#include <OCC/ControlClasses/Managers/OcaLiteNetworkManager.h>
+#include <OCP.1/Ocp1LiteNetworkAddress.h>
+#include <OCP.1/Ocp1LiteNetwork.h>
 #include <rapidxml/rapidxml.hpp>
 using namespace rapidxml;
 using namespace std;

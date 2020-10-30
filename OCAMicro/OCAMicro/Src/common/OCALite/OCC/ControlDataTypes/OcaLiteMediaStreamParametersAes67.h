@@ -9,10 +9,10 @@
 #define OCALITEMEDIASTREAMPARAMETERSAES67_H
 
 // ---- Include system wide include files ----
-#include <OCALite/OCC/ControlDataTypes/OcaLiteAES67NetworkAddress.h>
-#include <OCALite/OCC/ControlDataTypes/OcaLiteWorkerDataTypes.h>
-#include <OCALite/OCC/ControlDataTypes/OcaLiteNetworkDataTypes.h>
-#include <OCALite/OCP.1/Ocp1LiteNetworkAddress.h>
+#include <OCC/ControlDataTypes/OcaLiteAES67NetworkAddress.h>
+#include <OCC/ControlDataTypes/OcaLiteWorkerDataTypes.h>
+#include <OCC/ControlDataTypes/OcaLiteNetworkDataTypes.h>
+#include <OCP.1/Ocp1LiteNetworkAddress.h>
 
 // ---- Include local include files ----
 #include "OcaLiteMediaStreamParameters.h"

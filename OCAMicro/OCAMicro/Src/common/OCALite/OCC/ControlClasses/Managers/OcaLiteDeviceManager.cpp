@@ -10,7 +10,7 @@
 // ---- Include system wide include files ----
 #include <HostInterfaceLite/OCA/OCF/OcfLiteHostInterface.h>
 #include <HostInterfaceLite/OCA/OCF/Configuration/IOcfLiteConfigure.h>
-#include <OCALite/OCC/ControlClasses/Workers/BlocksAndMatrices/OcaLiteBlock.h>
+#include <OCC/ControlClasses/Workers/BlocksAndMatrices/OcaLiteBlock.h>
 #include <OCC/ControlClasses/Managers/OcaLiteNetworkManager.h>
 #include <OCC/ControlDataTypes/OcaLiteMethodID.h>
 #include <OCC/ControlDataTypes/OcaLiteModelGUID.h>

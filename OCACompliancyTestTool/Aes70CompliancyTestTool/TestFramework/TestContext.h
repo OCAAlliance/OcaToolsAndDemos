@@ -8,8 +8,8 @@
 #define TEST_CONTEXT_H
 
 // ---- Include system wide include files ----
-#include <OCALite/OCC/ControlDataTypes/OcaLiteBaseDataTypes.h>
-#include <OCALite/OCC/ControlDataTypes/OcaLiteFrameworkDataTypes.h>
+#include <OCC/ControlDataTypes/OcaLiteBaseDataTypes.h>
+#include <OCC/ControlDataTypes/OcaLiteFrameworkDataTypes.h>
 #include <DNSSDResolver.h>
 
 // ---- Include local include files ----

@@ -6,7 +6,7 @@
  */
 
 // ---- Include system wide include files ----
-#include <OCALite/OCC/ControlClasses/Managers/OcaLiteNetworkManager.h>
+#include <OCC/ControlClasses/Managers/OcaLiteNetworkManager.h>
 
 // ---- FileInfo Macro ----
 
