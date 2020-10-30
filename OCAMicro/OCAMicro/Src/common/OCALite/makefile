@@ -22,6 +22,7 @@ SRC_INC = $(OCA_HOME)/Src/common/OCALite/OCC/ControlClasses/Agents \
         $(OCA_HOME)/Src/common/OCALite/OCC/ControlClasses/Workers/Actuators \
         $(OCA_HOME)/Src/common/OCALite/OCC/ControlClasses/Workers/BlocksAndMatrices \
         $(OCA_HOME)/Src/common/OCALite/OCC/ControlClasses/Workers/Sensors \
+        $(OCA_HOME)/Src/common/OCALite/OCC/ControlClasses/Workers/Networking \
         $(OCA_HOME)/Src/common/OCALite/OCC/ControlClasses \
         $(OCA_HOME)/Src/common/OCALite/OCC/ControlDataTypes \
         $(OCA_HOME)/Src/common/OCALite/OCF \
@@ -35,6 +36,7 @@ SRCS  = OcaLiteAgent.cpp \
         OcaLiteMediaClock3.cpp \
         OcaLiteNetwork.cpp \
         OcaLiteStreamConnector.cpp \
+        OcaLiteStreamNetwork.cpp \
         OcaLiteTimeSource.cpp \
         \
         OcaLiteDeviceManager.cpp \
@@ -52,21 +54,39 @@ SRCS  = OcaLiteAgent.cpp \
         \
         OcaLiteActuator.cpp \
         OcaLiteBasicActuator.cpp \
-        OcaLiteBooleanActuator.cpp \
         OcaLiteBitstringActuator.cpp \
+        OcaLiteBooleanActuator.cpp \
+        OcaLiteFloat32Actuator.cpp \
         OcaLiteGain.cpp \
+        OcaLiteIdentificationActuator.cpp \
+        OcaLiteInt32Actuator.cpp \
+        OcaLiteStringActuator.cpp \
         OcaLiteSwitch.cpp \
         \
         OcaLiteBlock.cpp \
         \
+        OcaLiteNetworkSignalChannel.cpp \
+        \
         OcaLiteBasicSensor.cpp \
         OcaLiteBitstringSensor.cpp \
+        OcaLiteBooleanSensor.cpp \
+        OcaLiteFloat32Sensor.cpp \
         OcaLiteInt8Sensor.cpp \
+        OcaLiteInt16Sensor.cpp \
+        OcaLiteInt32Sensor.cpp \
+        OcaLiteInt64Sensor.cpp \
         OcaLiteLevelSensor.cpp \
         OcaLiteSensor.cpp \
+        OcaLiteStringSensor.cpp \
+        OcaLiteTemperatureSensor.cpp \
+        OcaLiteUint8Sensor.cpp \
+        OcaLiteUint16Sensor.cpp \
+        OcaLiteUint32Sensor.cpp \
+        OcaLiteUint64Sensor.cpp \
         \
         OcaLiteRoot.cpp \
         \
+        OcaLiteAES67NetworkAddress.cpp \
         OcaLiteApplicationNetworkDataTypes.cpp \
         OcaLiteBitstring.cpp \
         OcaLiteBlob.cpp \
@@ -75,6 +95,7 @@ SRCS  = OcaLiteAgent.cpp \
         OcaLiteBlockMember.cpp \
         OcaLiteClassID.cpp \
         OcaLiteClassIdentification.cpp \
+        OcaLiteConnectParameters.cpp \
         OcaLiteEvent.cpp \
         OcaLiteEventData.cpp \
         OcaLiteEventID.cpp \
@@ -113,6 +134,7 @@ SRCS  = OcaLiteAgent.cpp \
         OcaLiteStream.cpp \
         OcaLiteStreamConnectorID.cpp \
         OcaLiteStreamID.cpp \
+        OcaLiteStreamParameters.cpp \
         OcaLiteString.cpp \
         OcaLiteStringInABlob.cpp \
         OcaLiteTemplateHelpers.cpp \
@@ -129,6 +151,7 @@ SRCS  = OcaLiteAgent.cpp \
         OcaLiteMessageNotification.cpp \
         OcaLiteMessageResponse.cpp \
         \
+        Ocp1LiteConnectParameters.cpp \
         Ocp1LiteNetwork.cpp \
         Ocp1LiteUdpNetwork.cpp \
         Ocp1LiteNetworkAddress.cpp \

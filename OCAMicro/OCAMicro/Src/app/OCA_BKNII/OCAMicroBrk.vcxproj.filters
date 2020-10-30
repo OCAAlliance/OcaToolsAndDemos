@@ -222,16 +222,7 @@
     <ClCompile Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteNetworkAddress.cpp">
       <Filter>OCALite\OCC\ControlDataTypes</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteNetworkDanteNodeID.cpp">
-      <Filter>OCALite\OCC\ControlDataTypes</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteNetworkDataTypes.cpp">
-      <Filter>OCALite\OCC\ControlDataTypes</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteNetworkSignalChannelDanteID.cpp">
-      <Filter>OCALite\OCC\ControlDataTypes</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteNetworkSignalChannelID.cpp">
       <Filter>OCALite\OCC\ControlDataTypes</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteNetworkStatistics.cpp">
@@ -271,9 +262,6 @@
       <Filter>OCALite\OCP.1</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Src\common\OCALite\OCP.1\Ocp1LiteNetworkAddress.cpp">
-      <Filter>OCALite\OCP.1</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Src\common\OCALite\OCP.1\Ocp1LiteNetworkNodeID.cpp">
       <Filter>OCALite\OCP.1</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Src\common\OCALite\OCP.1\Ocp1LiteNetworkSystemInterfaceID.cpp">
@@ -533,12 +521,6 @@
       <Filter>OCALite\OCC\ControlDataTypes</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteNetworkDataTypes.h">
-      <Filter>OCALite\OCC\ControlDataTypes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteNetworkSignalChannelDanteID.h">
-      <Filter>OCALite\OCC\ControlDataTypes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteNetworkSignalChannelID.h">
       <Filter>OCALite\OCC\ControlDataTypes</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteNetworkStatistics.h">
