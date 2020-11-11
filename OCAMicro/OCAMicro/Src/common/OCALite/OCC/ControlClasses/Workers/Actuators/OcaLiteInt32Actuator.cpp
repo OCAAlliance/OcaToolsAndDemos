@@ -88,7 +88,7 @@ OcaLiteInt32Actuator::OcaLiteInt32Actuator(::OcaONo objectNumber,
                                                                          propertyID,
                                                                          actualSetting,
                                                                          OCAPROPERTYCHANGETYPE_CURRENT_CHANGED);
-                    PropertyChanged(eventData);
+                    PropertyChanged(eventData, propertyID);
                 }
             }
         }

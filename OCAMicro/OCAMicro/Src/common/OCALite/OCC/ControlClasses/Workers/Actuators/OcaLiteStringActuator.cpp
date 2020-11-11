@@ -75,7 +75,7 @@ OcaLiteStringActuator::OcaLiteStringActuator(::OcaONo objectNumber,
                                                                           propertyID,
                                                                           actualSetting,
                                                                           OCAPROPERTYCHANGETYPE_CURRENT_CHANGED);
-                    PropertyChanged(eventData);
+                    PropertyChanged(eventData, propertyID);
                 }
             }
         }
@@ -210,9 +210,6 @@ OcaLiteStringActuator::OcaLiteStringActuator(::OcaONo objectNumber,
     return rc;
 }
 
-
-
-//lint -e{835} A zero has been given as right argument to operator '+'
 ::OcaClassVersionNumber OcaLiteStringActuator::GetClassVersion() const
 {
     return static_cast< ::OcaClassVersionNumber>(static_cast<int>(OcaLiteBasicActuator::GetClassVersion()) + CLASS_VERSION_INCREMENT);

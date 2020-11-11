@@ -9,11 +9,11 @@
 
 // ---- Include system wide include files ----
 #include <PlatformDataTypes.h>
-#include <OCALite/OCC/ControlDataTypes/OcaLiteFrameworkDataTypes.h>
-#include <OCALite/OCC/ControlDataTypes/OcaLiteEventSubscriptionDataTypes.h>
-#include <OCALite/OCC/ControlDataTypes/OcaLiteList.h>
-#include <OCALite/OCC/ControlDataTypes/OcaLiteBlobFixedLen.h>
-#include <OCALite/OCC/ControlClasses/Managers/OcaLiteDeviceManager.h>
+#include <OCC/ControlDataTypes/OcaLiteFrameworkDataTypes.h>
+#include <OCC/ControlDataTypes/OcaLiteEventSubscriptionDataTypes.h>
+#include <OCC/ControlDataTypes/OcaLiteList.h>
+#include <OCC/ControlDataTypes/OcaLiteBlobFixedLen.h>
+#include <OCC/ControlClasses/Managers/OcaLiteDeviceManager.h>
 
 // ---- Include local include files ----
 

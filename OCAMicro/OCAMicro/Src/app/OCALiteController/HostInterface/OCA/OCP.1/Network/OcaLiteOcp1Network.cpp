@@ -28,7 +28,7 @@ bool Ocp1LiteNetworkInitialize()
 {
     if (!m_bInitialized)
     {
-#ifdef WIN32
+#ifdef _WIN32
         int iResult;
         WSADATA wsaData;
         // Initialize Winsock

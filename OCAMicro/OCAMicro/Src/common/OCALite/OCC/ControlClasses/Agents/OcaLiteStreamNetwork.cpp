@@ -388,7 +388,7 @@ void OcaLiteStreamNetwork::Teardown()
                                                                                    propertyID,
                                                                                    m_connectorsSource,
                                                                                    OCAPROPERTYCHANGETYPE_ITEM_ADDED);
-            PropertyChanged(eventData);
+            PropertyChanged(eventData, propertyID);
         }
         else if (sourceOrSink == OCANETWORKMEDIASOURCEORSINK_SINK)
         {
@@ -400,7 +400,7 @@ void OcaLiteStreamNetwork::Teardown()
                                                                                    propertyID,
                                                                                    m_connectorsSink,
                                                                                    OCAPROPERTYCHANGETYPE_ITEM_ADDED);
-            PropertyChanged(eventData);
+            PropertyChanged(eventData, propertyID);
         }
     }
     return bResult;
@@ -422,7 +422,7 @@ void OcaLiteStreamNetwork::Teardown()
                 propertyID,
                 m_connectorsSource,
                 OCAPROPERTYCHANGETYPE_ITEM_ADDED);
-            PropertyChanged(eventData);
+            PropertyChanged(eventData, propertyID);
         }
         else if (sourceOrSink == OCANETWORKMEDIASOURCEORSINK_SINK)
         {
@@ -434,7 +434,7 @@ void OcaLiteStreamNetwork::Teardown()
                 propertyID,
                 m_connectorsSink,
                 OCAPROPERTYCHANGETYPE_ITEM_ADDED);
-            PropertyChanged(eventData);
+            PropertyChanged(eventData, propertyID);
         }
     }
     return bResult;

@@ -5,13 +5,13 @@
  */
 
 // ---- Include system wide include files ----
-#include <OCALite/Proxy/GeneralProxy.h>
-#include <OCALite/OCC/ControlClasses/Workers/BlocksAndMatrices/OcaLiteBlock.h>
-#include <OCALite/OCC/ControlDataTypes/OcaLiteMethod.h>
-#include <OCALite/OCC/ControlDataTypes/OcaLiteManagerDescriptor.h>
-#include <OCALite/OCC/ControlDataTypes/OcaLiteEvent.h>
-#include <OCALite/OCC/ControlDataTypes/OcaLiteBlockMember.h>
-#include <OCALite/OCP.1/Ocp1LiteNetworkAddress.h>
+#include <Proxy/GeneralProxy.h>
+#include <OCC/ControlClasses/Workers/BlocksAndMatrices/OcaLiteBlock.h>
+#include <OCC/ControlDataTypes/OcaLiteMethod.h>
+#include <OCC/ControlDataTypes/OcaLiteManagerDescriptor.h>
+#include <OCC/ControlDataTypes/OcaLiteEvent.h>
+#include <OCC/ControlDataTypes/OcaLiteBlockMember.h>
+#include <OCP.1/Ocp1LiteNetworkAddress.h>
 
 // ---- FileInfo Macro ----
 

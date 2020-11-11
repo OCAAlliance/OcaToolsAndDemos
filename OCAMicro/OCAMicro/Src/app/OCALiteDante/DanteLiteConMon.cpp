@@ -5,7 +5,7 @@
 // DanteLiteConMon.cpp : Dante Connection Manager for local and remote subscriptions
 //
 
-#ifdef WIN32
+#ifdef _WIN32
 #define SNPRINTF _snprintf
 #define STRCASECMP _stricmp
 #else
@@ -1002,7 +1002,7 @@ int DanteCMProcess(conmon_info * cm)
         FD_ZERO (& fdr);
         FD_SET (fd, & fdr);
 
-#ifdef WIN32
+#ifdef _WIN32
         nfds = 1;
         count = select (nfds, & fdr, NULL, NULL, &timeout);
 #else

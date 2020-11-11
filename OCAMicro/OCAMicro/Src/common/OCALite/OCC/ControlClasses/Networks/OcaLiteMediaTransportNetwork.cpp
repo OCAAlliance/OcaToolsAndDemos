@@ -1664,7 +1664,7 @@ void OcaLiteMediaTransportNetwork::PortsChanged(::OcaLitePropertyChangeType chan
                                                                                      propertyID,
                                                                                      ports,
                                                                                      changeType);
-        PropertyChanged(eventData);
+        PropertyChanged(eventData, propertyID);
     }
 }
 

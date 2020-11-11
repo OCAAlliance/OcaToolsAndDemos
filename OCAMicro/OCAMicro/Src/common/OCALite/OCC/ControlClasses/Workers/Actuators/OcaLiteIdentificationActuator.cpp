@@ -78,7 +78,7 @@ OcaLiteIdentificationActuator::OcaLiteIdentificationActuator(::OcaONo objectNumb
                                                                        propertyID,
                                                                        actualActive,
                                                                        OCAPROPERTYCHANGETYPE_CURRENT_CHANGED);
-                PropertyChanged(eventData);
+                PropertyChanged(eventData, propertyID);
             }
         }
     }

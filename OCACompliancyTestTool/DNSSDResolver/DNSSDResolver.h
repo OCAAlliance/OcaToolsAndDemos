@@ -10,7 +10,7 @@
 // ---- Include system wide include files ----
 #include <PlatformDataTypes.h>
 #define _WINSOCKAPI_
-#include <../platform/common/OcaLite/BonjourSDK/dns_sd.h>
+#include <../platform/common/BonjourSDK/dns_sd.h>
 
 // ---- Include local include files ----
 #include "ResolveResult.h"

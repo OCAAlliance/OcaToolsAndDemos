@@ -158,6 +158,82 @@ void OcaLiteSubscriptionManager::FreeInstance()
     return rc;
 }
 
+::OcaLiteStatus OcaLiteSubscriptionManager::AddPropertyChangeSubscription(::OcaSessionID sessionID,
+                                                                          ::OcaONo emitter,
+                                                                          const ::OcaLitePropertyID& property,
+                                                                          const ::OcaLiteMethod& subscriber,
+                                                                          const ::OcaLiteBlob& context,
+                                                                          ::OcaLiteNotificationDeliveryMode deliveryMode,
+                                                                          const ::OcaLiteNetworkAddress& destInfo) 
+{
+    ::OcaLiteStatus rc(OCASTATUS_OK);
+
+    ::OcaLiteEvent ocaEvent(emitter, ::OcaLiteEventID(static_cast< ::OcaUint16>(1)/*OcaRoot is always level 1*/, 
+                                                      static_cast< ::OcaUint16>(::OcaLiteRoot::OCA_EVENT_PROPERTY_CHANGED)));
+    OcaEventHandlerMap::iterator em_iter(m_eventHandlers.find(ocaEvent));
+    if (em_iter == m_eventHandlers.end())
+    {
+        OcaEventController* pEventController(new OcaEventController(*this));
+        rc = pEventController->AddPropertyChangeSubscription(sessionID, emitter, property, subscriber, context, deliveryMode, destInfo);
+        if (OCASTATUS_OK == rc)
+        {
+            m_eventHandlers[ocaEvent] = pEventController;
+        }
+        else
+        {
+            delete pEventController;
+        }
+    }
+    else
+    {
+        rc = em_iter->second->AddPropertyChangeSubscription(sessionID, emitter, property, subscriber, context, deliveryMode, destInfo);
+    }
+
+    return rc;
+}
+
+::OcaLiteStatus OcaLiteSubscriptionManager::RemovePropertyChangeSubscription(::OcaSessionID sessionID,
+                                                                             ::OcaONo emitter,
+                                                                             const ::OcaLitePropertyID& property,
+                                                                             const ::OcaLiteMethod& subscriber)
+{
+    ::OcaLiteStatus rc(OCASTATUS_OK);
+
+    ::OcaLiteEvent ocaEvent(emitter, ::OcaLiteEventID(static_cast< ::OcaUint16>(1)/*OcaRoot is always level 1*/, 
+                                                      static_cast< ::OcaUint16>(::OcaLiteRoot::OCA_EVENT_PROPERTY_CHANGED)));
+
+    OcaEventHandlerMap::iterator em_iter(m_eventHandlers.find(ocaEvent));
+    if (em_iter != m_eventHandlers.end())
+    {
+        OcaEventController* pEventController(em_iter->second);
+        assert(NULL != pEventController);
+
+        rc = pEventController->RemovePropertyChangeSubscription(sessionID, emitter, property, subscriber);
+
+        if (OCASTATUS_OK == rc)
+        {
+            em_iter = m_eventHandlers.find(ocaEvent);
+            if (em_iter != m_eventHandlers.end())
+            {
+                pEventController = em_iter->second;
+                assert(NULL != pEventController);
+                if (pEventController->CanBeDeleted())
+                {
+                    static_cast<void>(m_eventHandlers.erase(em_iter));
+
+                    delete pEventController;
+                }
+            }
+        }
+    }
+    else
+    {
+        rc = OCASTATUS_PARAMETER_ERROR;
+    }
+
+    return rc;
+}
+
 ::OcaLiteStatus OcaLiteSubscriptionManager::Execute(const ::IOcaLiteReader& reader, const ::IOcaLiteWriter& writer, ::OcaSessionID sessionID, const ::OcaLiteMethodID& methodID,
                                                     ::OcaUint32 parametersSize, const ::OcaUint8* parameters, ::OcaUint8** response)
 {
@@ -267,10 +343,78 @@ void OcaLiteSubscriptionManager::FreeInstance()
                     }
                 }
                 break;
+            case ADD_PROPERTY_CHANGE_SUBSCRIPTION:
+                {
+                    ::OcaONo emitter;
+                    ::OcaLitePropertyID property;
+                    ::OcaLiteMethod subscriber;
+                    ::OcaLiteBlob context;
+                    ::OcaLiteNotificationDeliveryMode deliveryMode; 
+                    ::OcaLiteNetworkAddress destInfo;
+                    ::OcaUint8 numberOfParameters(0);
+                    if (reader.Read(bytesLeft, &pCmdParameters, numberOfParameters) &&
+                        (6 == numberOfParameters) &&
+                        (UnmarshalValue< ::OcaONo>(emitter, bytesLeft, &pCmdParameters, reader)) &&
+                        (property.Unmarshal(bytesLeft, &pCmdParameters, reader)) &&
+                        (subscriber.Unmarshal(bytesLeft, &pCmdParameters, reader)) &&
+                        (context.Unmarshal(bytesLeft, &pCmdParameters, reader)) &&
+                        (::UnmarshalValue< ::OcaLiteNotificationDeliveryMode>(deliveryMode, bytesLeft, &pCmdParameters, reader)) &&
+                        (destInfo.Unmarshal(bytesLeft, &pCmdParameters, reader)))
+                    {
+                        rc = AddPropertyChangeSubscription(sessionID, emitter, property, subscriber, context, deliveryMode, destInfo);
+                        if (OCASTATUS_OK == rc)
+                        {
+                            ::OcaUint32 responseSize(::GetSizeValue< ::OcaUint8>(static_cast< ::OcaUint8>(0), writer));
+                            responseBuffer = ::OcaLiteCommandHandler::GetInstance().GetResponseBuffer(responseSize);
+                            if (NULL != responseBuffer)
+                            {
+                                ::OcaUint8* pResponse(responseBuffer);
+                                writer.Write(static_cast< ::OcaUint8>(0/*NrParameters*/), &pResponse);
+
+                                *response = responseBuffer;
+                            }
+                            else
+                            {
+                                rc = OCASTATUS_BUFFER_OVERFLOW;
+                            }
+                        }
+                    }
+                }
+                break;
+            case REMOVE_PROPERTY_CHANGE_SUBSCRIPTION:
+                {
+                    ::OcaONo emitter;
+                    ::OcaLitePropertyID property;
+                    ::OcaLiteMethod subscriber;
+                    ::OcaUint8 numberOfParameters(0);
+                    if (reader.Read(bytesLeft, &pCmdParameters, numberOfParameters) &&
+                        (3 == numberOfParameters) &&
+                        (UnmarshalValue< ::OcaONo>(emitter, bytesLeft, &pCmdParameters, reader)) &&
+                        (property.Unmarshal(bytesLeft, &pCmdParameters, reader)) &&
+                        (subscriber.Unmarshal(bytesLeft, &pCmdParameters, reader)))
+                    {
+                        rc = RemovePropertyChangeSubscription(sessionID, emitter, property, subscriber);
+                        if (OCASTATUS_OK == rc)
+                        {
+                            ::OcaUint32 responseSize(::GetSizeValue< ::OcaUint8>(static_cast< ::OcaUint8>(0), writer));
+                            responseBuffer = ::OcaLiteCommandHandler::GetInstance().GetResponseBuffer(responseSize);
+                            if (NULL != responseBuffer)
+                            {
+                                ::OcaUint8* pResponse(responseBuffer);
+                                writer.Write(static_cast< ::OcaUint8>(0/*NrParameters*/), &pResponse);
+
+                                *response = responseBuffer;
+                            }
+                            else
+                            {
+                                rc = OCASTATUS_BUFFER_OVERFLOW;
+                            }
+                        }
+                    }
+                }
+                break;
             case DISABLE_NOTIFICATIONS:
             case RE_ENABLE_NOTIFICATIONS:
-            case ADD_PROPERTY_CHANGE_SUBSCRIPTION:
-            case REMOVE_PROPERTY_CHANGE_SUBSCRIPTION:
                 rc = OCASTATUS_NOT_IMPLEMENTED;
                 break;
             default:
@@ -455,7 +599,8 @@ OcaLiteSubscriptionManager::OcaEventController::~OcaEventController()
                (OCASTATUS_OK == rc))
         {
             if ((ed_iter->GetSubscriber() == subscriber) &&
-                (ed_iter->GetSessionID() == sessionID))
+                (ed_iter->GetSessionID() == sessionID) &&
+                (ed_iter->GetPropertyIDFilter() == ::OcaLitePropertyID()))
             {
                 rc = OCASTATUS_INVALID_REQUEST;
             }
@@ -481,8 +626,90 @@ OcaLiteStatus OcaLiteSubscriptionManager::OcaEventController::RemoveSubscription
     OcaEventDestinationList::iterator ed_iter(m_eventDestinations.begin());
     while (ed_iter != m_eventDestinations.end())
     {
-        if ((ed_iter->GetSubscriber()   == subscriber) &&
-            (ed_iter->GetSessionID()    == sessionID))
+        if ((ed_iter->GetSubscriber() == subscriber) &&
+            (ed_iter->GetSessionID() == sessionID) &&
+            (ed_iter->GetPropertyIDFilter() == ::OcaLitePropertyID()))
+        {
+            static_cast<void>(m_eventDestinations.erase(ed_iter));
+            break;
+        }
+        else
+        {
+            ++ed_iter;
+        }
+    }
+    return RemoveEventSubscription();
+}
+
+::OcaLiteStatus OcaLiteSubscriptionManager::OcaEventController::AddPropertyChangeSubscription(::OcaSessionID sessionID,
+                                                                                              ::OcaONo emitter,
+                                                                                              const ::OcaLitePropertyID& property,
+                                                                                              const ::OcaLiteMethod& subscriber,
+                                                                                              const ::OcaLiteBlob& context,
+                                                                                              ::OcaLiteNotificationDeliveryMode deliveryMode,
+                                                                                              const ::OcaLiteNetworkAddress& destInfo)
+{
+    ::OcaLiteStatus rc(OCASTATUS_OK);
+
+    if (m_eventDestinations.empty())
+    {
+        m_event = ::OcaLiteEvent(emitter, ::OcaLiteEventID(static_cast< ::OcaUint16>(1)/*OcaRoot is always level 1*/, 
+                                                           static_cast< ::OcaUint16>(::OcaLiteRoot::OCA_EVENT_PROPERTY_CHANGED)));
+;
+
+        ::OcaLiteRoot* pObject(GetOcaRootObject(m_event.GetEmitterONo()));
+
+        if (NULL != pObject)
+        {
+            if (!pObject->AddEventSubscription(m_event.GetEventID(), *this))
+            {
+                rc = OCASTATUS_PROCESSING_FAILED;
+            }
+        }
+        else
+        {
+            rc = OCASTATUS_BAD_ONO;
+        }
+    }
+    else
+    {
+        // Check for duplicates
+        OcaEventDestinationList::iterator ed_iter(m_eventDestinations.begin());
+        while ((ed_iter != m_eventDestinations.end()) &&
+               (OCASTATUS_OK == rc))
+        {
+            if ((ed_iter->GetSubscriber() == subscriber) &&
+                (ed_iter->GetSessionID() == sessionID) &&
+                (ed_iter->GetPropertyIDFilter() == property))
+            {
+                rc = OCASTATUS_INVALID_REQUEST;
+            }
+            else
+            {
+                ++ed_iter;
+            }
+        }
+    }
+
+    if (OCASTATUS_OK == rc)
+    {
+        OcaEventDestination eventDestination(subscriber, sessionID, deliveryMode, destInfo, property);
+        m_eventDestinations.push_back(eventDestination);
+    }
+    return rc;
+}
+
+OcaLiteStatus OcaLiteSubscriptionManager::OcaEventController::RemovePropertyChangeSubscription(::OcaSessionID sessionID,
+                                                                                               ::OcaONo emitter,
+                                                                                               const ::OcaLitePropertyID& property,
+                                                                                               const ::OcaLiteMethod& subscriber)
+{
+    OcaEventDestinationList::iterator ed_iter(m_eventDestinations.begin());
+    while (ed_iter != m_eventDestinations.end())
+    {
+        if ((ed_iter->GetSubscriber() == subscriber) &&
+            (ed_iter->GetSessionID() == sessionID) &&
+            (ed_iter->GetPropertyIDFilter() == property))
         {
             static_cast<void>(m_eventDestinations.erase(ed_iter));
             break;
@@ -501,11 +728,12 @@ void OcaLiteSubscriptionManager::OcaEventController::OnEvent(const ::OcaLiteEven
     while (ed_iter != m_eventDestinations.end())
     {
         ::OcaSessionID sessionID(ed_iter->GetSessionID());
+        
             
         ::OcaLiteNotificationData OcaLiteNotificationData(ed_iter->GetSubscriber().GetONo(),
-                                                          ed_iter->GetSubscriber().GetMethodID(),
-                                                          ::OcaLiteBlob(), // Always provide an empty context since we don't support context
-                                                          &eventData);
+                                                        ed_iter->GetSubscriber().GetMethodID(),
+                                                        ::OcaLiteBlob(), // Always provide an empty context since we don't support context
+                                                        &eventData);
 
         // Send the notification directly
         if (::OcaLiteCommandHandler::GetInstance().SendNotification(ed_iter->GetDeliveryMode(),
@@ -522,6 +750,48 @@ void OcaLiteSubscriptionManager::OcaEventController::OnEvent(const ::OcaLiteEven
             // Sending failed, remove subscription.
             ed_iter = m_eventDestinations.erase(ed_iter);
         }
+    }
+
+    static_cast<void>(RemoveEventSubscription());
+}
+
+void OcaLiteSubscriptionManager::OcaEventController::OnEvent(const ::OcaLiteEventData& eventData, const ::OcaLitePropertyID& propertyID)
+{
+    OcaEventDestinationList::iterator ed_iter(m_eventDestinations.begin());
+    while (ed_iter != m_eventDestinations.end())
+    {
+        if ((ed_iter->GetPropertyIDFilter() == ::OcaLitePropertyID()) || // No filter
+            (ed_iter->GetPropertyIDFilter() == propertyID)) // Current property
+        {
+            ::OcaSessionID sessionID(ed_iter->GetSessionID());
+            
+                
+            ::OcaLiteNotificationData OcaLiteNotificationData(ed_iter->GetSubscriber().GetONo(),
+                                                            ed_iter->GetSubscriber().GetMethodID(),
+                                                            ::OcaLiteBlob(), // Always provide an empty context since we don't support context
+                                                            &eventData);
+
+            // Send the notification directly
+            if (::OcaLiteCommandHandler::GetInstance().SendNotification(ed_iter->GetDeliveryMode(),
+                                                                        sessionID,
+                                                                        OcaLiteNotificationData,
+                                                                        ed_iter->GetDestinationInfo()))
+            {
+                ++ed_iter;
+            }
+            else
+            {
+                OCA_LOG_WARNING("SendNotification failed.");
+
+                // Sending failed, remove subscription.
+                ed_iter = m_eventDestinations.erase(ed_iter);
+            }
+        }
+        else
+        {
+            ++ed_iter;
+        }
+        
     }
 
     static_cast<void>(RemoveEventSubscription());

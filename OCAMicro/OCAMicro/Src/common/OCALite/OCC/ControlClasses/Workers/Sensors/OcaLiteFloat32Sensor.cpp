@@ -152,5 +152,5 @@ void OcaLiteFloat32Sensor::ReadingChanged(::OcaFloat32 reading)
                                                         propertyID,
                                                         reading,
                                                         OCAPROPERTYCHANGETYPE_CURRENT_CHANGED);
-    PropertyChanged(eventData);
+    PropertyChanged(eventData, propertyID);
 }

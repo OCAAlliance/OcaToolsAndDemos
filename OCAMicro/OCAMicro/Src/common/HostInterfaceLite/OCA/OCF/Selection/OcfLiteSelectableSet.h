@@ -17,8 +17,15 @@
 // ---- Referenced classes and types ----
 
 // ---- Helper types and constants ----
+// ---- Class Definition ----
 
-#ifndef _WIN32
+#ifdef _WIN32
+#include <WinSock2.h>
+#define OcfLiteSelectableSet fd_set
+#elif __APPLE__
+#include <sys/select.h>
+#define OcfLiteSelectableSet fd_set
+#else
 // Forwarding to LwIP select, copy in the definition since including the header files seems to get lots of compiler errors
 /* FD_SET used for lwip_select */
 #ifndef FD_SET
@@ -38,11 +45,7 @@
 
 // ---- Helper functions ----
 #define OcfLiteSelectableSet fd_set
-
-// ---- Class Definition ----
-#else
-#include <WinSock2.h>
-#define OcfLiteSelectableSet fd_set
 #endif
+
 
 #endif

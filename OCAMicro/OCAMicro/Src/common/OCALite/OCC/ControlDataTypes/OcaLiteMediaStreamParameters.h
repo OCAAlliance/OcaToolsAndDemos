@@ -11,9 +11,9 @@
 // ---- Include system wide include files ----
 
 // ---- Include local include files ----
-#include <OCALite/OCC/ControlDataTypes/IOcaLiteMarshal.h>
-#include <OCALite/OCC/ControlDataTypes/OcaLiteBlob.h>
-#include <OCALite/OCC/ControlDataTypes/OcaLiteString.h>
+#include <OCC/ControlDataTypes/IOcaLiteMarshal.h>
+#include <OCC/ControlDataTypes/OcaLiteBlob.h>
+#include <OCC/ControlDataTypes/OcaLiteString.h>
 
 // ---- Referenced classes and types ----
 

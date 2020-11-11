@@ -491,7 +491,7 @@ void mdnsd_task(void * pvParameters) {
             if (recvsize < 0) {
                 log_message(LOG_ERR, "recv(): %m");
             }
-
+    
             DEBUG_PRINTF("data from=%s size=%ld\n", inet_ntoa(fromaddr.sin_addr), (long) recvsize);
             struct mdns_pkt *mdns = mdns_parse_pkt(pkt_buffer, recvsize);
             if (mdns != NULL) {

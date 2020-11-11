@@ -22,7 +22,6 @@
 #endif
 #include <OCP.1/Ocp1LiteNetworkSystemInterfaceID.h>
 #include <StandardLib/StandardLib.h>
-
 #ifdef OCA_RUN
 extern void Ocp1LiteServiceRun();
 #else
@@ -37,7 +36,7 @@ int main(int argc, const char* argv[])
     {
         static_cast<void>(sscanf(argv[1], "%u", &connectionPort));
     }
-    printf("Using connection port %d", connectionPort);
+    printf("Using connection port %d\r\n", connectionPort);
 
     // Initialize the host interfaces
     bool bSuccess = ::OcfLiteHostInterfaceInitialize();
@@ -77,6 +76,7 @@ int main(int argc, const char* argv[])
                     ::OcaLiteDeviceManager::GetInstance().SetErrorAndOperationalState(static_cast< ::OcaBoolean>(!bSuccess), ::OcaLiteDeviceManager::OCA_OPSTATE_OPERATIONAL);
                     ::OcaLiteDeviceManager::GetInstance().SetEnabled(static_cast< ::OcaBoolean>(bSuccess));
 
+                    OCA_LOG_ERROR("Starting run loop..");
                     while (bSuccess)
                     {
 #ifdef OCA_RUN

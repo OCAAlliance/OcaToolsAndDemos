@@ -76,7 +76,7 @@ OcaLiteWorker::~OcaLiteWorker()
                                                                        propertyID,
                                                                        actualEnabled,
                                                                        OCAPROPERTYCHANGETYPE_CURRENT_CHANGED);
-                PropertyChanged(eventData);
+                PropertyChanged(eventData, propertyID);
             }
             else
             {

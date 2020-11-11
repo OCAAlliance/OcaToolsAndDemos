@@ -46,8 +46,15 @@ void OcfLiteLogLogMessage(UINT8 logLevel, const char* type, const char* file, UI
         UINT32 messageLength(static_cast<UINT32>(::vsnprintf(NULL, 0, message, argList) + 1));
         if (messageLength <= MAX_FULL_MESSAGE_LENGTH)
         {
+            // For Apple this seems required to reset the argList after above vsnprintf function
+            va_start(argList, message);
+
+#ifdef _WIN32
             INT32 result(::vsprintf_s(m_fullLogMessage, message, argList));
-            bool bAddCarrageReturn = false;  
+#else
+            INT32 result(::vsprintf(m_fullLogMessage, message, argList));
+#endif
+            bool bAddCarrageReturn = false;
 
             if (static_cast<UINT32>(result) <= messageLength)
             {
@@ -72,11 +79,11 @@ void OcfLiteLogLogMessage(UINT8 logLevel, const char* type, const char* file, UI
 
                 if (m_fullLogMessage[0] == '.')
                 {
-                    printf("%s%s", &m_fullLogMessage[1], bAddCarrageReturn? "\r\n": "");
+                    printf("%s%s", &m_fullLogMessage[1], bAddCarrageReturn ? "\r\n" : "");
                 }
                 else
                 {
-                    printf("%*s%s%s", m_indent, "", m_fullLogMessage, bAddCarrageReturn? "\r\n": "");
+                    printf("%*s%s%s", m_indent, "", m_fullLogMessage, bAddCarrageReturn ? "\r\n" : "");
                 }
 
                 // Increase message indent
@@ -85,6 +92,14 @@ void OcfLiteLogLogMessage(UINT8 logLevel, const char* type, const char* file, UI
                     m_indent += 2;
                 }
             }
+            else 
+            {
+                printf("Buffer overflow in processing log message\r\n");
+            }
+        }
+        else 
+        {
+            printf("Buffer overflow in log message\r\n");
         }
         va_end(argList);
     }

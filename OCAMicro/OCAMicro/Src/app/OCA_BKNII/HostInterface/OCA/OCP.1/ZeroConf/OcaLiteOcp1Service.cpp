@@ -62,7 +62,7 @@ bool Ocp1LiteServiceRegister(const std::string& name, const std::string& registr
                     txtRecord[currentPos] = static_cast<UINT8>(txtRecordIter->length());
                     currentPos++;
                     ::memcpy(&txtRecord[currentPos], txtRecordIter->c_str(), txtRecordIter->length());
-					currentPos += static_cast<UINT8>(txtRecordIter->length());
+                    currentPos += static_cast<UINT8>(txtRecordIter->length());
                     ++txtRecordIter;
                 }
             }
@@ -78,7 +78,7 @@ bool Ocp1LiteServiceRegister(const std::string& name, const std::string& registr
             error = ::DNSServiceRegister(&m_dnsService, 0, 0, name.c_str(),
                 registrationType.c_str(), domain.c_str(), NULL, ConvertFromHostByteOrderToNetworkOrder(port), static_cast<UINT16>(recordLength),
                 txtRecord, NULL, NULL);
-				OCA_LOG_ERROR_PARAMS("DNSServiceRegister result = %d", error);
+            OCA_LOG_TRACE_PARAMS("DNSServiceRegister result = %d", error);
         }
     }
     return (kDNSServiceErr_NoError == error) ? true : false;
@@ -120,8 +120,7 @@ void Ocp1LiteServiceRun()
         int dnsServiceSocket(static_cast<int>(::DNSServiceRefSockFD(m_dnsService)));
 
         FD_ZERO(&readFds);
-        FD_SET(dnsServiceSocket, &readFds); //lint !e505 Redundant left argument to comma
-
+        FD_SET(dnsServiceSocket, &readFds); 
 
         int result = ::select(0, &readFds, NULL, NULL, &tv);
         if (1 == result)

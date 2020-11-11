@@ -13,6 +13,8 @@
 #include <HostInterfaceLite/OCA/OCF/Configuration/IOcfLiteConfigure.h>
 #ifdef _WIN32
 #include <Winsock2.h>
+#elif __APPLE__
+#include <unistd.h>
 #endif
 // ---- FileInfo Macro ----
 

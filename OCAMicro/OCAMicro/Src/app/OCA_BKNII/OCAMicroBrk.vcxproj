@@ -139,11 +139,7 @@
     <ClCompile Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteModelDescription.cpp" />
     <ClCompile Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteModelGUID.cpp" />
     <ClCompile Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteNetworkAddress.cpp" />
-    <ClCompile Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteNetworkDanteNodeID.cpp" />
     <ClCompile Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteNetworkDataTypes.cpp" />
-    <ClCompile Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteNetworkNodeID.cpp" />
-    <ClCompile Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteNetworkSignalChannelDanteID.cpp" />
-    <ClCompile Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteNetworkSignalChannelID.cpp" />
     <ClCompile Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteNetworkStatistics.cpp" />
     <ClCompile Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteNetworkSystemInterfaceID.cpp" />
     <ClCompile Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteObjectIdentification.cpp" />
@@ -157,7 +153,6 @@
     <ClCompile Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteWorkerDataTypes.cpp" />
     <ClCompile Include="..\..\..\Src\common\OCALite\OCP.1\Ocp1LiteNetwork.cpp" />
     <ClCompile Include="..\..\..\Src\common\OCALite\OCP.1\Ocp1LiteNetworkAddress.cpp" />
-    <ClCompile Include="..\..\..\Src\common\OCALite\OCP.1\Ocp1LiteNetworkNodeID.cpp" />
     <ClCompile Include="..\..\..\Src\common\OCALite\OCP.1\Ocp1LiteNetworkSystemInterfaceID.cpp" />
     <ClCompile Include="..\..\..\Src\common\OCALite\OCP.1\Ocp1LiteReader.cpp" />
     <ClCompile Include="..\..\..\Src\common\OCALite\OCP.1\Ocp1LiteSocketConnection.cpp" />
@@ -249,9 +244,6 @@
     <ClInclude Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteNetworkAddress.h" />
     <ClInclude Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteNetworkDanteNodeID.h" />
     <ClInclude Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteNetworkDataTypes.h" />
-    <ClInclude Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteNetworkNodeID.h" />
-    <ClInclude Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteNetworkSignalChannelDanteID.h" />
-    <ClInclude Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteNetworkSignalChannelID.h" />
     <ClInclude Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteNetworkStatistics.h" />
     <ClInclude Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteNetworkSystemInterfaceID.h" />
     <ClInclude Include="..\..\..\Src\common\OCALite\OCC\ControlDataTypes\OcaLiteObjectIdentification.h" />

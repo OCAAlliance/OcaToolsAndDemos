@@ -308,7 +308,7 @@ OcaLiteNetworkSignalChannel::~OcaLiteNetworkSignalChannel()
                                                                                                                  propertyID,
                                                                                                                  m_connectorPins,
                                                                                                                  OCAPROPERTYCHANGETYPE_ITEM_ADDED);
-        PropertyChanged(eventData);
+        PropertyChanged(eventData, propertyID);
     }
     else
     {
@@ -335,7 +335,7 @@ OcaLiteNetworkSignalChannel::~OcaLiteNetworkSignalChannel()
                                                                                                                  propertyID,
                                                                                                                  m_connectorPins,
                                                                                                                  OCAPROPERTYCHANGETYPE_ITEM_DELETED);
-        PropertyChanged(eventData);
+        PropertyChanged(eventData, propertyID);
     }
     else
     {
@@ -375,7 +375,7 @@ void OcaLiteNetworkSignalChannel::StatusChanged(::OcaLiteNetworkSignalChannelSta
                                                                                       propertyID,
                                                                                       status,
                                                                                       OCAPROPERTYCHANGETYPE_CURRENT_CHANGED);
-    PropertyChanged(eventData);
+    PropertyChanged(eventData, propertyID);
 }
 
 void OcaLiteNetworkSignalChannel::RemoteChannelIDChanged(const ::OcaLiteNetworkSignalChannelID& remoteChannelID)
@@ -387,7 +387,7 @@ void OcaLiteNetworkSignalChannel::RemoteChannelIDChanged(const ::OcaLiteNetworkS
                                                                                   propertyID,
                                                                                   remoteChannelID,
                                                                                   OCAPROPERTYCHANGETYPE_CURRENT_CHANGED);
-    PropertyChanged(eventData);
+    PropertyChanged(eventData, propertyID);
 }
 
 

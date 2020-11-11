@@ -4,9 +4,11 @@
 #  Description        :   Makefile for Src
 #
 
-TARGETS = stm32
+TARGETS = stm32 macos
 
 include $(OCA_HOME)/Src/makeMulti.inc
 
 phony:
+	@$(MAKE) -C common $(TARGET)
+	@$(MAKE) -C platform $(TARGET)
 	@$(MAKE) -C app $(TARGET)

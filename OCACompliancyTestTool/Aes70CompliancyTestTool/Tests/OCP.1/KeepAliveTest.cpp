@@ -5,7 +5,7 @@
  */
 
 // ---- Include system wide include files ----
-#include <OCALite/OCP.1/Ocp1LiteConnectParameters.h>
+#include <OCP.1/Ocp1LiteConnectParameters.h>
 #include <HostInterfaceLite/OCA/OCF/Timer/IOcfLiteTimer.h>
 
 // ---- FileInfo Macro ----

@@ -109,12 +109,12 @@ OcaLiteTimeSource::~OcaLiteTimeSource()
         rc = SetReferenceIDValue(id);
         if (OCASTATUS_OK == rc)
         {
-            ::OcaLitePropertyID propertyId(CLASS_ID.GetFieldCount(), static_cast< ::OcaUint16>(OCA_PROP_REFERENCE_ID));
+            ::OcaLitePropertyID propertyID(CLASS_ID.GetFieldCount(), static_cast< ::OcaUint16>(OCA_PROP_REFERENCE_ID));
             ::OcaLitePropertyChangedEventData< ::OcaLiteString> eventData(GetObjectNumber(),
-                                                                          propertyId,
+                                                                          propertyID,
                                                                           id,
                                                                           OCAPROPERTYCHANGETYPE_CURRENT_CHANGED);
-            PropertyChanged(eventData);
+            PropertyChanged(eventData, propertyID);
         }
     }
 
@@ -482,7 +482,6 @@ const ::OcaLiteClassID& OcaLiteTimeSource::GetClassID() const
     return CLASS_ID;
 }
 
-//lint -e{835} A zero has been given as right argument to operator '+'
 ::OcaClassVersionNumber OcaLiteTimeSource::GetClassVersion() const
 {
     return static_cast< ::OcaClassVersionNumber>(static_cast<int>(OcaLiteAgent::GetClassVersion()) + CLASS_VERSION_INCREMENT);
@@ -500,12 +499,12 @@ void OcaLiteTimeSource::SetSyncStatusValue(::OcaLiteTimeSourceSyncStatus syncSta
     {
         m_syncStatus = syncStatus;
 
-        ::OcaLitePropertyID propertyId(CLASS_ID.GetFieldCount(), static_cast< ::OcaUint16>(OCA_PROP_SYNC_STATUS));
+        ::OcaLitePropertyID propertyID(CLASS_ID.GetFieldCount(), static_cast< ::OcaUint16>(OCA_PROP_SYNC_STATUS));
         ::OcaLitePropertyChangedEventData< ::OcaLiteTimeSourceSyncStatus> eventData(GetObjectNumber(),
-                                                                                    propertyId,
+                                                                                    propertyID,
                                                                                     m_syncStatus,
                                                                                     OCAPROPERTYCHANGETYPE_CURRENT_CHANGED);
-        PropertyChanged(eventData);
+        PropertyChanged(eventData, propertyID);
     }
 }
 

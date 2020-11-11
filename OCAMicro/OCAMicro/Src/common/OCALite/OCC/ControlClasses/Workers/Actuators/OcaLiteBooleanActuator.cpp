@@ -70,7 +70,7 @@ OcaLiteBooleanActuator::OcaLiteBooleanActuator(::OcaONo objectNumber,
                                                                        propertyID,
                                                                        actualSetting,
                                                                        OCAPROPERTYCHANGETYPE_CURRENT_CHANGED);
-                PropertyChanged(eventData);
+                PropertyChanged(eventData, propertyID);
             }
         }
     }

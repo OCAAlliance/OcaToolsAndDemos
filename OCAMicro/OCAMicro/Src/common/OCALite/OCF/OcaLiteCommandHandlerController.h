@@ -9,7 +9,7 @@
 #define OCALITECOMMANDHANDLERCONTROLLER_H
 
 // ---- Include system wide include files ----
-#include <OcaLite/OCC/ControlDataTypes/OcaLiteBaseDataTypes.h>
+#include <OCC/ControlDataTypes/OcaLiteBaseDataTypes.h>
 
 // ---- Include local include files ----
 #include "OcaLiteCommandHandler.h"
@@ -103,10 +103,10 @@ public:
 protected:
 
     /** Constructor */
-    ::OcaLiteCommandHandlerController();
+    OcaLiteCommandHandlerController();
 
     /** Destructor */
-    ~OcaLiteCommandHandlerController();
+    virtual ~OcaLiteCommandHandlerController();
 
     virtual void HandleResponse(const ::OcaLiteMessageResponse& response);
 

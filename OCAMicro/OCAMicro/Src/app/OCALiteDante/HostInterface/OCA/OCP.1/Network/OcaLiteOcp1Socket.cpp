@@ -143,7 +143,7 @@ bool Ocp1LiteSocketAccept(INT32 socket, INT32& newsocket)
 {
     int result;
     int optionOn(1);
-#ifdef WIN32
+#ifdef _WIN32
     SOCKADDR_INET newSocketAddress;
 
     PSOCKADDR pNewSocketAddress(PSOCKADDR(&newSocketAddress.Ipv4));
@@ -205,7 +205,7 @@ bool Ocp1LiteSocketReject(INT32 socket)
 
     if ((newSocket > SOCKET_ERROR) && (sinLen == sizeof(struct sockaddr_in)))
     {
-#ifdef WIN32
+#ifdef _WIN32
         return (closesocket(newSocket) == 0);
 #else
         return (close(newSocket) == 0);

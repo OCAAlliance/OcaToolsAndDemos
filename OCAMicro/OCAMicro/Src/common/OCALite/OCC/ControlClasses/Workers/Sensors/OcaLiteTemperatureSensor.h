@@ -9,6 +9,7 @@
 #define OCALITETEMPERATURESENSOR_H
 
 // ---- Include system wide include files ----
+#include <OCC/ControlDataTypes/OcaLiteWorkerDataTypes.h>
 
 // ---- Include local include files ----
 #include "OcaLiteSensor.h"

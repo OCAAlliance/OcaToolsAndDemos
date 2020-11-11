@@ -6,11 +6,11 @@
 
 // ---- Include system wide include files ----
 #include <DNSSDResolver.h>
-#include <OCALite/OCC/ControlClasses/Workers/BlocksAndMatrices/OcaLiteBlock.h>
-#include <OCALite/OCC/ControlDataTypes/OcaLiteBlockMember.h>
-#include <OCALite/OCC/ControlDataTypes/OcaLiteManagerDescriptor.h>
-#include <OCALite/OCP.1/Ocp1LiteConnectParameters.h>
-#include <OCALite/Proxy/GeneralProxy.h>
+#include <OCC/ControlClasses/Workers/BlocksAndMatrices/OcaLiteBlock.h>
+#include <OCC/ControlDataTypes/OcaLiteBlockMember.h>
+#include <OCC/ControlDataTypes/OcaLiteManagerDescriptor.h>
+#include <OCP.1/Ocp1LiteConnectParameters.h>
+#include <Proxy/GeneralProxy.h>
 
 // ---- FileInfo Macro ----
 

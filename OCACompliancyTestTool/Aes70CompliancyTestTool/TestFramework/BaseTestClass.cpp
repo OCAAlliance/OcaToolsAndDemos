@@ -11,7 +11,7 @@ using namespace std;
 #include <stdarg.h>
 #include <algorithm>
 #include <HostInterfaceLite/OCA/OCF/OcfLiteHostInterface.h>
-#include <OCALite/OCP.1/Ocp1LiteConnectParameters.h>
+#include <OCP.1/Ocp1LiteConnectParameters.h>
 
 // ---- FileInfo Macro ----
 

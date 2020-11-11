@@ -16,6 +16,7 @@
 // ---- Include local include files ----
 
 // ---- Helper types and constants ----
+#ifndef __APPLE__
 #define htons(A) (((static_cast<UINT16>(A) & 0xff00) >> 8) | \
                   ((static_cast<UINT16>(A) & 0x00ff) << 8))
 #define htonl(A) (((static_cast<UINT32>(A) & 0xff000000) >> 24) | \
@@ -34,6 +35,7 @@
 #define ntohs htons
 #define ntohl htonl
 #define ntohll htonll
+#endif
 
 // ---- Helper functions ----
 

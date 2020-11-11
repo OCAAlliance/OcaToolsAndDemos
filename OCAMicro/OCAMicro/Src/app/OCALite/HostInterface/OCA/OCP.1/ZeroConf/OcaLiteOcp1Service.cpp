@@ -10,7 +10,7 @@
 // ---- Include system wide include files ----
 #include <HostInterfaceLite/OCA/OCP.1/ZeroConf/IOcp1LiteService.h>
 #include <HostInterfaceLite/OCA/OCF/OcfLiteHostInterface.h>
-#include <../../platform/common/OcaLite/BonjourSDK/dns_sd.h>
+#include <../../platform/common/BonjourSDK/dns_sd.h>
 
 // ---- FileInfo Macro ----
 
@@ -67,20 +67,8 @@ bool Ocp1LiteServiceRegister(const std::string& name, const std::string& registr
                     // Write the length byte
                     txtRecord[currentPos] = static_cast<UINT8>(txtRecordIter->length());
                     currentPos++;
-                    INT32 result(::memcpy_s(&(txtRecord[currentPos]),
-                                            static_cast<size_t>(MAXIMUM_TXT_RECORD_LENGTH - currentPos),
-                                            txtRecordIter->c_str(),
-                                            txtRecordIter->length()));
-                    if (0 != result)
-                    {
-                        OCA_LOG_ERROR_PARAMS("Error copying TXT Record, errorcode=%d", result);
-                        error = kDNSServiceErr_Unknown;
-                        break;
-                    }
-                    else
-                    {
-                        currentPos += static_cast<UINT8>(txtRecordIter->length());
-                    }
+                    ::memcpy(&txtRecord[currentPos], txtRecordIter->c_str(), txtRecordIter->length());
+                    currentPos += static_cast<UINT8>(txtRecordIter->length());
                     ++txtRecordIter;
                 }
             }
@@ -134,7 +122,7 @@ void Ocp1LiteServiceRun()
     {
         fd_set readFds;
         struct timeval tv = { 0 , 0 };
-        SOCKET dnsServiceSocket(static_cast<SOCKET>(::DNSServiceRefSockFD(m_dnsService)));
+        int dnsServiceSocket(static_cast<int>(::DNSServiceRefSockFD(m_dnsService)));
 
         FD_ZERO(&readFds);
         FD_SET(dnsServiceSocket, &readFds);

@@ -9,7 +9,7 @@
 #define OCP1LITECONNECTPARAMETERS_H
 
  // ---- Include system wide include files ----
-#include <OCALite/OCC/ControlDataTypes/OcaLiteConnectParameters.h>
+#include <OCC/ControlDataTypes/OcaLiteConnectParameters.h>
 
  // ---- Include local include files ----
 

@@ -152,5 +152,5 @@ void OcaLiteUint8Sensor::ReadingChanged(::OcaUint8 reading)
                                                         propertyID,
                                                         reading,
                                                         OCAPROPERTYCHANGETYPE_CURRENT_CHANGED);
-    PropertyChanged(eventData);
+    PropertyChanged(eventData, propertyID);
 }

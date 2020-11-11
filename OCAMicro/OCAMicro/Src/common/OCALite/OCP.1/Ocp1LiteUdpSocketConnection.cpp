@@ -74,7 +74,7 @@ void Ocp1LiteUdpSocketConnection::UpdateReceiveBuffer(OcaUint8* pMessageReceiveB
     assert(static_cast< ::OcaUint32>(0) == m_totalLength);
     assert(static_cast< ::OcaUint32>(bytesReceived) <= m_messageBufferSize);
 
-    m_pMessageReceiveBuffer = pMessageReceiveBuffer; //lint !e423 The deletion of memory is the responsibility of caller
+    m_pMessageReceiveBuffer = pMessageReceiveBuffer;
     m_totalLength = static_cast< ::OcaUint32>(bytesReceived);
 }
 

@@ -11,7 +11,7 @@
 
 // ---- Include local include files ----
 #include "../../TestFramework/BaseTestClass.h"
-#include <OCALite/OCF/OcaLiteCommandHandlerController.h>
+#include <OCF/OcaLiteCommandHandlerController.h>
 
 // ---- Referenced classes and types ----
 

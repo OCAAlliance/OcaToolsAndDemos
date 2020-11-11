@@ -118,12 +118,12 @@ OcaLiteMediaClock::~OcaLiteMediaClock()
         {
             m_domainID = id;
 
-            ::OcaLitePropertyID propertyId(CLASS_ID.GetFieldCount(), static_cast< ::OcaUint16>(OCA_PROP_DOMAIN_ID));
+            ::OcaLitePropertyID propertyID(CLASS_ID.GetFieldCount(), static_cast< ::OcaUint16>(OCA_PROP_DOMAIN_ID));
             ::OcaLitePropertyChangedEventData< ::OcaUint16> eventData(GetObjectNumber(),
-                                                                  propertyId,
+                                                                  propertyID,
                                                                   m_domainID,
                                                                   OCAPROPERTYCHANGETYPE_CURRENT_CHANGED);
-            PropertyChanged(eventData);
+            PropertyChanged(eventData, propertyID);
         }
     }
 
@@ -163,12 +163,12 @@ OcaLiteMediaClock::~OcaLiteMediaClock()
                 rc = GetRateValue(actualRate);
                 if (OCASTATUS_OK == rc)
                 {
-                    ::OcaLitePropertyID propertyId(CLASS_ID.GetFieldCount(), static_cast< ::OcaUint16>(OCA_PROP_CURRENT_RATE));
+                    ::OcaLitePropertyID propertyID(CLASS_ID.GetFieldCount(), static_cast< ::OcaUint16>(OCA_PROP_CURRENT_RATE));
                     ::OcaLitePropertyChangedEventData< ::OcaLiteMediaClockRate> eventData(GetObjectNumber(),
-                                                                                    propertyId,
+                                                                                    propertyID,
                                                                                     actualRate,
                                                                                     OCAPROPERTYCHANGETYPE_CURRENT_CHANGED);
-                    PropertyChanged(eventData);
+                    PropertyChanged(eventData, propertyID);
                 }
                 else
                 {
@@ -479,24 +479,24 @@ OcaLiteMediaClock::~OcaLiteMediaClock()
 
 void OcaLiteMediaClock::LockStateChanged(::OcaLiteMediaClockLockState state)
 {
-    ::OcaLitePropertyID propertyId(CLASS_ID.GetFieldCount(), static_cast< ::OcaUint16>(OCA_PROP_LOCK_STATE));
+    ::OcaLitePropertyID propertyID(CLASS_ID.GetFieldCount(), static_cast< ::OcaUint16>(OCA_PROP_LOCK_STATE));
     ::OcaLitePropertyChangedEventData< ::OcaLiteMediaClockLockState> eventData(GetObjectNumber(),
-                                                                       propertyId,
+                                                                       propertyID,
                                                                        state,
                                                                        OCAPROPERTYCHANGETYPE_CURRENT_CHANGED);
-    PropertyChanged(eventData);
+    PropertyChanged(eventData, propertyID);
 }
 
 void OcaLiteMediaClock::ClockTypeChanged(::OcaLiteMediaClockType type)
 {
     m_clockType = type;
 
-    ::OcaLitePropertyID propertyId(CLASS_ID.GetFieldCount(), static_cast< ::OcaUint16>(OCA_PROP_TYPE));
+    ::OcaLitePropertyID propertyID(CLASS_ID.GetFieldCount(), static_cast< ::OcaUint16>(OCA_PROP_TYPE));
     ::OcaLitePropertyChangedEventData< ::OcaLiteMediaClockType> eventData(GetObjectNumber(),
-                                                                  propertyId,
+                                                                  propertyID,
                                                                   type,
                                                                   OCAPROPERTYCHANGETYPE_CURRENT_CHANGED);
-    PropertyChanged(eventData);
+    PropertyChanged(eventData, propertyID);
 }
 
 ::OcaLiteStatus OcaLiteMediaClock::GetTypeValue(::OcaLiteMediaClockType& type) const

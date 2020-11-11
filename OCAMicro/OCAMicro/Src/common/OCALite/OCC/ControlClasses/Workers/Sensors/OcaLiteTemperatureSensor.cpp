@@ -141,5 +141,5 @@ void OcaLiteTemperatureSensor::ReadingChanged(::OcaTemperature reading)
                                                                propertyID,
                                                                reading,
                                                                OCAPROPERTYCHANGETYPE_CURRENT_CHANGED);
-    PropertyChanged(eventData);
+    PropertyChanged(eventData, propertyID);
 }

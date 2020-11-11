@@ -1,7 +1,7 @@
 # By downloading or using this file, the user agrees to be bound by the terms of the license 
 # agreement located at http://ocaalliance.com/EULA as an original contracting party.
 #
-#  Description        :   Makefile for the OCAStm32F437xxOcaLite Board Support Package.
+#  Description        :   Makefile for the OCAStm32F207xxOcaLite Board Support Package.
 # 
 TARGETS = stm32
 

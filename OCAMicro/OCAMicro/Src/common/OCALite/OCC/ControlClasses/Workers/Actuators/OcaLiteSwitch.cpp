@@ -98,7 +98,7 @@ OcaLiteSwitch::OcaLiteSwitch(::OcaONo objectNumber, ::OcaBoolean lockable, const
                                                                           propertyID,
                                                                           actualPosition,
                                                                           OCAPROPERTYCHANGETYPE_CURRENT_CHANGED);
-                    PropertyChanged(eventData);
+                    PropertyChanged(eventData, propertyID);
                 }
             }
 
@@ -138,7 +138,7 @@ OcaLiteSwitch::OcaLiteSwitch(::OcaONo objectNumber, ::OcaBoolean lockable, const
                                                                                            propertyID,
                                                                                            actualNames,
                                                                                            OCAPROPERTYCHANGETYPE_CURRENT_CHANGED);
-                        PropertyChanged(eventData);
+                        PropertyChanged(eventData, propertyID);
                     }
                 }
             }
@@ -177,7 +177,7 @@ OcaLiteSwitch::OcaLiteSwitch(::OcaONo objectNumber, ::OcaBoolean lockable, const
                                                                                            propertyID,
                                                                                            actualNames,
                                                                                            OCAPROPERTYCHANGETYPE_CURRENT_CHANGED);
-                        PropertyChanged(eventData);
+                        PropertyChanged(eventData, propertyID);
                     }
                 }
             }
@@ -221,7 +221,7 @@ OcaLiteSwitch::OcaLiteSwitch(::OcaONo objectNumber, ::OcaBoolean lockable, const
                                                                                             propertyID,
                                                                                             actualEnableds,
                                                                                             OCAPROPERTYCHANGETYPE_CURRENT_CHANGED);
-                        PropertyChanged(eventData);
+                        PropertyChanged(eventData, propertyID);
                     }
                 }
             }
@@ -260,7 +260,7 @@ OcaLiteSwitch::OcaLiteSwitch(::OcaONo objectNumber, ::OcaBoolean lockable, const
                                                                                             propertyID,
                                                                                             actualEnableds,
                                                                                             OCAPROPERTYCHANGETYPE_CURRENT_CHANGED);
-                        PropertyChanged(eventData);
+                        PropertyChanged(eventData, propertyID);
                     }
                 }
             }
