@@ -66,8 +66,6 @@ bool OcaLiteMessageNotification::WriteParameters(::OcaONo targetONo,
 void OcaLiteMessageNotification::WriteParameters(::OcaONo targetONo,
                                                  const ::OcaLiteMethodID& methodID)
 {
-    assert(OCA_INVALID_ONO != targetONo);
-
     m_targetONo = targetONo;
     m_methodID = methodID;
 }
