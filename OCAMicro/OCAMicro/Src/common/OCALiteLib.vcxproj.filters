@@ -492,6 +492,48 @@
     <ClCompile Include="OCALite\OCP.1\Ocp1LiteUdpSocketConnection.cpp">
       <Filter>Source Files\OCALite\OCP.1</Filter>
     </ClCompile>
+    <ClCompile Include="OCALite\OCC\ControlClasses\Workers\Sensors\OcaLiteInt16Sensor.cpp">
+      <Filter>Source Files\OCALite\OCC\ControlClasses\Workers\Sensors</Filter>
+    </ClCompile>
+    <ClCompile Include="OCALite\OCC\ControlClasses\Workers\Sensors\OcaLiteInt32Sensor.cpp">
+      <Filter>Source Files\OCALite\OCC\ControlClasses\Workers\Sensors</Filter>
+    </ClCompile>
+    <ClCompile Include="OCALite\OCC\ControlClasses\Workers\Sensors\OcaLiteInt64Sensor.cpp">
+      <Filter>Source Files\OCALite\OCC\ControlClasses\Workers\Sensors</Filter>
+    </ClCompile>
+    <ClCompile Include="OCALite\OCC\ControlClasses\Workers\Sensors\OcaLiteUint8Sensor.cpp">
+      <Filter>Source Files\OCALite\OCC\ControlClasses\Workers\Sensors</Filter>
+    </ClCompile>
+    <ClCompile Include="OCALite\OCC\ControlClasses\Workers\Sensors\OcaLiteUint16Sensor.cpp">
+      <Filter>Source Files\OCALite\OCC\ControlClasses\Workers\Sensors</Filter>
+    </ClCompile>
+    <ClCompile Include="OCALite\OCC\ControlClasses\Workers\Sensors\OcaLiteUint32Sensor.cpp">
+      <Filter>Source Files\OCALite\OCC\ControlClasses\Workers\Sensors</Filter>
+    </ClCompile>
+    <ClCompile Include="OCALite\OCC\ControlClasses\Workers\Sensors\OcaLiteUint64Sensor.cpp">
+      <Filter>Source Files\OCALite\OCC\ControlClasses\Workers\Sensors</Filter>
+    </ClCompile>
+    <ClCompile Include="OCALite\OCC\ControlClasses\Workers\Actuators\OcaLiteFloat32Actuator.cpp">
+      <Filter>Source Files\OCALite\OCC\ControlClasses\Workers\Actuators</Filter>
+    </ClCompile>
+    <ClCompile Include="OCALite\OCC\ControlClasses\Workers\Actuators\OcaLiteInt32Actuator.cpp">
+      <Filter>Source Files\OCALite\OCC\ControlClasses\Workers\Actuators</Filter>
+    </ClCompile>
+    <ClCompile Include="OCALite\OCC\ControlClasses\Workers\Actuators\OcaLiteStringActuator.cpp">
+      <Filter>Source Files\OCALite\OCC\ControlClasses\Workers\Actuators</Filter>
+    </ClCompile>
+    <ClCompile Include="OCALite\OCC\ControlClasses\Workers\Sensors\OcaLiteBooleanSensor.cpp">
+      <Filter>Source Files\OCALite\OCC\ControlClasses\Workers\Sensors</Filter>
+    </ClCompile>
+    <ClCompile Include="OCALite\OCC\ControlClasses\Workers\Sensors\OcaLiteFloat32Sensor.cpp">
+      <Filter>Source Files\OCALite\OCC\ControlClasses\Workers\Sensors</Filter>
+    </ClCompile>
+    <ClCompile Include="OCALite\OCC\ControlClasses\Workers\Sensors\OcaLiteStringSensor.cpp">
+      <Filter>Source Files\OCALite\OCC\ControlClasses\Workers\Sensors</Filter>
+    </ClCompile>
+    <ClCompile Include="OCALite\OCC\ControlClasses\Workers\Sensors\OcaLiteTemperatureSensor.cpp">
+      <Filter>Source Files\OCALite\OCC\ControlClasses\Workers\Sensors</Filter>
+    </ClCompile>
     <ClCompile Include="OCALite\OCC\ControlClasses\Managers\OcaLiteDeviceTimeManager.cpp">
       <Filter>Source Files\OCALite\OCC\ControlClasses\Managers</Filter>
     </ClCompile>
@@ -502,6 +544,9 @@
       <Filter>Source Files\OCALite\OCC\ControlDataTypes</Filter>
     </ClCompile>
     <ClCompile Include="OCALite\OCC\ControlClasses\Workers\Actuators\OcaLiteDelay.cpp">
+      <Filter>Source Files\OCALite\OCC\ControlClasses\Workers\Actuators</Filter>
+    </ClCompile>
+    <ClCompile Include="OCALite\OCC\ControlClasses\Workers\Actuators\OcaLiteIdentificationActuator.cpp">
       <Filter>Source Files\OCALite\OCC\ControlClasses\Workers\Actuators</Filter>
     </ClCompile>
     <ClCompile Include="OCALite\OCC\ControlClasses\Workers\Actuators\OcaLiteMute.cpp">
@@ -881,6 +926,27 @@
     <ClInclude Include="OCALite\OCP.1\Ocp1LiteUdpSocketConnection.h">
       <Filter>Header Files\OCALite\OCP.1</Filter>
     </ClInclude>
+    <ClInclude Include="OCALite\OCC\ControlClasses\Workers\Sensors\OcaLiteInt16Sensor.h">
+      <Filter>Source Files\OCALite\OCC\ControlClasses\Workers\Sensors</Filter>
+    </ClInclude>
+    <ClInclude Include="OCALite\OCC\ControlClasses\Workers\Sensors\OcaLiteInt32Sensor.h">
+      <Filter>Source Files\OCALite\OCC\ControlClasses\Workers\Sensors</Filter>
+    </ClInclude>
+    <ClInclude Include="OCALite\OCC\ControlClasses\Workers\Sensors\OcaLiteInt64Sensor.h">
+      <Filter>Source Files\OCALite\OCC\ControlClasses\Workers\Sensors</Filter>
+    </ClInclude>
+    <ClInclude Include="OCALite\OCC\ControlClasses\Workers\Sensors\OcaLiteUint8Sensor.h">
+      <Filter>Source Files\OCALite\OCC\ControlClasses\Workers\Sensors</Filter>
+    </ClInclude>
+    <ClInclude Include="OCALite\OCC\ControlClasses\Workers\Sensors\OcaLiteUint16Sensor.h">
+      <Filter>Source Files\OCALite\OCC\ControlClasses\Workers\Sensors</Filter>
+    </ClInclude>
+    <ClInclude Include="OCALite\OCC\ControlClasses\Workers\Sensors\OcaLiteUint32Sensor.h">
+      <Filter>Source Files\OCALite\OCC\ControlClasses\Workers\Sensors</Filter>
+    </ClInclude>
+    <ClInclude Include="OCALite\OCC\ControlClasses\Workers\Sensors\OcaLiteUint64Sensor.h">
+      <Filter>Source Files\OCALite\OCC\ControlClasses\Workers\Sensors</Filter>
+    </ClInclude>
     <ClInclude Include="OCALite\OCC\ControlClasses\Managers\OcaLiteDeviceTimeManager.h">
       <Filter>Header Files\OCALite\OCC\ControlClasses\Managers</Filter>
     </ClInclude>
@@ -890,7 +956,52 @@
     <ClInclude Include="OCALite\OCC\ControlDataTypes\OcaLiteTimePTP.h">
       <Filter>Header Files\OCALite\OCC\ControlDataTypes</Filter>
     </ClInclude>
+    <ClInclude Include="OCALite\OCC\ControlClasses\Workers\Actuators\OcaLiteFloat32Actuator.h">
+      <Filter>Header Files\OCALite\OCC\ControlClasses\Workers\Actuators</Filter>
+    </ClInclude>
+    <ClInclude Include="OCALite\OCC\ControlClasses\Workers\Actuators\OcaLiteInt32Actuator.h">
+      <Filter>Header Files\OCALite\OCC\ControlClasses\Workers\Actuators</Filter>
+    </ClInclude>
+    <ClInclude Include="OCALite\OCC\ControlClasses\Workers\Actuators\OcaLiteStringActuator.h">
+      <Filter>Header Files\OCALite\OCC\ControlClasses\Workers\Actuators</Filter>
+    </ClInclude>
+    <ClInclude Include="OCALite\OCC\ControlClasses\Workers\Sensors\OcaLiteBooleanSensor.h">
+      <Filter>Header Files\OCALite\OCC\ControlClasses\Workers\Sensors</Filter>
+    </ClInclude>
+    <ClInclude Include="OCALite\OCC\ControlClasses\Workers\Sensors\OcaLiteFloat32Sensor.h">
+      <Filter>Header Files\OCALite\OCC\ControlClasses\Workers\Sensors</Filter>
+    </ClInclude>
+    <ClInclude Include="OCALite\OCC\ControlClasses\Workers\Sensors\OcaLiteStringSensor.h">
+      <Filter>Header Files\OCALite\OCC\ControlClasses\Workers\Sensors</Filter>
+    </ClInclude>
+    <ClInclude Include="OCALite\OCC\ControlClasses\Workers\Sensors\OcaLiteTemperatureSensor.h">
+      <Filter>Header Files\OCALite\OCC\ControlClasses\Workers\Sensors</Filter>
+    </ClInclude>
+    <ClInclude Include="OCALite\OCC\ControlClasses\Workers\Actuators\OcaLiteFloat32Actuator.h">
+      <Filter>Header Files\OCALite\OCC\ControlClasses\Workers\Actuators</Filter>
+    </ClInclude>
+    <ClInclude Include="OCALite\OCC\ControlClasses\Workers\Actuators\OcaLiteInt32Actuator.h">
+      <Filter>Header Files\OCALite\OCC\ControlClasses\Workers\Actuators</Filter>
+    </ClInclude>
+    <ClInclude Include="OCALite\OCC\ControlClasses\Workers\Actuators\OcaLiteStringActuator.h">
+      <Filter>Header Files\OCALite\OCC\ControlClasses\Workers\Actuators</Filter>
+    </ClInclude>
+    <ClInclude Include="OCALite\OCC\ControlClasses\Workers\Sensors\OcaLiteBooleanSensor.h">
+      <Filter>Header Files\OCALite\OCC\ControlClasses\Workers\Sensors</Filter>
+    </ClInclude>
+    <ClInclude Include="OCALite\OCC\ControlClasses\Workers\Sensors\OcaLiteFloat32Sensor.h">
+      <Filter>Header Files\OCALite\OCC\ControlClasses\Workers\Sensors</Filter>
+    </ClInclude>
+    <ClInclude Include="OCALite\OCC\ControlClasses\Workers\Sensors\OcaLiteStringSensor.h">
+      <Filter>Header Files\OCALite\OCC\ControlClasses\Workers\Sensors</Filter>
+    </ClInclude>
+    <ClInclude Include="OCALite\OCC\ControlClasses\Workers\Sensors\OcaLiteTemperatureSensor.h">
+      <Filter>Header Files\OCALite\OCC\ControlClasses\Workers\Sensors</Filter>
+    </ClInclude>
     <ClInclude Include="OCALite\OCC\ControlClasses\Workers\Actuators\OcaLiteDelay.h">
+      <Filter>Header Files\OCALite\OCC\ControlClasses\Workers\Actuators</Filter>
+    </ClInclude>
+    <ClInclude Include="OCALite\OCC\ControlClasses\Workers\Actuators\OcaLiteIdentificationActuator.h">
       <Filter>Header Files\OCALite\OCC\ControlClasses\Workers\Actuators</Filter>
     </ClInclude>
     <ClInclude Include="OCALite\OCC\ControlClasses\Workers\Actuators\OcaLiteMute.h">
