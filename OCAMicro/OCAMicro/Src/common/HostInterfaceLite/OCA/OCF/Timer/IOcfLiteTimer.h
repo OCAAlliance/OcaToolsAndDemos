@@ -33,4 +33,15 @@
  */
 UINT32 OcfLiteTimerGetTimerTickCount(void);
 
+/**
+ * Retrieves the current time in seconds since 00:00 hours, Jan 1, 1970 UTC.
+ * @note The implementation of this method needs to be included in the host interface
+ *       implementation of the specific platform.
+ *
+ * @param[out]  seconds     The number of elapsed seconds since 00:00 hours, Jan 1, 1970 UTC.
+ * @param[out]  nanoSeconds The number of elapsed nano seconds since 00:00 hours, Jan 1, 1970 UTC.
+ * @return true if the current time was successfully retrieved.
+ */
+bool OcfLiteTimerGetTimeNow(UINT64& seconds, UINT32& nanoSeconds);
+
 #endif // IOCFLITETIMER_H

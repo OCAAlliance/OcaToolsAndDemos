@@ -102,6 +102,7 @@
     <ClCompile Include="OCALite\OCC\ControlClasses\Agents\OcaLiteStreamConnector.cpp" />
     <ClCompile Include="OCALite\OCC\ControlClasses\Agents\OcaLiteStreamNetwork.cpp" />
     <ClCompile Include="OCALite\OCC\ControlClasses\Managers\OcaLiteDeviceManager.cpp" />
+    <ClCompile Include="OCALite\OCC\ControlClasses\Managers\OcaLiteDeviceTimeManager.cpp" />
     <ClCompile Include="OCALite\OCC\ControlClasses\Managers\OcaLiteFirmwareManager.cpp" />
     <ClCompile Include="OCALite\OCC\ControlClasses\Managers\OcaLiteManager.cpp" />
     <ClCompile Include="OCALite\OCC\ControlClasses\Managers\OcaLiteMediaClockManager.cpp" />
@@ -168,6 +169,7 @@
     <ClCompile Include="OCALite\OCC\ControlDataTypes\OcaLiteModelGUID.cpp" />
     <ClCompile Include="OCALite\OCC\ControlDataTypes\OcaLiteMultiMap.cpp" />
     <ClCompile Include="OCALite\OCC\ControlDataTypes\OcaLiteNetworkAddress.cpp" />
+    <ClCompile Include="OCALite\OCC\ControlDataTypes\OcaLitePTPSeconds.cpp" />
     <ClCompile Include="OCALite\OCC\ControlDataTypes\OcaLiteStream.cpp" />
     <ClCompile Include="OCALite\OCC\ControlDataTypes\OcaLiteStreamConnectorID.cpp" />
     <ClCompile Include="OCALite\OCC\ControlDataTypes\OcaLiteStreamID.cpp" />
@@ -185,6 +187,7 @@
     <ClCompile Include="OCALite\OCC\ControlDataTypes\OcaLitePropertyID.cpp" />
     <ClCompile Include="OCALite\OCC\ControlDataTypes\OcaLiteString.cpp" />
     <ClCompile Include="OCALite\OCC\ControlDataTypes\OcaLiteTemplateHelpers.cpp" />
+    <ClCompile Include="OCALite\OCC\ControlDataTypes\OcaLiteTimePTP.cpp" />
     <ClCompile Include="OCALite\OCC\ControlDataTypes\OcaLiteVersion.cpp" />
     <ClCompile Include="OCALite\OCC\ControlDataTypes\OcaLiteWorkerDataTypes.cpp" />
     <ClCompile Include="OCALite\OCF\Messages\OcaLiteHeader.cpp" />
@@ -228,6 +231,7 @@
     <ClInclude Include="OCALite\OCC\ControlClasses\Agents\OcaLiteStreamConnector.h" />
     <ClInclude Include="OCALite\OCC\ControlClasses\Agents\OcaLiteStreamNetwork.h" />
     <ClInclude Include="OCALite\OCC\ControlClasses\Managers\OcaLiteDeviceManager.h" />
+    <ClInclude Include="OCALite\OCC\ControlClasses\Managers\OcaLiteDeviceTimeManager.h" />
     <ClInclude Include="OCALite\OCC\ControlClasses\Managers\OcaLiteFirmwareManager.h" />
     <ClInclude Include="OCALite\OCC\ControlClasses\Managers\OcaLiteManager.h" />
     <ClInclude Include="OCALite\OCC\ControlClasses\Managers\OcaLiteMediaClockManager.h" />
@@ -296,6 +300,7 @@
     <ClInclude Include="OCALite\OCC\ControlDataTypes\OcaLiteModelGUID.h" />
     <ClInclude Include="OCALite\OCC\ControlDataTypes\OcaLiteMultiMap.h" />
     <ClInclude Include="OCALite\OCC\ControlDataTypes\OcaLiteNetworkAddress.h" />
+    <ClInclude Include="OCALite\OCC\ControlDataTypes\OcaLitePTPSeconds.h" />
     <ClInclude Include="OCALite\OCC\ControlDataTypes\OcaLiteStream.h" />
     <ClInclude Include="OCALite\OCC\ControlDataTypes\OcaLiteStreamConnectorID.h" />
     <ClInclude Include="OCALite\OCC\ControlDataTypes\OcaLiteStreamID.h" />
@@ -313,6 +318,7 @@
     <ClInclude Include="OCALite\OCC\ControlDataTypes\OcaLitePropertyID.h" />
     <ClInclude Include="OCALite\OCC\ControlDataTypes\OcaLiteString.h" />
     <ClInclude Include="OCALite\OCC\ControlDataTypes\OcaLiteTemplateHelpers.h" />
+    <ClInclude Include="OCALite\OCC\ControlDataTypes\OcaLiteTimePTP.h" />
     <ClInclude Include="OCALite\OCC\ControlDataTypes\OcaLiteVersion.h" />
     <ClInclude Include="OCALite\OCC\ControlDataTypes\OcaLiteWorkerDataTypes.h" />
     <ClInclude Include="OCALite\OCF\IOcaLiteReader.h" />

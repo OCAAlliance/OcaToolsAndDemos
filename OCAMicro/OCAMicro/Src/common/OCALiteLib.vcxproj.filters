@@ -492,6 +492,15 @@
     <ClCompile Include="OCALite\OCP.1\Ocp1LiteUdpSocketConnection.cpp">
       <Filter>Source Files\OCALite\OCP.1</Filter>
     </ClCompile>
+    <ClCompile Include="OCALite\OCC\ControlClasses\Managers\OcaLiteDeviceTimeManager.cpp">
+      <Filter>Source Files\OCALite\OCC\ControlClasses\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="OCALite\OCC\ControlDataTypes\OcaLiteTimePTP.cpp">
+      <Filter>Source Files\OCALite\OCC\ControlDataTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="OCALite\OCC\ControlDataTypes\OcaLitePTPSeconds.cpp">
+      <Filter>Source Files\OCALite\OCC\ControlDataTypes</Filter>
+    </ClCompile>
     <ClCompile Include="OCALite\OCC\ControlClasses\Workers\Actuators\OcaLiteDelay.cpp">
       <Filter>Source Files\OCALite\OCC\ControlClasses\Workers\Actuators</Filter>
     </ClCompile>
@@ -871,6 +880,15 @@
     </ClInclude>
     <ClInclude Include="OCALite\OCP.1\Ocp1LiteUdpSocketConnection.h">
       <Filter>Header Files\OCALite\OCP.1</Filter>
+    </ClInclude>
+    <ClInclude Include="OCALite\OCC\ControlClasses\Managers\OcaLiteDeviceTimeManager.h">
+      <Filter>Header Files\OCALite\OCC\ControlClasses\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="OCALite\OCC\ControlDataTypes\OcaLitePTPSeconds.h">
+      <Filter>Header Files\OCALite\OCC\ControlDataTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="OCALite\OCC\ControlDataTypes\OcaLiteTimePTP.h">
+      <Filter>Header Files\OCALite\OCC\ControlDataTypes</Filter>
     </ClInclude>
     <ClInclude Include="OCALite\OCC\ControlClasses\Workers\Actuators\OcaLiteDelay.h">
       <Filter>Header Files\OCALite\OCC\ControlClasses\Workers\Actuators</Filter>
