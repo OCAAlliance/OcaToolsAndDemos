@@ -150,7 +150,7 @@ OcaLiteFloat32Actuator::OcaLiteFloat32Actuator(::OcaONo objectNumber,
                     ::OcaUint8 numberOfParameters(0);
                     ::OcaFloat32 setting;
                     if (reader.Read(bytesLeft, &pCmdParameters, numberOfParameters) && 
-                        (3 == numberOfParameters) && 
+                        (1 == numberOfParameters) && 
                         reader.Read(bytesLeft, &pCmdParameters, setting))
                     {
                         rc = SetSetting(setting);
