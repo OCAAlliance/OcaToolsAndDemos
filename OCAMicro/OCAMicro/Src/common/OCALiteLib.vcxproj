@@ -116,6 +116,7 @@
     <ClCompile Include="OCALite\OCC\ControlClasses\Workers\Actuators\OcaLiteBitstringActuator.cpp" />
     <ClCompile Include="OCALite\OCC\ControlClasses\Workers\Actuators\OcaLiteBooleanActuator.cpp" />
     <ClCompile Include="OCALite\OCC\ControlClasses\Workers\Actuators\OcaLiteGain.cpp" />
+    <ClCompile Include="OCALite\OCC\ControlClasses\Workers\Actuators\OcaLiteMute.cpp" />
     <ClCompile Include="OCALite\OCC\ControlClasses\Workers\Actuators\OcaLiteSwitch.cpp" />
     <ClCompile Include="OCALite\OCC\ControlClasses\Workers\BlocksAndMatrices\OcaLiteBlock.cpp" />
     <ClCompile Include="OCALite\OCC\ControlClasses\Workers\Networking\OcaLiteNetworkSignalChannel.cpp" />
@@ -240,6 +241,7 @@
     <ClInclude Include="OCALite\OCC\ControlClasses\Workers\Actuators\OcaLiteBitstringActuator.h" />
     <ClInclude Include="OCALite\OCC\ControlClasses\Workers\Actuators\OcaLiteBooleanActuator.h" />
     <ClInclude Include="OCALite\OCC\ControlClasses\Workers\Actuators\OcaLiteGain.h" />
+    <ClInclude Include="OCALite\OCC\ControlClasses\Workers\Actuators\OcaLiteMute.h" />
     <ClInclude Include="OCALite\OCC\ControlClasses\Workers\Actuators\OcaLiteSwitch.h" />
     <ClInclude Include="OCALite\OCC\ControlClasses\Workers\BlocksAndMatrices\OcaLiteBlock.h" />
     <ClInclude Include="OCALite\OCC\ControlClasses\Workers\Networking\OcaLiteNetworkSignalChannel.h" />
