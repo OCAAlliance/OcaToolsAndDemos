@@ -96,9 +96,9 @@ public:
     bool GetParent(::OcaLiteClassID& parent) const;
 
     /**
-     * Getter for FieldCount.
+     * Getter for the number of 16-bit fields of the ClassID.
      *
-     * @return The number of fields of the ClassID.
+     * @return The number of 16-bit fields of the ClassID.
      */
     ::OcaUint16 GetFieldCount() const
     {
@@ -114,6 +114,23 @@ public:
     {
         return m_fields;
     }
+
+    /**
+     * Getter for the definition level of the class identified by this ClassID.
+     *
+     * @return The definition level of the class identified by this ClassID.
+     */
+    ::OcaUint16 GetDefLevel() const
+    {
+        return m_defLevel;
+    }
+
+    /**
+     * Indicates if this ClassID is valid (complete).
+     *
+     * @return True if the ClassID is valid, false otherwise.
+     */
+    ::OcaBoolean IsValid() const;
 
     /**
      * Assignment operator.
@@ -180,11 +197,32 @@ public:
     virtual ::OcaUint32 GetSize(const ::IOcaLiteWriter& writer) const;
 
 private:
+    /**
+     * Indicates if the given fields will result in a correct class ID.
+     *
+     * @param[in]   fieldCount      Identifies the number of fields of the ClassID.
+     * @param[in]   fields          Array of actual fields of the ClassID. The array has 'fieldCount' entries.
+     * @return True if the given fields will result in a correct class ID, false otherwise.
+     */
+    static bool AreFieldsValid(::OcaUint16 fieldCount, const ::OcaUint16* fields);
+
+    /**
+     * Determines the definition level of the class identified by this ClassID.
+     *
+     * @param[in]   fieldCount      Identifies the number of fields of the ClassID.
+     * @param[in]   fields          Array of actual fields of the ClassID. The array has 'fieldCount' entries.
+     * @return The definition level of the class identified by this ClassID.
+     */
+    static ::OcaUint16 DetermineDefLevel(::OcaUint16 fieldCount, const ::OcaUint16* fields);
+
     /** The number of fields of the ClassID. */
     ::OcaUint16     m_fieldCount;
 
     /** The fields. */
     ::OcaUint16     m_fields[OCA_CLASS_ID_SIZE];
+
+    /** The definition level of the class identified by this ClassID. */
+    ::OcaUint16     m_defLevel;
 };
 
 #endif // OCALITECLASSID_H
