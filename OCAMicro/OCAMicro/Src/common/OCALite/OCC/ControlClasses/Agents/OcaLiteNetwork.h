@@ -132,6 +132,14 @@ public:
     static const ::OcaLiteClassID CLASS_ID;
 
     // ---- Interface methods ----
+	
+	/**
+     * Sets the network's IDAdvertised
+     *
+     * @param[in]   name    The network's IDAdvertised
+     * @return Indicates whether the operation succeeded.
+     */
+    ::OcaLiteStatus SetIdAdvertised(const ::OcaLiteNetworkNodeID& idAdvertised);
     /**
      * Gets the network's status
      *
@@ -381,6 +389,14 @@ protected:
      * @return Indicates whether the operation succeeded.
      */
     virtual ::OcaLiteStatus GetIdAdvertisedValue(::OcaLiteNetworkNodeID& nodeId) const;
+
+	/**
+     * Sets the ID advertised in the network.
+     *
+     * @param[in]   name  The new ID advertised.
+     * @return Indicates whether the operation succeeded.
+     */
+    virtual ::OcaLiteStatus SetIdAdvertisedValue(const ::OcaLiteNetworkNodeID& name) = 0;
 
     /**
      * Event that is emitted when the interfaces have changed.
