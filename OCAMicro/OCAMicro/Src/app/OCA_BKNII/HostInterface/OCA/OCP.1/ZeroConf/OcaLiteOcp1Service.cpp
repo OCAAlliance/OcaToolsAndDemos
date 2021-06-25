@@ -86,29 +86,29 @@ bool Ocp1LiteServiceRegister(const std::string& name, const std::string& registr
 
 int Ocp1LiteServiceGetSocket()
 {
-	int socketFd = -1;
-	if (NULL != m_dnsService)
-	{
-		socketFd = static_cast<int>(::DNSServiceRefSockFD(m_dnsService));
-	}
-	return socketFd;
+    int socketFd = -1;
+    if (NULL != m_dnsService)
+    {
+        socketFd = static_cast<int>(::DNSServiceRefSockFD(m_dnsService));
+    }
+    return socketFd;
 }
 
 void Ocp1LiteServiceRunWithFdSet(fd_set* readSet)
 {
-	if (NULL != m_dnsService)
-	{
-		int dnsServiceSocket(static_cast<int>(::DNSServiceRefSockFD(m_dnsService)));
+    if (NULL != m_dnsService)
+    {
+        int dnsServiceSocket(static_cast<int>(::DNSServiceRefSockFD(m_dnsService)));
 
-		if (FD_ISSET(dnsServiceSocket, readSet))
-		{
-			DNSServiceErrorType error(::DNSServiceProcessResult(m_dnsService));
-			if (error != kDNSServiceErr_NoError)
-			{
-				OCA_LOG_ERROR_PARAMS("Failed to process dns service. Result %d", error);
-			}
-		}
-	}
+        if (FD_ISSET(dnsServiceSocket, readSet))
+        {
+            DNSServiceErrorType error(::DNSServiceProcessResult(m_dnsService));
+            if (error != kDNSServiceErr_NoError)
+            {
+                OCA_LOG_ERROR_PARAMS("Failed to process dns service. Result %d", error);
+            }
+        }
+    }
 }
 
 void Ocp1LiteServiceRun()

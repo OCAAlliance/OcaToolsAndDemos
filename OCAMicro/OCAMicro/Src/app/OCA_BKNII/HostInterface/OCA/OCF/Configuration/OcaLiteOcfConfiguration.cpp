@@ -26,7 +26,7 @@
 // ---- External data ----
 static bool gs_bEnabled(true);
 static UINT32 OcfManufacturerCode = 0x123456;
-static UINT32 OcfModelCode		  = 0x0000;
+static UINT32 OcfModelCode          = 0x0000;
 static std::string OcfFriendlyNameManufacturer("Manufacturer");
 static std::string OcfFriendlyNameModel("Model Name");
 static std::string OcfFriendlyNameVersion("Version string");
@@ -47,9 +47,9 @@ bool OcfLiteConfigureGetModelGUID(UINT32& mnfrCode, UINT32& modelCode)
 
 bool OcfLiteConfigureGetModelDescription(std::string& manufacturer, std::string& name, std::string& version)
 {
-	manufacturer.assign(OcfFriendlyNameManufacturer.c_str());
-	name.assign(OcfFriendlyNameModel.c_str());
-	version.assign(OcfFriendlyNameVersion.c_str());
+    manufacturer.assign(OcfFriendlyNameManufacturer.c_str());
+    name.assign(OcfFriendlyNameModel.c_str());
+    version.assign(OcfFriendlyNameVersion.c_str());
 
     return true;
 }
@@ -89,9 +89,9 @@ bool OcfLiteConfigureSetModelGUID(UINT32 mnfrCode, UINT32 modelCode)
 
 bool OcfLiteConfigureSetModelDescription(std::string& manufacturer, std::string& name, std::string& version)
 {
-	OcfFriendlyNameManufacturer = manufacturer;
-	OcfFriendlyNameModel		= name;
-	OcfFriendlyNameVersion		= version;
+    OcfFriendlyNameManufacturer = manufacturer;
+    OcfFriendlyNameModel        = name;
+    OcfFriendlyNameVersion        = version;
 
-	return true;
+    return true;
 }

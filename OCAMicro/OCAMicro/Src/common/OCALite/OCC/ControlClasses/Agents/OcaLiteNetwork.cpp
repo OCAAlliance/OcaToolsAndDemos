@@ -64,6 +64,34 @@ void OcaLiteNetwork::Teardown()
     ::OcaLiteNetworkManager::GetInstance().RemoveNetwork(*this);
 }
 
+::OcaLiteStatus OcaLiteNetwork::SetIdAdvertised(const ::OcaLiteNetworkNodeID& idAdvertised)
+{
+    ::OcaLiteNetworkNodeID oldIDAdvertised;
+    ::OcaLiteStatus rc(GetIdAdvertisedValue(oldIDAdvertised));
+    if ((OCASTATUS_OK == rc) && (oldIDAdvertised != idAdvertised))
+    {
+        rc = SetIdAdvertisedValue(idAdvertised);
+        if (OCASTATUS_OK == rc)
+        {
+            m_idAdvertised = idAdvertised;
+            ::OcaLiteNetworkNodeID actualIDAdvertised;
+            rc = GetIdAdvertisedValue(actualIDAdvertised);
+            if (OCASTATUS_OK == rc)
+            {
+
+                ::OcaLitePropertyID propertyID(CLASS_ID.GetFieldCount(), static_cast< ::OcaUint16>(OCA_PROP_ID_ADVERTISED));
+                ::OcaLitePropertyChangedEventData< ::OcaLiteNetworkNodeID> eventData(GetObjectNumber(),
+                                                                             propertyID,
+                                                                             actualIDAdvertised,
+                                                                             OCAPROPERTYCHANGETYPE_CURRENT_CHANGED);
+                PropertyChanged(eventData, propertyID);
+            }
+        }
+    }
+
+    return rc;
+}
+
 ::OcaLiteStatus OcaLiteNetwork::GetSystemInterfaces(::OcaLiteList< ::OcaLiteNetworkSystemInterfaceID>& interfaces) const
 {
     ::OcaLiteStatus rc(GetSystemInterfacesValue(interfaces));
@@ -130,6 +158,34 @@ void OcaLiteNetwork::Teardown()
                                 *response = responseBuffer;
 
                                 rc = OCASTATUS_OK;
+                            }
+                            else
+                            {
+                                rc = OCASTATUS_BUFFER_OVERFLOW;
+                            }
+                        }
+                    }
+                }
+                break;
+            case SET_ID_ADVERTISED:
+                {
+                    ::OcaUint8 numberOfParameters(0);
+                    ::OcaLiteNetworkNodeID nodeId;
+                    if (reader.Read(bytesLeft, &pCmdParameters, numberOfParameters) &&
+                        (1 == numberOfParameters) &&
+                        (nodeId.Unmarshal(bytesLeft, &pCmdParameters, reader)))
+                    {
+                        rc = SetIdAdvertised(nodeId);
+                        if(OCASTATUS_OK == rc)
+                        {
+                            ::OcaUint32 responseSize(::GetSizeValue< ::OcaUint8>(static_cast< ::OcaUint8>(0), writer));
+                            responseBuffer  = ::OcaLiteCommandHandler::GetInstance().GetResponseBuffer(responseSize);
+                            if (NULL != responseBuffer)
+                            {
+                                ::OcaUint8* pResponse(responseBuffer);
+                                writer.Write(static_cast< ::OcaUint8>(0/*NrParameters*/), &pResponse);
+
+                                *response = responseBuffer;
                             }
                             else
                             {
@@ -252,7 +308,6 @@ void OcaLiteNetwork::Teardown()
                 rc = OCASTATUS_INVALID_REQUEST;
                 break;
             case GET_MEDIA_PORTS:
-            case SET_ID_ADVERTISED:
             case SET_SYSTEM_INTERFACES:
             case GET_STATISTICS:
             case RESET_STATISTICS:

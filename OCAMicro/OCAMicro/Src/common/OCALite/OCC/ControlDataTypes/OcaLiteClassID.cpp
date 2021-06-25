@@ -30,15 +30,18 @@
 
 OcaLiteClassID::OcaLiteClassID()
     : ::IOcaLiteMarshal(),
-      m_fieldCount(static_cast< ::OcaUint16>(0))
+      m_fieldCount(static_cast< ::OcaUint16>(0)),
+      m_defLevel(static_cast< ::OcaUint16>(0))
 {
     ::memset(m_fields, 0, sizeof(m_fields));
 }
 
 OcaLiteClassID::OcaLiteClassID(::OcaUint16 fieldCount, const ::OcaUint16* fields)
     : ::IOcaLiteMarshal(),
-      m_fieldCount(fieldCount)
+      m_fieldCount(fieldCount),
+      m_defLevel(DetermineDefLevel(fieldCount, fields))
 {
+    assert(AreFieldsValid(fieldCount, fields));
     assert(static_cast< ::OcaUint16>(0) < fieldCount);
     assert(fieldCount <= static_cast< ::OcaUint16>(OCA_CLASS_ID_SIZE));
     assert(static_cast< ::OcaUint16>(1) == fields[0]);
@@ -49,7 +52,8 @@ OcaLiteClassID::OcaLiteClassID(::OcaUint16 fieldCount, const ::OcaUint16* fields
 
 OcaLiteClassID::OcaLiteClassID(const ::OcaLiteClassID& source)
     : ::IOcaLiteMarshal(source),
-      m_fieldCount(source.m_fieldCount)
+      m_fieldCount(source.m_fieldCount),
+      m_defLevel(source.m_defLevel)
 {
     // Copy the fields to the member
     ::memcpy(m_fields, source.m_fields, static_cast<size_t>(m_fieldCount) * sizeof(::OcaUint16));
@@ -87,9 +91,22 @@ bool OcaLiteClassID::GetParent(::OcaLiteClassID& parent) const
     if ((this != &parent) &&
         (m_fieldCount > static_cast< ::OcaUint16>(1)))
     {
+        // Calculate the new field count and definition level
+        parent.m_fieldCount = static_cast<::OcaUint16>(m_fieldCount - static_cast<::OcaUint16>(1));
+        if (parent.m_fieldCount >= static_cast<::OcaUint16>(4))
+        {
+            if (OCA_CLASS_ID_PROPRIETARY_CLASS_FIELD == m_fields[static_cast<size_t>(parent.m_fieldCount) - 3])
+            {
+                // It is a proprietary class in the AES70-2018 format, so skip the proprietary identifier to get the real parent
+                parent.m_fieldCount = static_cast<::OcaUint16>(parent.m_fieldCount - static_cast<::OcaUint16>(3));
+            }
+        }
+        parent.m_defLevel = DetermineDefLevel(parent.m_fieldCount, m_fields);
+
+        // Copy the fields
         ::memset(parent.m_fields, 0, sizeof(parent.m_fields));
-        parent.m_fieldCount = m_fieldCount - static_cast< ::OcaUint16>(1);
         ::memcpy(parent.m_fields, m_fields, static_cast<size_t>(parent.m_fieldCount) * sizeof(::OcaUint16));
+        assert(AreFieldsValid(parent.m_fieldCount, parent.m_fields));
 
         result = true;
     }
@@ -97,11 +114,17 @@ bool OcaLiteClassID::GetParent(::OcaLiteClassID& parent) const
     return result;
 }
 
+::OcaBoolean OcaLiteClassID::IsValid() const
+{
+    return static_cast< ::OcaBoolean>(AreFieldsValid(m_fieldCount, m_fields));
+}
+
 ::OcaLiteClassID& OcaLiteClassID::operator=(const ::OcaLiteClassID& source)
 {
     if (this != &source)
     {
         m_fieldCount = source.m_fieldCount;
+        m_defLevel = source.m_defLevel;
         ::memcpy(m_fields, source.m_fields, static_cast<size_t>(m_fieldCount) * sizeof(::OcaUint16));
     }
 
@@ -111,6 +134,7 @@ bool OcaLiteClassID::GetParent(::OcaLiteClassID& parent) const
 bool OcaLiteClassID::operator==(const ::OcaLiteClassID& rhs) const
 {
     bool result(m_fieldCount == rhs.m_fieldCount);
+    // No need to check the definition level, as this is implied by the fields
     result = result && (0 == ::memcmp(m_fields, rhs.m_fields, static_cast<size_t>(m_fieldCount) * sizeof(::OcaUint16)));
 
     return result;
@@ -190,6 +214,7 @@ bool OcaLiteClassID::Unmarshal(::OcaUint32& bytesLeft, const ::OcaUint8** source
         {
             result = result && reader.Read(bytesLeft, source, m_fields[i]);
         }
+        m_defLevel = DetermineDefLevel(m_fieldCount, m_fields);
     }
     result = result && (static_cast< ::OcaUint16>(1) == m_fields[0]);
 
@@ -197,6 +222,7 @@ bool OcaLiteClassID::Unmarshal(::OcaUint32& bytesLeft, const ::OcaUint8** source
     if (!result)
     {
         m_fieldCount = static_cast< ::OcaUint16>(0);
+        m_defLevel = static_cast< ::OcaUint16>(0);
     }
 
     return result;
@@ -214,3 +240,80 @@ bool OcaLiteClassID::Unmarshal(::OcaUint32& bytesLeft, const ::OcaUint8** source
 
     return length;
 }
+
+bool OcaLiteClassID::AreFieldsValid(::OcaUint16 fieldCount, const ::OcaUint16* fields)
+{
+    bool result(fieldCount > static_cast< ::OcaUint16>(0));
+    result = result && ((NULL != fields) && (static_cast< ::OcaUint16>(1) == fields[0]));
+
+    // Check if any derivate of a proprietary (test) class also is a proprietary (test) class
+    bool proprietaryClass(false);
+    bool testClass(false);
+    bool proprietaryFieldPresent(false);
+    for (int i(0); result && (i < static_cast<int>(fieldCount)); i++)
+    {
+        assert(NULL != fields);
+
+        if (fields[i] != OCA_CLASS_ID_PROPRIETARY_CLASS_FIELD)
+        {
+            if (proprietaryClass &&
+                !proprietaryFieldPresent)
+            {
+                if ((fields[i] & OCA_CLASS_ID_PROPRIETARY_CLASS_FIELD_MASK) != OCA_CLASS_ID_PROPRIETARY_CLASS_FIELD_MASK)
+                {
+                    // The field should also indicate it's a proprietary class
+                    result = false;
+                }
+                else
+                {
+                    if (testClass &&
+                        ((fields[i] & OCA_CLASS_ID_PROPRIETARY_TEST_CLASS_FIELD_MASK) != OCA_CLASS_ID_PROPRIETARY_TEST_CLASS_FIELD_MASK))
+                    {
+                        // The field should also indicate it's a proprietary test class
+                        result = false;
+                    }
+                }
+            }
+        }
+        else
+        {
+            // There should be at least three more fields (2 for the OUI and 1 additional field)
+            result = ((static_cast<int>(fieldCount) - i) >= 3) && !proprietaryClass;
+            proprietaryFieldPresent = true;
+        }
+
+        proprietaryClass = ((fields[i] & OCA_CLASS_ID_PROPRIETARY_CLASS_FIELD_MASK) == OCA_CLASS_ID_PROPRIETARY_CLASS_FIELD_MASK) && (fields[i] != OCA_CLASS_ID_PROPRIETARY_CLASS_FIELD);
+        testClass = ((fields[i] & OCA_CLASS_ID_PROPRIETARY_TEST_CLASS_FIELD_MASK) == OCA_CLASS_ID_PROPRIETARY_TEST_CLASS_FIELD_MASK) && (fields[i] != OCA_CLASS_ID_PROPRIETARY_CLASS_FIELD);
+    }
+
+    static_cast<void>(testClass);
+    static_cast<void>(proprietaryFieldPresent);
+
+    return result;
+}
+
+::OcaUint16 OcaLiteClassID::DetermineDefLevel(::OcaUint16 fieldCount, const ::OcaUint16* fields)
+{
+    ::OcaUint16 result(static_cast< ::OcaUint16>(0));
+
+    if (AreFieldsValid(fieldCount, fields))
+    {
+        assert(NULL != fields);
+
+        result = fieldCount;
+
+        // If there is the proprietary field indicator, adjust the definition level
+        for (int i(0); i < static_cast<int>(fieldCount); i++)
+        {
+            if (OCA_CLASS_ID_PROPRIETARY_CLASS_FIELD == fields[i])
+            {
+                assert(fieldCount >= static_cast< ::OcaUint16>(5));
+                result = static_cast< ::OcaUint16>(fieldCount - static_cast< ::OcaUint16>(3));
+                break;
+            }
+        }
+    }
+
+    return result;
+}
+

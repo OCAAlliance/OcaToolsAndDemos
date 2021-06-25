@@ -87,6 +87,66 @@ typedef ::OcaFloat32   OcaFrequency;
  * Time of day in OCA standard format (Network Time Protocol format)
  * which is 32-bits for the number of seconds since January 1, 1900
  * followed by a 32-bit part for the fractional second.
+ * @deprecated This data type is no longer used since AES70-2018. It is retained for backwards compatibility.
+ */
+typedef ::OcaUint64     OcaLiteTimeNTP;
+
+/**
+ * Creates an OcaLiteTimeNTP value based on the date/time components in local time.
+ * @note Conversion will give unpredicted results for a date before January 1, 1970.
+ *       In a debug build, the code will break on a date prior to January 1, 1970.
+ *
+ * @param[in]   year            The year in four digit notation.
+ * @param[in]   month           The month (1-12).
+ * @param[in]   day             The day of the month (1-31).
+ * @param[in]   hour            The hour (0-23).
+ * @param[in]   minute          The minute (0-59).
+ * @param[in]   second          The second (0-59).
+ * @param[in]   nanoSeconds     The nano seconds.
+ * @return The OcaLiteTimeNTP representing the date and time.
+ */
+::OcaLiteTimeNTP CreateTimeNTP(::OcaUint16 year, ::OcaUint8 month, ::OcaUint8 day, ::OcaUint8 hour, ::OcaUint8 minute, ::OcaUint8 second, ::OcaUint32 nanoSeconds);
+
+/**
+ * Creates an OcaLiteTimeNTP value based on the date/time components in local time.
+ * @note Conversion will give unpredicted results for a date before January 1, 1970.
+ *       In a debug build, the code will break on a date prior to January 1, 1970.
+ *
+ * @param[in]   seconds         The number of seconds since 00:00 hours, Jan 1, 1970 UTC.
+ * @param[in]   nanoSeconds     The number of elapsed nano seconds since 00:00 hours, Jan 1, 1970 UTC.
+ * @return The OcaLiteTimeNTP representing the date and time.
+ */
+::OcaLiteTimeNTP CreateTimeNTP(::OcaUint32 seconds, ::OcaUint32 nanoSeconds);
+
+/**
+ * Parses an OcaLiteTimeNTP value into the date/time different components in local time.
+ *
+ * @param[in]   timeNTP         The NTP time value to parse.
+ * @param[out]  year            The year in four digit notation.
+ * @param[out]  month           The month (1-12).
+ * @param[out]  day             The day of the month (1-31).
+ * @param[out]  hour            The hour (0-23).
+ * @param[out]  minute          The minute (0-59).
+ * @param[out]  second          The second (0-59).
+ * @param[out]  nanoSeconds     The nano seconds.
+ * @return True if parsing succeeded, false if not.
+ */
+bool ParseTimeNTP(::OcaLiteTimeNTP timeNTP, ::OcaUint16& year, ::OcaUint8& month, ::OcaUint8& day, ::OcaUint8& hour, ::OcaUint8& minute, ::OcaUint8& second, ::OcaUint32& nanoSeconds);
+
+/**
+ * Parses an OcaLiteTimeNTP value into the date/time different components in local time.
+ *
+ * @param[in]   timeNTP         The NTP time value to parse.
+ * @param[out]  seconds         The number of seconds since 00:00 hours, Jan 1, 1970 UTC.
+ * @param[out]  nanoSeconds     The number of elapsed nano seconds since 00:00 hours, Jan 1, 1970 UTC.
+ * @return The OcaLiteTimeNTP representing the date and time.
+ */
+bool ParseTimeNTP(::OcaLiteTimeNTP timeNTP, ::OcaUint32& seconds, ::OcaUint32& nanoSeconds);
+
+/**
+ * Time of day in OCA standard format (Network Time Protocol format)
+ * which is 32-bits for the number of seconds since January 1, 1900
+ * followed by a 32-bit part for the fractional second.
  */
 typedef ::OcaUint64     OcaTimeOfDay;
 

@@ -139,4 +139,4 @@ private:
     /** private assignment operator, no assignment of object allowed */
     ::OcaLiteStringActuator& operator=(const ::OcaLiteStringActuator&);
 };
-#endif // OCALITEBOOLEANACTUATOR_H
+#endif // OCALITESTRINGACTUATOR_H

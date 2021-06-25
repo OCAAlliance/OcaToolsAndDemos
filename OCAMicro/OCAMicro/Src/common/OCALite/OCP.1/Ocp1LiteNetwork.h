@@ -148,11 +148,26 @@ public:
     virtual bool Disconnect(::OcaSessionID sessionId);
 #endif //OCA_LITE_CONTROLLER
 
+    /**
+     * Sets the network's IDAdvertised together with a new set of TXT records.
+     *
+     * @param[in]   idAdvertised    The new advertised ID
+     * @param[in]   txtRecords      The application specific TXT records for the service registrations.
+     *                              These will be appended to the default TXT records required for
+     *                              the protocol.
+     * @return Indicates whether the operation succeeded.
+     */
+    ::OcaLiteStatus SetIDAdvertisedAndTxtRecords(const ::Ocp1LiteNetworkNodeID& idAdvertised,
+                                             const std::vector<std::string>& txtRecords);
+
+
 protected:
 
     virtual ::OcaLiteStatus GetSystemInterfacesValue(::OcaLiteList< ::OcaLiteNetworkSystemInterfaceID>& interfaces) const;
 
     virtual ::OcaLiteStatus GetIdAdvertisedValue(::OcaLiteNetworkNodeID& nodeId) const;
+
+    virtual ::OcaLiteStatus SetIdAdvertisedValue(const ::OcaLiteNetworkNodeID& nodeId);
 
     virtual ::OcaLiteStatus SetStatus(::OcaLiteNetworkStatus status);
 
