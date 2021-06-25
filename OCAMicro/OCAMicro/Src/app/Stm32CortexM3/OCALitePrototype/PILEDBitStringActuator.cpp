@@ -88,7 +88,7 @@ PILEDBitStringActuator::PILEDBitStringActuator(::OcaONo objectNumber, ::OcaUint1
     
     setDbMeter(this->m_channel, meterSetting);
 #endif
-	// Implement the LED handling
+    // Implement the LED handling
 // OCASTATUS_PARAMETER_OUT_OF_RANGE
     return rc;
 }

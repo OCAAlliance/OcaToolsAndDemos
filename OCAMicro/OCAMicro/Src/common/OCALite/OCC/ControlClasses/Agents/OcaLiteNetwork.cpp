@@ -66,14 +66,14 @@ void OcaLiteNetwork::Teardown()
 
 ::OcaLiteStatus OcaLiteNetwork::SetIdAdvertised(const ::OcaLiteNetworkNodeID& idAdvertised)
 {
-	::OcaLiteNetworkNodeID oldIDAdvertised;
+    ::OcaLiteNetworkNodeID oldIDAdvertised;
     ::OcaLiteStatus rc(GetIdAdvertisedValue(oldIDAdvertised));
     if ((OCASTATUS_OK == rc) && (oldIDAdvertised != idAdvertised))
     {
-    	rc = SetIdAdvertisedValue(idAdvertised);
-    	if (OCASTATUS_OK == rc)
-    	{
-    	    m_idAdvertised = idAdvertised;
+        rc = SetIdAdvertisedValue(idAdvertised);
+        if (OCASTATUS_OK == rc)
+        {
+            m_idAdvertised = idAdvertised;
             ::OcaLiteNetworkNodeID actualIDAdvertised;
             rc = GetIdAdvertisedValue(actualIDAdvertised);
             if (OCASTATUS_OK == rc)
@@ -86,7 +86,7 @@ void OcaLiteNetwork::Teardown()
                                                                              OCAPROPERTYCHANGETYPE_CURRENT_CHANGED);
                 PropertyChanged(eventData, propertyID);
             }
-    	}
+        }
     }
 
     return rc;
@@ -167,17 +167,17 @@ void OcaLiteNetwork::Teardown()
                     }
                 }
                 break;
-			case SET_ID_ADVERTISED:
-            	{
-            		::OcaUint8 numberOfParameters(0);
+            case SET_ID_ADVERTISED:
+                {
+                    ::OcaUint8 numberOfParameters(0);
                     ::OcaLiteNetworkNodeID nodeId;
                     if (reader.Read(bytesLeft, &pCmdParameters, numberOfParameters) &&
                         (1 == numberOfParameters) &&
-						(nodeId.Unmarshal(bytesLeft, &pCmdParameters, reader)))
+                        (nodeId.Unmarshal(bytesLeft, &pCmdParameters, reader)))
                     {
-                    	rc = SetIdAdvertised(nodeId);
-                    	if(OCASTATUS_OK == rc)
-                    	{
+                        rc = SetIdAdvertised(nodeId);
+                        if(OCASTATUS_OK == rc)
+                        {
                             ::OcaUint32 responseSize(::GetSizeValue< ::OcaUint8>(static_cast< ::OcaUint8>(0), writer));
                             responseBuffer  = ::OcaLiteCommandHandler::GetInstance().GetResponseBuffer(responseSize);
                             if (NULL != responseBuffer)
@@ -191,10 +191,10 @@ void OcaLiteNetwork::Teardown()
                             {
                                 rc = OCASTATUS_BUFFER_OVERFLOW;
                             }
-                    	}
+                        }
                     }
-            	}
-            	break;
+                }
+                break;
             case GET_CONTROL_PROTOCOL:
                 {
                     ::OcaUint8 numberOfParameters(0);

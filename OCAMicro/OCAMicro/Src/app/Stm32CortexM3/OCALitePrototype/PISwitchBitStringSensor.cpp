@@ -49,7 +49,7 @@ void PISwitchBitStringSensor::Run()
         BitstringChanged(m_bitstring);
     }
 }
-	
+    
 ::OcaLiteStatus PISwitchBitStringSensor::GetReadingStateValue(::OcaLiteSensorReadingState& state) const
 {
     ::OcaLiteStatus rc(OCASTATUS_OK);

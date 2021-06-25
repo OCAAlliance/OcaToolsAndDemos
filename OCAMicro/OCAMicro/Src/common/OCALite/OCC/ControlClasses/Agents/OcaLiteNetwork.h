@@ -132,8 +132,8 @@ public:
     static const ::OcaLiteClassID CLASS_ID;
 
     // ---- Interface methods ----
-	
-	/**
+    
+    /**
      * Sets the network's IDAdvertised
      *
      * @param[in]   name    The network's IDAdvertised
@@ -390,7 +390,7 @@ protected:
      */
     virtual ::OcaLiteStatus GetIdAdvertisedValue(::OcaLiteNetworkNodeID& nodeId) const;
 
-	/**
+    /**
      * Sets the ID advertised in the network.
      *
      * @param[in]   name  The new ID advertised.

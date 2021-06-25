@@ -53,32 +53,32 @@ OcaLiteMute::OcaLiteMute(::OcaONo objectNumber, ::OcaBoolean lockable, const ::O
 
 ::OcaLiteStatus OcaLiteMute::SetState(::OcaLiteMuteState state)
 {
-	::OcaLiteStatus rc(OCASTATUS_PARAMETER_OUT_OF_RANGE);
-	if(state < ::OcaLiteMuteState::OCAMUTESTATE_MAXIMUM)
-	{
-		::OcaLiteMuteState oldState;
-		rc = GetStateValue(oldState);
-		if ((OCASTATUS_OK == rc) && !CompareValue< ::OcaLiteMuteState>(oldState, state))
-		{
-			rc = SetStateValue(state);
-			if (OCASTATUS_OK == rc)
-			{
-				m_state = state;
-									
-				::OcaLiteMuteState actualState;
-				rc = GetStateValue(actualState);
-				if (OCASTATUS_OK == rc)
-				{
-					::OcaLitePropertyID propertyID(CLASS_ID.GetFieldCount(), static_cast< ::OcaUint16>(OCA_PROP_STATE));
-					::OcaLitePropertyChangedEventData< ::OcaUint8> eventData(GetObjectNumber(),							// ::OcaLiteMuteState cast to ::OcaUint8 according to OcaLiteWorkerDataTypes.h
-																			 propertyID,
-																			 actualState,
-																			 OCAPROPERTYCHANGETYPE_CURRENT_CHANGED);
-					PropertyChanged(eventData, propertyID);
-				}
-			}
-		}
-	}
+    ::OcaLiteStatus rc(OCASTATUS_PARAMETER_OUT_OF_RANGE);
+    if(state < ::OcaLiteMuteState::OCAMUTESTATE_MAXIMUM)
+    {
+        ::OcaLiteMuteState oldState;
+        rc = GetStateValue(oldState);
+        if ((OCASTATUS_OK == rc) && !CompareValue< ::OcaLiteMuteState>(oldState, state))
+        {
+            rc = SetStateValue(state);
+            if (OCASTATUS_OK == rc)
+            {
+                m_state = state;
+                                    
+                ::OcaLiteMuteState actualState;
+                rc = GetStateValue(actualState);
+                if (OCASTATUS_OK == rc)
+                {
+                    ::OcaLitePropertyID propertyID(CLASS_ID.GetFieldCount(), static_cast< ::OcaUint16>(OCA_PROP_STATE));
+                    ::OcaLitePropertyChangedEventData< ::OcaUint8> eventData(GetObjectNumber(),                            // ::OcaLiteMuteState cast to ::OcaUint8 according to OcaLiteWorkerDataTypes.h
+                                                                             propertyID,
+                                                                             actualState,
+                                                                             OCAPROPERTYCHANGETYPE_CURRENT_CHANGED);
+                    PropertyChanged(eventData, propertyID);
+                }
+            }
+        }
+    }
 
     return rc;
 }
@@ -91,7 +91,7 @@ OcaLiteMute::OcaLiteMute(::OcaONo objectNumber, ::OcaBoolean lockable, const ::O
     {
         if (methodID.GetDefLevel() == CLASS_ID.GetFieldCount())
         {
-			::OcaUint8* responseBuffer(NULL);
+            ::OcaUint8* responseBuffer(NULL);
             const ::OcaUint8* pCmdParameters(parameters);
             ::OcaUint32 bytesLeft(parametersSize);
 
@@ -107,8 +107,8 @@ OcaLiteMute::OcaLiteMute(::OcaONo objectNumber, ::OcaBoolean lockable, const ::O
                         rc = GetState(state);
                         if (OCASTATUS_OK == rc) 
                         {
-						    ::OcaUint32 responseSize(::GetSizeValue< ::OcaUint8>(static_cast< ::OcaUint8>(1), writer) + 
-													::GetSizeValue< ::OcaUint8>(state, writer));
+                            ::OcaUint32 responseSize(::GetSizeValue< ::OcaUint8>(static_cast< ::OcaUint8>(1), writer) + 
+                                                    ::GetSizeValue< ::OcaUint8>(state, writer));
                             responseBuffer = ::OcaLiteCommandHandler::GetInstance().GetResponseBuffer(responseSize);
 
                             if (NULL != responseBuffer)
@@ -130,8 +130,8 @@ OcaLiteMute::OcaLiteMute(::OcaONo objectNumber, ::OcaBoolean lockable, const ::O
             case SET_STATE:
                 {
                     ::OcaUint8 numberOfParameters(0);
-                    ::OcaUint8 state;														// ::OcaLiteMuteState cast to ::OcaUint8 according to OcaLiteWorkerDataTypes.h
-					if (reader.Read(bytesLeft, &pCmdParameters, numberOfParameters) &&
+                    ::OcaUint8 state;                                                        // ::OcaLiteMuteState cast to ::OcaUint8 according to OcaLiteWorkerDataTypes.h
+                    if (reader.Read(bytesLeft, &pCmdParameters, numberOfParameters) &&
                         (1 == numberOfParameters) &&
                         reader.Read(bytesLeft, &pCmdParameters, state))
                     {

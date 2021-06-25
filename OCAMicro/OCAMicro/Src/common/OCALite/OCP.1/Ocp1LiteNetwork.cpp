@@ -861,8 +861,8 @@ bool Ocp1LiteNetwork::Disconnect(::OcaSessionID sessionID)
 
 ::OcaLiteStatus Ocp1LiteNetwork::SetIDAdvertisedAndTxtRecords(const::Ocp1LiteNetworkNodeID & idAdvertised, const std::vector<std::string>& txtRecords)
 {
-	m_txtRecordList = txtRecords;
-	return SetIdAdvertised(idAdvertised);
+    m_txtRecordList = txtRecords;
+    return SetIdAdvertised(idAdvertised);
 }
 
 ::OcaLiteStatus Ocp1LiteNetwork::GetSystemInterfacesValue(::OcaLiteList< ::OcaLiteNetworkSystemInterfaceID>& interfaces) const
@@ -882,24 +882,24 @@ bool Ocp1LiteNetwork::Disconnect(::OcaSessionID sessionID)
 
 ::OcaLiteStatus Ocp1LiteNetwork::SetIdAdvertisedValue(const ::OcaLiteNetworkNodeID& nodeId)
 {
-	::OcaLiteStatus result(OCASTATUS_PARAMETER_ERROR);
-	::Ocp1LiteNetworkNodeID* ocp1LiteNetworkNodeID(::Ocp1LiteNetworkNodeID::CreateFromBase(nodeId));
-	if (ocp1LiteNetworkNodeID != NULL)
-	{
-		m_nodeID = ocp1LiteNetworkNodeID->GetStringValue();
+    ::OcaLiteStatus result(OCASTATUS_PARAMETER_ERROR);
+    ::Ocp1LiteNetworkNodeID* ocp1LiteNetworkNodeID(::Ocp1LiteNetworkNodeID::CreateFromBase(nodeId));
+    if (ocp1LiteNetworkNodeID != NULL)
+    {
+        m_nodeID = ocp1LiteNetworkNodeID->GetStringValue();
 
-		// Reregister with the new node id
-		 Ocp1LiteServiceDispose();
-		 
-		 result = RegisterRegistrationServices();
+        // Reregister with the new node id
+         Ocp1LiteServiceDispose();
+         
+         result = RegisterRegistrationServices();
          if (OCASTATUS_OK != result)
          {
             Ocp1LiteServiceDispose();
          }
-		delete ocp1LiteNetworkNodeID;
-	}
+        delete ocp1LiteNetworkNodeID;
+    }
 
-	return result;
+    return result;
 }
 
 void Ocp1LiteNetwork::HandleControllers(OcaSocketList& controllerList, const OcfLiteSelectableSet& readSet)

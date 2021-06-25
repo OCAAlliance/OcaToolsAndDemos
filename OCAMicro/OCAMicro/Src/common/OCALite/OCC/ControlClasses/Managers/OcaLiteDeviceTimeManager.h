@@ -39,7 +39,7 @@ public:
     /** Method indexes for the supported methods. */
     enum MethodIndex
     {
-		/** GetDeviceTimeNTP() */
+        /** GetDeviceTimeNTP() */
         GET_DEVICE_TIME_NTP             = 1,
         /** SetDeviceTimeNTP() */
         SET_DEVICE_TIME_NTP             = 2,
@@ -58,7 +58,7 @@ public:
     /** Property indexes for the supported properties. */
     enum PropertyIndex
     {
-		/**
+        /**
          * The list of ONos of OcaTimeSource objects in this device
          * @since AES70-2018.
          */
@@ -82,9 +82,9 @@ public:
      */
     static const ::OcaLiteClassID CLASS_ID;
 
-	virtual ::OcaBoolean Initialize();
+    virtual ::OcaBoolean Initialize();
 
-	virtual ::OcaBoolean Shutdown();
+    virtual ::OcaBoolean Shutdown();
 
     // ---- Interface methods ----
     /**
@@ -149,7 +149,7 @@ public:
      * @return Indicates whether the property was successfully set
      */
     ::OcaLiteStatus SetDeviceTimePTP(const ::OcaLiteTimePTP& deviceTime);
-	
+    
     virtual ::OcaLiteStatus Execute(const ::IOcaLiteReader& reader, const ::IOcaLiteWriter& writer, ::OcaSessionID sessionID, const ::OcaLiteMethodID& methodID,
                                     ::OcaUint32 parametersSize, const ::OcaUint8* parameters, ::OcaUint8** response);
 
@@ -184,8 +184,8 @@ protected:
     }
 
     virtual ::OcaClassVersionNumber GetClassVersion() const;
-	
-	/**
+    
+    /**
      * Get the current device time-of-day clock in seconds since 00:00 hours, Jan 1, 1970 UTC. Can be overridden by derived classes
      * that actually implement this class. By default it returns the value of IOcfTimer::GetTimeNow
      * @note This method should not take the object's mutex itself.
@@ -244,11 +244,11 @@ private:
     ::OcaLiteStatus InternalGetTimeSources(::OcaLiteList< ::OcaONo>& timeSources) const;
 
     /** List with time source object numbers. */
-    typedef std::vector< ::OcaONo>	TimeSourceONoList;
+    typedef std::vector< ::OcaONo>    TimeSourceONoList;
     TimeSourceONoList                   m_timeSourceList;
 
     /** The current device time source. */
-    ::OcaONo							m_currentDeviceTimeSource;
+    ::OcaONo                            m_currentDeviceTimeSource;
 
     /** Boolean which indicates whether the current class is initialized. */
     bool                                m_bInitialized;

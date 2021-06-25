@@ -44,9 +44,9 @@ const ::OcaONo OcaLiteDeviceTimeManager::OBJECT_NUMBER(static_cast< ::OcaONo>(10
 
 OcaLiteDeviceTimeManager::OcaLiteDeviceTimeManager()
   : ::OcaLiteManager(OBJECT_NUMBER, ::OcaLiteString("DeviceTimeManager"), ::OcaLiteString("DeviceTimeManager")),
-	m_timeSourceList(),
-	m_currentDeviceTimeSource(OCA_INVALID_ONO),
-	m_bInitialized(static_cast< ::OcaBoolean>(false))
+    m_timeSourceList(),
+    m_currentDeviceTimeSource(OCA_INVALID_ONO),
+    m_bInitialized(static_cast< ::OcaBoolean>(false))
 {
 }
 
@@ -56,21 +56,21 @@ OcaLiteDeviceTimeManager::~OcaLiteDeviceTimeManager()
 
 ::OcaBoolean OcaLiteDeviceTimeManager::Initialize()
 {
-	::OcaBoolean bResult(OcaLiteManager::Initialize());
+    ::OcaBoolean bResult(OcaLiteManager::Initialize());
 
-	if (bResult)
-	{
-		m_bInitialized = true;
-	}
+    if (bResult)
+    {
+        m_bInitialized = true;
+    }
 
-	return bResult;
+    return bResult;
 }
 
 ::OcaBoolean OcaLiteDeviceTimeManager::Shutdown()
 {
-	m_bInitialized = false;
+    m_bInitialized = false;
 
-	return OcaLiteManager::Shutdown();
+    return OcaLiteManager::Shutdown();
 }
 
 ::OcaLiteStatus OcaLiteDeviceTimeManager::GetDeviceTimeNTP(::OcaLiteTimeNTP& deviceTime) const
@@ -207,7 +207,7 @@ OcaLiteDeviceTimeManager::~OcaLiteDeviceTimeManager()
 }
 
 ::OcaLiteStatus OcaLiteDeviceTimeManager::Execute(const ::IOcaLiteReader& reader, const ::IOcaLiteWriter& writer, ::OcaSessionID sessionID, const ::OcaLiteMethodID& methodID,
-												::OcaUint32 parametersSize, const ::OcaUint8* parameters, ::OcaUint8** response)
+                                                ::OcaUint32 parametersSize, const ::OcaUint8* parameters, ::OcaUint8** response)
 {
     ::OcaLiteStatus rc(OCASTATUS_PARAMETER_ERROR);
 
@@ -215,208 +215,208 @@ OcaLiteDeviceTimeManager::~OcaLiteDeviceTimeManager()
     {
         if (methodID.GetDefLevel() == CLASS_ID.GetFieldCount())
         {
-			::OcaUint8* responseBuffer(NULL);
-			const ::OcaUint8* pCmdParameters(parameters);
-			::OcaUint32 bytesLeft(parametersSize);
+            ::OcaUint8* responseBuffer(NULL);
+            const ::OcaUint8* pCmdParameters(parameters);
+            ::OcaUint32 bytesLeft(parametersSize);
 
             switch (methodID.GetMethodIndex())
             {
             case GET_DEVICE_TIME_NTP:
                 {
-					::OcaUint8 numberOfParameters(0);
-					if (reader.Read(bytesLeft, &pCmdParameters, numberOfParameters) &&
-						(0 == numberOfParameters))
-					{
-						::OcaLiteTimeNTP deviceTime;
+                    ::OcaUint8 numberOfParameters(0);
+                    if (reader.Read(bytesLeft, &pCmdParameters, numberOfParameters) &&
+                        (0 == numberOfParameters))
+                    {
+                        ::OcaLiteTimeNTP deviceTime;
                         rc = GetDeviceTimeNTP(deviceTime);
                         if ((OCASTATUS_OK == rc))
                         {
-							::OcaUint32 responseSize(::GetSizeValue< ::OcaUint8>(static_cast<::OcaUint8>(1), writer) +
-								::GetSizeValue< ::OcaUint64>(deviceTime, writer));
-							responseBuffer = ::OcaLiteCommandHandler::GetInstance().GetResponseBuffer(responseSize);
-							if (NULL != responseBuffer)
-							{
-								::OcaUint8* pResponse(responseBuffer);
-								writer.Write(static_cast<::OcaUint8>(1/*NrParameters*/), &pResponse);
-								::MarshalValue< ::OcaUint64>(deviceTime, &pResponse, writer);
+                            ::OcaUint32 responseSize(::GetSizeValue< ::OcaUint8>(static_cast<::OcaUint8>(1), writer) +
+                                ::GetSizeValue< ::OcaUint64>(deviceTime, writer));
+                            responseBuffer = ::OcaLiteCommandHandler::GetInstance().GetResponseBuffer(responseSize);
+                            if (NULL != responseBuffer)
+                            {
+                                ::OcaUint8* pResponse(responseBuffer);
+                                writer.Write(static_cast<::OcaUint8>(1/*NrParameters*/), &pResponse);
+                                ::MarshalValue< ::OcaUint64>(deviceTime, &pResponse, writer);
 
-								*response = responseBuffer;
-							}
-							else
-							{
-								rc = OCASTATUS_BUFFER_OVERFLOW;
-							}
+                                *response = responseBuffer;
+                            }
+                            else
+                            {
+                                rc = OCASTATUS_BUFFER_OVERFLOW;
+                            }
                         }
                     }
                 }
                 break;
             case SET_DEVICE_TIME_NTP:
                 {
-					::OcaUint8 numberOfParameters(0);
-					::OcaLiteTimeNTP deviceTime;
-					if (reader.Read(bytesLeft, &pCmdParameters, numberOfParameters) &&
-						(1 == numberOfParameters) &&
-						reader.Read(bytesLeft, &pCmdParameters, deviceTime))
-					{
-						rc = SetDeviceTimeNTP(deviceTime);
-						if (OCASTATUS_OK == rc)
-						{
-							::OcaUint32 responseSize(::GetSizeValue< ::OcaUint8>(static_cast<::OcaUint8>(0), writer));
-							responseBuffer = ::OcaLiteCommandHandler::GetInstance().GetResponseBuffer(responseSize);
-							if (NULL != responseBuffer)
-							{
-								::OcaUint8* pResponse(responseBuffer);
-								writer.Write(static_cast<::OcaUint8>(0/*NrParameters*/), &pResponse);
-					
-								*response = responseBuffer;
-							}
-							else
-							{
-								rc = OCASTATUS_BUFFER_OVERFLOW;
-							}
-						}
-					}
+                    ::OcaUint8 numberOfParameters(0);
+                    ::OcaLiteTimeNTP deviceTime;
+                    if (reader.Read(bytesLeft, &pCmdParameters, numberOfParameters) &&
+                        (1 == numberOfParameters) &&
+                        reader.Read(bytesLeft, &pCmdParameters, deviceTime))
+                    {
+                        rc = SetDeviceTimeNTP(deviceTime);
+                        if (OCASTATUS_OK == rc)
+                        {
+                            ::OcaUint32 responseSize(::GetSizeValue< ::OcaUint8>(static_cast<::OcaUint8>(0), writer));
+                            responseBuffer = ::OcaLiteCommandHandler::GetInstance().GetResponseBuffer(responseSize);
+                            if (NULL != responseBuffer)
+                            {
+                                ::OcaUint8* pResponse(responseBuffer);
+                                writer.Write(static_cast<::OcaUint8>(0/*NrParameters*/), &pResponse);
+                    
+                                *response = responseBuffer;
+                            }
+                            else
+                            {
+                                rc = OCASTATUS_BUFFER_OVERFLOW;
+                            }
+                        }
+                    }
                 }
                 break;
             case GET_TIME_SOURCES:
                 {
-					::OcaUint8 numberOfParameters(0);
-					if (reader.Read(bytesLeft, &pCmdParameters, numberOfParameters) &&
-						(0 == numberOfParameters))
-					{
-						::OcaLiteList< ::OcaONo> timeSources;
-						rc = GetTimeSources(timeSources);
-						if ((OCASTATUS_OK == rc))
-						{
-							::OcaUint32 responseSize(::GetSizeValue< ::OcaUint8>(static_cast<::OcaUint8>(1), writer) +
-								timeSources.GetSize(writer));
-							responseBuffer = ::OcaLiteCommandHandler::GetInstance().GetResponseBuffer(responseSize);
-							if (NULL != responseBuffer)
-							{
-								::OcaUint8* pResponse(responseBuffer);
-								writer.Write(static_cast<::OcaUint8>(1/*NrParameters*/), &pResponse);
-								timeSources.Marshal(&pResponse, writer);
+                    ::OcaUint8 numberOfParameters(0);
+                    if (reader.Read(bytesLeft, &pCmdParameters, numberOfParameters) &&
+                        (0 == numberOfParameters))
+                    {
+                        ::OcaLiteList< ::OcaONo> timeSources;
+                        rc = GetTimeSources(timeSources);
+                        if ((OCASTATUS_OK == rc))
+                        {
+                            ::OcaUint32 responseSize(::GetSizeValue< ::OcaUint8>(static_cast<::OcaUint8>(1), writer) +
+                                timeSources.GetSize(writer));
+                            responseBuffer = ::OcaLiteCommandHandler::GetInstance().GetResponseBuffer(responseSize);
+                            if (NULL != responseBuffer)
+                            {
+                                ::OcaUint8* pResponse(responseBuffer);
+                                writer.Write(static_cast<::OcaUint8>(1/*NrParameters*/), &pResponse);
+                                timeSources.Marshal(&pResponse, writer);
 
-								*response = responseBuffer;
-							}
-							else
-							{
-								rc = OCASTATUS_BUFFER_OVERFLOW;
-							}
-						}
-					}
+                                *response = responseBuffer;
+                            }
+                            else
+                            {
+                                rc = OCASTATUS_BUFFER_OVERFLOW;
+                            }
+                        }
+                    }
                 }
                 break;
             case GET_CURRENT_DEVICE_TIME_SOURCE:
                 {
-					::OcaUint8 numberOfParameters(0);
-					if (reader.Read(bytesLeft, &pCmdParameters, numberOfParameters) &&
-						(0 == numberOfParameters))
-					{
-						::OcaONo timeSource;
-						rc = GetCurrentDeviceTimeSource(timeSource);
-						if ((OCASTATUS_OK == rc))
-						{
-							::OcaUint32 responseSize(::GetSizeValue< ::OcaUint8>(static_cast<::OcaUint8>(1), writer) +
-								::GetSizeValue< ::OcaONo>(timeSource, writer));
-							responseBuffer = ::OcaLiteCommandHandler::GetInstance().GetResponseBuffer(responseSize);
-							if (NULL != responseBuffer)
-							{
-								::OcaUint8* pResponse(responseBuffer);
-								writer.Write(static_cast<::OcaUint8>(1/*NrParameters*/), &pResponse);
-								::MarshalValue< ::OcaONo>(timeSource, &pResponse, writer);
+                    ::OcaUint8 numberOfParameters(0);
+                    if (reader.Read(bytesLeft, &pCmdParameters, numberOfParameters) &&
+                        (0 == numberOfParameters))
+                    {
+                        ::OcaONo timeSource;
+                        rc = GetCurrentDeviceTimeSource(timeSource);
+                        if ((OCASTATUS_OK == rc))
+                        {
+                            ::OcaUint32 responseSize(::GetSizeValue< ::OcaUint8>(static_cast<::OcaUint8>(1), writer) +
+                                ::GetSizeValue< ::OcaONo>(timeSource, writer));
+                            responseBuffer = ::OcaLiteCommandHandler::GetInstance().GetResponseBuffer(responseSize);
+                            if (NULL != responseBuffer)
+                            {
+                                ::OcaUint8* pResponse(responseBuffer);
+                                writer.Write(static_cast<::OcaUint8>(1/*NrParameters*/), &pResponse);
+                                ::MarshalValue< ::OcaONo>(timeSource, &pResponse, writer);
 
-								*response = responseBuffer;
-							}
-							else
-							{
-								rc = OCASTATUS_BUFFER_OVERFLOW;
-							}
-						}
-					}
+                                *response = responseBuffer;
+                            }
+                            else
+                            {
+                                rc = OCASTATUS_BUFFER_OVERFLOW;
+                            }
+                        }
+                    }
                 }
                 break;
             case SET_CURRENT_DEVICE_TIME_SOURCE:
                 {
-					::OcaUint8 numberOfParameters(0);
-					::OcaONo timeSource;
-					if (reader.Read(bytesLeft, &pCmdParameters, numberOfParameters) &&
-						(1 == numberOfParameters) &&
-						reader.Read(bytesLeft, &pCmdParameters, timeSource))
-					{
-						rc = SetCurrentDeviceTimeSource(timeSource);
-						if (OCASTATUS_OK == rc)
-						{
-							::OcaUint32 responseSize(::GetSizeValue< ::OcaUint8>(static_cast<::OcaUint8>(0), writer));
-							responseBuffer = ::OcaLiteCommandHandler::GetInstance().GetResponseBuffer(responseSize);
-							if (NULL != responseBuffer)
-							{
-								::OcaUint8* pResponse(responseBuffer);
-								writer.Write(static_cast<::OcaUint8>(0/*NrParameters*/), &pResponse);
+                    ::OcaUint8 numberOfParameters(0);
+                    ::OcaONo timeSource;
+                    if (reader.Read(bytesLeft, &pCmdParameters, numberOfParameters) &&
+                        (1 == numberOfParameters) &&
+                        reader.Read(bytesLeft, &pCmdParameters, timeSource))
+                    {
+                        rc = SetCurrentDeviceTimeSource(timeSource);
+                        if (OCASTATUS_OK == rc)
+                        {
+                            ::OcaUint32 responseSize(::GetSizeValue< ::OcaUint8>(static_cast<::OcaUint8>(0), writer));
+                            responseBuffer = ::OcaLiteCommandHandler::GetInstance().GetResponseBuffer(responseSize);
+                            if (NULL != responseBuffer)
+                            {
+                                ::OcaUint8* pResponse(responseBuffer);
+                                writer.Write(static_cast<::OcaUint8>(0/*NrParameters*/), &pResponse);
 
-								*response = responseBuffer;
-							}
-							else
-							{
-								rc = OCASTATUS_BUFFER_OVERFLOW;
-							}
-						}
-					}
+                                *response = responseBuffer;
+                            }
+                            else
+                            {
+                                rc = OCASTATUS_BUFFER_OVERFLOW;
+                            }
+                        }
+                    }
                 }
                 break;
             case GET_DEVICE_TIME_PTP:
-				{
-					::OcaUint8 numberOfParameters(0);
-					if (reader.Read(bytesLeft, &pCmdParameters, numberOfParameters) &&
-						(0 == numberOfParameters))
-					{
-						::OcaLiteTimePTP deviceTime;
-						::OcaUint32 responseSize(::GetSizeValue< ::OcaUint8>(static_cast<::OcaUint8>(1), writer) +
-							deviceTime.GetSize(writer));
-						responseBuffer = ::OcaLiteCommandHandler::GetInstance().GetResponseBuffer(responseSize);
-						if (NULL != responseBuffer)
-						{
-							rc = OCASTATUS_OK;
+                {
+                    ::OcaUint8 numberOfParameters(0);
+                    if (reader.Read(bytesLeft, &pCmdParameters, numberOfParameters) &&
+                        (0 == numberOfParameters))
+                    {
+                        ::OcaLiteTimePTP deviceTime;
+                        ::OcaUint32 responseSize(::GetSizeValue< ::OcaUint8>(static_cast<::OcaUint8>(1), writer) +
+                            deviceTime.GetSize(writer));
+                        responseBuffer = ::OcaLiteCommandHandler::GetInstance().GetResponseBuffer(responseSize);
+                        if (NULL != responseBuffer)
+                        {
+                            rc = OCASTATUS_OK;
 
-							::OcaUint8* pResponse(responseBuffer);
-							writer.Write(static_cast<::OcaUint8>(1/*NrParameters*/), &pResponse);
-							deviceTime.Marshal(&pResponse, writer);
+                            ::OcaUint8* pResponse(responseBuffer);
+                            writer.Write(static_cast<::OcaUint8>(1/*NrParameters*/), &pResponse);
+                            deviceTime.Marshal(&pResponse, writer);
 
-							*response = responseBuffer;
-						}
-						else
-						{
-							rc = OCASTATUS_BUFFER_OVERFLOW;
-						}
-					}
-				}
-				break;
+                            *response = responseBuffer;
+                        }
+                        else
+                        {
+                            rc = OCASTATUS_BUFFER_OVERFLOW;
+                        }
+                    }
+                }
+                break;
             case SET_DEVICE_TIME_PTP:
                 {
-					::OcaUint8 numberOfParameters(0);
-					::OcaLiteTimePTP deviceTime;
-					if (reader.Read(bytesLeft, &pCmdParameters, numberOfParameters) &&
-						(1 == numberOfParameters) &&
-						deviceTime.Unmarshal(bytesLeft, &pCmdParameters, reader))
-					{
-						rc = SetDeviceTimePTP(deviceTime);
-						if (OCASTATUS_OK == rc)
-						{
-							::OcaUint32 responseSize(::GetSizeValue< ::OcaUint8>(static_cast<::OcaUint8>(0), writer));
-							responseBuffer = ::OcaLiteCommandHandler::GetInstance().GetResponseBuffer(responseSize);
-							if (NULL != responseBuffer)
-							{
-								::OcaUint8* pResponse(responseBuffer);
-								writer.Write(static_cast<::OcaUint8>(0/*NrParameters*/), &pResponse);
+                    ::OcaUint8 numberOfParameters(0);
+                    ::OcaLiteTimePTP deviceTime;
+                    if (reader.Read(bytesLeft, &pCmdParameters, numberOfParameters) &&
+                        (1 == numberOfParameters) &&
+                        deviceTime.Unmarshal(bytesLeft, &pCmdParameters, reader))
+                    {
+                        rc = SetDeviceTimePTP(deviceTime);
+                        if (OCASTATUS_OK == rc)
+                        {
+                            ::OcaUint32 responseSize(::GetSizeValue< ::OcaUint8>(static_cast<::OcaUint8>(0), writer));
+                            responseBuffer = ::OcaLiteCommandHandler::GetInstance().GetResponseBuffer(responseSize);
+                            if (NULL != responseBuffer)
+                            {
+                                ::OcaUint8* pResponse(responseBuffer);
+                                writer.Write(static_cast<::OcaUint8>(0/*NrParameters*/), &pResponse);
 
-								*response = responseBuffer;
-							}
-							else
-							{
-								rc = OCASTATUS_BUFFER_OVERFLOW;
-							}
-						}
-					}
+                                *response = responseBuffer;
+                            }
+                            else
+                            {
+                                rc = OCASTATUS_BUFFER_OVERFLOW;
+                            }
+                        }
+                    }
                 }
                 break;
             default:
@@ -484,7 +484,7 @@ OcaLiteDeviceTimeManager::~OcaLiteDeviceTimeManager()
                                                                                  timeSourceList,
                                                                                  OCAPROPERTYCHANGETYPE_ITEM_ADDED);
 
-			PropertyChanged(eventDataState, propertyId);
+            PropertyChanged(eventDataState, propertyId);
 
             result = static_cast< ::OcaBoolean>(true);
         }

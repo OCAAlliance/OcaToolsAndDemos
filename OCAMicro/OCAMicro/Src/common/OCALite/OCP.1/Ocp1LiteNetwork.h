@@ -167,7 +167,7 @@ protected:
 
     virtual ::OcaLiteStatus GetIdAdvertisedValue(::OcaLiteNetworkNodeID& nodeId) const;
 
-	virtual ::OcaLiteStatus SetIdAdvertisedValue(const ::OcaLiteNetworkNodeID& nodeId);
+    virtual ::OcaLiteStatus SetIdAdvertisedValue(const ::OcaLiteNetworkNodeID& nodeId);
 
     virtual ::OcaLiteStatus SetStatus(::OcaLiteNetworkStatus status);
 

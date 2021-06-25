@@ -239,13 +239,13 @@ public:
      */
     bool operator>=(::OcaUint64 rhs) const;
 
-	// ---- IOcaLiteMarshal methods ----
+    // ---- IOcaLiteMarshal methods ----
 
-	virtual void Marshal(::OcaUint8** destination, const ::IOcaLiteWriter& writer) const;
+    virtual void Marshal(::OcaUint8** destination, const ::IOcaLiteWriter& writer) const;
 
-	virtual bool Unmarshal(::OcaUint32& bytesLeft, const ::OcaUint8** source, const ::IOcaLiteReader& reader);
+    virtual bool Unmarshal(::OcaUint32& bytesLeft, const ::OcaUint8** source, const ::IOcaLiteReader& reader);
 
-	virtual ::OcaUint32 GetSize(const ::IOcaLiteWriter& writer) const;
+    virtual ::OcaUint32 GetSize(const ::IOcaLiteWriter& writer) const;
 
 private:
     /** The value of the seconds. */

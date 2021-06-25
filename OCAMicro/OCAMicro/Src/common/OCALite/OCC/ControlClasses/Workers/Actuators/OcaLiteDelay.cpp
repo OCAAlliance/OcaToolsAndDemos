@@ -88,24 +88,24 @@ OcaLiteDelay::OcaLiteDelay(::OcaONo objectNumber, ::OcaBoolean lockable, const :
 
 
 ::OcaLiteStatus OcaLiteDelay::Execute(const ::IOcaLiteReader& reader, const ::IOcaLiteWriter& writer, ::OcaSessionID sessionID, const ::OcaLiteMethodID& methodID,
-	::OcaUint32 parametersSize, const ::OcaUint8* parameters, ::OcaUint8** response)
+    ::OcaUint32 parametersSize, const ::OcaUint8* parameters, ::OcaUint8** response)
 {
     ::OcaLiteStatus rc(OCASTATUS_PARAMETER_ERROR);
     if (!IsLocked(sessionID))
     {
         if (methodID.GetDefLevel() == CLASS_ID.GetFieldCount())
         {
-			::OcaUint8* responseBuffer(NULL); 
-			const ::OcaUint8* pCmdParameters(parameters);
-			::OcaUint32 bytesLeft(parametersSize);
+            ::OcaUint8* responseBuffer(NULL); 
+            const ::OcaUint8* pCmdParameters(parameters);
+            ::OcaUint32 bytesLeft(parametersSize);
 
             switch (methodID.GetMethodIndex())
             {
             case GET_DELAY_TIME:
                 {
-					::OcaUint8 numberOfParameters(0);
+                    ::OcaUint8 numberOfParameters(0);
                     if (reader.Read(bytesLeft, &pCmdParameters, numberOfParameters) &&
-						(0 == numberOfParameters))
+                        (0 == numberOfParameters))
                     {
                         ::OcaTimeInterval delayTime;
                         ::OcaTimeInterval minDelayTime;
@@ -113,58 +113,58 @@ OcaLiteDelay::OcaLiteDelay(::OcaONo objectNumber, ::OcaBoolean lockable, const :
                         rc = GetDelayTime(delayTime, minDelayTime, maxDelayTime);
                         if (OCASTATUS_OK == rc) 
                         {
-							::OcaUint32 responseSize(::GetSizeValue< ::OcaUint8>(static_cast<::OcaUint8>(3), writer) +
-								::GetSizeValue< ::OcaDB>(delayTime, writer) +
-								::GetSizeValue< ::OcaDB>(minDelayTime, writer) +
-								::GetSizeValue< ::OcaDB>(maxDelayTime, writer));
-							responseBuffer = ::OcaLiteCommandHandler::GetInstance().GetResponseBuffer(responseSize);
-							if (NULL != responseBuffer)
-							{
-								::OcaUint8* pResponse(responseBuffer);
-								writer.Write(static_cast<::OcaUint8>(3/*NrParameters*/), &pResponse);
-								::MarshalValue< ::OcaDB>(delayTime, &pResponse, writer);
-								::MarshalValue< ::OcaDB>(minDelayTime, &pResponse, writer);
-								::MarshalValue< ::OcaDB>(maxDelayTime, &pResponse, writer);
+                            ::OcaUint32 responseSize(::GetSizeValue< ::OcaUint8>(static_cast<::OcaUint8>(3), writer) +
+                                ::GetSizeValue< ::OcaDB>(delayTime, writer) +
+                                ::GetSizeValue< ::OcaDB>(minDelayTime, writer) +
+                                ::GetSizeValue< ::OcaDB>(maxDelayTime, writer));
+                            responseBuffer = ::OcaLiteCommandHandler::GetInstance().GetResponseBuffer(responseSize);
+                            if (NULL != responseBuffer)
+                            {
+                                ::OcaUint8* pResponse(responseBuffer);
+                                writer.Write(static_cast<::OcaUint8>(3/*NrParameters*/), &pResponse);
+                                ::MarshalValue< ::OcaDB>(delayTime, &pResponse, writer);
+                                ::MarshalValue< ::OcaDB>(minDelayTime, &pResponse, writer);
+                                ::MarshalValue< ::OcaDB>(maxDelayTime, &pResponse, writer);
 
-								*response = responseBuffer;
-							}
-							else
-							{
-								rc = OCASTATUS_BUFFER_OVERFLOW;
-							}
+                                *response = responseBuffer;
+                            }
+                            else
+                            {
+                                rc = OCASTATUS_BUFFER_OVERFLOW;
+                            }
                         }
                     }
                 }
                 break;
             case SET_DELAY_TIME:
                 {
-					::OcaUint8 numberOfParameters(0);
-					::OcaTimeInterval delayTime;
+                    ::OcaUint8 numberOfParameters(0);
+                    ::OcaTimeInterval delayTime;
 
-					if (reader.Read(bytesLeft, &pCmdParameters, numberOfParameters) &&
-						(1 == numberOfParameters) &&
-						reader.Read(bytesLeft, &pCmdParameters, delayTime))
-					{
-						rc = SetDelayTime(delayTime);
-						if (OCASTATUS_OK == rc)
-						{
-							::OcaUint32 responseSize(::GetSizeValue< ::OcaUint8>(static_cast<::OcaUint8>(0), writer));
-							responseBuffer = ::OcaLiteCommandHandler::GetInstance().GetResponseBuffer(responseSize);
-							if (NULL != responseBuffer)
-							{
-								::OcaUint8* pResponse(responseBuffer);
-								writer.Write(static_cast<::OcaUint8>(0/*NrParameters*/), &pResponse);
+                    if (reader.Read(bytesLeft, &pCmdParameters, numberOfParameters) &&
+                        (1 == numberOfParameters) &&
+                        reader.Read(bytesLeft, &pCmdParameters, delayTime))
+                    {
+                        rc = SetDelayTime(delayTime);
+                        if (OCASTATUS_OK == rc)
+                        {
+                            ::OcaUint32 responseSize(::GetSizeValue< ::OcaUint8>(static_cast<::OcaUint8>(0), writer));
+                            responseBuffer = ::OcaLiteCommandHandler::GetInstance().GetResponseBuffer(responseSize);
+                            if (NULL != responseBuffer)
+                            {
+                                ::OcaUint8* pResponse(responseBuffer);
+                                writer.Write(static_cast<::OcaUint8>(0/*NrParameters*/), &pResponse);
 
-								*response = responseBuffer;
-							}
-							else
-							{
-								rc = OCASTATUS_BUFFER_OVERFLOW;
-							}
-						}
-					}
-				}
-				break;
+                                *response = responseBuffer;
+                            }
+                            else
+                            {
+                                rc = OCASTATUS_BUFFER_OVERFLOW;
+                            }
+                        }
+                    }
+                }
+                break;
             default:
                 rc = OCASTATUS_BAD_METHOD;
                 break;
@@ -194,6 +194,6 @@ OcaLiteDelay::OcaLiteDelay(::OcaONo objectNumber, ::OcaBoolean lockable, const :
 
 ::OcaLiteStatus OcaLiteDelay::GetDelayTimeValue(::OcaTimeInterval& time) const
 {
-	time = m_delayTime;
-	return OCASTATUS_OK;
+    time = m_delayTime;
+    return OCASTATUS_OK;
 }
