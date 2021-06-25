@@ -40,6 +40,7 @@ SRCS  = OcaLiteAgent.cpp \
         OcaLiteTimeSource.cpp \
         \
         OcaLiteDeviceManager.cpp \
+        OcaLiteDeviceTimeManager.cpp \
         OcaLiteFirmwareManager.cpp \
         OcaLiteManager.cpp \
         OcaLiteMediaClockManager.cpp \
@@ -56,10 +57,12 @@ SRCS  = OcaLiteAgent.cpp \
         OcaLiteBasicActuator.cpp \
         OcaLiteBitstringActuator.cpp \
         OcaLiteBooleanActuator.cpp \
+        OcaLiteDelay.cpp \
         OcaLiteFloat32Actuator.cpp \
         OcaLiteGain.cpp \
         OcaLiteIdentificationActuator.cpp \
         OcaLiteInt32Actuator.cpp \
+        OcaLiteMute.cpp \
         OcaLiteStringActuator.cpp \
         OcaLiteSwitch.cpp \
         \
@@ -131,6 +134,7 @@ SRCS  = OcaLiteAgent.cpp \
         OcaLitePortID.cpp \
         OcaLitePropertyChangedEventData.cpp \
         OcaLitePropertyID.cpp \
+        OcaLitePTPSeconds.cpp \
         OcaLiteStream.cpp \
         OcaLiteStreamConnectorID.cpp \
         OcaLiteStreamID.cpp \
@@ -138,6 +142,7 @@ SRCS  = OcaLiteAgent.cpp \
         OcaLiteString.cpp \
         OcaLiteStringInABlob.cpp \
         OcaLiteTemplateHelpers.cpp \
+        OcaLiteTimePTP.cpp \
         OcaLiteVersion.cpp \
         OcaLiteWorkerDataTypes.cpp \
         \
