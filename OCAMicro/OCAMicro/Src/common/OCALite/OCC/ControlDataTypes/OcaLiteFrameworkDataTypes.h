@@ -61,6 +61,8 @@ enum OcaLiteStatus  /* maps onto OcaUint8 */
     OCASTATUS_TIMEOUT                   = 13,
     /** Operation failed because of a buffer overflow. */
     OCASTATUS_BUFFER_OVERFLOW           = 14,
+    /** The user does not have permission to execute this method */
+    OCASTATUS_PERMISSION_DENIED         = 15,
     /** Maximum value used for range checking. */
     OCASTATUS_MAXIMUM
 };
