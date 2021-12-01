@@ -1,6 +1,5 @@
 /*  By downloading or using this file, the user agrees to be bound by the terms of the license 
- *  agreement located in the LICENSE file in the root of this project
- *  as an original contracting party.
+ *  agreement located at http://ocaalliance.com/EULA as an original contracting party.
  *
  *  Description         : OCC application network data types.
  *
