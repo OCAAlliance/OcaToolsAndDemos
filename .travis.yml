@@ -1,8 +1,10 @@
 jobs:
   include:
   - stage: Windows
+    language: cpp
     os: windows
     script:
+    - msbuild --version
     - make --version
   - stage: Stm32
     language: cpp
