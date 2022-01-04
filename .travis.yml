@@ -11,7 +11,7 @@ jobs:
     - powershell Install-WindowsFeature Net-Framework-Core
     - choco install wixtoolset
     script:
-    - export PATH=$MSBUILD_PATH:$PATH
+    - export PATH=$MSBUILD_PATH:$PATH:"C:/Program Files/doxygen/"
     - cd OCACompliancyTestTool
     - ./build.cmd
     deploy:
