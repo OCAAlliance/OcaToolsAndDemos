@@ -8,6 +8,7 @@ jobs:
     install:
     - choco install doxygen.install --ignore-checksums
     - choco install html-help-workshop
+    - choco install wixtoolset
     script:
     - export PATH=$MSBUILD_PATH:$PATH
     - cd OCACompliancyTestTool
