@@ -153,6 +153,11 @@ protected:
 
     virtual ::OcaLiteStatus GetIdAdvertisedValue(::OcaLiteNetworkNodeID& nodeId) const;
 
+    virtual ::OcaLiteStatus SetIdAdvertisedValue(const ::OcaLiteNetworkNodeID& nodeId)
+    {
+        return OCASTATUS_NOT_IMPLEMENTED;
+    }
+
     virtual ::OcaLiteStatus SetStatus(::OcaLiteNetworkStatus status);
 
     virtual ::OcaLiteStatus CreateMessageBuffer(void);
