@@ -12,8 +12,6 @@ jobs:
     - choco install wixtoolset
     script:
     - export PATH=$MSBUILD_PATH:$PATH
-    - doxygen --version
-    - msbuild --version
     - cd OCACompliancyTestTool
     - ./build.cmd
     deploy:
