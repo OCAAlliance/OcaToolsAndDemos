@@ -14,7 +14,6 @@ jobs:
     script:
     - export PATH=$MSBUILD_PATH:$DOXYGEN_PATH:$PATH
     - cd OCACompliancyTestTool
-    - refreshenv
     - ./build.cmd
     deploy:
       provider: releases
