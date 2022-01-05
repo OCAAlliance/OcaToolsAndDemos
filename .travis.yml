@@ -14,7 +14,8 @@ jobs:
     script:
     - echo "Echo install log" 
     - cat C:\ProgramData\chocolatey\logs\chocolatey.log
-    - export PATH=$MSBUILD_PATH:$DOXYGEN_PATH:$PATH
+    - export PATH=$MSBUILD_PATH:$PATH
+    - export PATH=$DOXYGEN_PATH:$PATH
     - cd OCACompliancyTestTool
     - ./build.cmd
     deploy:
