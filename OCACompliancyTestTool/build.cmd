@@ -3,6 +3,11 @@
 @echo off
 
 :: TODO write the BUILD_VERSION in the version file on bases of the commit.
+pwd
+dir "C:\Program Files (x86)\Microsoft Visual Studio\2017\BuildTools\MSBuild\Microsoft"
+dir "C:\Program Files (x86)\WiX Toolset v3.11\"
+dir "C:\Program Files (x86)\WiX Toolset v3.11\bin\"
+dir "C:\Program Files (x86)\WiX Toolset v3.11\bin\x86"
 
 :: First extract the version from the version file.
 for /f "tokens=2,3" %%a in ('type Aes70CompliancyTestTool\VersionDefs.h') do (
@@ -16,13 +21,7 @@ echo "Building with version %MAJOR_VERSION%.%MINOR_VERSION%.%BUILD_VERSION%"
 echo "Generate documentation"
 mkdir out
 "C:\Program Files\doxygen\bin\doxygen.exe" Aes70CompliancyTestToolConsoleDocumentation.doxygen
-
 echo "Done.."
-
-dir "C:\Program Files (x86)\Microsoft Visual Studio\2017\BuildTools\MSBuild\Microsoft"
-dir "C:\Program Files (x86)\WiX Toolset v3.11\"
-dir "C:\Program Files (x86)\WiX Toolset v3.11\bin\"
-dir "C:\Program Files (x86)\WiX Toolset v3.11\bin\x86"
 
 :: This required the HTML Help workshop to be installed.
 echo "Compile the documentation"
