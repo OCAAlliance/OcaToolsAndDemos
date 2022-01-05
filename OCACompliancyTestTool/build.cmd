@@ -19,14 +19,18 @@ echo "Building with version %MAJOR_VERSION%.%MINOR_VERSION%.%BUILD_VERSION%"
 
 :: This requires doxygen to be installed
 echo "Generate documentation"
-mkdir out
+mkdir Out
 "C:\Program Files\doxygen\bin\doxygen.exe" Aes70CompliancyTestToolConsoleDocumentation.doxygen
-echo "Done.."
+echo "Done generating documentation .."
 
 :: This required the HTML Help workshop to be installed.
+dir Out
+dir Out\Aes70CompliancyTestToolDocumentation
+dir Out\Aes70CompliancyTestToolDocumentation\html
+
 echo "Compile the documentation"
 "C:\Program Files (x86)\HTML Help Workshop\hhc.exe" Out\Aes70CompliancyTestToolDocumentation\html\index.hhp
-echo "Done.."
+echo "Done compiling documentation.."
 
 echo "Start build Compliancy Test Tool"
 msbuild Aes70CompliancyTestTool.sln /property:Configuration=Debug /property:Platform=x86
