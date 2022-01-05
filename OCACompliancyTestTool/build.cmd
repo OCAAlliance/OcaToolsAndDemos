@@ -17,7 +17,7 @@ echo "Building with version %MAJOR_VERSION%.%MINOR_VERSION%.%BUILD_VERSION%"
 :: This requires doxygen to be installed
 echo "Generate documentation"
 
-dir "c:/Program Files/doxygen/"
+dir "c:/Program Files/doxygen/bin"
 ::doxygen Aes70CompliancyTestToolConsoleDocumentation.doxygen
 
 echo "Done.."

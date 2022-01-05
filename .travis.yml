@@ -10,7 +10,7 @@ jobs:
     - choco install doxygen.install --ignore-checksums --version=1.9.3
     - choco install html-help-workshop --version=1.32.1
     - powershell Install-WindowsFeature Net-Framework-Core
-    - choco install wixtoolset
+    - choco install wixtoolset --version=3.11.2
     script:
     - export PATH=$MSBUILD_PATH;$PATH
     - export PATH=$DOXYGEN_PATH;$PATH
