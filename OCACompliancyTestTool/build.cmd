@@ -20,7 +20,9 @@ mkdir out
 echo "Done.."
 
 dir "C:\Program Files (x86)\Microsoft Visual Studio\2017\BuildTools\MSBuild\Microsoft"
-dir "C:\Program Files (x86)\WiX Toolset v3.11\bin"
+dir "C:\Program Files (x86)\WiX Toolset v3.11\"
+dir "C:\Program Files (x86)\WiX Toolset v3.11\bin\"
+dir "C:\Program Files (x86)\WiX Toolset v3.11\bin\x86"
 
 :: This required the HTML Help workshop to be installed.
 echo "Compile the documentation"
