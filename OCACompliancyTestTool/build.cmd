@@ -3,6 +3,7 @@
 @echo off
 
 :: TODO write the BUILD_VERSION in the version file on bases of the commit.
+refreshenv
 
 :: First extract the version from the version file.
 for /f "tokens=2,3" %%a in ('type Aes70CompliancyTestTool\VersionDefs.h') do (
@@ -14,7 +15,6 @@ echo "Building with version %MAJOR_VERSION%.%MINOR_VERSION%.%BUILD_VERSION%"
 
 :: This requires doxygen to be installed
 echo "Generate documentation"
-doxygen --version
 doxygen Aes70CompliancyTestToolConsoleDocumentation.doxygen
 echo "Done.."
 
