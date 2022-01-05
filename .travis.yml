@@ -12,8 +12,6 @@ jobs:
     - powershell Install-WindowsFeature Net-Framework-Core
     - choco install wixtoolset
     script:
-    - echo "Echo install log" 
-    - type C:\ProgramData\chocolatey\logs\chocolatey.log
     - export PATH=$MSBUILD_PATH:$PATH
     - export PATH=$DOXYGEN_PATH:$PATH
     - cd OCACompliancyTestTool
