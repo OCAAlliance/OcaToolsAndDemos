@@ -29,7 +29,7 @@ dir Out\Aes70CompliancyTestToolDocumentation
 dir Out\Aes70CompliancyTestToolDocumentation\html
 
 echo "Compile the documentation"
-"C:\Program Files (x86)\HTML Help Workshop\hhc.exe" Out\Aes70CompliancyTestToolDocumentation\html\index.hhp
+"C:\Program Files (x86)\HTML Help Workshop\hhc.exe" C:\Users\travis\build\OCAAlliance\OcaToolsAndDemos\OCACompliancyTestTool\Out\Aes70CompliancyTestToolDocumentation\html\index.hhp
 echo "Done compiling documentation.."
 
 echo "Start build Compliancy Test Tool"
