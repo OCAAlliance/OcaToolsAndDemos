@@ -4,7 +4,7 @@
 
 :: TODO write the BUILD_VERSION in the version file on bases of the commit.
 pwd
-echo $PATH
+echo %PATH%
 
 :: First extract the version from the version file.
 for /f "tokens=2,3" %%a in ('type Aes70CompliancyTestTool\VersionDefs.h') do (
@@ -18,14 +18,14 @@ echo "Building with version %MAJOR_VERSION%.%MINOR_VERSION%.%BUILD_VERSION%"
 echo "Generate documentation"
 
 dir "c:/Program Files/doxygen/bin"
-::doxygen Aes70CompliancyTestToolConsoleDocumentation.doxygen
+"c:\Program Files\doxygen\bin\doxygen.exe" Aes70CompliancyTestToolConsoleDocumentation.doxygen
 
 echo "Done.."
 
 :: This required the HTML Help workshop to be installed.
 echo "Compile the documentation"
 
-::"C:\Program Files (x86)\HTML Help Workshop\hhc.exe" Out\Aes70CompliancyTestToolDocumentation\html\index.hhp
+"C:\Program Files (x86)\HTML Help Workshop\hhc.exe" Out\Aes70CompliancyTestToolDocumentation\html\index.hhp
 
 echo "Done.."
 
