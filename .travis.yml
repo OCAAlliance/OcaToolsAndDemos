@@ -5,14 +5,16 @@ jobs:
     os: windows
     env:
     - MSBUILD_PATH="c:/Program Files (x86)/Microsoft Visual Studio/2017/BuildTools/MSBuild/15.0/Bin"
+    - DOXYGEN_PATH="C:/Program Files/doxygen/"
     install:
     - choco install doxygen.install --ignore-checksums
     - choco install html-help-workshop
     - powershell Install-WindowsFeature Net-Framework-Core
     - choco install wixtoolset
     script:
-    - export PATH=$MSBUILD_PATH:$PATH:"C:/Program Files/doxygen/"
+    - export PATH=$MSBUILD_PATH:$DOXYGEN_PATH:$PATH
     - cd OCACompliancyTestTool
+    - refreshenv
     - ./build.cmd
     deploy:
       provider: releases

@@ -3,7 +3,7 @@
 @echo off
 
 :: TODO write the BUILD_VERSION in the version file on bases of the commit.
-refreshenv
+pwd
 
 :: First extract the version from the version file.
 for /f "tokens=2,3" %%a in ('type Aes70CompliancyTestTool\VersionDefs.h') do (
@@ -15,15 +15,20 @@ echo "Building with version %MAJOR_VERSION%.%MINOR_VERSION%.%BUILD_VERSION%"
 
 :: This requires doxygen to be installed
 echo "Generate documentation"
+
 doxygen Aes70CompliancyTestToolConsoleDocumentation.doxygen
+
 echo "Done.."
 
 :: This required the HTML Help workshop to be installed.
 echo "Compile the documentation"
+
 "C:\Program Files (x86)\HTML Help Workshop\hhc.exe" Out\Aes70CompliancyTestToolDocumentation\html\index.hhp
+
 echo "Done.."
 
 echo "Start build Compliancy Test Tool"
+
 msbuild Aes70CompliancyTestTool.sln /property:Configuration=Debug /property:Platform=x86
 set BUILD_STATUS=%ERRORLEVEL%
 if not %BUILD_STATUS%==0 (
