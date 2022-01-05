@@ -4,6 +4,7 @@
 
 :: TODO write the BUILD_VERSION in the version file on bases of the commit.
 pwd
+echo $PATH
 
 :: First extract the version from the version file.
 for /f "tokens=2,3" %%a in ('type Aes70CompliancyTestTool\VersionDefs.h') do (
