@@ -32,42 +32,42 @@ echo "Start build Compliancy Test Tool"
 msbuild Aes70CompliancyTestTool.sln /property:Configuration=Debug /property:Platform=x86
 set BUILD_STATUS=%ERRORLEVEL%
 if not %BUILD_STATUS%==0 (
-    echo "Failed to build Debug/x86"
+    echo "Failed to build Debug/x86 $BUILD_STATUS"
     GOTO End
 )
  
 msbuild Aes70CompliancyTestTool.sln /property:Configuration=Release /property:Platform=x86
 set BUILD_STATUS=%ERRORLEVEL%
 if not %BUILD_STATUS%==0 (
-    echo "Failed to build Release/x86"
+    echo "Failed to build Release/x86 $BUILD_STATUS"
     GOTO End
 )
 
 msbuild Installer\Aes70CompliancyTestTool.sln /property:Configuration=Release /property:Platform=x86 /p:ProductVersion="%MAJOR_VERSION%.%MINOR_VERSION%.%BUILD_VERSION%"
 set BUILD_STATUS=%ERRORLEVEL%
 if not %BUILD_STATUS%==0 (
-    echo "Failed to build Release/x86 installer"
+    echo "Failed to build Release/x86 installer $BUILD_STATUS"
     GOTO End
 )
 
 msbuild Aes70CompliancyTestTool.sln /property:Configuration=Debug /property:Platform=x64
 set BUILD_STATUS=%ERRORLEVEL%
 if not %BUILD_STATUS%==0 (
-    echo "Failed to build Debug/x64"
+    echo "Failed to build Debug/x64 $BUILD_STATUS"
     GOTO End
 )
 
 msbuild Aes70CompliancyTestTool.sln /property:Configuration=Release /property:Platform=x64
 set BUILD_STATUS=%ERRORLEVEL%
 if not %BUILD_STATUS%==0 (
-    echo "Failed to build Release/x64"
+    echo "Failed to build Release/x64 $BUILD_STATUS"
     GOTO End
 )
 
 msbuild Installer\Aes70CompliancyTestTool.sln /property:Configuration=Release /property:Platform=x64 /p:ProductVersion="%MAJOR_VERSION%.%MINOR_VERSION%.%BUILD_VERSION%"
 set BUILD_STATUS=%ERRORLEVEL%
 if not %BUILD_STATUS%==0 (
-    echo "Failed to build Release/x86 installer"
+    echo "Failed to build Release/x86 installer $BUILD_STATUS"
     GOTO End
 )
 
