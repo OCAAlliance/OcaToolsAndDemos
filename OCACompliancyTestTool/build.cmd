@@ -14,12 +14,13 @@ echo "Building with version %MAJOR_VERSION%.%MINOR_VERSION%.%BUILD_VERSION%"
 
 :: This requires doxygen to be installed
 echo "Generate documentation"
+mkdir out
 "C:\Program Files\doxygen\bin\doxygen.exe" Aes70CompliancyTestToolConsoleDocumentation.doxygen
+
 echo "Done.."
 
 dir "C:\Program Files (x86)\Microsoft Visual Studio\2017\BuildTools\MSBuild\Microsoft"
-dir "C:\Program Files (x86)\Microsoft Visual Studio\2017\BuildTools\MSBuild\Microsoft\WiX"
-dir "C:\Program Files (x86)\Microsoft Visual Studio\2017\BuildTools\MSBuild\Microsoft\WiX\v3.x"
+dir "C:\Program Files (x86)\WiX Toolset v3.11\bin"
 
 :: This required the HTML Help workshop to be installed.
 echo "Compile the documentation"
