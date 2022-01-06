@@ -5,6 +5,7 @@ jobs:
     os: windows
     env:
     - BUILD_PATH="c:\Program Files (x86)\Microsoft Visual Studio\2017\BuildTools\MSBuild\15.0\Bin;C:\Program Files\doxygen\bin"
+    - WIX="C:\Program Files (x86)\WiX Toolset v3.11\"
     install:
     - choco install doxygen.install --ignore-checksums --version=1.9.3
     - choco install html-help-workshop --version=1.32.1
