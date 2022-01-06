@@ -3,14 +3,6 @@
 @echo off
 
 :: TODO write the BUILD_VERSION in the version file on bases of the commit.
-pwd
-dir "C:\Program Files (x86)\Microsoft Visual Studio\2017\BuildTools\MSBuild\Microsoft"
-dir "C:\Program Files (x86)\WiX Toolset v3.11\"
-dir "C:\Program Files (x86)\WiX Toolset v3.11\bin\"
-dir "C:\Program Files (x86)\WiX Toolset v3.11\bin\x86"
-dir "C:\Program Files (x86)\MSBuild\Microsoft"
-dir "C:\Program Files (x86)\MSBuild\Microsoft\WiX"
-dir "C:\Program Files (x86)\MSBuild\Microsoft\WiX\v3.x"
 
 :: First extract the version from the version file.
 for /f "tokens=2,3" %%a in ('type Aes70CompliancyTestTool\VersionDefs.h') do (
