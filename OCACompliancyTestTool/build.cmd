@@ -70,3 +70,5 @@ if not %BUILD_STATUS%==0 (
 echo "Done building"
 
 :End
+
+dir "OCAAlliance/OCACompliancyTestTool/Out/Aes70CompliancyTestToolDocumentation/html"
