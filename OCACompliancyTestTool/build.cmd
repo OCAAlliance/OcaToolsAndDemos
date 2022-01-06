@@ -22,18 +22,14 @@ echo "Building with version %MAJOR_VERSION%.%MINOR_VERSION%.%BUILD_VERSION%"
 
 :: This requires doxygen to be installed
 echo "Generate documentation"
+:: Workaround when doxygen cannot recursively make directories
 mkdir Out
 "C:\Program Files\doxygen\bin\doxygen.exe" Aes70CompliancyTestToolConsoleDocumentation.doxygen
 echo "Done generating documentation .."
 
-:: This required the HTML Help workshop to be installed.
-dir Out
-dir Out\Aes70CompliancyTestToolDocumentation
-dir Out\Aes70CompliancyTestToolDocumentation\html
-dir C:\Users\travis\build\OCAAlliance\OcaToolsAndDemos\OCACompliancyTestTool\Out\Aes70CompliancyTestToolDocumentation\html
-
+:: This requires the HTML Help workshop to be installed.
 echo "Compile the documentation"
-"C:\Program Files (x86)\HTML Help Workshop\hhc.exe" C:\Users\travis\build\OCAAlliance\OcaToolsAndDemos\OCACompliancyTestTool\Out\Aes70CompliancyTestToolDocumentation\html\index.hhp
+"C:\Program Files (x86)\HTML Help Workshop\hhc.exe" Out\Aes70CompliancyTestToolDocumentation\html\index.hhp > Out\Aes70CompliancyTestToolDocumentation\html\index.chm
 echo "Done compiling documentation.."
 
 echo "Start build Compliancy Test Tool"
@@ -75,7 +71,7 @@ if not %BUILD_STATUS%==0 (
 msbuild Installer\Aes70CompliancyTestTool.sln /property:Configuration=Release /property:Platform=x64 /p:ProductVersion="%MAJOR_VERSION%.%MINOR_VERSION%.%BUILD_VERSION%"
 set BUILD_STATUS=%ERRORLEVEL%
 if not %BUILD_STATUS%==0 (
-    echo "Failed to build Release/x86 installer"
+    echo "Failed to build Release/x64 installer"
     GOTO End
 )
 
