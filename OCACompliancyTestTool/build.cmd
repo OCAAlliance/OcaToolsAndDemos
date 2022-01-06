@@ -8,6 +8,9 @@ dir "C:\Program Files (x86)\Microsoft Visual Studio\2017\BuildTools\MSBuild\Micr
 dir "C:\Program Files (x86)\WiX Toolset v3.11\"
 dir "C:\Program Files (x86)\WiX Toolset v3.11\bin\"
 dir "C:\Program Files (x86)\WiX Toolset v3.11\bin\x86"
+dir "C:\Program Files (x86)\MSBuild\Microsoft"
+dir "C:\Program Files (x86)\MSBuild\Microsoft\WiX"
+dir "C:\Program Files (x86)\MSBuild\Microsoft\WiX\v3.x"
 
 :: First extract the version from the version file.
 for /f "tokens=2,3" %%a in ('type Aes70CompliancyTestTool\VersionDefs.h') do (
@@ -27,6 +30,7 @@ echo "Done generating documentation .."
 dir Out
 dir Out\Aes70CompliancyTestToolDocumentation
 dir Out\Aes70CompliancyTestToolDocumentation\html
+dir C:\Users\travis\build\OCAAlliance\OcaToolsAndDemos\OCACompliancyTestTool\Out\Aes70CompliancyTestToolDocumentation\html
 
 echo "Compile the documentation"
 "C:\Program Files (x86)\HTML Help Workshop\hhc.exe" C:\Users\travis\build\OCAAlliance\OcaToolsAndDemos\OCACompliancyTestTool\Out\Aes70CompliancyTestToolDocumentation\html\index.hhp
