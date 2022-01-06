@@ -12,8 +12,8 @@
     <AssemblyName>CommonChecks</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <WixCATargetsPath Condition=" '$(WixCATargetsPath)' == '' AND '$(MSBuildExtensionsPath32)' != '' ">$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.CA.targets</WixTargetsPath>
-    <WixCATargetsPath Condition=" '$(WixCATargetsPath)' == '' ">$(MSBuildExtensionsPath)\Microsoft\WiX\v3.x\Wix.CA.targets</WixTargetsPath>
+    <WixCATargetsPath Condition=" '$(WixCATargetsPath)' == '' AND '$(MSBuildExtensionsPath32)' != '' ">$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.CA.targets</WixCATargetsPath>
+    <WixCATargetsPath Condition=" '$(WixCATargetsPath)' == '' ">$(MSBuildExtensionsPath)\Microsoft\WiX\v3.x\Wix.CA.targets</WixCATargetsPath>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
   </PropertyGroup>
