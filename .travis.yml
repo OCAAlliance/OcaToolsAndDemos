@@ -20,9 +20,9 @@ jobs:
       token:
         secure: Z8hwGjr8z7XXSLXwDtRKVGaiss49+3edjhbI/idB8Dq6zSnzu2Y28BvXaPyFhOojMfN5uYCE8YOFyRvqfKxdaw7cHx3Cj54HbmQNFXXpPjRSJhjQufQy14iM3MENjIv30eLDLDKfKDNsgLfEEVnJwfabwXzafI57mWTLGCpu46+4xs2nvhSD4HWEBbTnnNLmiPO5ZAucL/4fExgeo8e6Fcgzz1SgkVv6LYZZtZykLCu4qmy7qfqWVFOyeTcUVrHe4off2h/LV4VM5/62vBveBOAXxOW9una2VBqguOKgTzlpOUMY688sTT1PXM5tg8VHc8zjrjVbySd5aY4SIVDDelBYiX1TASyWw9xafjboh8HnnE0nbiiZzXRu4BzIEvfEcjOKdgG6QLSrdvmsCyc44bz5YdXIS0CAWx28THQeYjAmZ5DjVf0BMQsinsZN9zDqd327Rtjd65XKRqDrzj+EnnMwSwLun3/wq1+xk3IUlvoq8cJ9tgdP5uEMY9CCfj5llpQnY54kPV15IIC7VEnsruQ/Ks4R3delWOu3l5pvji213EbfksaLytsf0S9Ne5nM3a5pSn4nciewdXToo4G5sXoBj5tO9GAwPsA+gEi86LIuBFs9uIbig66rq1yY9ak6x8EsFC7twNP164Fil+E5i46+04h7l1JTN+DlAA/wHv8=
       file: 
-      - "OCAAlliance/OCACompliancyTestTool/Out/Aes70CompliancyTestToolDocumentation/html/index.chm"
-      - "OCAAlliance/OCACompliancyTestTool/Out/Debug/Aes70CompliancyTestTool.exe"
-      - "OCAAlliance/OCACompliancyTestTool/Out/Release/Aes70CompliancyTestTool.exe"
+      - "OCACompliancyTestTool/Out/Aes70CompliancyTestToolDocumentation/html/index.chm"
+      - "OCACompliancyTestTool/Out/Debug/Aes70CompliancyTestTool.exe"
+      - "OCACompliancyTestTool/Out/Release/Aes70CompliancyTestTool.exe"
       on:
         repo: OCAAlliance/OcaToolsAndDemos
         all_branches: true
@@ -46,6 +46,6 @@ jobs:
       provider: releases
       token:
         secure: Z8hwGjr8z7XXSLXwDtRKVGaiss49+3edjhbI/idB8Dq6zSnzu2Y28BvXaPyFhOojMfN5uYCE8YOFyRvqfKxdaw7cHx3Cj54HbmQNFXXpPjRSJhjQufQy14iM3MENjIv30eLDLDKfKDNsgLfEEVnJwfabwXzafI57mWTLGCpu46+4xs2nvhSD4HWEBbTnnNLmiPO5ZAucL/4fExgeo8e6Fcgzz1SgkVv6LYZZtZykLCu4qmy7qfqWVFOyeTcUVrHe4off2h/LV4VM5/62vBveBOAXxOW9una2VBqguOKgTzlpOUMY688sTT1PXM5tg8VHc8zjrjVbySd5aY4SIVDDelBYiX1TASyWw9xafjboh8HnnE0nbiiZzXRu4BzIEvfEcjOKdgG6QLSrdvmsCyc44bz5YdXIS0CAWx28THQeYjAmZ5DjVf0BMQsinsZN9zDqd327Rtjd65XKRqDrzj+EnnMwSwLun3/wq1+xk3IUlvoq8cJ9tgdP5uEMY9CCfj5llpQnY54kPV15IIC7VEnsruQ/Ks4R3delWOu3l5pvji213EbfksaLytsf0S9Ne5nM3a5pSn4nciewdXToo4G5sXoBj5tO9GAwPsA+gEi86LIuBFs9uIbig66rq1yY9ak6x8EsFC7twNP164Fil+E5i46+04h7l1JTN+DlAA/wHv8=
-      file: "OCAAlliance/OCAMicro/OCAMicro/OCAMicro/Obj/stm32App/Release/OCALiteProto.bin"
+      file: "OCAMicro/OCAMicro/OCAMicro/Obj/stm32App/Release/OCALiteProto.bin"
       on:
         repo: OCAAlliance/OcaToolsAndDemos
