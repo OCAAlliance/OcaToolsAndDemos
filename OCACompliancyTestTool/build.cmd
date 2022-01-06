@@ -4,6 +4,7 @@
 
 :: TODO write the BUILD_VERSION in the version file on bases of the commit.
 pwd
+set
 dir "C:\Program Files (x86)\Microsoft Visual Studio\2017\BuildTools\MSBuild\Microsoft"
 dir "C:\Program Files (x86)\WiX Toolset v3.11\"
 dir "C:\Program Files (x86)\WiX Toolset v3.11\bin\"

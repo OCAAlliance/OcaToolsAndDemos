@@ -13,6 +13,7 @@ jobs:
     - choco install wixtoolset --version=3.11.2
     script:
     - export PATH=$BUILD_PATH:$PATH
+    - export WIX=$WIX
     - cd OCACompliancyTestTool
     - ./build.cmd
     deploy:
