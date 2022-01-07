@@ -34,6 +34,16 @@ jobs:
       # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
       run: msbuild /m /p:Configuration=${{env.BUILD_CONFIGURATION}} /property:Platform=x64 ${{env.SOLUTION_FILE_PATH}}
 
+    - name: Install Doxygen
+      uses: crazy-max/ghaction-chocolatey@v1
+      with:
+        args: "install doxygen.install --ignore-checksums --version=1.9.3"
+
+    - name: Install HTML help workshop
+      uses: crazy-max/ghaction-chocolatey@v1
+      with:
+        args: "install html-help-workshop --version=1.32.1"
+
     - name: Install WixToolset
       uses: crazy-max/ghaction-chocolatey@v1
       with:
