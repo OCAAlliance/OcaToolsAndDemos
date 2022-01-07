@@ -5,7 +5,8 @@ on: [push]
 env:
   # Path to the solution file relative to the root of the project.
   SOLUTION_FILE_PATH: ./OCACompliancyTestTool/Aes70CompliancyTestTool.sln
-
+  INSTALLER_FILE_PATH: ./OCACompliancyTestTool/Installer/Aes70CompliancyTestTool.sln
+  
   # Configuration type to build.
   # You can convert this to a build matrix if you need coverage of multiple configuration types.
   # https://docs.github.com/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
@@ -25,10 +26,21 @@ jobs:
       working-directory: ${{env.GITHUB_WORKSPACE}}
       # Add additional options to the MSBuild command line here (like platform or verbosity level).
       # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
-      run: msbuild /m /p:Configuration=${{env.BUILD_CONFIGURATION}} /property:Configuration=Release /property:Platform=x86 ${{env.SOLUTION_FILE_PATH}}
+      run: msbuild /m /p:Configuration=${{env.BUILD_CONFIGURATION}} /property:Platform=x86 ${{env.SOLUTION_FILE_PATH}}
 
     - name: Build_x64
       working-directory: ${{env.GITHUB_WORKSPACE}}
       # Add additional options to the MSBuild command line here (like platform or verbosity level).
       # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
-      run: msbuild /m /p:Configuration=${{env.BUILD_CONFIGURATION}} /property:Configuration=Release /property:Platform=x64 ${{env.SOLUTION_FILE_PATH}}
+      run: msbuild /m /p:Configuration=${{env.BUILD_CONFIGURATION}} /property:Platform=x64 ${{env.SOLUTION_FILE_PATH}}
+
+    - name: Install WixToolset
+      uses: crazy-max/ghaction-chocolatey@v1
+      with:
+        args: "install wixtoolset --version=3.11.2"
+
+    - name: Build_x86_installer
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      # Add additional options to the MSBuild command line here (like platform or verbosity level).
+      # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
+      run: msbuild /m /p:Configuration=${{env.BUILD_CONFIGURATION}} /property:Platform=x64 ${{env.INSTALLER_FILE_PATH}}
