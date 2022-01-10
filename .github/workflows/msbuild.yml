@@ -33,8 +33,7 @@ jobs:
       shell: cmd
       run : |
         mkdir Out
-        dir "C:\Program Files\doxygen\"
-        "C:\Program Files\doxygen\doxygen.exe" "Aes70CompliancyTestToolConsoleDocumentation.doxygen"
+        "C:\Program Files\doxygen\bin\doxygen.exe" "Aes70CompliancyTestToolConsoleDocumentation.doxygen"
         "C:\Program Files (x86)\HTML Help Workshop\hhc.exe" "Out\Aes70CompliancyTestToolDocumentation\html\index.hhp"
 
 
