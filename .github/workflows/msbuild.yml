@@ -19,14 +19,31 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+    - name: Install Doxygen
+      uses: crazy-max/ghaction-chocolatey@v1
+      with:
+        args: "install doxygen.install --ignore-checksums --version=1.9.3"
+
+    - name: Install HTML help workshop
+      uses: crazy-max/ghaction-chocolatey@v1
+      with:
+        args: "install html-help-workshop --version=1.32.1"
+
+    - name: Create output directory 
+      run: | 
+        refreshenv
+
     - name: Create output directory 
       run: | 
         mkdir Out
 
-    - name: Doxygen Action
-      uses: mattnotmitt/doxygen-action@v1.1.0
-      with:
-        doxyfile-path: "./Aes70CompliancyTestToolConsoleDocumentation.doxygen"
+    - name: Generate doxygen output
+      run : |
+        doxygen.exe Aes70CompliancyTestToolConsoleDocumentation.doxygen
+
+    - name: Create chm file
+      run : |
+        "C:\Program Files (x86)\HTML Help Workshop\hhc.exe Out\Aes70CompliancyTestToolDocumentation\html\index.hhp"
 
 
     - name: Add MSBuild to PATH
