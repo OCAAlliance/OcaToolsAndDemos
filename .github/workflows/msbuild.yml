@@ -31,19 +31,15 @@ jobs:
 
     - name: Create output directory 
       run: | 
-        refreshenv
-
-    - name: Create output directory 
-      run: | 
         mkdir Out
 
     - name: Generate doxygen output
       run : |
-        "C:\Program Files\doxygen\doxygen.exe" Aes70CompliancyTestToolConsoleDocumentation.doxygen
+        & "C:\Program Files\doxygen\doxygen.exe" "Aes70CompliancyTestToolConsoleDocumentation.doxygen"
 
     - name: Create chm file
       run : |
-        "C:\Program Files (x86)\HTML Help Workshop\hhc.exe" Out\Aes70CompliancyTestToolDocumentation\html\index.hhp"
+        & "C:\Program Files (x86)\HTML Help Workshop\hhc.exe" "Out\Aes70CompliancyTestToolDocumentation\html\index.hhp"
 
 
     - name: Add MSBuild to PATH
