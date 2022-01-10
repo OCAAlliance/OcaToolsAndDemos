@@ -18,6 +18,6 @@ TODO
 
 This project does contain other open source software. Thanks for all the great work! Keep it going.
 
-# Tavis-CI
+# GitHub Actions
 
-The project (OCAMicro for Stm32) is automatically build in travis-ci: [![Build Status](https://secure.travis-ci.org/OCAAlliance/OcaToolsAndDemos.svg?branch=master)](http://travis-ci.org/OCAAlliance/OcaToolsAndDemos)
+The project (OCAMicro for Stm32 / OCACompliancyTestTool) is automatically build in GitHub Actions: [![MSBuild](https://github.com/OCAAlliance/OcaToolsAndDemos/actions/workflows/msbuild.yml/badge.svg)](https://github.com/OCAAlliance/OcaToolsAndDemos/actions/workflows/msbuild.yml)

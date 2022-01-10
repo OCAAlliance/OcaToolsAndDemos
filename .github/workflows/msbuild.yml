@@ -19,6 +19,16 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+    - name: Create output directory 
+      run: | 
+        mkdir Out
+
+    - name: Doxygen Action
+      uses: mattnotmitt/doxygen-action@v1.1.0
+      with:
+        doxyfile-path: "./Aes70CompliancyTestToolConsoleDocumentation.doxygen"
+
+
     - name: Add MSBuild to PATH
       uses: microsoft/setup-msbuild@v1.0.2
 
@@ -33,32 +43,6 @@ jobs:
       # Add additional options to the MSBuild command line here (like platform or verbosity level).
       # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
       run: msbuild /m /p:Configuration=${{env.BUILD_CONFIGURATION}} /property:Platform=x64 ${{env.SOLUTION_FILE_PATH}}
-
-    - name: Install Doxygen
-      uses: crazy-max/ghaction-chocolatey@v1
-      with:
-        args: "install doxygen.install --ignore-checksums --version=1.9.3"
-
-    - name: Install HTML help workshop
-      uses: crazy-max/ghaction-chocolatey@v1
-      with:
-        args: "install html-help-workshop --version=1.32.1"
-
-    - name: Create output directory 
-      run: | 
-        mkdir Out
-
-    - name: Display doxygen version
-      run : |
-        "C:\Program Files\doxygen\bin\doxygen.exe --version"
-
-    - name: Generate doxygen output
-      run : |
-        "C:\Program Files\doxygen\bin\doxygen.exe Aes70CompliancyTestToolConsoleDocumentation.doxygen"
-
-    - name: Create chm file
-      run : |
-        "C:\Program Files (x86)\HTML Help Workshop\hhc.exe Out\Aes70CompliancyTestToolDocumentation\html\index.hhp"
 
     - name: Install WixToolset
       uses: crazy-max/ghaction-chocolatey@v1
