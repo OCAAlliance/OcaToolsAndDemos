@@ -44,11 +44,20 @@ jobs:
       with:
         args: "install html-help-workshop --version=1.32.1"
 
-    - name: Create CHM file
+    - name: Create output directory 
       run: | 
         mkdir Out
+
+    - name: Display doxygen version
+      run : |
         "C:\Program Files\doxygen\bin\doxygen.exe --version"
+
+    - name: Generate doxygen output
+      run : |
         "C:\Program Files\doxygen\bin\doxygen.exe Aes70CompliancyTestToolConsoleDocumentation.doxygen"
+
+    - name: Create chm file
+      run : |
         "C:\Program Files (x86)\HTML Help Workshop\hhc.exe Out\Aes70CompliancyTestToolDocumentation\html\index.hhp"
 
     - name: Install WixToolset
