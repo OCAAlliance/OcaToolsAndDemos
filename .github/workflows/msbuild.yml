@@ -47,8 +47,8 @@ jobs:
     - name: Create CHM file
       run: | 
         mkdir Out
-        C:\Program Files\doxygen\bin\doxygen.exe Aes70CompliancyTestToolConsoleDocumentation.doxygen
-        C:\Program Files (x86)\HTML Help Workshop\hhc.exe Out\Aes70CompliancyTestToolDocumentation\html\index.hhp
+        "C:\Program Files\doxygen\bin\doxygen.exe Aes70CompliancyTestToolConsoleDocumentation.doxygen"
+        "C:\Program Files (x86)\HTML Help Workshop\hhc.exe Out\Aes70CompliancyTestToolDocumentation\html\index.hhp"
 
     - name: Install WixToolset
       uses: crazy-max/ghaction-chocolatey@v1
