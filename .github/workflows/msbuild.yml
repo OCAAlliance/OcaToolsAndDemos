@@ -26,8 +26,10 @@ jobs:
     - name: Run
       shell: cmd
       run: | 
-        dir "C:\Program Files (x86)\Microsoft Visual Studio\"
-        dir "C:\Program Files (x86)\Microsoft Visual Studio\VC"
+        dir /s "C:\Program Files (x86)\Microsoft Visual Studio\"
+        dir "C:\Program Files (x86)\Microsoft Visual Studio\2019"
+        dir "C:\Program Files (x86)\Microsoft Visual Studio\Installer"
+        dir "C:\Program Files (x86)\Microsoft Visual Studio\Shared"
         dir "C:\Program Files (x86)\Microsoft Visual Studio\VC\Redist"
         dir "C:\Program Files (x86)\Microsoft Visual Studio\VC\Redist\MSVC"
         set
