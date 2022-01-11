@@ -19,6 +19,19 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+    - name: Add MSBuild to PATH
+      uses: microsoft/setup-msbuild@v1.0.2
+
+
+    - name: Run
+      shell: cmd
+      run: | 
+        dir "C:\Program Files (x86)\Microsoft Visual Studio\"
+        dir "C:\Program Files (x86)\Microsoft Visual Studio\VC"
+        dir "C:\Program Files (x86)\Microsoft Visual Studio\VC\Redist"
+        dir "C:\Program Files (x86)\Microsoft Visual Studio\VC\Redist\MSVC"
+        set
+
     - name: Install Doxygen
       uses: crazy-max/ghaction-chocolatey@v1
       with:
@@ -36,10 +49,6 @@ jobs:
         mkdir Out
         "C:\Program Files\doxygen\bin\doxygen.exe" "Aes70CompliancyTestToolConsoleDocumentation.doxygen"
         dir Out\Aes70CompliancyTestToolDocumentation\html
-
-
-    - name: Add MSBuild to PATH
-      uses: microsoft/setup-msbuild@v1.0.2
 
     - name: Build_x86
       working-directory: ${{env.GITHUB_WORKSPACE}}
@@ -59,6 +68,12 @@ jobs:
         args: "install wixtoolset --version=3.11.2"
 
     - name: Build_x86_installer
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      # Add additional options to the MSBuild command line here (like platform or verbosity level).
+      # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
+      run: msbuild /m /p:Configuration=${{env.BUILD_CONFIGURATION}} /property:Platform=x86 ${{env.INSTALLER_FILE_PATH}}
+
+    - name: Build_x64_installer
       working-directory: ${{env.GITHUB_WORKSPACE}}
       # Add additional options to the MSBuild command line here (like platform or verbosity level).
       # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
