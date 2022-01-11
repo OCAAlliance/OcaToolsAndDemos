@@ -38,7 +38,6 @@ jobs:
         cd OCACompliancyTestTool
         mkdir Out
         "C:\Program Files\doxygen\bin\doxygen.exe" "Aes70CompliancyTestToolConsoleDocumentation.doxygen"
-        dir Out\Aes70CompliancyTestToolDocumentation\html
 
     - name: Build_x86
       working-directory: ${{env.GITHUB_WORKSPACE}}
@@ -68,3 +67,14 @@ jobs:
       # Add additional options to the MSBuild command line here (like platform or verbosity level).
       # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
       run: msbuild /m /p:Configuration=${{env.BUILD_CONFIGURATION}} /property:Platform=x64 ${{env.INSTALLER_FILE_PATH}}
+
+    - uses: "marvinpinto/action-automatic-releases@latest"
+      with:
+        repo_token: "${{ secrets.GITHUB_TOKEN }}"
+        automatic_release_tag: "latest"
+        prerelease: true
+        title: "Development Build"
+        files: |
+          "./OCACompliancyTestTool/Out/Installer/Aes70 Compliancy Test Tool Console Installer64/en-us/SetupAes70CompliancyTestToolConsole64.msi"
+          "./OCACompliancyTestTool/Out/Installer/Aes70 Compliancy Test Tool Console Installer/en-us/SetupAes70CompliancyTestToolConsole.msi"
+
