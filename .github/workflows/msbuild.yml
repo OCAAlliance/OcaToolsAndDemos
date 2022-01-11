@@ -13,7 +13,7 @@ env:
   BUILD_CONFIGURATION: Release
 
 jobs:
-  build:
+  windows-build:
     runs-on: windows-latest
 
     steps:
@@ -78,3 +78,33 @@ jobs:
           ./OCACompliancyTestTool/Out/Installer/Aes70 Compliancy Test Tool Console Installer64/en-us/SetupAes70CompliancyTestToolConsole64.msi
           ./OCACompliancyTestTool/Out/Installer/Aes70 Compliancy Test Tool Console Installer/en-us/SetupAes70CompliancyTestToolConsole.msi
 
+  linux-build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: install dependencies
+      run: | 
+        yes "" | sudo add-apt-repository ppa:team-gcc-arm-embedded/ppa
+        sudo apt-get update -qq
+        sudo apt-get install gcc-arm-embedded
+
+    - name: Make
+      run: | 
+        arm-none-eabi-gcc --version
+        make --version
+        cd OCAMicro/OCAMicro
+        export OCA_HOME=`pwd`
+        cd Src
+        make stm32Release
+        stat ../Obj/stm32App/Release/OCALiteProto.bin
+
+    - uses: "marvinpinto/action-automatic-releases@latest"
+      with:
+        repo_token: "${{ secrets.GITHUB_TOKEN }}"
+        automatic_release_tag: "latest"
+        prerelease: true
+        title: "Development Build"
+        files: |
+          ./OcaToolsAndDemos/OCAMicro/OCAMicro/OCAMicro/Obj/stm32App/Release/OCALiteProto.bin
