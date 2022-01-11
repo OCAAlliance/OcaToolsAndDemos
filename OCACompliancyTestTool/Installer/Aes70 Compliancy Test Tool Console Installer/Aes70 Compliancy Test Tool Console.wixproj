@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Release</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProductVersion>5.10.4500</ProductVersion>
+    <ProductVersion>0.0.1</ProductVersion>
     <ProjectGuid>{5f7cba0b-6507-4298-8794-37fdfbfe7c66}</ProjectGuid>
     <SchemaVersion>2.0</SchemaVersion>
     <OutputName>SetupAes70CompliancyTestToolConsole</OutputName>

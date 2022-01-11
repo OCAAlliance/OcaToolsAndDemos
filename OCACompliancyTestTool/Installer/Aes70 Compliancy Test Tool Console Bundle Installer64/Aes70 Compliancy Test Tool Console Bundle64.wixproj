@@ -4,7 +4,7 @@
     <DefineSolutionProperties>false</DefineSolutionProperties>
     <Configuration Condition=" '$(Configuration)' == '' ">Release</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x64</Platform>
-    <ProductVersion>5.10.4500</ProductVersion>
+    <ProductVersion>0.0.1</ProductVersion>
     <ProjectGuid>{A988278D-6AB5-40F6-97DE-BB608CC30201}</ProjectGuid>
     <SchemaVersion>2.0</SchemaVersion>
     <OutputName>SetupAes70CompliancyTestToolConsoleBundle64</OutputName>
