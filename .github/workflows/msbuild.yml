@@ -75,6 +75,6 @@ jobs:
         prerelease: true
         title: "Development Build"
         files: |
-          "./OCACompliancyTestTool/Out/Installer/Aes70 Compliancy Test Tool Console Installer64/en-us/SetupAes70CompliancyTestToolConsole64.msi"
-          "./OCACompliancyTestTool/Out/Installer/Aes70 Compliancy Test Tool Console Installer/en-us/SetupAes70CompliancyTestToolConsole.msi"
+          "OCACompliancyTestTool/Out/Installer/Aes70 Compliancy Test Tool Console Installer64/en-us/SetupAes70CompliancyTestToolConsole64.msi"
+          "OCACompliancyTestTool/Out/Installer/Aes70 Compliancy Test Tool Console Installer/en-us/SetupAes70CompliancyTestToolConsole.msi"
 
