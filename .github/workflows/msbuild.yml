@@ -91,12 +91,10 @@ jobs:
         tar -jxf gcc-arm-none-eabi-10.3-2021.10-x86_64-linux.tar.bz2
         rm gcc-arm-none-eabi-10.3-2021.10-x86_64-linux.tar.bz2
         export PATH="/opt/gcc-arm-none-eabi-10.3-2021.10/bin:$PATH"
-        export
         ls -l /opt/gcc-arm-none-eabi-10.3-2021.10/bin
 
     - name: Make
       run: |
-        export
         export PATH="/opt/gcc-arm-none-eabi-10.3-2021.10/bin:$PATH"
         arm-none-eabi-gcc --version
         make --version
