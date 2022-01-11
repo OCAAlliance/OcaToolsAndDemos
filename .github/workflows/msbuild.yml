@@ -71,9 +71,9 @@ jobs:
     - uses: "marvinpinto/action-automatic-releases@latest"
       with:
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
-        automatic_release_tag: "latest"
+        automatic_release_tag: "latest-windows"
         prerelease: true
-        title: "Development Build"
+        title: "Development Windows Build"
         files: |
           ./OCACompliancyTestTool/Out/Installer/Aes70 Compliancy Test Tool Console Installer64/en-us/SetupAes70CompliancyTestToolConsole64.msi
           ./OCACompliancyTestTool/Out/Installer/Aes70 Compliancy Test Tool Console Installer/en-us/SetupAes70CompliancyTestToolConsole.msi
@@ -109,8 +109,8 @@ jobs:
     - uses: "marvinpinto/action-automatic-releases@latest"
       with:
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
-        automatic_release_tag: "latest"
+        automatic_release_tag: "latest-linux"
         prerelease: true
-        title: "Development Build"
+        title: "Development Linux Build"
         files: |
           ./OCAMicro/OCAMicro/Obj/stm32App/Release/OCALiteProto.bin
