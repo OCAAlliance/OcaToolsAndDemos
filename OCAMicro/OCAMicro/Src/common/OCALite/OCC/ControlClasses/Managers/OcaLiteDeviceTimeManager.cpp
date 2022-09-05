@@ -372,22 +372,24 @@ OcaLiteDeviceTimeManager::~OcaLiteDeviceTimeManager()
                         (0 == numberOfParameters))
                     {
                         ::OcaLiteTimePTP deviceTime;
-                        ::OcaUint32 responseSize(::GetSizeValue< ::OcaUint8>(static_cast<::OcaUint8>(1), writer) +
-                            deviceTime.GetSize(writer));
-                        responseBuffer = ::OcaLiteCommandHandler::GetInstance().GetResponseBuffer(responseSize);
-                        if (NULL != responseBuffer)
+                        rc = GetDeviceTimePTP(deviceTime);
+                        if (OCASTATUS_OK == rc)
                         {
-                            rc = OCASTATUS_OK;
+                            ::OcaUint32 responseSize(::GetSizeValue< ::OcaUint8>(static_cast<::OcaUint8>(1), writer) +
+                                                     deviceTime.GetSize(writer));
+                            responseBuffer = ::OcaLiteCommandHandler::GetInstance().GetResponseBuffer(responseSize);
+                            if (NULL != responseBuffer)
+                            {
+                                ::OcaUint8* pResponse(responseBuffer);
+                                writer.Write(static_cast<::OcaUint8>(1/*NrParameters*/), &pResponse);
+                                deviceTime.Marshal(&pResponse, writer);
 
-                            ::OcaUint8* pResponse(responseBuffer);
-                            writer.Write(static_cast<::OcaUint8>(1/*NrParameters*/), &pResponse);
-                            deviceTime.Marshal(&pResponse, writer);
-
-                            *response = responseBuffer;
-                        }
-                        else
-                        {
-                            rc = OCASTATUS_BUFFER_OVERFLOW;
+                                *response = responseBuffer;
+                            }
+                            else
+                            {
+                                rc = OCASTATUS_BUFFER_OVERFLOW;
+                            }
                         }
                     }
                 }
