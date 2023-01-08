@@ -1,6 +1,7 @@
 /*
  *  By downloading or using this file, the user agrees to be bound by the terms of the license 
- *  agreement located at http://ocaalliance.com/EULA as an original contracting party.
+ *  agreement located in the LICENSE file in the root of this project
+ *  as an original contracting party.
  *
  *  Description         : OCC framework data types.
  *
@@ -61,6 +62,8 @@ enum OcaLiteStatus  /* maps onto OcaUint8 */
     OCASTATUS_TIMEOUT                   = 13,
     /** Operation failed because of a buffer overflow. */
     OCASTATUS_BUFFER_OVERFLOW           = 14,
+    /** The user does not have permission to execute this method */
+    OCASTATUS_PERMISSION_DENIED         = 15,
     /** Maximum value used for range checking. */
     OCASTATUS_MAXIMUM
 };
